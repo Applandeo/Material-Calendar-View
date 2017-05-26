@@ -1,0 +1,28 @@
+<resources>
+    <string name="app_name">Material Calendar View</string>
+
+    <array name="days_names_symbol_array">
+        <item>Pn</item>
+        <item>Wt</item>
+        <item>Śr</item>
+        <item>Cz</item>
+        <item>Pn</item>
+        <item>Sb</item>
+        <item>Nd</item>
+    </array>
+
+    <array name="polish_months_array">
+        <item>Styczeń</item>
+        <item>Luty</item>
+        <item>Marzec</item>
+        <item>Kwiecień</item>
+        <item>Maj</item>
+        <item>Czerwiec</item>
+        <item>Lipiec</item>
+        <item>Sierpień</item>
+        <item>Wrzesień</item>
+        <item>Październik</item>
+        <item>Listopad</item>
+        <item>Grudzień</item>
+    </array>
+</resources>

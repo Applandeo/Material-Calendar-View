@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <declare-styleable name="CalendarView">
+        <attr name="headerColor" format="color" />
+        <attr name="headerLabelColor" format="color" />
+        <attr name="previousButtonSrc" format="integer" />
+        <attr name="forwardButtonSrc" format="integer" />
+        <attr name="todayLabelColor" format="color" />
+        <attr name="selectionColor" format="color" />
+        <attr name="datePicker" format="boolean" />
+        <attr name="daysNames" format="reference" />
+        <attr name="monthsNames" format="reference" />
+    </declare-styleable>
+</resources>
