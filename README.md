@@ -12,10 +12,17 @@ It's a fully customized simple calendar and date picker created using Material D
 
 
 ## How to use?
+Make sure you have **jcenter()** in your repositories
+```
+repositories {
+    jcenter()
+}
+```
+
 Add the dependency to your **build.gradle**:
 ```
 dependencies {
-    compile 'com.applandeo.materialcalendarview:materialcalendarview:1.0.0'
+    compile 'com.applandeo:material-calendar-view:1.0.0'
 }
 ```
 
