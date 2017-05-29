@@ -4,17 +4,69 @@ It's a fully customized simple calendar and date picker created using Material D
 
 ![device-2017-05-29-072746](https://cloud.githubusercontent.com/assets/2614225/26537866/12b530f6-4443-11e7-910e-235b1267f2cd.png) ![device-2017-05-29-075947](https://cloud.githubusercontent.com/assets/2614225/26538163/e40730cc-4444-11e7-897d-ca45d7289a0f.png)
 
+## Features
+* Material Design
+* Date picker mode
+* Today
+* Events images
+
 ## How to use?
-Just add the dependency to your **build.gradle**:
+Add the dependency to your **build.gradle**:
 ```
 dependencies {
     compile 'com.applandeo.materialcalendarview:materialcalendarview:1.0.0'
 }
 ```
 
-and to your xml file add:
+...and to your **XML layout** file add:
 ```xml
 <com.applandeo.materialcalendarview.CalendarView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+    android:id="@+id/calendarView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" />
 ```
+
+### Add events with icon to calendar:
+```java
+List<EventDay> events = new ArrayList<>();
+
+Calendar calendar = Calendar.getInstance();
+events.add(new EventDay(calendar, R.drawable.sample_icon));
+
+CalendarView calendarView = (CalendarView) findViewById(R.id.calendarView);
+calendarView.setEvents(events);
+```
+
+### Handle clicks:
+```java
+calendarView.setOnDayClickListener(new OnDayClickListener() {
+    @Override
+    public void onDayClick(EventDay eventDay) {
+        Calendar clickedDayCalendar = eventDay.getCalendar();    
+    }
+});
+```
+
+### Get a selected day in the picker mode:
+```java
+Calendar selectedDayCalendar = calendarView.getSelectedDate();
+```
+
+### Set a current date:
+```java
+Calendar calendar = Calendar.getInstance();
+calendar.set(2019, 7, 5);
+        
+calendarView.setCurrentDate(calendar);
+```
+
+## Customization
+* Data picker mode: ```app:datePicker="true"```
+* Header color: ```app:headerColor="[color]"```
+* Header label color: ```app:headerLabelColor="[color]"```
+* Previous button image resource: ```app:previousButtonSrc="[drawable]"```
+* Forward button image resource: ```app:forwardButtonSrc="[drawable]"```
+* Selection color in picker mode: ```app:selectionColor="[color]"```
+* Today label color: ```app:todayLabelColor="[color]"```
+* Array of months names: ```app:monthsNames="[array]"``` (array of 12 elements)
+* Array of days names: ```app:daysNames="[array]"``` (array of 7 elements)
