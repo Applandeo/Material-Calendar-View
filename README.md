@@ -12,7 +12,7 @@ It's a fully customized simple calendar and date picker created using Material D
 
 
 ## How to use?
-**Make sure you have jcenter() in your repositories**
+Make sure you have **jcenter()** in your repositories
 ```
 repositories {
     jcenter()
