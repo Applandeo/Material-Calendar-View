@@ -1,6 +1,30 @@
 apply plugin: 'com.android.library'
 apply plugin: 'me.tatarka.retrolambda'
 
+ext {
+    bintrayRepo = 'maven'
+    bintrayName = 'material-calendar-view'
+
+    publishedGroupId = 'com.applandeo'
+    libraryName = 'Material CalendarView'
+    artifact = 'material-calendar-view'
+
+    libraryDescription = 'Fully customized simple calendar and date picker created using Material Design guidelines.'
+
+    siteUrl = 'https://github.com/Applandeo/Material-Calendar-View'
+    gitUrl = 'https://github.com/Applandeo/Material-Calendar-View.git'
+
+    libraryVersion = '1.0.0'
+
+    developerId = 'Applandeo'
+    developerName = 'Applandeo Applandeo'
+    developerEmail = 'mobile@applandeo.com'
+
+    licenseName = 'The Apache Software License, Version 2.0'
+    licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+    allLicenses = ["Apache-2.0"]
+}
+
 android {
     compileSdkVersion 25
     buildToolsVersion "25.0.2"
@@ -8,7 +32,7 @@ android {
         minSdkVersion 15
         targetSdkVersion 25
         versionCode 1
-        versionName "1.0"
+        versionName "1.0.0"
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
