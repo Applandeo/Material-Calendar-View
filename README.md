@@ -7,8 +7,9 @@ It's a fully customized simple calendar and date picker created using Material D
 ## Features
 * Material Design
 * Date picker mode
-* Today
-* Events images
+* Events icons
+* Marks today
+
 
 ## How to use?
 Add the dependency to your **build.gradle**:
@@ -18,7 +19,7 @@ dependencies {
 }
 ```
 
-...and to your **XML layout** file add:
+To your **XML layout** file add:
 ```xml
 <com.applandeo.materialcalendarview.CalendarView
     android:id="@+id/calendarView"
@@ -26,7 +27,7 @@ dependencies {
     android:layout_height="match_parent" />
 ```
 
-### Add events with icon to calendar:
+### Adding events with icons:
 ```java
 List<EventDay> events = new ArrayList<>();
 
@@ -37,7 +38,7 @@ CalendarView calendarView = (CalendarView) findViewById(R.id.calendarView);
 calendarView.setEvents(events);
 ```
 
-### Handle clicks:
+### Clicks handling:
 ```java
 calendarView.setOnDayClickListener(new OnDayClickListener() {
     @Override
@@ -47,12 +48,12 @@ calendarView.setOnDayClickListener(new OnDayClickListener() {
 });
 ```
 
-### Get a selected day in the picker mode:
+### Getting a selected day in the picker mode:
 ```java
 Calendar selectedDayCalendar = calendarView.getSelectedDate();
 ```
 
-### Set a current date:
+### Setting a current date:
 ```java
 Calendar calendar = Calendar.getInstance();
 calendar.set(2019, 7, 5);
@@ -61,12 +62,16 @@ calendarView.setCurrentDate(calendar);
 ```
 
 ## Customization
-* Data picker mode: ```app:datePicker="true"```
+If you want to use calendar in the picker mode, in your XML layout set: ```app:datePicker="true"```
+
+#### Colors customization:
 * Header color: ```app:headerColor="[color]"```
 * Header label color: ```app:headerLabelColor="[color]"```
 * Previous button image resource: ```app:previousButtonSrc="[drawable]"```
 * Forward button image resource: ```app:forwardButtonSrc="[drawable]"```
 * Selection color in picker mode: ```app:selectionColor="[color]"```
 * Today label color: ```app:todayLabelColor="[color]"```
-* Array of months names: ```app:monthsNames="[array]"``` (array of 12 elements)
-* Array of days names: ```app:daysNames="[array]"``` (array of 7 elements)
+
+#### Translations:
+* Array of months names: ```app:monthsNames="[array]"``` (array must contains 12 names)
+* Array of abbreviations of days of the week: ```app:daysNames="[array]"``` (array must contains 7 abbreviations)
