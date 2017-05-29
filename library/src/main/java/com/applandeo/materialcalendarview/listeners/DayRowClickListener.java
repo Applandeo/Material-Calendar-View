@@ -8,7 +8,6 @@ import android.widget.TextView;
 
 import com.annimon.stream.Stream;
 import com.applandeo.materialcalendarview.EventDay;
-import com.applandeo.materialcalendarview.OnDayClickListener;
 import com.applandeo.materialcalendarview.R;
 import com.applandeo.materialcalendarview.adapters.CalendarPageAdapter;
 import com.applandeo.materialcalendarview.utils.DateUtils;
@@ -59,18 +58,11 @@ public class DayRowClickListener implements AdapterView.OnItemClickListener {
             return;
         }
 
-        // If calendar is not in picker mode than OnDayClickListener is called
+        // If calendar is not in the picker mode than onClick method is called
         if (mOnDayClickListener != null) {
             mCalendarPageAdapter.setSelectedDate(day);
 
-            if (mEventDays != null) {
-                Stream.of(mEventDays).filter(eventDate ->
-                        eventDate.getCalendar().equals(day)).findSingle().ifPresentOrElse(
-                        calendarEventDay -> mOnDayClickListener.onDayClick(calendarEventDay),
-                        () -> mOnDayClickListener.onDayClick(new EventDay(day)));
-            } else {
-                mOnDayClickListener.onDayClick(new EventDay(day));
-            }
+            onClick(day);
         }
     }
 
@@ -100,5 +92,17 @@ public class DayRowClickListener implements AdapterView.OnItemClickListener {
                 mCalendarPageAdapter.setSelectedDay(new SelectedDay(dayLabel, day));
             }
         }
+    }
+
+    private void onClick(Calendar day) {
+        if (mEventDays == null) {
+            mOnDayClickListener.onDayClick(new EventDay(day));
+            return;
+        }
+
+        Stream.of(mEventDays).filter(eventDate ->
+                eventDate.getCalendar().equals(day)).findSingle().ifPresentOrElse(
+                calendarEventDay -> mOnDayClickListener.onDayClick(calendarEventDay),
+                () -> mOnDayClickListener.onDayClick(new EventDay(day)));
     }
 }

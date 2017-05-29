@@ -74,21 +74,7 @@ class CalendarDayAdapter extends ArrayAdapter<Date> {
 
         // Loading an image of the event
         if (dayIcon != null) {
-            if (mEventDays != null && !mIsDatePicker) {
-                Stream.of(mEventDays).filter(eventDate ->
-                        eventDate.getCalendar().equals(day)).findSingle().executeIfPresent(eventDay -> {
-
-                    ImageUtils.loadResource(dayIcon, eventDay.getImageResource());
-
-                    // If a day doesn't belong to current month then image is transparent
-                    if (day.get(Calendar.MONTH) != mMonth) {
-                        dayIcon.setAlpha(0.2f);
-                    }
-
-                });
-            } else {
-                dayIcon.setVisibility(View.GONE);
-            }
+            loadIcon(dayIcon, day);
         }
 
         if (mIsDatePicker && day.equals(mCalendarPageAdapter.getSelectedDate())
@@ -109,5 +95,24 @@ class CalendarDayAdapter extends ArrayAdapter<Date> {
 
         dayLabel.setText(String.valueOf(day.get(Calendar.DAY_OF_MONTH)));
         return view;
+    }
+
+    private void loadIcon(ImageView dayIcon, Calendar day) {
+        if (mEventDays == null || mIsDatePicker) {
+            dayIcon.setVisibility(View.GONE);
+            return;
+        }
+
+        Stream.of(mEventDays).filter(eventDate ->
+                eventDate.getCalendar().equals(day)).findSingle().executeIfPresent(eventDay -> {
+
+            ImageUtils.loadResource(dayIcon, eventDay.getImageResource());
+
+            // If a day doesn't belong to current month then image is transparent
+            if (day.get(Calendar.MONTH) != mMonth) {
+                dayIcon.setAlpha(0.2f);
+            }
+
+        });
     }
 }

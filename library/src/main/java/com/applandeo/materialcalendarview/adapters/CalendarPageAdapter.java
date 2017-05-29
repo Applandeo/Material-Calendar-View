@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.GridView;
 
 import com.applandeo.materialcalendarview.EventDay;
-import com.applandeo.materialcalendarview.OnDayClickListener;
+import com.applandeo.materialcalendarview.listeners.OnDayClickListener;
 import com.applandeo.materialcalendarview.R;
 import com.applandeo.materialcalendarview.listeners.DayRowClickListener;
 import com.applandeo.materialcalendarview.utils.SelectedDay;
