@@ -22,7 +22,7 @@ repositories {
 Add the dependency to your **build.gradle**:
 ```
 dependencies {
-    compile 'com.applandeo:material-calendar-view:1.0.0'
+    compile 'com.applandeo:material-calendar-view:1.0.1'
 }
 ```
 
@@ -65,7 +65,7 @@ Calendar selectedDayCalendar = calendarView.getSelectedDate();
 Calendar calendar = Calendar.getInstance();
 calendar.set(2019, 7, 5);
         
-calendarView.setCurrentDate(calendar);
+calendarView.setDate(calendar);
 ```
 
 ## Customization
