@@ -101,7 +101,7 @@ public class DayRowClickListener implements AdapterView.OnItemClickListener {
         }
 
         Stream.of(mEventDays).filter(eventDate ->
-                eventDate.getCalendar().equals(day)).findSingle().ifPresentOrElse(
+                eventDate.getCalendar().equals(day)).findFirst().ifPresentOrElse(
                 calendarEventDay -> mOnDayClickListener.onDayClick(calendarEventDay),
                 () -> mOnDayClickListener.onDayClick(new EventDay(day)));
     }

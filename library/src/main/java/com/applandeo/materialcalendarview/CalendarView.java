@@ -254,17 +254,17 @@ public class CalendarView extends LinearLayout {
     /**
      * This method set a current and selected date of the calendar using Calendar object.
      *
-     * @param currentDate A Calendar object representing a date to which the calendar will be set
+     * @param date A Calendar object representing a date to which the calendar will be set
      */
-    public void setCurrentDate(Calendar currentDate) {
-        DateUtils.setMidnight(currentDate);
+    public void setDate(Calendar date) {
+        DateUtils.setMidnight(date);
 
-        mSelectedDate.setTime(currentDate.getTime());
+        mSelectedDate.setTime(date.getTime());
         mCalendarPageAdapter.setSelectedDate(mSelectedDate);
 
-        mCurrentDate.setTime(currentDate.getTime());
+        mCurrentDate.setTime(date.getTime());
         mCurrentDate.add(Calendar.MONTH, -MIDDLE_PAGE);
-        mCurrentMonthLabel.setText(DateUtils.getMonthAndYearDate(mMonthsNames, currentDate));
+        mCurrentMonthLabel.setText(DateUtils.getMonthAndYearDate(mMonthsNames, date));
 
         mViewPager.setCurrentItem(MIDDLE_PAGE);
         mCalendarPageAdapter.notifyDataSetChanged();
@@ -275,11 +275,11 @@ public class CalendarView extends LinearLayout {
      *
      * @param currentDate A date to which the calendar will be set
      */
-    public void setCurrentDate(Date currentDate) {
+    public void setDate(Date currentDate) {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(currentDate);
 
-        setCurrentDate(calendar);
+        setDate(calendar);
     }
 
     /**
@@ -300,5 +300,15 @@ public class CalendarView extends LinearLayout {
      */
     public Calendar getSelectedDate() {
         return mCalendarPageAdapter.getSelectedDate();
+    }
+
+    /**
+     * @return Calendar object representing a date of current calendar page
+     */
+    public Calendar getCurrentPageDate() {
+        Calendar calendar = (Calendar) mCurrentDate.clone();
+        calendar.set(Calendar.DAY_OF_MONTH, 1);
+        calendar.add(Calendar.MONTH, mViewPager.getCurrentItem());
+        return calendar;
     }
 }

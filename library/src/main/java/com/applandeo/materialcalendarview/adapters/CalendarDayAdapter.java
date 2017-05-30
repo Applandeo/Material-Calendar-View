@@ -104,7 +104,7 @@ class CalendarDayAdapter extends ArrayAdapter<Date> {
         }
 
         Stream.of(mEventDays).filter(eventDate ->
-                eventDate.getCalendar().equals(day)).findSingle().executeIfPresent(eventDay -> {
+                eventDate.getCalendar().equals(day)).findFirst().executeIfPresent(eventDay -> {
 
             ImageUtils.loadResource(dayIcon, eventDay.getImageResource());
 
