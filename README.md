@@ -2,6 +2,8 @@
 
 Material-Calendar-View is a simple and customizable calendar widget for Android based on Material Design. The widget has two funcionalities: a date picker to select dates and a classic calendar.
 
+We described a simple usage of the component [in this article](https://play.google.com/store/apps/details?id=com.applandeo.frequest).
+
 ![device-2017-05-29-072746](https://cloud.githubusercontent.com/assets/2614225/26537866/12b530f6-4443-11e7-910e-235b1267f2cd.png) ![device-2017-05-29-075947](https://cloud.githubusercontent.com/assets/2614225/26538163/e40730cc-4444-11e7-897d-ca45d7289a0f.png)
 
 ## Features
