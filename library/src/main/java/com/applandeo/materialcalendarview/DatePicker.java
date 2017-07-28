@@ -155,17 +155,17 @@ public class DatePicker {
         LayoutInflater layoutInflater = LayoutInflater.from(mContext);
         final View view = layoutInflater.inflate(R.layout.date_picker_dialog, null);
 
-        CalendarView calendarView = new CalendarView(mContext);
-        calendarView.datePicker(true);
-        calendarView.setHeaderColor(mHeaderColor);
-        calendarView.setHeaderLabelColor(mHeaderLabelColor);
-        calendarView.setPreviousButtonSrc(mPreviousButtonSrc);
-        calendarView.setForwardButtonSrc(mForwardButtonSrc);
-        calendarView.setSelectionColor(mSelectionColor);
-        calendarView.setTodayLabelColor(mTodayLabelColor);
-        calendarView.setDaysNames(mDaysNames);
-        calendarView.setMonthsNames(mMonthsNames);
-        calendarView.create();
+        CalendarView calendarView = new CalendarView.Builder(mContext)
+                .datePicker(true)
+                .headerColor(mHeaderColor)
+                .headerLabelColor(mHeaderLabelColor)
+                .previousButtonSrc(mPreviousButtonSrc)
+                .forwardButtonSrc(mForwardButtonSrc)
+                .selectionColor(mSelectionColor)
+                .todayLabelColor(mTodayLabelColor)
+                .daysNames(mDaysNames)
+                .monthsNames(mMonthsNames)
+                .create();
 
         FrameLayout calendarContainer = (FrameLayout) view.findViewById(R.id.calendarContainer);
         calendarContainer.addView(calendarView);

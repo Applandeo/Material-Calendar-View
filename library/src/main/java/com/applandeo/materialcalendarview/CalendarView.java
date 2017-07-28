@@ -79,11 +79,6 @@ public class CalendarView extends LinearLayout {
     private int mForwardButtonSrc;
     private int mDaysNames;
 
-    public CalendarView(Context context) {
-        super(context);
-        mContext = context;
-    }
-
     public CalendarView(Context context, AttributeSet attrs) {
         super(context, attrs);
         mContext = context;
@@ -98,6 +93,23 @@ public class CalendarView extends LinearLayout {
         initCalendar();
     }
 
+    //private constructor to create CalendarView using CalendarView.Builder
+    private CalendarView(Context context, boolean isDatePicker, int headerColor, int headerLabelColor,
+                         int previousButtonSrc, int forwardButtonSrc, int selectionColor,
+                         int todayLabelColor, String[] monthsNames, int daysNames) {
+        super(context);
+        mContext = context;
+        mIsDatePicker = isDatePicker;
+        mHeaderColor = headerColor;
+        mHeaderLabelColor = headerLabelColor;
+        mPreviousButtonSrc = previousButtonSrc;
+        mForwardButtonSrc = forwardButtonSrc;
+        mSelectionColor = selectionColor;
+        mTodayLabelColor = todayLabelColor;
+        mMonthsNames = monthsNames;
+        mDaysNames = daysNames;
+    }
+
     private void initControl(Context context, AttributeSet attrs) {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         inflater.inflate(R.layout.calendar_view, this);
@@ -107,7 +119,7 @@ public class CalendarView extends LinearLayout {
         initCalendar();
     }
 
-    protected CalendarView create() {
+    private CalendarView create() {
         LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         inflater.inflate(R.layout.calendar_view, this);
 
@@ -238,7 +250,7 @@ public class CalendarView extends LinearLayout {
         }
     }
 
-    private void setDaysSymbols(int array){
+    private void setDaysSymbols(int array) {
         String[] daysSymbols = getResources().getStringArray(array);
 
         if (daysSymbols.length == 7) {
@@ -310,43 +322,6 @@ public class CalendarView extends LinearLayout {
         }
     };
 
-    public void datePicker(boolean isDatePicker) {
-        mIsDatePicker = isDatePicker;
-    }
-
-    public void setHeaderColor(@ColorRes int color) {
-        mHeaderColor = color;
-    }
-
-    public void setHeaderLabelColor(@ColorRes int color) {
-        mHeaderLabelColor = color;
-    }
-
-    public void setPreviousButtonSrc(@DrawableRes int drawable) {
-        mPreviousButtonSrc = drawable;
-    }
-
-    public void setForwardButtonSrc(@DrawableRes int drawable) {
-        mForwardButtonSrc = drawable;
-    }
-
-    public void setSelectionColor(@ColorRes int color) {
-        mSelectionColor = color;
-    }
-
-    public void setTodayLabelColor(@ColorRes int color) {
-        mTodayLabelColor = color;
-    }
-
-    public void setMonthsNames(@ArrayRes int names) {
-        if (names != 0) {
-            mMonthsNames = getResources().getStringArray(names);
-        }
-    }
-
-    public void setDaysNames(@ArrayRes int names) {
-        mDaysNames = names;
-    }
 
     /**
      * @param onDayClickListener OnDayClickListener interface responsible for handle clicks on calendar cells
@@ -416,5 +391,80 @@ public class CalendarView extends LinearLayout {
         calendar.set(Calendar.DAY_OF_MONTH, 1);
         calendar.add(Calendar.MONTH, mViewPager.getCurrentItem());
         return calendar;
+    }
+
+    public static class Builder {
+        private Context mContext;
+        private boolean mIsDatePicker;
+        private int mHeaderColor;
+        private int mHeaderLabelColor;
+        private int mPreviousButtonSrc;
+        private int mForwardButtonSrc;
+        private int mSelectionColor;
+        private int mTodayLabelColor;
+        private String[] mMonthsNames;
+        private int mDaysNames;
+
+        public Builder(Context context) {
+            mContext = context;
+        }
+
+        public CalendarView build() {
+            return new CalendarView(mContext, mIsDatePicker, mHeaderColor, mHeaderLabelColor,
+                    mPreviousButtonSrc, mForwardButtonSrc, mSelectionColor, mTodayLabelColor,
+                    mMonthsNames, mDaysNames);
+        }
+
+        public Builder datePicker(boolean isDatePicker) {
+            mIsDatePicker = isDatePicker;
+            return this;
+        }
+
+        public Builder headerColor(@ColorRes int color) {
+            mHeaderColor = color;
+            return this;
+        }
+
+        public Builder headerLabelColor(@ColorRes int color) {
+            mHeaderLabelColor = color;
+            return this;
+        }
+
+        public Builder previousButtonSrc(@DrawableRes int drawable) {
+            mPreviousButtonSrc = drawable;
+            return this;
+        }
+
+        public Builder forwardButtonSrc(@DrawableRes int drawable) {
+            mForwardButtonSrc = drawable;
+            return this;
+        }
+
+        public Builder selectionColor(@ColorRes int color) {
+            mSelectionColor = color;
+            return this;
+        }
+
+        public Builder todayLabelColor(@ColorRes int color) {
+            mTodayLabelColor = color;
+            return this;
+        }
+
+        public Builder monthsNames(@ArrayRes int names) {
+            if (names != 0) {
+                mMonthsNames = mContext.getResources().getStringArray(names);
+            }
+
+            return this;
+        }
+
+        public Builder daysNames(@ArrayRes int names) {
+            mDaysNames = names;
+            return this;
+        }
+
+        public CalendarView create() {
+            return build().create();
+        }
     }
 }
