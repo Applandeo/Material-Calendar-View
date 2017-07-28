@@ -38,18 +38,18 @@ public class MainActivity extends AppCompatActivity implements OnSelectDateListe
 
         openDatePickerDialog.setOnClickListener(v -> {
             DatePicker.Builder builder = new DatePicker.Builder(this, this)
-                    .setDate(getRandomCalendar())
-                    .setHeaderColor(R.color.colorPrimaryDark)
-                    .setHeaderLabelColor(R.color.currentMonthDayColor)
-                    .setSelectionColor(R.color.daysLabelColor)
-                    .setTodayLabelColor(R.color.colorAccent)
-                    .setDialogButtonsColor(R.color.colorAccent)
-                    .setCancelButtonLabel(R.string.cancel)
-                    .setOkButtonLabel(R.string.ok)
-                    .setPreviousButtonSrc(R.drawable.ic_chevron_left_black_24dp)
-                    .setForwardButtonSrc(R.drawable.ic_chevron_right_black_24dp)
-                    .setDaysNames(R.array.days_names_symbol_array)
-                    .setMonthsNames(R.array.polish_months_array);
+                    .date(getRandomCalendar())
+                    .headerColor(R.color.colorPrimaryDark)
+                    .headerLabelColor(R.color.currentMonthDayColor)
+                    .selectionColor(R.color.daysLabelColor)
+                    .todayLabelColor(R.color.colorAccent)
+                    .dialogButtonsColor(R.color.colorAccent)
+                    .cancelButtonLabel(R.string.cancel)
+                    .okButtonLabel(R.string.ok)
+                    .previousButtonSrc(R.drawable.ic_chevron_left_black_24dp)
+                    .forwardButtonSrc(R.drawable.ic_chevron_right_black_24dp)
+                    .daysNames(R.array.days_names_symbol_array)
+                    .monthsNames(R.array.polish_months_array);
 
             DatePicker datePicker = builder.build();
             datePicker.show();

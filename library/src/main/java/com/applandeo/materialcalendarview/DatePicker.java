@@ -79,62 +79,62 @@ public class DatePicker {
             mOnSelectDateListener = onSelectDateListener;
         }
 
-        public Builder setDate(Calendar calendar) {
+        public Builder date(Calendar calendar) {
             mCalendar = calendar;
             return this;
         }
 
-        public Builder setHeaderColor(@ColorRes int color) {
+        public Builder headerColor(@ColorRes int color) {
             mHeaderColor = color;
             return this;
         }
 
-        public Builder setHeaderLabelColor(@ColorRes int color) {
+        public Builder headerLabelColor(@ColorRes int color) {
             mHeaderLabelColor = color;
             return this;
         }
 
-        public Builder setPreviousButtonSrc(@DrawableRes int drawable) {
+        public Builder previousButtonSrc(@DrawableRes int drawable) {
             mPreviousButtonSrc = drawable;
             return this;
         }
 
-        public Builder setForwardButtonSrc(@DrawableRes int drawable) {
+        public Builder forwardButtonSrc(@DrawableRes int drawable) {
             mForwardButtonSrc = drawable;
             return this;
         }
 
-        public Builder setSelectionColor(@ColorRes int color) {
+        public Builder selectionColor(@ColorRes int color) {
             mSelectionColor = color;
             return this;
         }
 
-        public Builder setTodayLabelColor(@ColorRes int color) {
+        public Builder todayLabelColor(@ColorRes int color) {
             mTodayLabelColor = color;
             return this;
         }
 
-        public Builder setDialogButtonsColor(@ColorRes int color) {
+        public Builder dialogButtonsColor(@ColorRes int color) {
             mDialogButtonsColor = color;
             return this;
         }
 
-        public Builder setCancelButtonLabel(@StringRes int label) {
+        public Builder cancelButtonLabel(@StringRes int label) {
             mCancelButtonLabel = label;
             return this;
         }
 
-        public Builder setOkButtonLabel(@StringRes int label) {
+        public Builder okButtonLabel(@StringRes int label) {
             mOkButtonLabel = label;
             return this;
         }
 
-        public Builder setMonthsNames(@ArrayRes int names) {
+        public Builder monthsNames(@ArrayRes int names) {
             mMonthsNames = names;
             return this;
         }
 
-        public Builder setDaysNames(@ArrayRes int names) {
+        public Builder daysNames(@ArrayRes int names) {
             mDaysNames = names;
             return this;
         }
