@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity implements OnSelectDateListe
 
         openDatePickerDialog.setOnClickListener(v -> {
             DatePicker.Builder builder = new DatePicker.Builder(this, this)
-//                    .date(getRandomCalendar())
+                    .date(getRandomCalendar())
                     .headerColor(R.color.colorPrimaryDark)
                     .headerLabelColor(R.color.currentMonthDayColor)
                     .selectionColor(R.color.daysLabelColor)

@@ -205,6 +205,7 @@ public class CalendarView extends LinearLayout {
         }
     }
 
+    //This method set CalendarView attributes when the view is creating using Builder
     private void initAttributes() {
         if (mIsDatePicker) {
             mItemLayoutResource = R.layout.calendar_view_picker_day;
@@ -250,6 +251,7 @@ public class CalendarView extends LinearLayout {
         }
     }
 
+    //This method sets days symbols
     private void setDaysSymbols(int array) {
         String[] daysSymbols = getResources().getStringArray(array);
 
@@ -393,6 +395,7 @@ public class CalendarView extends LinearLayout {
         return calendar;
     }
 
+    //Builder class using to create CalendarView instance
     public static class Builder {
         private Context mContext;
         private boolean mIsDatePicker;

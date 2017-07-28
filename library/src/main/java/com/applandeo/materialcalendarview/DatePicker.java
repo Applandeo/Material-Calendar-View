@@ -18,6 +18,8 @@ import com.applandeo.materialcalendarview.listeners.OnSelectDateListener;
 import java.util.Calendar;
 
 /**
+ * This class is responsible for creating DatePicker dialog.
+ * <p>
  * Created by Mateusz Kornakiewicz on 27.07.2017.
  */
 
