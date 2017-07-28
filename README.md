@@ -87,6 +87,16 @@ If you want to use calendar in the picker mode, in your XML layout set: ```app:d
 * Array of months names: ```app:monthsNames="[array]"``` (array must contains 12 names)
 * Array of abbreviations of days of the week: ```app:daysNames="[array]"``` (array must contains 7 abbreviations)
 
+## Changelog
+#### Version 1.1.0:
+* Added build-in DatePicker dialog
+
+#### Version 1.0.1:
+* Bugs fixes
+
+#### Version 1.0.0:
+* Initial build
+
 ## Get in touch
 It would be great if you decide to use our component in your project. It’s open source, feel free. Write to us at hi@applandeo.com if you want to be listed and we will include your app in our repo. If you have any questions or suggestions just let us know.
 
