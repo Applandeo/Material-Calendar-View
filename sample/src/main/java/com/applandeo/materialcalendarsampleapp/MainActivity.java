@@ -10,6 +10,7 @@ import com.applandeo.materialcalendarview.DatePicker;
 import com.applandeo.materialcalendarview.listeners.OnSelectDateListener;
 
 import java.util.Calendar;
+import java.util.Random;
 
 public class MainActivity extends AppCompatActivity implements OnSelectDateListener {
 
@@ -37,6 +38,7 @@ public class MainActivity extends AppCompatActivity implements OnSelectDateListe
 
         openDatePickerDialog.setOnClickListener(v -> {
             DatePicker datePicker = new DatePicker(this, this)
+                    .setDate(getRandomCalendar())
                     .setHeaderColor(R.color.colorPrimaryDark)
                     .setHeaderLabelColor(R.color.currentMonthDayColor)
                     .setSelectionColor(R.color.daysLabelColor)
@@ -55,5 +57,14 @@ public class MainActivity extends AppCompatActivity implements OnSelectDateListe
     @Override
     public void onSelect(Calendar calendar) {
         Toast.makeText(getApplicationContext(), calendar.getTime().toString(), Toast.LENGTH_LONG).show();
+    }
+
+    private Calendar getRandomCalendar() {
+        Random random = new Random();
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.MONTH, random.nextInt(99));
+
+        return calendar;
     }
 }

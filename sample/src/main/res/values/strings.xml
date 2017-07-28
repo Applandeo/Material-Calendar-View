@@ -26,6 +26,6 @@
         <item>Grudzień</item>
     </array>
 
-    <string name="ok">Blablabla</string>
-    <string name="cancel">Sratatata</string>
+    <string name="ok">Wybierz</string>
+    <string name="cancel">Anuluj</string>
 </resources>

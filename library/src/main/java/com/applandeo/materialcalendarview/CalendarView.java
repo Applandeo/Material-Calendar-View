@@ -117,100 +117,6 @@ public class CalendarView extends LinearLayout {
         return this;
     }
 
-    public void datePicker(boolean isDatePicker) {
-        mIsDatePicker = isDatePicker;
-    }
-
-    public void setHeaderColor(@ColorRes int color) {
-        mHeaderColor = color;
-    }
-
-    public void setHeaderLabelColor(@ColorRes int color) {
-        mHeaderLabelColor = color;
-    }
-
-    public void setPreviousButtonSrc(@DrawableRes int drawable) {
-        mPreviousButtonSrc = drawable;
-    }
-
-    public void setForwardButtonSrc(@DrawableRes int drawable) {
-        mForwardButtonSrc = drawable;
-    }
-
-    public void setSelectionColor(@ColorRes int color) {
-        mSelectionColor = color;
-    }
-
-    public void setTodayLabelColor(@ColorRes int color) {
-        mTodayLabelColor = color;
-    }
-
-    public void setMonthsNames(@ArrayRes int names) {
-        if (names != 0) {
-            mMonthsNames = getResources().getStringArray(names);
-        }
-    }
-
-    public void setDaysNames(@ArrayRes int names) {
-        mDaysNames = names;
-    }
-
-    private void initAttributes() {
-
-        if (mIsDatePicker) {
-            mItemLayoutResource = R.layout.calendar_view_picker_day;
-        } else {
-            mItemLayoutResource = R.layout.calendar_view_day;
-        }
-
-        if (mHeaderColor != 0) {
-            ConstraintLayout mCalendarHeader = (ConstraintLayout) findViewById(R.id.calendarHeader);
-            mCalendarHeader.setBackgroundColor(ContextCompat.getColor(mContext, mHeaderColor));
-        }
-
-        if (mHeaderLabelColor != 0) {
-            mCurrentMonthLabel.setTextColor(ContextCompat.getColor(mContext, mHeaderLabelColor));
-        }
-
-        if (mPreviousButtonSrc != 0) {
-            mPreviousButton.setImageResource(mPreviousButtonSrc);
-        }
-
-        if (mForwardButtonSrc != 0) {
-            mForwardButton.setImageResource(mForwardButtonSrc);
-        }
-
-        if (mSelectionColor != 0) {
-            mSelectionColor = ContextCompat.getColor(mContext, mSelectionColor);
-        } else {
-            mSelectionColor = ContextCompat.getColor(mContext, R.color.defaultColor);
-        }
-
-        if (mTodayLabelColor != 0) {
-            mTodayLabelColor = ContextCompat.getColor(mContext, mTodayLabelColor);
-        } else {
-            mTodayLabelColor = ContextCompat.getColor(mContext, R.color.defaultColor);
-        }
-
-        if (mMonthsNames == null || mMonthsNames.length < 12) {
-            mMonthsNames = getResources().getStringArray(R.array.months_array);
-        }
-
-        if (mDaysNames != 0) {
-            String[] daysSymbols = getResources().getStringArray(mDaysNames);
-
-            if (daysSymbols.length == 7) {
-                ((TextView) findViewById(R.id.mondayLabel)).setText(daysSymbols[0]);
-                ((TextView) findViewById(R.id.tuesdayLabel)).setText(daysSymbols[1]);
-                ((TextView) findViewById(R.id.wednesdayLabel)).setText(daysSymbols[2]);
-                ((TextView) findViewById(R.id.thursdayLabel)).setText(daysSymbols[3]);
-                ((TextView) findViewById(R.id.fridayLabel)).setText(daysSymbols[4]);
-                ((TextView) findViewById(R.id.saturdayLabel)).setText(daysSymbols[5]);
-                ((TextView) findViewById(R.id.sundayLabel)).setText(daysSymbols[6]);
-            }
-        }
-    }
-
     /**
      * This method set xml values for calendar elements
      *
@@ -279,21 +185,70 @@ public class CalendarView extends LinearLayout {
             // Sets translations for day names symbols
             int symbolArray = typedArray.getResourceId(R.styleable.CalendarView_daysNames, 0);
             if (symbolArray != 0) {
-                String[] daysSymbols = getResources().getStringArray(symbolArray);
-
-                if (daysSymbols.length == 7) {
-                    ((TextView) findViewById(R.id.mondayLabel)).setText(daysSymbols[0]);
-                    ((TextView) findViewById(R.id.tuesdayLabel)).setText(daysSymbols[1]);
-                    ((TextView) findViewById(R.id.wednesdayLabel)).setText(daysSymbols[2]);
-                    ((TextView) findViewById(R.id.thursdayLabel)).setText(daysSymbols[3]);
-                    ((TextView) findViewById(R.id.fridayLabel)).setText(daysSymbols[4]);
-                    ((TextView) findViewById(R.id.saturdayLabel)).setText(daysSymbols[5]);
-                    ((TextView) findViewById(R.id.sundayLabel)).setText(daysSymbols[6]);
-                }
+                setDaysSymbols(symbolArray);
             }
 
         } finally {
             typedArray.recycle();
+        }
+    }
+
+    private void initAttributes() {
+        if (mIsDatePicker) {
+            mItemLayoutResource = R.layout.calendar_view_picker_day;
+        } else {
+            mItemLayoutResource = R.layout.calendar_view_day;
+        }
+
+        if (mHeaderColor != 0) {
+            ConstraintLayout mCalendarHeader = (ConstraintLayout) findViewById(R.id.calendarHeader);
+            mCalendarHeader.setBackgroundColor(ContextCompat.getColor(mContext, mHeaderColor));
+        }
+
+        if (mHeaderLabelColor != 0) {
+            mCurrentMonthLabel.setTextColor(ContextCompat.getColor(mContext, mHeaderLabelColor));
+        }
+
+        if (mPreviousButtonSrc != 0) {
+            mPreviousButton.setImageResource(mPreviousButtonSrc);
+        }
+
+        if (mForwardButtonSrc != 0) {
+            mForwardButton.setImageResource(mForwardButtonSrc);
+        }
+
+        if (mSelectionColor != 0) {
+            mSelectionColor = ContextCompat.getColor(mContext, mSelectionColor);
+        } else {
+            mSelectionColor = ContextCompat.getColor(mContext, R.color.defaultColor);
+        }
+
+        if (mTodayLabelColor != 0) {
+            mTodayLabelColor = ContextCompat.getColor(mContext, mTodayLabelColor);
+        } else {
+            mTodayLabelColor = ContextCompat.getColor(mContext, R.color.defaultColor);
+        }
+
+        if (mMonthsNames == null || mMonthsNames.length < 12) {
+            mMonthsNames = getResources().getStringArray(R.array.months_array);
+        }
+
+        if (mDaysNames != 0) {
+            setDaysSymbols(mDaysNames);
+        }
+    }
+
+    private void setDaysSymbols(int array){
+        String[] daysSymbols = getResources().getStringArray(array);
+
+        if (daysSymbols.length == 7) {
+            ((TextView) findViewById(R.id.mondayLabel)).setText(daysSymbols[0]);
+            ((TextView) findViewById(R.id.tuesdayLabel)).setText(daysSymbols[1]);
+            ((TextView) findViewById(R.id.wednesdayLabel)).setText(daysSymbols[2]);
+            ((TextView) findViewById(R.id.thursdayLabel)).setText(daysSymbols[3]);
+            ((TextView) findViewById(R.id.fridayLabel)).setText(daysSymbols[4]);
+            ((TextView) findViewById(R.id.saturdayLabel)).setText(daysSymbols[5]);
+            ((TextView) findViewById(R.id.sundayLabel)).setText(daysSymbols[6]);
         }
     }
 
@@ -354,6 +309,44 @@ public class CalendarView extends LinearLayout {
 
         }
     };
+
+    public void datePicker(boolean isDatePicker) {
+        mIsDatePicker = isDatePicker;
+    }
+
+    public void setHeaderColor(@ColorRes int color) {
+        mHeaderColor = color;
+    }
+
+    public void setHeaderLabelColor(@ColorRes int color) {
+        mHeaderLabelColor = color;
+    }
+
+    public void setPreviousButtonSrc(@DrawableRes int drawable) {
+        mPreviousButtonSrc = drawable;
+    }
+
+    public void setForwardButtonSrc(@DrawableRes int drawable) {
+        mForwardButtonSrc = drawable;
+    }
+
+    public void setSelectionColor(@ColorRes int color) {
+        mSelectionColor = color;
+    }
+
+    public void setTodayLabelColor(@ColorRes int color) {
+        mTodayLabelColor = color;
+    }
+
+    public void setMonthsNames(@ArrayRes int names) {
+        if (names != 0) {
+            mMonthsNames = getResources().getStringArray(names);
+        }
+    }
+
+    public void setDaysNames(@ArrayRes int names) {
+        mDaysNames = names;
+    }
 
     /**
      * @param onDayClickListener OnDayClickListener interface responsible for handle clicks on calendar cells

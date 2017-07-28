@@ -43,10 +43,9 @@ public class DatePicker {
         mOnSelectDateListener = onSelectDateListener;
     }
 
-    public DatePicker(Context context, OnSelectDateListener onSelectDateListener, Calendar calendar) {
-        mContext = context;
+    public DatePicker setDate(Calendar calendar) {
         mCalendar = calendar;
-        mOnSelectDateListener = onSelectDateListener;
+        return this;
     }
 
     public DatePicker setHeaderColor(@ColorRes int color) {
@@ -121,7 +120,6 @@ public class DatePicker {
         calendarView.create();
 
         FrameLayout calendarContainer = (FrameLayout) view.findViewById(R.id.calendarContainer);
-
         calendarContainer.addView(calendarView);
 
         Optional.ofNullable(mCalendar).ifPresent(calendarView::setDate);
