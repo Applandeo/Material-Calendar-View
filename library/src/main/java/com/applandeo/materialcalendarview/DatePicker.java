@@ -23,87 +23,135 @@ import java.util.Calendar;
 
 public class DatePicker {
 
-    private Context mContext;
-    private Calendar mCalendar;
-    private OnSelectDateListener mOnSelectDateListener;
-    private int mHeaderColor;
-    private int mHeaderLabelColor;
-    private int mPreviousButtonSrc;
-    private int mForwardButtonSrc;
-    private int mSelectionColor;
-    private int mTodayLabelColor;
-    private int mDialogButtonsColor;
-    private int mCancelButtonLabel;
-    private int mOkButtonLabel;
-    private int mMonthsNames;
-    private int mDaysNames;
+    private final Context mContext;
+    private final Calendar mCalendar;
+    private final OnSelectDateListener mOnSelectDateListener;
+    private final int mHeaderColor;
+    private final int mHeaderLabelColor;
+    private final int mPreviousButtonSrc;
+    private final int mForwardButtonSrc;
+    private final int mSelectionColor;
+    private final int mTodayLabelColor;
+    private final int mDialogButtonsColor;
+    private final int mCancelButtonLabel;
+    private final int mOkButtonLabel;
+    private final int mMonthsNames;
+    private final int mDaysNames;
 
-    public DatePicker(Context context, OnSelectDateListener onSelectDateListener) {
+    private DatePicker(Context context, Calendar calendar, OnSelectDateListener onSelectDateListener,
+                       int headerColor, int headerLabelColor, int previousButtonSrc, int forwardButtonSrc,
+                       int selectionColor, int todayLabelColor, int dialogButtonsColor, int cancelButtonLabel,
+                       int okButtonLabel, int monthsNames, int daysNames) {
         mContext = context;
-        mOnSelectDateListener = onSelectDateListener;
-    }
-
-    public DatePicker setDate(Calendar calendar) {
         mCalendar = calendar;
-        return this;
+        mOnSelectDateListener = onSelectDateListener;
+        mHeaderColor = headerColor;
+        mHeaderLabelColor = headerLabelColor;
+        mPreviousButtonSrc = previousButtonSrc;
+        mForwardButtonSrc = forwardButtonSrc;
+        mSelectionColor = selectionColor;
+        mTodayLabelColor = todayLabelColor;
+        mDialogButtonsColor = dialogButtonsColor;
+        mCancelButtonLabel = cancelButtonLabel;
+        mOkButtonLabel = okButtonLabel;
+        mMonthsNames = monthsNames;
+        mDaysNames = daysNames;
     }
 
-    public DatePicker setHeaderColor(@ColorRes int color) {
-        mHeaderColor = color;
-        return this;
+    public static class Builder {
+        private Context mContext;
+        private Calendar mCalendar;
+        private OnSelectDateListener mOnSelectDateListener;
+        private int mHeaderColor;
+        private int mHeaderLabelColor;
+        private int mPreviousButtonSrc;
+        private int mForwardButtonSrc;
+        private int mSelectionColor;
+        private int mTodayLabelColor;
+        private int mDialogButtonsColor;
+        private int mCancelButtonLabel;
+        private int mOkButtonLabel;
+        private int mMonthsNames;
+        private int mDaysNames;
+
+        public Builder(Context context, OnSelectDateListener onSelectDateListener) {
+            mContext = context;
+            mOnSelectDateListener = onSelectDateListener;
+        }
+
+        public Builder setDate(Calendar calendar) {
+            mCalendar = calendar;
+            return this;
+        }
+
+        public Builder setHeaderColor(@ColorRes int color) {
+            mHeaderColor = color;
+            return this;
+        }
+
+        public Builder setHeaderLabelColor(@ColorRes int color) {
+            mHeaderLabelColor = color;
+            return this;
+        }
+
+        public Builder setPreviousButtonSrc(@DrawableRes int drawable) {
+            mPreviousButtonSrc = drawable;
+            return this;
+        }
+
+        public Builder setForwardButtonSrc(@DrawableRes int drawable) {
+            mForwardButtonSrc = drawable;
+            return this;
+        }
+
+        public Builder setSelectionColor(@ColorRes int color) {
+            mSelectionColor = color;
+            return this;
+        }
+
+        public Builder setTodayLabelColor(@ColorRes int color) {
+            mTodayLabelColor = color;
+            return this;
+        }
+
+        public Builder setDialogButtonsColor(@ColorRes int color) {
+            mDialogButtonsColor = color;
+            return this;
+        }
+
+        public Builder setCancelButtonLabel(@StringRes int label) {
+            mCancelButtonLabel = label;
+            return this;
+        }
+
+        public Builder setOkButtonLabel(@StringRes int label) {
+            mOkButtonLabel = label;
+            return this;
+        }
+
+        public Builder setMonthsNames(@ArrayRes int names) {
+            mMonthsNames = names;
+            return this;
+        }
+
+        public Builder setDaysNames(@ArrayRes int names) {
+            mDaysNames = names;
+            return this;
+        }
+
+        public DatePicker show() {
+            return build().show();
+        }
+
+        public DatePicker build() {
+            return new DatePicker(mContext, mCalendar, mOnSelectDateListener, mHeaderColor,
+                    mHeaderLabelColor, mPreviousButtonSrc, mForwardButtonSrc, mSelectionColor,
+                    mTodayLabelColor, mDialogButtonsColor, mCancelButtonLabel, mOkButtonLabel,
+                    mMonthsNames, mDaysNames);
+        }
     }
 
-    public DatePicker setHeaderLabelColor(@ColorRes int color) {
-        mHeaderLabelColor = color;
-        return this;
-    }
-
-    public DatePicker setPreviousButtonSrc(@DrawableRes int drawable) {
-        mPreviousButtonSrc = drawable;
-        return this;
-    }
-
-    public DatePicker setForwardButtonSrc(@DrawableRes int drawable) {
-        mForwardButtonSrc = drawable;
-        return this;
-    }
-
-    public DatePicker setSelectionColor(@ColorRes int color) {
-        mSelectionColor = color;
-        return this;
-    }
-
-    public DatePicker setTodayLabelColor(@ColorRes int color) {
-        mTodayLabelColor = color;
-        return this;
-    }
-
-    public DatePicker setDialogButtonsColor(@ColorRes int color) {
-        mDialogButtonsColor = color;
-        return this;
-    }
-
-    public DatePicker setCancelButtonLabel(@StringRes int label) {
-        mCancelButtonLabel = label;
-        return this;
-    }
-
-    public DatePicker setOkButtonLabel(@StringRes int label) {
-        mOkButtonLabel = label;
-        return this;
-    }
-
-    public DatePicker setMonthsNames(@ArrayRes int names) {
-        mMonthsNames = names;
-        return this;
-    }
-
-    public DatePicker setDaysNames(@ArrayRes int names) {
-        mDaysNames = names;
-        return this;
-    }
-
-    public void show() {
+    public DatePicker show() {
         LayoutInflater layoutInflater = LayoutInflater.from(mContext);
         final View view = layoutInflater.inflate(R.layout.date_picker_dialog, null);
 
@@ -152,5 +200,7 @@ public class DatePicker {
         });
 
         alertdialog.show();
+
+        return this;
     }
 }

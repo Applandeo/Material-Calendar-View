@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity implements OnSelectDateListe
         Button openDatePickerDialog = (Button) findViewById(R.id.openDatePickerDialogButton);
 
         openDatePickerDialog.setOnClickListener(v -> {
-            DatePicker datePicker = new DatePicker(this, this)
+            DatePicker.Builder builder = new DatePicker.Builder(this, this)
                     .setDate(getRandomCalendar())
                     .setHeaderColor(R.color.colorPrimaryDark)
                     .setHeaderLabelColor(R.color.currentMonthDayColor)
@@ -50,6 +50,8 @@ public class MainActivity extends AppCompatActivity implements OnSelectDateListe
                     .setForwardButtonSrc(R.drawable.ic_chevron_right_black_24dp)
                     .setDaysNames(R.array.days_names_symbol_array)
                     .setMonthsNames(R.array.polish_months_array);
+
+            DatePicker datePicker = builder.build();
             datePicker.show();
         });
     }
