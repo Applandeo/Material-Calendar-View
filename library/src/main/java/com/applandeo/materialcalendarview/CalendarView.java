@@ -3,6 +3,9 @@ package com.applandeo.materialcalendarview;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
+import android.support.annotation.ArrayRes;
+import android.support.annotation.ColorRes;
+import android.support.annotation.DrawableRes;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
@@ -70,6 +73,12 @@ public class CalendarView extends LinearLayout {
     private int mSelectionColor;
     private String[] mMonthsNames;
 
+    private int mHeaderColor;
+    private int mHeaderLabelColor;
+    private int mPreviousButtonSrc;
+    private int mForwardButtonSrc;
+    private int mDaysNames;
+
     public CalendarView(Context context) {
         super(context);
         mContext = context;
@@ -96,6 +105,110 @@ public class CalendarView extends LinearLayout {
         initUiElements();
         setAttributes(attrs);
         initCalendar();
+    }
+
+    protected CalendarView create() {
+        LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        inflater.inflate(R.layout.calendar_view, this);
+
+        initUiElements();
+        initAttributes();
+        initCalendar();
+        return this;
+    }
+
+    public void datePicker(boolean isDatePicker) {
+        mIsDatePicker = isDatePicker;
+    }
+
+    public void setHeaderColor(@ColorRes int color) {
+        mHeaderColor = color;
+    }
+
+    public void setHeaderLabelColor(@ColorRes int color) {
+        mHeaderLabelColor = color;
+    }
+
+    public void setPreviousButtonSrc(@DrawableRes int drawable) {
+        mPreviousButtonSrc = drawable;
+    }
+
+    public void setForwardButtonSrc(@DrawableRes int drawable) {
+        mForwardButtonSrc = drawable;
+    }
+
+    public void setSelectionColor(@ColorRes int color) {
+        mSelectionColor = color;
+    }
+
+    public void setTodayLabelColor(@ColorRes int color) {
+        mTodayLabelColor = color;
+    }
+
+    public void setMonthsNames(@ArrayRes int names) {
+        if (names != 0) {
+            mMonthsNames = getResources().getStringArray(names);
+        }
+    }
+
+    public void setDaysNames(@ArrayRes int names) {
+        mDaysNames = names;
+    }
+
+    private void initAttributes() {
+
+        if (mIsDatePicker) {
+            mItemLayoutResource = R.layout.calendar_view_picker_day;
+        } else {
+            mItemLayoutResource = R.layout.calendar_view_day;
+        }
+
+        if (mHeaderColor != 0) {
+            ConstraintLayout mCalendarHeader = (ConstraintLayout) findViewById(R.id.calendarHeader);
+            mCalendarHeader.setBackgroundColor(ContextCompat.getColor(mContext, mHeaderColor));
+        }
+
+        if (mHeaderLabelColor != 0) {
+            mCurrentMonthLabel.setTextColor(ContextCompat.getColor(mContext, mHeaderLabelColor));
+        }
+
+        if (mPreviousButtonSrc != 0) {
+            mPreviousButton.setImageResource(mPreviousButtonSrc);
+        }
+
+        if (mForwardButtonSrc != 0) {
+            mForwardButton.setImageResource(mForwardButtonSrc);
+        }
+
+        if (mSelectionColor != 0) {
+            mSelectionColor = ContextCompat.getColor(mContext, mSelectionColor);
+        } else {
+            mSelectionColor = ContextCompat.getColor(mContext, R.color.defaultColor);
+        }
+
+        if (mTodayLabelColor != 0) {
+            mTodayLabelColor = ContextCompat.getColor(mContext, mTodayLabelColor);
+        } else {
+            mTodayLabelColor = ContextCompat.getColor(mContext, R.color.defaultColor);
+        }
+
+        if (mMonthsNames == null || mMonthsNames.length < 12) {
+            mMonthsNames = getResources().getStringArray(R.array.months_array);
+        }
+
+        if (mDaysNames != 0) {
+            String[] daysSymbols = getResources().getStringArray(mDaysNames);
+
+            if (daysSymbols.length == 7) {
+                ((TextView) findViewById(R.id.mondayLabel)).setText(daysSymbols[0]);
+                ((TextView) findViewById(R.id.tuesdayLabel)).setText(daysSymbols[1]);
+                ((TextView) findViewById(R.id.wednesdayLabel)).setText(daysSymbols[2]);
+                ((TextView) findViewById(R.id.thursdayLabel)).setText(daysSymbols[3]);
+                ((TextView) findViewById(R.id.fridayLabel)).setText(daysSymbols[4]);
+                ((TextView) findViewById(R.id.saturdayLabel)).setText(daysSymbols[5]);
+                ((TextView) findViewById(R.id.sundayLabel)).setText(daysSymbols[6]);
+            }
+        }
     }
 
     /**

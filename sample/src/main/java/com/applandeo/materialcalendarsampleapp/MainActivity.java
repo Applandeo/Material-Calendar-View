@@ -36,7 +36,18 @@ public class MainActivity extends AppCompatActivity implements OnSelectDateListe
         Button openDatePickerDialog = (Button) findViewById(R.id.openDatePickerDialogButton);
 
         openDatePickerDialog.setOnClickListener(v -> {
-            DatePicker datePicker = new DatePicker(this, this);
+            DatePicker datePicker = new DatePicker(this, this)
+                    .setHeaderColor(R.color.colorPrimaryDark)
+                    .setHeaderLabelColor(R.color.currentMonthDayColor)
+                    .setSelectionColor(R.color.daysLabelColor)
+                    .setTodayLabelColor(R.color.colorAccent)
+                    .setDialogButtonsColor(R.color.colorAccent)
+                    .setCancelButtonLabel(R.string.cancel)
+                    .setOkButtonLabel(R.string.ok)
+                    .setPreviousButtonSrc(R.drawable.ic_chevron_left_black_24dp)
+                    .setForwardButtonSrc(R.drawable.ic_chevron_right_black_24dp)
+                    .setDaysNames(R.array.days_names_symbol_array)
+                    .setMonthsNames(R.array.polish_months_array);
             datePicker.show();
         });
     }

@@ -25,4 +25,7 @@
         <item>Listopad</item>
         <item>Grudzień</item>
     </array>
+
+    <string name="ok">Blablabla</string>
+    <string name="cancel">Sratatata</string>
 </resources>

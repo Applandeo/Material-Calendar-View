@@ -5,11 +5,10 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <com.applandeo.materialcalendarview.CalendarView
-        android:id="@+id/calendarView"
+    <FrameLayout
+        android:id="@+id/calendarContainer"
         android:layout_width="match_parent"
-        android:layout_height="380dp"
-        app:datePicker="true" />
+        android:layout_height="380dp"/>
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
@@ -21,6 +20,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/ok_button"
+            android:layout_marginRight="8dp"
+            android:layout_marginEnd="8dp"
             android:textColor="@color/defaultColor"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintRight_toRightOf="parent"
