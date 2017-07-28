@@ -26,7 +26,7 @@ allprojects {
 Add the dependency to module's **build.gradle** file:
 ```
 dependencies {
-    compile 'com.applandeo:material-calendar-view:1.0.1'
+    compile 'com.applandeo:material-calendar-view:1.1.0'
 }
 ```
 
