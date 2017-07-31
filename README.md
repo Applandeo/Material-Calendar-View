@@ -1,6 +1,6 @@
 # Material-Calendar-View
 
-Material-Calendar-View is a simple and customizable calendar widget for Android based on Material Design. The widget has two funcionalities: a date picker to select dates and a classic calendar.
+Material-Calendar-View is a simple and customizable calendar widget for Android based on Material Design. The widget has two funcionalities: a date picker to select dates (available as an XML widget and a dialog) and a classic calendar.
 
 We described a simple usage of the component [in this article](http://applandeo.com/blog/material-calendar-view-customized-calendar-widget-android/).
 
@@ -87,6 +87,41 @@ If you want to use calendar in the picker mode, in your XML layout set: ```app:d
 #### Translations:
 * Array of months names: ```app:monthsNames="[array]"``` (array must contains 12 names)
 * Array of abbreviations of days of the week: ```app:daysNames="[array]"``` (array must contains 7 abbreviations)
+
+### Dialog Date Picker
+```java
+DatePicker.Builder builder = new DatePicker.Builder(this, listener);
+
+DatePicker datePicker = builder.build();
+datePicker.show();
+```
+
+#### Selecting date handlig:
+```java
+private OnSelectDateListener listener = new OnSelectDateListener() {
+    @Override
+    public void onSelect(Calendar calendar) {
+        ...
+    }
+};
+```
+
+#### Customization:
+```java
+new DatePicker.Builder(this, listener)
+        .date(Calendar.getInstance()) // Initial date as Calendar object
+        .headerColor(R.color.colorPrimaryDark) // Color of dialog header
+        .headerLabelColor(R.color.currentMonthDayColor) // Color of header label
+        .selectionColor(R.color.daysLabelColor) // Color of selection circle
+        .todayLabelColor(R.color.colorAccent) // Color of today day number
+        .dialogButtonsColor(R.color.colorAccent) // Color of "Cancel" and "OK" buttons
+        .cancelButtonLabel(R.string.cancel) // Custom text of "Cancel" button
+        .okButtonLabel(R.string.ok) // Custom text of "OK" button
+        .previousButtonSrc(R.drawable.ic_chevron_left_black_24dp) // Custom drawable of the previous arrow
+        .forwardButtonSrc(R.drawable.ic_chevron_right_black_24dp) // Custom drawable of the forward arrow
+        .daysNames(R.array.days_names_symbol_array) // Array of abbreviations of days of the week
+        .monthsNames(R.array.polish_months_array); // Array of months names
+```
 
 ## Changelog
 #### Version 1.1.0:
