@@ -96,7 +96,7 @@ DatePicker datePicker = builder.build();
 datePicker.show();
 ```
 
-#### Selecting date handlig:
+#### Getting date handling:
 ```java
 private OnSelectDateListener listener = new OnSelectDateListener() {
     @Override
