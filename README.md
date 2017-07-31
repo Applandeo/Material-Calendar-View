@@ -113,7 +113,7 @@ new DatePicker.Builder(this, listener)
         .headerColor(R.color.colorPrimaryDark) // Color of dialog header
         .headerLabelColor(R.color.currentMonthDayColor) // Color of header label
         .selectionColor(R.color.daysLabelColor) // Color of selection circle
-        .todayLabelColor(R.color.colorAccent) // Color of today day number
+        .todayLabelColor(R.color.colorAccent) // Color of today number
         .dialogButtonsColor(R.color.colorAccent) // Color of "Cancel" and "OK" buttons
         .cancelButtonLabel(R.string.cancel) // Custom text of "Cancel" button
         .okButtonLabel(R.string.ok) // Custom text of "OK" button
