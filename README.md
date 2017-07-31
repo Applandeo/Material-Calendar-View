@@ -88,7 +88,7 @@ If you want to use calendar in the picker mode, in your XML layout set: ```app:d
 * Array of months names: ```app:monthsNames="[array]"``` (array must contains 12 names)
 * Array of abbreviations of days of the week: ```app:daysNames="[array]"``` (array must contains 7 abbreviations)
 
-### Dialog Date Picker
+## Dialog Date Picker
 ```java
 DatePicker.Builder builder = new DatePicker.Builder(this, listener);
 
