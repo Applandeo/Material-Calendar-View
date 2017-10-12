@@ -62,6 +62,7 @@ public class CalendarView extends LinearLayout {
 
     private ImageButton mPreviousButton, mForwardButton;
     private TextView mCurrentMonthLabel;
+    private int mCurrentPage;
     private ViewPager mViewPager;
 
     private boolean mIsDatePicker;
@@ -301,21 +302,11 @@ public class CalendarView extends LinearLayout {
         mOnForwardButtonClickListener = onForwardButtonClickListener;
     }
 
-    private final OnClickListener onNextClickListener = v -> {
-        mViewPager.setCurrentItem(mViewPager.getCurrentItem() + 1);
+    private final OnClickListener onNextClickListener =
+            v -> mViewPager.setCurrentItem(mViewPager.getCurrentItem() + 1);
 
-        if (mOnForwardButtonClickListener != null) {
-            mOnForwardButtonClickListener.onClick();
-        }
-    };
-
-    private final OnClickListener onPreviousClickListener = v -> {
-        mViewPager.setCurrentItem(mViewPager.getCurrentItem() - 1);
-
-        if (mOnPreviousButtonClickListener != null) {
-            mOnPreviousButtonClickListener.onClick();
-        }
-    };
+    private final OnClickListener onPreviousClickListener =
+            v -> mViewPager.setCurrentItem(mViewPager.getCurrentItem() - 1);
 
     private final ViewPager.OnPageChangeListener onPageChangeListener = new ViewPager.OnPageChangeListener() {
         @Override
@@ -333,12 +324,26 @@ public class CalendarView extends LinearLayout {
             Calendar calendar = (Calendar) mCurrentDate.clone();
             calendar.add(Calendar.MONTH, position);
             mCurrentMonthLabel.setText(DateUtils.getMonthAndYearDate(mMonthsNames, calendar));
+            callNavigationListeners(position);
         }
 
         @Override
         public void onPageScrollStateChanged(int state) {
         }
     };
+
+    // This method calls navigation button listeners after swipe calendar or click arrow buttons
+    private void callNavigationListeners(int position) {
+        if (position > mCurrentPage && mOnForwardButtonClickListener != null) {
+            mOnForwardButtonClickListener.onClick();
+        }
+
+        if (position < mCurrentPage && mOnPreviousButtonClickListener != null) {
+            mOnPreviousButtonClickListener.onClick();
+        }
+
+        mCurrentPage = position;
+    }
 
 
     /**

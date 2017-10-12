@@ -7,7 +7,6 @@ import android.widget.Toast;
 
 import com.applandeo.materialcalendarview.CalendarView;
 import com.applandeo.materialcalendarview.EventDay;
-import com.applandeo.materialcalendarview.listeners.OnNavigationButtonClickListener;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -39,6 +38,10 @@ public class CalendarActivity extends AppCompatActivity {
         events.add(new EventDay(calendar2, R.drawable.sample_icon_3));
 
         CalendarView calendarView = (CalendarView) findViewById(R.id.calendarView);
+
+        calendarView.setOnPreviousButtonClickListener(() -> Toast.makeText(getApplicationContext(), "LEWO", Toast.LENGTH_LONG).show());
+
+        calendarView.setOnForwardButtonClickListener(() -> Toast.makeText(getApplicationContext(), "PRAWO", Toast.LENGTH_LONG).show());
 
         calendarView.setEvents(events);
 
