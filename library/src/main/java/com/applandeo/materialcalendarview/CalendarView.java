@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import com.applandeo.materialcalendarview.adapters.CalendarPageAdapter;
 import com.applandeo.materialcalendarview.listeners.OnDayClickListener;
+import com.applandeo.materialcalendarview.listeners.OnNavigationButtonClickListener;
 import com.applandeo.materialcalendarview.utils.DateUtils;
 
 import java.util.Calendar;
@@ -78,6 +79,8 @@ public class CalendarView extends LinearLayout {
     private int mPreviousButtonSrc;
     private int mForwardButtonSrc;
     private int mDaysNames;
+    private OnNavigationButtonClickListener mOnPreviousButtonClickListener;
+    private OnNavigationButtonClickListener mOnForwardButtonClickListener;
 
     public CalendarView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -293,11 +296,29 @@ public class CalendarView extends LinearLayout {
         mViewPager.setCurrentItem(MIDDLE_PAGE);
     }
 
-    private final OnClickListener onNextClickListener =
-            v -> mViewPager.setCurrentItem(mViewPager.getCurrentItem() + 1);
+    public void setOnPreviousButtonClickListener(OnNavigationButtonClickListener onPreviousButtonClickListener) {
+        mOnPreviousButtonClickListener = onPreviousButtonClickListener;
+    }
 
-    private final OnClickListener onPreviousClickListener =
-            v -> mViewPager.setCurrentItem(mViewPager.getCurrentItem() - 1);
+    public void setOnForwardButtonClickListener(OnNavigationButtonClickListener onForwardButtonClickListener) {
+        mOnForwardButtonClickListener = onForwardButtonClickListener;
+    }
+
+    private final OnClickListener onNextClickListener = v -> {
+        mViewPager.setCurrentItem(mViewPager.getCurrentItem() + 1);
+
+        if (mOnForwardButtonClickListener != null) {
+            mOnForwardButtonClickListener.onClick();
+        }
+    };
+
+    private final OnClickListener onPreviousClickListener = v -> {
+        mViewPager.setCurrentItem(mViewPager.getCurrentItem() - 1);
+
+        if (mOnPreviousButtonClickListener != null) {
+            mOnPreviousButtonClickListener.onClick();
+        }
+    };
 
     private final ViewPager.OnPageChangeListener onPageChangeListener = new ViewPager.OnPageChangeListener() {
         @Override
@@ -396,7 +417,7 @@ public class CalendarView extends LinearLayout {
     }
 
     //Builder class using to create CalendarView instance
-    public static class Builder {
+    static class Builder {
         private Context mContext;
         private boolean mIsDatePicker;
         private int mHeaderColor;
@@ -408,11 +429,11 @@ public class CalendarView extends LinearLayout {
         private String[] mMonthsNames;
         private int mDaysNames;
 
-        public Builder(Context context) {
+        Builder(Context context) {
             mContext = context;
         }
 
-        public CalendarView build() {
+        CalendarView build() {
             return new CalendarView(mContext, mIsDatePicker, mHeaderColor, mHeaderLabelColor,
                     mPreviousButtonSrc, mForwardButtonSrc, mSelectionColor, mTodayLabelColor,
                     mMonthsNames, mDaysNames);
@@ -466,7 +487,7 @@ public class CalendarView extends LinearLayout {
             return this;
         }
 
-        public CalendarView create() {
+        CalendarView create() {
             return build().create();
         }
     }
