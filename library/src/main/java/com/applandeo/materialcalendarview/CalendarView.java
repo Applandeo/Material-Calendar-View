@@ -3,9 +3,6 @@ package com.applandeo.materialcalendarview;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
-import android.support.annotation.ArrayRes;
-import android.support.annotation.ColorRes;
-import android.support.annotation.DrawableRes;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
@@ -17,6 +14,7 @@ import android.widget.TextView;
 
 import com.applandeo.materialcalendarview.adapters.CalendarPageAdapter;
 import com.applandeo.materialcalendarview.listeners.OnDayClickListener;
+import com.applandeo.materialcalendarview.listeners.OnNavigationButtonClickListener;
 import com.applandeo.materialcalendarview.utils.DateUtils;
 
 import java.util.Calendar;
@@ -64,6 +62,7 @@ public class CalendarView extends LinearLayout {
 
     private ImageButton mPreviousButton, mForwardButton;
     private TextView mCurrentMonthLabel;
+    private int mCurrentPage;
     private ViewPager mViewPager;
 
     private boolean mIsDatePicker;
@@ -78,6 +77,8 @@ public class CalendarView extends LinearLayout {
     private int mPreviousButtonSrc;
     private int mForwardButtonSrc;
     private int mDaysNames;
+    private OnNavigationButtonClickListener mOnPreviousButtonClickListener;
+    private OnNavigationButtonClickListener mOnForwardButtonClickListener;
 
     public CalendarView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -93,10 +94,10 @@ public class CalendarView extends LinearLayout {
         initCalendar();
     }
 
-    //private constructor to create CalendarView using CalendarView.Builder
-    private CalendarView(Context context, boolean isDatePicker, int headerColor, int headerLabelColor,
-                         int previousButtonSrc, int forwardButtonSrc, int selectionColor,
-                         int todayLabelColor, String[] monthsNames, int daysNames) {
+    //private constructor to create CalendarView using CalendarView.CalendarBuilder
+    public CalendarView(Context context, boolean isDatePicker, int headerColor, int headerLabelColor,
+                        int previousButtonSrc, int forwardButtonSrc, int selectionColor,
+                        int todayLabelColor, String[] monthsNames, int daysNames) {
         super(context);
         mContext = context;
         mIsDatePicker = isDatePicker;
@@ -119,7 +120,7 @@ public class CalendarView extends LinearLayout {
         initCalendar();
     }
 
-    private CalendarView create() {
+    public CalendarView create() {
         LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         inflater.inflate(R.layout.calendar_view, this);
 
@@ -205,7 +206,7 @@ public class CalendarView extends LinearLayout {
         }
     }
 
-    //This method set CalendarView attributes when the view is creating using Builder
+    //This method set CalendarView attributes when the view is creating using CalendarBuilder
     private void initAttributes() {
         if (mIsDatePicker) {
             mItemLayoutResource = R.layout.calendar_view_picker_day;
@@ -293,6 +294,14 @@ public class CalendarView extends LinearLayout {
         mViewPager.setCurrentItem(MIDDLE_PAGE);
     }
 
+    public void setOnPreviousButtonClickListener(OnNavigationButtonClickListener onPreviousButtonClickListener) {
+        mOnPreviousButtonClickListener = onPreviousButtonClickListener;
+    }
+
+    public void setOnForwardButtonClickListener(OnNavigationButtonClickListener onForwardButtonClickListener) {
+        mOnForwardButtonClickListener = onForwardButtonClickListener;
+    }
+
     private final OnClickListener onNextClickListener =
             v -> mViewPager.setCurrentItem(mViewPager.getCurrentItem() + 1);
 
@@ -302,7 +311,6 @@ public class CalendarView extends LinearLayout {
     private final ViewPager.OnPageChangeListener onPageChangeListener = new ViewPager.OnPageChangeListener() {
         @Override
         public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
         }
 
         /**
@@ -316,13 +324,26 @@ public class CalendarView extends LinearLayout {
             Calendar calendar = (Calendar) mCurrentDate.clone();
             calendar.add(Calendar.MONTH, position);
             mCurrentMonthLabel.setText(DateUtils.getMonthAndYearDate(mMonthsNames, calendar));
+            callNavigationListeners(position);
         }
 
         @Override
         public void onPageScrollStateChanged(int state) {
-
         }
     };
+
+    // This method calls navigation button listeners after swipe calendar or click arrow buttons
+    private void callNavigationListeners(int position) {
+        if (position > mCurrentPage && mOnForwardButtonClickListener != null) {
+            mOnForwardButtonClickListener.onClick();
+        }
+
+        if (position < mCurrentPage && mOnPreviousButtonClickListener != null) {
+            mOnPreviousButtonClickListener.onClick();
+        }
+
+        mCurrentPage = position;
+    }
 
 
     /**
@@ -393,81 +414,5 @@ public class CalendarView extends LinearLayout {
         calendar.set(Calendar.DAY_OF_MONTH, 1);
         calendar.add(Calendar.MONTH, mViewPager.getCurrentItem());
         return calendar;
-    }
-
-    //Builder class using to create CalendarView instance
-    public static class Builder {
-        private Context mContext;
-        private boolean mIsDatePicker;
-        private int mHeaderColor;
-        private int mHeaderLabelColor;
-        private int mPreviousButtonSrc;
-        private int mForwardButtonSrc;
-        private int mSelectionColor;
-        private int mTodayLabelColor;
-        private String[] mMonthsNames;
-        private int mDaysNames;
-
-        public Builder(Context context) {
-            mContext = context;
-        }
-
-        public CalendarView build() {
-            return new CalendarView(mContext, mIsDatePicker, mHeaderColor, mHeaderLabelColor,
-                    mPreviousButtonSrc, mForwardButtonSrc, mSelectionColor, mTodayLabelColor,
-                    mMonthsNames, mDaysNames);
-        }
-
-        public Builder datePicker(boolean isDatePicker) {
-            mIsDatePicker = isDatePicker;
-            return this;
-        }
-
-        public Builder headerColor(@ColorRes int color) {
-            mHeaderColor = color;
-            return this;
-        }
-
-        public Builder headerLabelColor(@ColorRes int color) {
-            mHeaderLabelColor = color;
-            return this;
-        }
-
-        public Builder previousButtonSrc(@DrawableRes int drawable) {
-            mPreviousButtonSrc = drawable;
-            return this;
-        }
-
-        public Builder forwardButtonSrc(@DrawableRes int drawable) {
-            mForwardButtonSrc = drawable;
-            return this;
-        }
-
-        public Builder selectionColor(@ColorRes int color) {
-            mSelectionColor = color;
-            return this;
-        }
-
-        public Builder todayLabelColor(@ColorRes int color) {
-            mTodayLabelColor = color;
-            return this;
-        }
-
-        public Builder monthsNames(@ArrayRes int names) {
-            if (names != 0) {
-                mMonthsNames = mContext.getResources().getStringArray(names);
-            }
-
-            return this;
-        }
-
-        public Builder daysNames(@ArrayRes int names) {
-            mDaysNames = names;
-            return this;
-        }
-
-        public CalendarView create() {
-            return build().create();
-        }
     }
 }

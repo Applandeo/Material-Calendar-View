@@ -39,6 +39,10 @@ public class CalendarActivity extends AppCompatActivity {
 
         CalendarView calendarView = (CalendarView) findViewById(R.id.calendarView);
 
+        calendarView.setOnPreviousButtonClickListener(() -> Toast.makeText(getApplicationContext(), "LEWO", Toast.LENGTH_LONG).show());
+
+        calendarView.setOnForwardButtonClickListener(() -> Toast.makeText(getApplicationContext(), "PRAWO", Toast.LENGTH_LONG).show());
+
         calendarView.setEvents(events);
 
         calendarView.setOnDayClickListener(eventDay ->
