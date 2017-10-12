@@ -27,7 +27,7 @@ allprojects {
 Add the dependency to module's **build.gradle** file:
 ```
 dependencies {
-    compile 'com.applandeo:material-calendar-view:1.1.0'
+    compile 'com.applandeo:material-calendar-view:1.1.1'
 }
 ```
 
@@ -72,6 +72,24 @@ calendar.set(2019, 7, 5);
         
 calendarView.setDate(calendar);
 ```
+
+### Previous and forward buttons listeners:
+```java
+calendarView.setOnPreviousButtonClickListener(new OnNavigationButtonClickListener() {
+    @Override
+    public void onClick() {
+        ...
+    }
+});
+
+calendarView.setOnForwardButtonClickListener(new OnNavigationButtonClickListener() {
+    @Override
+    public void onClick() {
+        ...
+    }
+});
+```
+
 
 ## Customization
 If you want to use calendar in the picker mode, in your XML layout set: ```app:datePicker="true"```
@@ -124,6 +142,9 @@ new DatePicker.Builder(this, listener)
 ```
 
 ## Changelog
+#### Version 1.1.1:
+* Added listeners for previous and forward arrow buttons
+
 #### Version 1.1.0:
 * Added build-in DatePicker dialog
 
