@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.applandeo.materialcalendarview.builders.DatePickerBuilder;
 import com.applandeo.materialcalendarview.DatePicker;
 import com.applandeo.materialcalendarview.listeners.OnSelectDateListener;
 
@@ -37,7 +38,7 @@ public class MainActivity extends AppCompatActivity implements OnSelectDateListe
         Button openDatePickerDialog = (Button) findViewById(R.id.openDatePickerDialogButton);
 
         openDatePickerDialog.setOnClickListener(v -> {
-            DatePicker.Builder builder = new DatePicker.Builder(this, this)
+            DatePickerBuilder builder = new DatePickerBuilder(this, this)
                     .date(getRandomCalendar())
                     .headerColor(R.color.colorPrimaryDark)
                     .headerLabelColor(R.color.currentMonthDayColor)
