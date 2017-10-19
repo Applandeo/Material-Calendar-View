@@ -54,8 +54,17 @@ public class DayRowClickListener implements AdapterView.OnItemClickListener {
         day.setTime((Date) adapterView.getItemAtPosition(position));
 
         // If calendar is in picker mode than day is selected
-        if (mCalendarType != CalendarView.CLASSIC) {
-            selectDay(view, day);
+        if (mCalendarType == CalendarView.ONE_DAY_PICKER) {
+            selectOneDay(view, day);
+            return;
+        }
+
+        if (mCalendarType == CalendarView.MULTIPLE_DAY_PICKER) {
+            selectMultipleDay(view, day);
+            return;
+        }
+
+        if(mCalendarType == CalendarView.RANGE_DAY_PICKER){
             return;
         }
 
@@ -66,24 +75,43 @@ public class DayRowClickListener implements AdapterView.OnItemClickListener {
         }
     }
 
-    private void selectDay(View view, Calendar day) {
+    private void selectOneDay(View view, Calendar day) {
         // Getting previous selected day
-//        SelectedDay selectedDay = mCalendarPageAdapter.getSelectedDay();
-//
-//        if (!day.equals(selectedDay.getCalendar())) {
+        SelectedDay selectedDay = mCalendarPageAdapter.getSelectedDay();
+
+        if (selectedDay != null && !day.equals(selectedDay.getCalendar())) {
+            TextView dayLabel = (TextView) view.findViewById(R.id.dayLabel);
+
+            // Checking if current month day is selecting
+            if (isCurrentMonthLabel(dayLabel)) {
+                mCalendarPageAdapter.setSelectedDate(day);
+
+                // Coloring selected day
+                DayColorsUtils.setSelectedDayColors(mContext, dayLabel, mSelectionColor);
+
+                TextView previousDayLabel =
+                        (TextView) selectedDay.getView().findViewById(R.id.dayLabel);
+
+                // Reverse selected day to previous colors
+                DayColorsUtils.setCurrentMonthDayColors(mContext, selectedDay.getCalendar(),
+                        DateUtils.getCalendar(), previousDayLabel, mTodayLabelColor);
+
+                mCalendarPageAdapter.setSelectedDay(new SelectedDay(dayLabel, day));
+            }
+        }
+    }
+
+    private void selectMultipleDay(View view, Calendar day) {
         TextView dayLabel = (TextView) view.findViewById(R.id.dayLabel);
-//
-//            // Checking if current month day is selecting
-        if (dayLabel.getCurrentTextColor() !=
-                ContextCompat.getColor(mContext, R.color.nextMonthDayColor)) {
-//
-//                mCalendarPageAdapter.setSelectedDate(day);
+
+        // Checking if current month day is selecting
+        if (isCurrentMonthLabel(dayLabel)) {
             mCalendarPageAdapter.addSelectedDate(day);
 
             SelectedDay selectedDay = new SelectedDay(dayLabel, day);
 
             if (!mCalendarPageAdapter.getSelectedDays().contains(selectedDay)) {
-//                // Coloring selected day
+                // Coloring selected day
                 DayColorsUtils.setSelectedDayColors(mContext, dayLabel, mSelectionColor);
             } else {
                 TextView previousDayLabel =
@@ -94,16 +122,12 @@ public class DayRowClickListener implements AdapterView.OnItemClickListener {
                         DateUtils.getCalendar(), previousDayLabel, mTodayLabelColor);
             }
 
-//                TextView previousDayLabel =
-//                        (TextView) selectedDay.getView().findViewById(R.id.dayLabel);
-//
-//                // Coloring previous selected day
-//                DayColorsUtils.setCurrentMonthDayColors(mContext, selectedDay.getCalendar(),
-//                        DateUtils.getCalendar(), previousDayLabel, mTodayLabelColor);
-//
-//                mCalendarPageAdapter.setSelectedDay(new SelectedDay(dayLabel, day));
             mCalendarPageAdapter.addSelectedDay(selectedDay);
         }
+    }
+
+    private boolean isCurrentMonthLabel(TextView dayLabel) {
+        return dayLabel.getCurrentTextColor() != ContextCompat.getColor(mContext, R.color.nextMonthDayColor);
     }
 
     private void onClick(Calendar day) {

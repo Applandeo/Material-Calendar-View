@@ -101,7 +101,7 @@ public class DatePicker {
 
         okButton.setOnClickListener(v -> {
             alertdialog.cancel();
-            mOnSelectDateListener.onSelect(calendarView.getSelectedDate());
+            mOnSelectDateListener.onSelect(calendarView.getFirstSelectedDate());
         });
 
         alertdialog.show();

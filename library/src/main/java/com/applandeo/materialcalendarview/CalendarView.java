@@ -35,7 +35,7 @@ import static com.applandeo.materialcalendarview.adapters.CalendarPageAdapter.CA
  * <p>
  * <p>
  * XML attributes:
- * - Set calendar as date picker: datePicker="true"
+ * - Set calendar type: type="classic or one_day_picker or multiple_day_picker or range_day_picker"
  * - Set calendar header color: headerColor="@color/[color]"
  * - Set calendar header label color: headerLabelColor="@color/[color]"
  * - Set previous button resource: previousButtonSrc="@drawable/[drawable]"
@@ -423,6 +423,13 @@ public class CalendarView extends LinearLayout {
      */
     @Deprecated
     public Calendar getSelectedDate() {
+        return getFirstSelectedDate();
+    }
+
+    /**
+     * @return Calendar object representing a selected date
+     */
+    public Calendar getFirstSelectedDate() {
         return mCalendarPageAdapter.getSelectedDates().get(0);
     }
 

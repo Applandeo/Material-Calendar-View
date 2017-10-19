@@ -127,6 +127,16 @@ public class CalendarPageAdapter extends PagerAdapter {
         return mSelectedDays;
     }
 
+
+    public SelectedDay getSelectedDay() {
+        return mSelectedDays.get(0);
+    }
+
+    public void setSelectedDay(SelectedDay selectedDay) {
+        mSelectedDays.clear();
+        mSelectedDays.add(selectedDay);
+    }
+
     /**
      * This method fill calendar GridView with days
      *
