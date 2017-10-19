@@ -372,8 +372,7 @@ public class CalendarView extends LinearLayout {
         DateUtils.setMidnight(date);
 
         mSelectedDate.setTime(date.getTime());
-//        mCalendarPageAdapter.setSelectedDate(mSelectedDate);
-        mCalendarPageAdapter.addSelectedDate(mSelectedDate);
+        mCalendarPageAdapter.setSelectedDate(mSelectedDate);
 
         mCurrentDate.setTime(date.getTime());
         mCurrentDate.add(Calendar.MONTH, -MIDDLE_PAGE);
@@ -425,7 +424,6 @@ public class CalendarView extends LinearLayout {
     @Deprecated
     public Calendar getSelectedDate() {
         return mCalendarPageAdapter.getSelectedDates().get(0);
-//        return mCalendarPageAdapter.getSelectedDate();
     }
 
     /**

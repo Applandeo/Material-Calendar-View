@@ -81,13 +81,11 @@ class CalendarDayAdapter extends ArrayAdapter<Date> {
         SelectedDay selectedDay = new SelectedDay(dayLabel, day);
 
         if (mCalendarType != CalendarView.CLASSIC
-                && mCalendarPageAdapter.getSelectedDays().contains(selectedDay)
+                && mCalendarPageAdapter.getSelectedDates().contains(day)
                 && day.get(Calendar.MONTH) == mMonth) {
 
             // Setting selected day color
-//            mCalendarPageAdapter.setSelectedDay(selectedDay);
             mCalendarPageAdapter.addSelectedDay(selectedDay);
-//            mCalendarPageAdapter.setSelectedDay(new SelectedDay(dayLabel, day));
             DayColorsUtils.setSelectedDayColors(mContext, dayLabel, mSelectionColor);
         } else {
             if (day.get(Calendar.MONTH) == mMonth) { // Setting current month day color

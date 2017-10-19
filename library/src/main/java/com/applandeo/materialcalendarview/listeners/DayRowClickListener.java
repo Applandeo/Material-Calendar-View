@@ -61,9 +61,7 @@ public class DayRowClickListener implements AdapterView.OnItemClickListener {
 
         // If calendar is not in the picker mode than onClick method is called
         if (mOnDayClickListener != null) {
-//            mCalendarPageAdapter.setSelectedDate(day);
-            mCalendarPageAdapter.addSelectedDate(day);
-
+            mCalendarPageAdapter.setSelectedDate(day);
             onClick(day);
         }
     }
