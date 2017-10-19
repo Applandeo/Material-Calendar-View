@@ -34,26 +34,26 @@ public class CalendarPageAdapter extends PagerAdapter {
 
     private Context mContext;
     private List<EventDay> mEventDays = new ArrayList<>();
-    private boolean mIsDatePicker;
+    private int mCalendarType;
     private GridView mCalendarGridView;
     private Calendar mCurrentDate;
-    private Calendar mSelectedDate;
+//    private Calendar mSelectedDate;
     private int mItemLayoutResource;
     private int mTodayLabelColor;
     private int mSelectionColor;
     private OnDayClickListener mOnDayClickListener = null;
-    private SelectedDay mSelectedDay;
+//    private SelectedDay mSelectedDay;
 
     private List<Calendar> mSelectedDates = new ArrayList<>();
     private List<SelectedDay> mSelectedDays = new ArrayList<>();
 
-    public CalendarPageAdapter(Context context, Calendar currentDate, boolean isDatePicker,
+    public CalendarPageAdapter(Context context, Calendar currentDate, int calendarType,
                                Calendar selectedDate, int itemLayoutResource, int todayLabelColor,
                                int selectionColor) {
         mContext = context;
         mCurrentDate = currentDate;
-        mIsDatePicker = isDatePicker;
-        mSelectedDate = selectedDate;
+        mCalendarType = calendarType;
+//        mSelectedDate = selectedDate;
         mItemLayoutResource = itemLayoutResource;
         mTodayLabelColor = todayLabelColor;
         mSelectionColor = selectionColor;
@@ -81,7 +81,7 @@ public class CalendarPageAdapter extends PagerAdapter {
 
         mCalendarGridView = (GridView) viewLayout.findViewById(R.id.calendarGridView);
         mCalendarGridView.setOnItemClickListener(new DayRowClickListener(this, mContext, mEventDays,
-                mOnDayClickListener, mIsDatePicker, mTodayLabelColor, mSelectionColor));
+                mOnDayClickListener, mCalendarType, mTodayLabelColor, mSelectionColor));
 
         loadMonth(position);
 
@@ -98,13 +98,13 @@ public class CalendarPageAdapter extends PagerAdapter {
         notifyDataSetChanged();
     }
 
-    public void setSelectedDate(Calendar selectedDate) {
-        mSelectedDate = selectedDate;
-    }
+//    public void setSelectedDate(Calendar selectedDate) {
+//        mSelectedDate = selectedDate;
+//    }
 
-    public Calendar getSelectedDate() {
-        return mSelectedDate;
-    }
+//    public Calendar getSelectedDate() {
+//        return mSelectedDate;
+//    }
 
     public void addSelectedDate(Calendar selectedDate) {
         if (!mSelectedDates.contains(selectedDate)) {
@@ -119,13 +119,13 @@ public class CalendarPageAdapter extends PagerAdapter {
         return mSelectedDates;
     }
 
-    public void setSelectedDay(SelectedDay selectedDay) {
-        mSelectedDay = selectedDay;
-    }
-
-    public SelectedDay getSelectedDay() {
-        return mSelectedDay;
-    }
+//    public void setSelectedDay(SelectedDay selectedDay) {
+//        mSelectedDay = selectedDay;
+//    }
+//
+//    public SelectedDay getSelectedDay() {
+//        return mSelectedDay;
+//    }
 
     public void addSelectedDay(SelectedDay selectedDay) {
         if (!mSelectedDays.contains(selectedDay)) {
@@ -177,7 +177,7 @@ public class CalendarPageAdapter extends PagerAdapter {
 
         CalendarDayAdapter calendarDayAdapter = new CalendarDayAdapter(this, mContext,
                 mItemLayoutResource, days, mEventDays, calendar.get(Calendar.MONTH) - 1,
-                mIsDatePicker, mTodayLabelColor, mSelectionColor);
+                mCalendarType, mTodayLabelColor, mSelectionColor);
 
         mCalendarGridView.setAdapter(calendarDayAdapter);
     }

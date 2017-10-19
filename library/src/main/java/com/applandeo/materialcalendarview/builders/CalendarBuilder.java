@@ -14,7 +14,7 @@ import com.applandeo.materialcalendarview.CalendarView;
 
 public class CalendarBuilder {
     private Context mContext;
-    private boolean mIsDatePicker;
+    private int mCalendarType = CalendarView.CLASSIC;
     private int mHeaderColor;
     private int mHeaderLabelColor;
     private int mPreviousButtonSrc;
@@ -29,13 +29,22 @@ public class CalendarBuilder {
     }
 
     private CalendarView build() {
-        return new CalendarView(mContext, mIsDatePicker, mHeaderColor, mHeaderLabelColor,
+        return new CalendarView(mContext, mCalendarType, mHeaderColor, mHeaderLabelColor,
                 mPreviousButtonSrc, mForwardButtonSrc, mSelectionColor, mTodayLabelColor,
                 mMonthsNames, mDaysNames);
     }
 
+    @Deprecated
     public CalendarBuilder datePicker(boolean isDatePicker) {
-        mIsDatePicker = isDatePicker;
+        if (isDatePicker) {
+            mCalendarType = CalendarView.ONE_DAY_PICKER;
+        }
+
+        return this;
+    }
+
+    public CalendarBuilder setType(int calendarType) {
+        mCalendarType = calendarType;
         return this;
     }
 

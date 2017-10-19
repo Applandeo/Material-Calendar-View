@@ -7,6 +7,7 @@ import android.widget.AdapterView;
 import android.widget.TextView;
 
 import com.annimon.stream.Stream;
+import com.applandeo.materialcalendarview.CalendarView;
 import com.applandeo.materialcalendarview.EventDay;
 import com.applandeo.materialcalendarview.R;
 import com.applandeo.materialcalendarview.adapters.CalendarPageAdapter;
@@ -30,19 +31,19 @@ public class DayRowClickListener implements AdapterView.OnItemClickListener {
     private Context mContext;
     private List<EventDay> mEventDays;
     private OnDayClickListener mOnDayClickListener;
-    private boolean mIsDatePicker;
+    private int mCalendarType;
     private int mTodayLabelColor;
     private int mSelectionColor;
 
 
     public DayRowClickListener(CalendarPageAdapter calendarPageAdapter, Context context,
                                List<EventDay> eventDays, OnDayClickListener onDayClickListener,
-                               boolean isDatePicker, int todayLabelColor, int selectionColor) {
+                               int calendarType, int todayLabelColor, int selectionColor) {
         mCalendarPageAdapter = calendarPageAdapter;
         mContext = context;
         mEventDays = eventDays;
         mOnDayClickListener = onDayClickListener;
-        mIsDatePicker = isDatePicker;
+        mCalendarType = calendarType;
         mTodayLabelColor = todayLabelColor;
         mSelectionColor = selectionColor;
     }
@@ -53,14 +54,15 @@ public class DayRowClickListener implements AdapterView.OnItemClickListener {
         day.setTime((Date) adapterView.getItemAtPosition(position));
 
         // If calendar is in picker mode than day is selected
-        if (mIsDatePicker) {
+        if (mCalendarType != CalendarView.CLASSIC) {
             selectDay(view, day);
             return;
         }
 
         // If calendar is not in the picker mode than onClick method is called
         if (mOnDayClickListener != null) {
-            mCalendarPageAdapter.setSelectedDate(day);
+//            mCalendarPageAdapter.setSelectedDate(day);
+            mCalendarPageAdapter.addSelectedDate(day);
 
             onClick(day);
         }

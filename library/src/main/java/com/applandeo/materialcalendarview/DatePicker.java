@@ -61,7 +61,7 @@ public class DatePicker {
         final View view = layoutInflater.inflate(R.layout.date_picker_dialog, null);
 
         CalendarView calendarView = new CalendarBuilder(mContext)
-                .datePicker(true)
+                .setType(CalendarView.ONE_DAY_PICKER)
                 .headerColor(mHeaderColor)
                 .headerLabelColor(mHeaderLabelColor)
                 .previousButtonSrc(mPreviousButtonSrc)

@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.annimon.stream.Stream;
+import com.applandeo.materialcalendarview.CalendarView;
 import com.applandeo.materialcalendarview.EventDay;
 import com.applandeo.materialcalendarview.R;
 import com.applandeo.materialcalendarview.utils.DateUtils;
@@ -39,12 +40,12 @@ class CalendarDayAdapter extends ArrayAdapter<Date> {
     private int mItemLayoutResource;
     private int mMonth;
     private Calendar mToday = DateUtils.getCalendar();
-    private boolean mIsDatePicker;
+    private int mCalendarType;
     private int mTodayLabelColor;
     private int mSelectionColor;
 
     CalendarDayAdapter(CalendarPageAdapter calendarPageAdapter, Context context, int itemLayoutResource,
-                       ArrayList<Date> dates, List<EventDay> eventDays, int month, boolean isDatePicker,
+                       ArrayList<Date> dates, List<EventDay> eventDays, int month, int calendarType,
                        int todayLabelColor, int selectionColor) {
         super(context, itemLayoutResource, dates);
 
@@ -54,7 +55,7 @@ class CalendarDayAdapter extends ArrayAdapter<Date> {
         mMonth = month < 0 ? 11 : month;
         mLayoutInflater = LayoutInflater.from(context);
         mItemLayoutResource = itemLayoutResource;
-        mIsDatePicker = isDatePicker;
+        mCalendarType = calendarType;
         mTodayLabelColor = todayLabelColor;
         mSelectionColor = selectionColor;
     }
@@ -79,12 +80,13 @@ class CalendarDayAdapter extends ArrayAdapter<Date> {
 
         SelectedDay selectedDay = new SelectedDay(dayLabel, day);
 
-//        if (mIsDatePicker && day.equals(mCalendarPageAdapter.getSelectedDate())
-        if (mIsDatePicker && mCalendarPageAdapter.getSelectedDays().contains(selectedDay)
+        if (mCalendarType != CalendarView.CLASSIC
+                && mCalendarPageAdapter.getSelectedDays().contains(selectedDay)
                 && day.get(Calendar.MONTH) == mMonth) {
 
             // Setting selected day color
-            mCalendarPageAdapter.setSelectedDay(selectedDay);
+//            mCalendarPageAdapter.setSelectedDay(selectedDay);
+            mCalendarPageAdapter.addSelectedDay(selectedDay);
 //            mCalendarPageAdapter.setSelectedDay(new SelectedDay(dayLabel, day));
             DayColorsUtils.setSelectedDayColors(mContext, dayLabel, mSelectionColor);
         } else {
@@ -101,7 +103,7 @@ class CalendarDayAdapter extends ArrayAdapter<Date> {
     }
 
     private void loadIcon(ImageView dayIcon, Calendar day) {
-        if (mEventDays == null || mIsDatePicker) {
+        if (mEventDays == null || mCalendarType != CalendarView.CLASSIC) {
             dayIcon.setVisibility(View.GONE);
             return;
         }

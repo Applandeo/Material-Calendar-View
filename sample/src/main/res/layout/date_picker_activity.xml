@@ -11,7 +11,6 @@
         android:layout_width="0dp"
         android:layout_height="448dp"
         android:layout_marginTop="8dp"
-        app:datePicker="true"
         app:daysNames="@array/days_names_symbol_array"
         app:forwardButtonSrc="@drawable/ic_chevron_right_black_24dp"
         app:headerColor="@color/colorPrimaryDark"
@@ -23,7 +22,7 @@
         app:previousButtonSrc="@drawable/ic_chevron_left_black_24dp"
         app:selectionColor="@color/colorAccent"
         app:todayLabelColor="#cc0000"
-        app:type="range_day_picker"/>
+        app:type="one_day_picker" />
 
     <Button
         android:id="@+id/getDateButton"

@@ -67,7 +67,7 @@ public class CalendarView extends LinearLayout {
     private int mCurrentPage;
     private ViewPager mViewPager;
 
-    private boolean mIsDatePicker;
+    private int mCalendarType;
 
     private int mItemLayoutResource;
     private int mTodayLabelColor;
@@ -97,12 +97,12 @@ public class CalendarView extends LinearLayout {
     }
 
     //private constructor to create CalendarView using CalendarView.CalendarBuilder
-    public CalendarView(Context context, boolean isDatePicker, int headerColor, int headerLabelColor,
+    public CalendarView(Context context, int calendarType, int headerColor, int headerLabelColor,
                         int previousButtonSrc, int forwardButtonSrc, int selectionColor,
                         int todayLabelColor, String[] monthsNames, int daysNames) {
         super(context);
         mContext = context;
-        mIsDatePicker = isDatePicker;
+        mCalendarType = calendarType;
         mHeaderColor = headerColor;
         mHeaderLabelColor = headerLabelColor;
         mPreviousButtonSrc = previousButtonSrc;
@@ -178,15 +178,16 @@ public class CalendarView extends LinearLayout {
                 mForwardButton.setImageDrawable(forwardButtonScr);
             }
 
-            // Set picker mode
-            mIsDatePicker = typedArray.getBoolean(R.styleable.CalendarView_datePicker, false);
+            // Set calendar type
+            mCalendarType = typedArray.getInt(R.styleable.CalendarView_type, CLASSIC);
+
+            // Set picker mode !DEPRECATED!
+            if (typedArray.getBoolean(R.styleable.CalendarView_datePicker, false)) {
+                mCalendarType = ONE_DAY_PICKER;
+            }
 
             // Sets layout for date picker or normal calendar
-            if (mIsDatePicker) {
-                mItemLayoutResource = R.layout.calendar_view_picker_day;
-            } else {
-                mItemLayoutResource = R.layout.calendar_view_day;
-            }
+            setCalendarRowLayout();
 
             // Sets translations for months names
             int namesArray = typedArray.getResourceId(R.styleable.CalendarView_monthsNames, R.array.months_array);
@@ -204,20 +205,22 @@ public class CalendarView extends LinearLayout {
                 setDaysSymbols(symbolArray);
             }
 
-            int type = typedArray.getInt(R.styleable.CalendarView_type, CLASSIC);
-
         } finally {
             typedArray.recycle();
         }
     }
 
+    private void setCalendarRowLayout() {
+        if (mCalendarType == CLASSIC) {
+            mItemLayoutResource = R.layout.calendar_view_day;
+        } else {
+            mItemLayoutResource = R.layout.calendar_view_picker_day;
+        }
+    }
+
     //This method set CalendarView attributes when the view is creating using CalendarBuilder
     private void initAttributes() {
-        if (mIsDatePicker) {
-            mItemLayoutResource = R.layout.calendar_view_picker_day;
-        } else {
-            mItemLayoutResource = R.layout.calendar_view_day;
-        }
+        setCalendarRowLayout();
 
         if (mHeaderColor != 0) {
             ConstraintLayout mCalendarHeader = (ConstraintLayout) findViewById(R.id.calendarHeader);
@@ -289,7 +292,7 @@ public class CalendarView extends LinearLayout {
     }
 
     private void initCalendar() {
-        mCalendarPageAdapter = new CalendarPageAdapter(mContext, mCurrentDate, mIsDatePicker,
+        mCalendarPageAdapter = new CalendarPageAdapter(mContext, mCurrentDate, mCalendarType,
                 mSelectedDate, mItemLayoutResource, mTodayLabelColor, mSelectionColor);
 
         mViewPager.setAdapter(mCalendarPageAdapter);
@@ -369,7 +372,8 @@ public class CalendarView extends LinearLayout {
         DateUtils.setMidnight(date);
 
         mSelectedDate.setTime(date.getTime());
-        mCalendarPageAdapter.setSelectedDate(mSelectedDate);
+//        mCalendarPageAdapter.setSelectedDate(mSelectedDate);
+        mCalendarPageAdapter.addSelectedDate(mSelectedDate);
 
         mCurrentDate.setTime(date.getTime());
         mCurrentDate.add(Calendar.MONTH, -MIDDLE_PAGE);
@@ -399,7 +403,7 @@ public class CalendarView extends LinearLayout {
      * @see EventDay
      */
     public void setEvents(List<EventDay> eventDays) {
-        if (!mIsDatePicker) {
+        if (mCalendarType == CLASSIC) {
             mCalendarPageAdapter.setEvents(eventDays);
         }
     }
@@ -420,7 +424,8 @@ public class CalendarView extends LinearLayout {
      */
     @Deprecated
     public Calendar getSelectedDate() {
-        return mCalendarPageAdapter.getSelectedDate();
+        return mCalendarPageAdapter.getSelectedDates().get(0);
+//        return mCalendarPageAdapter.getSelectedDate();
     }
 
     /**
