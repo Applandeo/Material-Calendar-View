@@ -18,6 +18,7 @@ import com.applandeo.materialcalendarview.listeners.OnNavigationButtonClickListe
 import com.applandeo.materialcalendarview.utils.DateUtils;
 
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -400,8 +401,20 @@ public class CalendarView extends LinearLayout {
     }
 
     /**
+     * @return List of Calendar object representing a selected dates
+     */
+    public List<Calendar> getSelectedDates() {
+        List<Calendar> selectedDates = mCalendarPageAdapter.getSelectedDates();
+
+        Collections.sort(selectedDates);
+
+        return selectedDates;
+    }
+
+    /**
      * @return Calendar object representing a selected date
      */
+    @Deprecated
     public Calendar getSelectedDate() {
         return mCalendarPageAdapter.getSelectedDate();
     }

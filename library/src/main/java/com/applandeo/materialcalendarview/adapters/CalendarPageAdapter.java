@@ -8,9 +8,9 @@ import android.view.ViewGroup;
 import android.widget.GridView;
 
 import com.applandeo.materialcalendarview.EventDay;
-import com.applandeo.materialcalendarview.listeners.OnDayClickListener;
 import com.applandeo.materialcalendarview.R;
 import com.applandeo.materialcalendarview.listeners.DayRowClickListener;
+import com.applandeo.materialcalendarview.listeners.OnDayClickListener;
 import com.applandeo.materialcalendarview.utils.SelectedDay;
 
 import java.util.ArrayList;
@@ -38,6 +38,9 @@ public class CalendarPageAdapter extends PagerAdapter {
     private int mSelectionColor;
     private OnDayClickListener mOnDayClickListener = null;
     private SelectedDay mSelectedDay;
+
+    private List<Calendar> mSelectedDates = new ArrayList<>();
+    private List<SelectedDay> mSelectedDays = new ArrayList<>();
 
     public CalendarPageAdapter(Context context, Calendar currentDate, boolean isDatePicker,
                                Calendar selectedDate, int itemLayoutResource, int todayLabelColor,
@@ -98,6 +101,19 @@ public class CalendarPageAdapter extends PagerAdapter {
         return mSelectedDate;
     }
 
+    public void addSelectedDate(Calendar selectedDate) {
+        if (!mSelectedDates.contains(selectedDate)) {
+            mSelectedDates.add(selectedDate);
+            return;
+        }
+
+        mSelectedDates.remove(selectedDate);
+    }
+
+    public List<Calendar> getSelectedDates() {
+        return mSelectedDates;
+    }
+
     public void setSelectedDay(SelectedDay selectedDay) {
         mSelectedDay = selectedDay;
     }
@@ -106,8 +122,22 @@ public class CalendarPageAdapter extends PagerAdapter {
         return mSelectedDay;
     }
 
+    public void addSelectedDay(SelectedDay selectedDay) {
+        if (!mSelectedDays.contains(selectedDay)) {
+            mSelectedDays.add(selectedDay);
+            return;
+        }
+
+        mSelectedDays.remove(selectedDay);
+    }
+
+    public List<SelectedDay> getSelectedDays() {
+        return mSelectedDays;
+    }
+
     /**
      * This method fill calendar GridView with days
+     *
      * @param position Position of current page in ViewPager
      */
     private void loadMonth(int position) {

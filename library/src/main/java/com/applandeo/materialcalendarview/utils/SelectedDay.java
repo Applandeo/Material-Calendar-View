@@ -37,5 +37,14 @@ public class SelectedDay {
     public Calendar getCalendar() {
         return mCalendar;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof SelectedDay) {
+            return getCalendar().equals(((SelectedDay) obj).getCalendar());
+        }
+
+        return false;
+    }
 }
 

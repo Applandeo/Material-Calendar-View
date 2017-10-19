@@ -7,6 +7,8 @@ import android.widget.Toast;
 
 import com.applandeo.materialcalendarview.CalendarView;
 
+import java.util.Calendar;
+
 /**
  * Created by Mateusz Kornakiewicz on 26.05.2017.
  */
@@ -21,10 +23,14 @@ public class DatePickerActivity extends AppCompatActivity {
         CalendarView calendarView = (CalendarView) findViewById(R.id.calendarView);
 
         Button getDateButton = (Button) findViewById(R.id.getDateButton);
-        getDateButton.setOnClickListener(v ->
-                Toast.makeText(getApplicationContext(),
-                        calendarView.getSelectedDate().getTime().toString(),
-                        Toast.LENGTH_LONG).show());
+        getDateButton.setOnClickListener(v -> {
+            for (Calendar calendar : calendarView.getSelectedDates()) {
+                System.out.println(calendar.getTime().toString());
 
+                Toast.makeText(getApplicationContext(),
+                        calendar.getTime().toString(),
+                        Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }
