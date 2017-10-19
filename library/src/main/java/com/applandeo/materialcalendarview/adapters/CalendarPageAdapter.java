@@ -18,8 +18,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-import static com.applandeo.materialcalendarview.CalendarView.CALENDAR_SIZE;
-
 /**
  * This class is responsible for loading a calendar page content.
  * <p>
@@ -27,6 +25,13 @@ import static com.applandeo.materialcalendarview.CalendarView.CALENDAR_SIZE;
  */
 
 public class CalendarPageAdapter extends PagerAdapter {
+
+    /**
+     * A number of months (pages) in the calendar
+     * 2401 months means 1200 months (100 years) before and 1200 months after the current month
+     */
+    public static final int CALENDAR_SIZE = 2401;
+
     private Context mContext;
     private List<EventDay> mEventDays = new ArrayList<>();
     private boolean mIsDatePicker;

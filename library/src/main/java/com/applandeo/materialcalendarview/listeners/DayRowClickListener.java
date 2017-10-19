@@ -69,7 +69,6 @@ public class DayRowClickListener implements AdapterView.OnItemClickListener {
     private void selectDay(View view, Calendar day) {
         // Getting previous selected day
 //        SelectedDay selectedDay = mCalendarPageAdapter.getSelectedDay();
-        List<SelectedDay> selectedDays = mCalendarPageAdapter.getSelectedDays();
 //
 //        if (!day.equals(selectedDay.getCalendar())) {
         TextView dayLabel = (TextView) view.findViewById(R.id.dayLabel);
@@ -83,7 +82,7 @@ public class DayRowClickListener implements AdapterView.OnItemClickListener {
 
             SelectedDay selectedDay = new SelectedDay(dayLabel, day);
 
-            if (!selectedDays.contains(selectedDay)) {
+            if (!mCalendarPageAdapter.getSelectedDays().contains(selectedDay)) {
 //                // Coloring selected day
                 DayColorsUtils.setSelectedDayColors(mContext, dayLabel, mSelectionColor);
             } else {

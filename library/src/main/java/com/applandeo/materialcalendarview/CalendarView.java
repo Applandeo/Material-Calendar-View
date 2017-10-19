@@ -22,6 +22,8 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
+import static com.applandeo.materialcalendarview.adapters.CalendarPageAdapter.CALENDAR_SIZE;
+
 /**
  * This class represents a view, displays to user as calendar. It allows to work in date picker
  * mode or like a normal calendar. In a normal calendar mode it can displays an image under the day
@@ -46,11 +48,10 @@ import java.util.List;
 
 public class CalendarView extends LinearLayout {
 
-    /**
-     * A number of months in the calendar
-     * 2401 months mean 1200 months (100 years) before and 1200 months after the current month
-     */
-    public static final int CALENDAR_SIZE = 2401;
+    public static final int CLASSIC = 0;
+    public static final int ONE_DAY_PICKER = 1;
+    public static final int MULTIPLE_DAY_PICKER = 2;
+    public static final int RANGE_DAY_PICKER = 3;
 
     // The middle page of the calendar
     private static final int MIDDLE_PAGE = CALENDAR_SIZE / 2;
@@ -198,9 +199,12 @@ public class CalendarView extends LinearLayout {
 
             // Sets translations for day names symbols
             int symbolArray = typedArray.getResourceId(R.styleable.CalendarView_daysNames, 0);
+
             if (symbolArray != 0) {
                 setDaysSymbols(symbolArray);
             }
+
+            int type = typedArray.getInt(R.styleable.CalendarView_type, CLASSIC);
 
         } finally {
             typedArray.recycle();
