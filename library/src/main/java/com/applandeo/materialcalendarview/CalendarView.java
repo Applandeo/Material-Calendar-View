@@ -411,13 +411,9 @@ public class CalendarView extends LinearLayout {
      * @return List of Calendar object representing a selected dates
      */
     public List<Calendar> getSelectedDates() {
-        List<SelectedDay> selectedDays = mCalendarPageAdapter.getSelectedDays();
-
-        return Stream.of(selectedDays).map(SelectedDay::getCalendar).toList();
-
-//        Collections.sort(selectedDays);
-
-//        return selectedDays;
+        return Stream.of(mCalendarPageAdapter.getSelectedDays())
+                .map(SelectedDay::getCalendar)
+                .sortBy(calendar -> calendar).toList();
     }
 
     /**
@@ -432,7 +428,8 @@ public class CalendarView extends LinearLayout {
      * @return Calendar object representing a selected date
      */
     public Calendar getFirstSelectedDate() {
-        return Stream.of(mCalendarPageAdapter.getSelectedDays()).map(SelectedDay::getCalendar).findFirst().get();
+        return Stream.of(mCalendarPageAdapter.getSelectedDays())
+                .map(SelectedDay::getCalendar).findFirst().get();
     }
 
     /**
