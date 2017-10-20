@@ -70,7 +70,7 @@ public class DayRowClickListener implements AdapterView.OnItemClickListener {
 
         // If calendar is not in the picker mode than onClick method is called
         if (mOnDayClickListener != null) {
-            mCalendarPageAdapter.setSelectedDate(day);
+            mCalendarPageAdapter.setSelectedDay(new SelectedDay(view, day));
             onClick(day);
         }
     }
@@ -84,8 +84,6 @@ public class DayRowClickListener implements AdapterView.OnItemClickListener {
 
             // Checking if current month day is selecting
             if (isCurrentMonthLabel(dayLabel)) {
-                mCalendarPageAdapter.setSelectedDate(day);
-
                 // Coloring selected day
                 DayColorsUtils.setSelectedDayColors(mContext, dayLabel, mSelectionColor);
 
@@ -106,8 +104,6 @@ public class DayRowClickListener implements AdapterView.OnItemClickListener {
 
         // Checking if current month day is selecting
         if (isCurrentMonthLabel(dayLabel)) {
-            mCalendarPageAdapter.addSelectedDate(day);
-
             SelectedDay selectedDay = new SelectedDay(dayLabel, day);
 
             if (!mCalendarPageAdapter.getSelectedDays().contains(selectedDay)) {

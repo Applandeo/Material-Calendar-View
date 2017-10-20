@@ -78,14 +78,14 @@ class CalendarDayAdapter extends ArrayAdapter<Date> {
             loadIcon(dayIcon, day);
         }
 
-        SelectedDay selectedDay = new SelectedDay(dayLabel, day);
+        // Set view for SelectedDay without assigned view
+        Stream.of(mCalendarPageAdapter.getSelectedDays())
+                .filter(selectedDay -> selectedDay.getView() == null)
+                .filter(selectedDay -> selectedDay.getCalendar().equals(day))
+                .findFirst().ifPresent(selectedDay -> selectedDay.setView(dayLabel));
 
-        if (mCalendarType != CalendarView.CLASSIC
-                && mCalendarPageAdapter.getSelectedDates().contains(day)
-                && day.get(Calendar.MONTH) == mMonth) {
-
-            // Setting selected day color
-            mCalendarPageAdapter.addSelectedDay(selectedDay);
+        if (mCalendarType != CalendarView.CLASSIC && day.get(Calendar.MONTH) == mMonth
+                && mCalendarPageAdapter.getSelectedDays().contains(new SelectedDay(dayLabel, day))) {
             DayColorsUtils.setSelectedDayColors(mContext, dayLabel, mSelectionColor);
         } else {
             if (day.get(Calendar.MONTH) == mMonth) { // Setting current month day color

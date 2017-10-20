@@ -12,13 +12,14 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.annimon.stream.Stream;
 import com.applandeo.materialcalendarview.adapters.CalendarPageAdapter;
 import com.applandeo.materialcalendarview.listeners.OnDayClickListener;
 import com.applandeo.materialcalendarview.listeners.OnNavigationButtonClickListener;
 import com.applandeo.materialcalendarview.utils.DateUtils;
+import com.applandeo.materialcalendarview.utils.SelectedDay;
 
 import java.util.Calendar;
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -372,7 +373,6 @@ public class CalendarView extends LinearLayout {
         DateUtils.setMidnight(date);
 
         mSelectedDate.setTime(date.getTime());
-        mCalendarPageAdapter.setSelectedDate(mSelectedDate);
 
         mCurrentDate.setTime(date.getTime());
         mCurrentDate.add(Calendar.MONTH, -MIDDLE_PAGE);
@@ -411,11 +411,13 @@ public class CalendarView extends LinearLayout {
      * @return List of Calendar object representing a selected dates
      */
     public List<Calendar> getSelectedDates() {
-        List<Calendar> selectedDates = mCalendarPageAdapter.getSelectedDates();
+        List<SelectedDay> selectedDays = mCalendarPageAdapter.getSelectedDays();
 
-        Collections.sort(selectedDates);
+        return Stream.of(selectedDays).map(SelectedDay::getCalendar).toList();
 
-        return selectedDates;
+//        Collections.sort(selectedDays);
+
+//        return selectedDays;
     }
 
     /**
@@ -430,7 +432,7 @@ public class CalendarView extends LinearLayout {
      * @return Calendar object representing a selected date
      */
     public Calendar getFirstSelectedDate() {
-        return mCalendarPageAdapter.getSelectedDates().get(0);
+        return Stream.of(mCalendarPageAdapter.getSelectedDays()).map(SelectedDay::getCalendar).findFirst().get();
     }
 
     /**

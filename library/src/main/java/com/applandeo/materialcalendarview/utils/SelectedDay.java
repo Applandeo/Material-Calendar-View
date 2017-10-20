@@ -31,6 +31,10 @@ public class SelectedDay {
         return mView;
     }
 
+    public void setView(View view) {
+        mView = view;
+    }
+
     /**
      * @return Calendar instance representing selected cell date
      */

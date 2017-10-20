@@ -42,7 +42,6 @@ public class CalendarPageAdapter extends PagerAdapter {
     private int mSelectionColor;
     private OnDayClickListener mOnDayClickListener = null;
 
-    private List<Calendar> mSelectedDates = new ArrayList<>();
     private List<SelectedDay> mSelectedDays = new ArrayList<>();
 
     public CalendarPageAdapter(Context context, Calendar currentDate, int calendarType,
@@ -51,7 +50,7 @@ public class CalendarPageAdapter extends PagerAdapter {
         mContext = context;
         mCurrentDate = currentDate;
         mCalendarType = calendarType;
-        addSelectedDate(selectedDate);
+        addSelectedDay(new SelectedDay(null, selectedDate));
         mItemLayoutResource = itemLayoutResource;
         mTodayLabelColor = todayLabelColor;
         mSelectionColor = selectionColor;
@@ -96,24 +95,6 @@ public class CalendarPageAdapter extends PagerAdapter {
         notifyDataSetChanged();
     }
 
-    public void setSelectedDate(Calendar selectedDate) {
-        mSelectedDates.clear();
-        mSelectedDates.add(selectedDate);
-    }
-
-    public void addSelectedDate(Calendar selectedDate) {
-        if (!mSelectedDates.contains(selectedDate)) {
-            mSelectedDates.add(selectedDate);
-            return;
-        }
-
-        mSelectedDates.remove(selectedDate);
-    }
-
-    public List<Calendar> getSelectedDates() {
-        return mSelectedDates;
-    }
-
     public void addSelectedDay(SelectedDay selectedDay) {
         if (!mSelectedDays.contains(selectedDay)) {
             mSelectedDays.add(selectedDay);
@@ -126,7 +107,6 @@ public class CalendarPageAdapter extends PagerAdapter {
     public List<SelectedDay> getSelectedDays() {
         return mSelectedDays;
     }
-
 
     public SelectedDay getSelectedDay() {
         return mSelectedDays.get(0);
