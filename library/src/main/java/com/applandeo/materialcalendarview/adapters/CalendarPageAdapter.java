@@ -50,7 +50,7 @@ public class CalendarPageAdapter extends PagerAdapter {
         mContext = context;
         mCurrentDate = currentDate;
         mCalendarType = calendarType;
-        addSelectedDay(new SelectedDay(null, selectedDate));
+        addSelectedDay(new SelectedDay(selectedDate));
         mItemLayoutResource = itemLayoutResource;
         mTodayLabelColor = todayLabelColor;
         mSelectionColor = selectionColor;

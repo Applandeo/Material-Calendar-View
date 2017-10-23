@@ -78,26 +78,31 @@ class CalendarDayAdapter extends ArrayAdapter<Date> {
             loadIcon(dayIcon, day);
         }
 
-        // Set view for SelectedDay without assigned view
-        Stream.of(mCalendarPageAdapter.getSelectedDays())
-                .filter(selectedDay -> selectedDay.getView() == null)
-                .filter(selectedDay -> selectedDay.getCalendar().equals(day))
-                .findFirst().ifPresent(selectedDay -> selectedDay.setView(dayLabel));
+        if (isSelectedDay(day)) {
+            // Set view for allSelectedDays
+            Stream.of(mCalendarPageAdapter.getSelectedDays())
+                    .filter(selectedDay -> selectedDay.getCalendar().equals(day))
+                    .findFirst().ifPresent(selectedDay -> selectedDay.setView(dayLabel));
 
-        if (mCalendarType != CalendarView.CLASSIC && day.get(Calendar.MONTH) == mMonth
-                && mCalendarPageAdapter.getSelectedDays().contains(new SelectedDay(dayLabel, day))) {
             DayColorsUtils.setSelectedDayColors(mContext, dayLabel, mSelectionColor);
-        } else {
-            if (day.get(Calendar.MONTH) == mMonth) { // Setting current month day color
-                DayColorsUtils.setCurrentMonthDayColors(mContext, day, mToday, dayLabel, mTodayLabelColor);
-            } else { // Setting not current month day color
-                DayColorsUtils.setDayColors(dayLabel, ContextCompat.getColor(mContext,
-                        R.color.nextMonthDayColor), Typeface.NORMAL, R.drawable.background_transparent);
-            }
+        } else if (isCurrentMonthDay(day)) { // Setting current month day color
+            DayColorsUtils.setCurrentMonthDayColors(mContext, day, mToday, dayLabel, mTodayLabelColor);
+        } else { // Setting not current month day color
+            DayColorsUtils.setDayColors(dayLabel, ContextCompat.getColor(mContext,
+                    R.color.nextMonthDayColor), Typeface.NORMAL, R.drawable.background_transparent);
         }
 
         dayLabel.setText(String.valueOf(day.get(Calendar.DAY_OF_MONTH)));
         return view;
+    }
+
+    private boolean isSelectedDay(Calendar day) {
+        return mCalendarType != CalendarView.CLASSIC && day.get(Calendar.MONTH) == mMonth
+                && mCalendarPageAdapter.getSelectedDays().contains(new SelectedDay(day));
+    }
+
+    private boolean isCurrentMonthDay(Calendar day) {
+        return day.get(Calendar.MONTH) == mMonth;
     }
 
     private void loadIcon(ImageView dayIcon, Calendar day) {

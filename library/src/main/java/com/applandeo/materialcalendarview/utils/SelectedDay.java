@@ -15,6 +15,10 @@ public class SelectedDay {
     private View mView;
     private Calendar mCalendar;
 
+    public SelectedDay(Calendar calendar) {
+        mCalendar = calendar;
+    }
+
     /**
      * @param view     View representing selected calendar cell
      * @param calendar Calendar instance representing selected cell date
