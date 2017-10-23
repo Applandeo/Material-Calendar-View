@@ -16,7 +16,7 @@
     <attr name="type" format="enum">
         <enum name="classic" value="0"/>
         <enum name="one_day_picker" value="1"/>
-        <enum name="multiple_day_picker" value="2"/>
-        <enum name="range_day_picker" value="3"/>
+        <enum name="many_days_picker" value="2"/>
+        <enum name="range_picker" value="3"/>
     </attr>
 </resources>

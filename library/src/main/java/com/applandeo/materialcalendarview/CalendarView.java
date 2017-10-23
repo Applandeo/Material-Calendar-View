@@ -51,8 +51,8 @@ public class CalendarView extends LinearLayout {
 
     public static final int CLASSIC = 0;
     public static final int ONE_DAY_PICKER = 1;
-    public static final int MULTIPLE_DAY_PICKER = 2;
-    public static final int RANGE_DAY_PICKER = 3;
+    public static final int MANY_DAYS_PICKER = 2;
+    public static final int RANGE_PICKER = 3;
 
     // The middle page of the calendar
     private static final int MIDDLE_PAGE = CALENDAR_SIZE / 2;

@@ -58,11 +58,11 @@ public class DayRowClickListener implements AdapterView.OnItemClickListener {
                 selectOneDay(view, day);
                 break;
 
-            case CalendarView.MULTIPLE_DAY_PICKER:
-                selectMultipleDay(view, day);
+            case CalendarView.MANY_DAYS_PICKER:
+                selectManyDays(view, day);
                 break;
 
-            case CalendarView.RANGE_DAY_PICKER:
+            case CalendarView.RANGE_PICKER:
                 selectRange(view, day);
                 break;
 
@@ -85,7 +85,7 @@ public class DayRowClickListener implements AdapterView.OnItemClickListener {
         }
     }
 
-    private void selectMultipleDay(View view, Calendar day) {
+    private void selectManyDays(View view, Calendar day) {
         TextView dayLabel = (TextView) view.findViewById(R.id.dayLabel);
 
         if (isCurrentMonthLabel(dayLabel)) {
