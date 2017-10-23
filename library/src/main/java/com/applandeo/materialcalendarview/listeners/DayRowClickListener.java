@@ -71,7 +71,6 @@ public class DayRowClickListener implements AdapterView.OnItemClickListener {
                     mCalendarPageAdapter.setSelectedDay(new SelectedDay(view, day));
                     onClick(day);
                 }
-                break;
         }
     }
 
@@ -80,14 +79,9 @@ public class DayRowClickListener implements AdapterView.OnItemClickListener {
 
         TextView dayLabel = (TextView) view.findViewById(R.id.dayLabel);
 
-        if (isPreviousDaySelected(previousSelectedDay, dayLabel, day)) {
-            DayColorsUtils.setSelectedDayColors(mContext, dayLabel, mSelectionColor);
-
-            // Reverse selected day to previous colors
-            DayColorsUtils.setCurrentMonthDayColors(mContext, previousSelectedDay.getCalendar(),
-                    DateUtils.getCalendar(), (TextView) previousSelectedDay.getView(), mTodayLabelColor);
-
-            mCalendarPageAdapter.setSelectedDay(new SelectedDay(dayLabel, day));
+        if (isAnotherDaySelected(previousSelectedDay, dayLabel, day)) {
+            selectDay(dayLabel, day);
+            reverseUnselectedColor(previousSelectedDay);
         }
     }
 
@@ -100,9 +94,7 @@ public class DayRowClickListener implements AdapterView.OnItemClickListener {
             if (!mCalendarPageAdapter.getSelectedDays().contains(selectedDay)) {
                 DayColorsUtils.setSelectedDayColors(mContext, dayLabel, mSelectionColor);
             } else {
-                // Reverse selected day to previous colors
-                DayColorsUtils.setCurrentMonthDayColors(mContext, selectedDay.getCalendar(),
-                        DateUtils.getCalendar(), (TextView) selectedDay.getView(), mTodayLabelColor);
+                reverseUnselectedColor(selectedDay);
             }
 
             mCalendarPageAdapter.addSelectedDay(selectedDay);
@@ -132,11 +124,7 @@ public class DayRowClickListener implements AdapterView.OnItemClickListener {
     }
 
     private void clearAndSelectOne(TextView dayLabel, Calendar day) {
-        // Reverse selected days to previous colors
-        Stream.of(mCalendarPageAdapter.getSelectedDays()).forEach(selectedDay ->
-                DayColorsUtils.setCurrentMonthDayColors(mContext, selectedDay.getCalendar(),
-                        DateUtils.getCalendar(), (TextView) selectedDay.getView(), mTodayLabelColor));
-
+        Stream.of(mCalendarPageAdapter.getSelectedDays()).forEach(this::reverseUnselectedColor);
         selectDay(dayLabel, day);
     }
 
@@ -157,13 +145,17 @@ public class DayRowClickListener implements AdapterView.OnItemClickListener {
         mCalendarPageAdapter.setSelectedDay(new SelectedDay(dayLabel, day));
     }
 
+    private void reverseUnselectedColor(SelectedDay selectedDay) {
+        DayColorsUtils.setCurrentMonthDayColors(mContext, selectedDay.getCalendar(),
+                DateUtils.getCalendar(), (TextView) selectedDay.getView(), mTodayLabelColor);
+    }
+
     private boolean isCurrentMonthLabel(TextView dayLabel) {
         return dayLabel.getCurrentTextColor() != ContextCompat.getColor(mContext, R.color.nextMonthDayColor);
     }
 
-    private boolean isPreviousDaySelected(SelectedDay previousSelectedDay, TextView dayLabel, Calendar day) {
-        return previousSelectedDay != null && !day.equals(previousSelectedDay.getCalendar())
-                && isCurrentMonthLabel(dayLabel);
+    private boolean isAnotherDaySelected(SelectedDay selectedDay, TextView dayLabel, Calendar day) {
+        return selectedDay != null && !day.equals(selectedDay.getCalendar()) && isCurrentMonthLabel(dayLabel);
     }
 
     private void onClick(Calendar day) {
@@ -172,9 +164,11 @@ public class DayRowClickListener implements AdapterView.OnItemClickListener {
             return;
         }
 
-        Stream.of(mEventDays).filter(eventDate ->
-                eventDate.getCalendar().equals(day)).findFirst().ifPresentOrElse(
-                calendarEventDay -> mOnDayClickListener.onDayClick(calendarEventDay),
-                () -> mOnDayClickListener.onDayClick(new EventDay(day)));
+        Stream.of(mEventDays)
+                .filter(eventDate -> eventDate.getCalendar().equals(day))
+                .findFirst()
+                .ifPresentOrElse(
+                        calendarEventDay -> mOnDayClickListener.onDayClick(calendarEventDay),
+                        () -> mOnDayClickListener.onDayClick(new EventDay(day)));
     }
 }
