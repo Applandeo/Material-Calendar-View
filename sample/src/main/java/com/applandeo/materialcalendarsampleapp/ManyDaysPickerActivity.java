@@ -10,15 +10,15 @@ import com.applandeo.materialcalendarview.CalendarView;
 import java.util.Calendar;
 
 /**
- * Created by Mateusz Kornakiewicz on 26.05.2017.
+ * Created by Mateusz Kornakiewicz on 23.10.2017.
  */
 
-public class DatePickerActivity extends AppCompatActivity {
+public class ManyDaysPickerActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.date_picker_activity);
+        setContentView(R.layout.many_days_picker_activity);
 
         CalendarView calendarView = (CalendarView) findViewById(R.id.calendarView);
 

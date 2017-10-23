@@ -22,8 +22,16 @@
             android:label="Standard calendar" />
 
         <activity
-            android:name=".DatePickerActivity"
-            android:label="Date picker" />
+            android:name=".OneDayPickerActivity"
+            android:label="One day picker" />
+
+        <activity
+            android:name=".ManyDaysPickerActivity"
+            android:label="Many days picker" />
+
+        <activity
+            android:name=".RangePickerActivity"
+            android:label="Range picker" />
     </application>
 
 </manifest>
