@@ -27,6 +27,10 @@ public class DayColorsUtils {
      * @param background A resource of a background drawable
      */
     public static void setDayColors(TextView textView, int textColor, int typeface, int background) {
+        if(textView == null){
+            return;
+        }
+
         textView.setTypeface(null, typeface);
         textView.setTextColor(textColor);
         textView.setBackgroundResource(background);

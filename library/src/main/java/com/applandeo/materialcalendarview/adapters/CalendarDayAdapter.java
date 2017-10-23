@@ -79,7 +79,7 @@ class CalendarDayAdapter extends ArrayAdapter<Date> {
         }
 
         if (isSelectedDay(day)) {
-            // Set view for allSelectedDays
+            // Set view for all SelectedDays
             Stream.of(mCalendarPageAdapter.getSelectedDays())
                     .filter(selectedDay -> selectedDay.getCalendar().equals(day))
                     .findFirst().ifPresent(selectedDay -> selectedDay.setView(dayLabel));
