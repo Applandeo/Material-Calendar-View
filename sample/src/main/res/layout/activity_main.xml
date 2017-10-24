@@ -22,11 +22,25 @@
         android:text="One day picker" />
 
     <Button
+        android:id="@+id/openOneDayPickerDialogButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="One day picker (dialog)" />
+
+    <Button
         android:id="@+id/openManyDayPickerButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="Many days picker" />
+
+    <Button
+        android:id="@+id/openManyDaysPickerDialogButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Many days picker (dialog)" />
 
     <Button
         android:id="@+id/openRangePickerButton"
@@ -36,10 +50,10 @@
         android:text="Range picker" />
 
     <Button
-        android:id="@+id/openDatePickerDialogButton"
+        android:id="@+id/openRangePickerDialogButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="Date picker (dialog)" />
+        android:text="Range picker (dialog)" />
 
 </LinearLayout>

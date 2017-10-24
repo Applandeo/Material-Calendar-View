@@ -3,9 +3,9 @@ package com.applandeo.materialcalendarview;
 import android.content.Context;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.AppCompatButton;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
 import android.widget.FrameLayout;
 
 import com.annimon.stream.Optional;
@@ -22,6 +22,7 @@ import java.util.Calendar;
 
 public class DatePicker {
     private final Context mContext;
+    private final int mCalendarType;
     private final Calendar mCalendar;
     private final OnSelectDateListener mOnSelectDateListener;
     private final int mHeaderColor;
@@ -36,11 +37,12 @@ public class DatePicker {
     private final int mMonthsNames;
     private final int mDaysNames;
 
-    public DatePicker(Context context, Calendar calendar, OnSelectDateListener onSelectDateListener,
+    public DatePicker(Context context, int calendarType, Calendar calendar, OnSelectDateListener onSelectDateListener,
                       int headerColor, int headerLabelColor, int previousButtonSrc, int forwardButtonSrc,
                       int selectionColor, int todayLabelColor, int dialogButtonsColor, int cancelButtonLabel,
                       int okButtonLabel, int monthsNames, int daysNames) {
         mContext = context;
+        mCalendarType = calendarType;
         mCalendar = calendar;
         mOnSelectDateListener = onSelectDateListener;
         mHeaderColor = headerColor;
@@ -61,7 +63,7 @@ public class DatePicker {
         final View view = layoutInflater.inflate(R.layout.date_picker_dialog, null);
 
         CalendarView calendarView = new CalendarBuilder(mContext)
-                .setType(CalendarView.ONE_DAY_PICKER)
+                .setType(mCalendarType)
                 .headerColor(mHeaderColor)
                 .headerLabelColor(mHeaderLabelColor)
                 .previousButtonSrc(mPreviousButtonSrc)
@@ -77,8 +79,8 @@ public class DatePicker {
 
         Optional.ofNullable(mCalendar).ifPresent(calendarView::setDate);
 
-        Button cancelButton = (Button) view.findViewById(R.id.cancel_button);
-        Button okButton = (Button) view.findViewById(R.id.ok_button);
+        AppCompatButton cancelButton = (AppCompatButton) view.findViewById(R.id.cancel_button);
+        AppCompatButton okButton = (AppCompatButton) view.findViewById(R.id.ok_button);
 
         if (mDialogButtonsColor != 0) {
             cancelButton.setTextColor(ContextCompat.getColor(mContext, mDialogButtonsColor));

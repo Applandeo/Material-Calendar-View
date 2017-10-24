@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridView;
 
+import com.applandeo.materialcalendarview.CalendarView;
 import com.applandeo.materialcalendarview.EventDay;
 import com.applandeo.materialcalendarview.R;
 import com.applandeo.materialcalendarview.listeners.DayRowClickListener;
@@ -50,10 +51,13 @@ public class CalendarPageAdapter extends PagerAdapter {
         mContext = context;
         mCurrentDate = currentDate;
         mCalendarType = calendarType;
-        addSelectedDay(new SelectedDay(selectedDate));
         mItemLayoutResource = itemLayoutResource;
         mTodayLabelColor = todayLabelColor;
         mSelectionColor = selectionColor;
+
+        if (calendarType == CalendarView.ONE_DAY_PICKER) {
+            addSelectedDay(new SelectedDay(selectedDate));
+        }
     }
 
     @Override

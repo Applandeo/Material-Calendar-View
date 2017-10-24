@@ -6,12 +6,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.applandeo.materialcalendarview.builders.DatePickerBuilder;
+import com.applandeo.materialcalendarview.CalendarView;
 import com.applandeo.materialcalendarview.DatePicker;
+import com.applandeo.materialcalendarview.builders.DatePickerBuilder;
 import com.applandeo.materialcalendarview.listeners.OnSelectDateListener;
 
 import java.util.Calendar;
-import java.util.Random;
 
 public class MainActivity extends AppCompatActivity implements OnSelectDateListener {
 
@@ -37,39 +37,44 @@ public class MainActivity extends AppCompatActivity implements OnSelectDateListe
         Button openRangePicker = (Button) findViewById(R.id.openRangePickerButton);
         openRangePicker.setOnClickListener(v -> startActivity(new Intent(this, RangePickerActivity.class)));
 
-        Button openDatePickerDialog = (Button) findViewById(R.id.openDatePickerDialogButton);
+        DatePickerBuilder oneDayBuilder = new DatePickerBuilder(this, this)
+                .pickerType(CalendarView.ONE_DAY_PICKER)
+                .headerColor(R.color.colorPrimaryDark)
+                .headerLabelColor(R.color.currentMonthDayColor)
+                .selectionColor(R.color.daysLabelColor)
+                .todayLabelColor(R.color.colorAccent)
+                .dialogButtonsColor(R.color.colorAccent)
+                .cancelButtonLabel(R.string.cancel)
+                .okButtonLabel(R.string.ok)
+                .previousButtonSrc(R.drawable.ic_chevron_left_black_24dp)
+                .forwardButtonSrc(R.drawable.ic_chevron_right_black_24dp)
+                .daysNames(R.array.days_names_symbol_array)
+                .monthsNames(R.array.polish_months_array);
 
-        openDatePickerDialog.setOnClickListener(v -> {
-            DatePickerBuilder builder = new DatePickerBuilder(this, this)
-                    .date(getRandomCalendar())
-                    .headerColor(R.color.colorPrimaryDark)
-                    .headerLabelColor(R.color.currentMonthDayColor)
-                    .selectionColor(R.color.daysLabelColor)
-                    .todayLabelColor(R.color.colorAccent)
-                    .dialogButtonsColor(R.color.colorAccent)
-                    .cancelButtonLabel(R.string.cancel)
-                    .okButtonLabel(R.string.ok)
-                    .previousButtonSrc(R.drawable.ic_chevron_left_black_24dp)
-                    .forwardButtonSrc(R.drawable.ic_chevron_right_black_24dp)
-                    .daysNames(R.array.days_names_symbol_array)
-                    .monthsNames(R.array.polish_months_array);
+        DatePicker oneDayPicker = oneDayBuilder.build();
 
-            DatePicker datePicker = builder.build();
-            datePicker.show();
-        });
+        Button openOneDayPickerDialog = (Button) findViewById(R.id.openOneDayPickerDialogButton);
+        openOneDayPickerDialog.setOnClickListener(v -> oneDayPicker.show());
+
+        DatePickerBuilder manyDaysBuilder = new DatePickerBuilder(this, this)
+                .pickerType(CalendarView.MANY_DAYS_PICKER);
+
+        DatePicker manyDayPicker = manyDaysBuilder.build();
+
+        Button openManyDaysPickerDialog = (Button) findViewById(R.id.openManyDaysPickerDialogButton);
+        openManyDaysPickerDialog.setOnClickListener(v -> manyDayPicker.show());
+
+        DatePickerBuilder rangeBuilder = new DatePickerBuilder(this, this)
+                .pickerType(CalendarView.RANGE_PICKER);
+
+        DatePicker rangePicker = rangeBuilder.build();
+
+        Button openRangePickerDialog = (Button) findViewById(R.id.openRangePickerDialogButton);
+        openRangePickerDialog.setOnClickListener(v -> rangePicker.show());
     }
 
     @Override
     public void onSelect(Calendar calendar) {
         Toast.makeText(getApplicationContext(), calendar.getTime().toString(), Toast.LENGTH_LONG).show();
-    }
-
-    private Calendar getRandomCalendar() {
-        Random random = new Random();
-
-        Calendar calendar = Calendar.getInstance();
-        calendar.add(Calendar.MONTH, random.nextInt(99));
-
-        return calendar;
     }
 }

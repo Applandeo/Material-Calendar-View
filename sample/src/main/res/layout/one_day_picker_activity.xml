@@ -9,7 +9,7 @@
     <com.applandeo.materialcalendarview.CalendarView
         android:id="@+id/calendarView"
         android:layout_width="0dp"
-        android:layout_height="448dp"
+        android:layout_height="380dp"
         android:layout_marginTop="8dp"
         app:daysNames="@array/days_names_symbol_array"
         app:forwardButtonSrc="@drawable/ic_chevron_right_black_24dp"
