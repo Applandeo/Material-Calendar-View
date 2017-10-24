@@ -102,7 +102,13 @@ calendarView.setOnForwardButtonClickListener(new OnNavigationButtonClickListener
 
 
 ## Customization
-If you want to use calendar in the picker mode, in your XML layout set: ```app:datePicker="true"```
+If you want to use calendar in the picker mode, you have to use the following tags:
+* ```app:type="one_day_picker"```
+* ```app:type="many_days_picker"```
+* ```app:type="range_picker"```
+```diff
+-app:datePicker="true" tag is deprecated
+```
 
 #### Colors customization:
 * Header color: ```app:headerColor="[color]"```
@@ -118,20 +124,26 @@ If you want to use calendar in the picker mode, in your XML layout set: ```app:d
 
 ## Date Picker Dialog
 ```java
-DatePicker.Builder builder = new DatePicker.Builder(this, listener);
+DatePicker.Builder builder = new DatePicker.Builder(this, listener)
+                .pickerType(CalendarView.ONE_DAY_PICKER);
 
 DatePicker datePicker = builder.build();
 datePicker.show();
 ```
 
+To use another picker type replace `CalendarView.ONE_DAY_PICKER` with `CalendarView.MANY_DAYS_PICKER` or `CalendarView.RANGE_PICKER`.
+
 #### Getting date handling:
 ```java
 private OnSelectDateListener listener = new OnSelectDateListener() {
     @Override
-    public void onSelect(Calendar calendar) {
+    public void onSelect(List<Calendar> calendars) {
         ...
     }
 };
+```
+```diff
+-onSelect(Calendar calendar) has been removed
 ```
 
 #### Customization:
