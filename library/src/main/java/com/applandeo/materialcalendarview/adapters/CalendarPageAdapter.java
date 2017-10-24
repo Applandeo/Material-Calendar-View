@@ -12,6 +12,7 @@ import com.applandeo.materialcalendarview.EventDay;
 import com.applandeo.materialcalendarview.R;
 import com.applandeo.materialcalendarview.listeners.DayRowClickListener;
 import com.applandeo.materialcalendarview.listeners.OnDayClickListener;
+import com.applandeo.materialcalendarview.listeners.OnSelectionAbilityListener;
 import com.applandeo.materialcalendarview.utils.SelectedDay;
 
 import java.util.ArrayList;
@@ -43,11 +44,13 @@ public class CalendarPageAdapter extends PagerAdapter {
     private int mSelectionColor;
     private OnDayClickListener mOnDayClickListener = null;
 
+    private OnSelectionAbilityListener mOnSelectionAbilityListener;
+
     private List<SelectedDay> mSelectedDays = new ArrayList<>();
 
     public CalendarPageAdapter(Context context, Calendar currentDate, int calendarType,
                                Calendar selectedDate, int itemLayoutResource, int todayLabelColor,
-                               int selectionColor) {
+                               int selectionColor, OnSelectionAbilityListener onSelectionAbilityListener) {
         mContext = context;
         mCurrentDate = currentDate;
         mCalendarType = calendarType;
@@ -58,6 +61,8 @@ public class CalendarPageAdapter extends PagerAdapter {
         if (calendarType == CalendarView.ONE_DAY_PICKER) {
             addSelectedDay(new SelectedDay(selectedDate));
         }
+
+        mOnSelectionAbilityListener = onSelectionAbilityListener;
     }
 
     @Override
@@ -102,10 +107,12 @@ public class CalendarPageAdapter extends PagerAdapter {
     public void addSelectedDay(SelectedDay selectedDay) {
         if (!mSelectedDays.contains(selectedDay)) {
             mSelectedDays.add(selectedDay);
+            informDatePicker();
             return;
         }
 
         mSelectedDays.remove(selectedDay);
+        informDatePicker();
     }
 
     public List<SelectedDay> getSelectedDays() {
@@ -119,6 +126,16 @@ public class CalendarPageAdapter extends PagerAdapter {
     public void setSelectedDay(SelectedDay selectedDay) {
         mSelectedDays.clear();
         mSelectedDays.add(selectedDay);
+        informDatePicker();
+    }
+
+    /**
+     * This method inform DatePicker about ability to return selected days
+     */
+    private void informDatePicker() {
+        if (mOnSelectionAbilityListener != null) {
+            mOnSelectionAbilityListener.onChange(mSelectedDays.size() > 0);
+        }
     }
 
     /**

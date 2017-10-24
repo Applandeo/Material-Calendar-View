@@ -6,12 +6,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.annimon.stream.Stream;
 import com.applandeo.materialcalendarview.CalendarView;
 import com.applandeo.materialcalendarview.DatePicker;
 import com.applandeo.materialcalendarview.builders.DatePickerBuilder;
 import com.applandeo.materialcalendarview.listeners.OnSelectDateListener;
 
 import java.util.Calendar;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements OnSelectDateListener {
 
@@ -43,7 +45,7 @@ public class MainActivity extends AppCompatActivity implements OnSelectDateListe
                 .headerLabelColor(R.color.currentMonthDayColor)
                 .selectionColor(R.color.daysLabelColor)
                 .todayLabelColor(R.color.colorAccent)
-                .dialogButtonsColor(R.color.colorAccent)
+                .dialogButtonsColor(android.R.color.holo_green_dark)
                 .cancelButtonLabel(R.string.cancel)
                 .okButtonLabel(R.string.ok)
                 .previousButtonSrc(R.drawable.ic_chevron_left_black_24dp)
@@ -57,7 +59,11 @@ public class MainActivity extends AppCompatActivity implements OnSelectDateListe
         openOneDayPickerDialog.setOnClickListener(v -> oneDayPicker.show());
 
         DatePickerBuilder manyDaysBuilder = new DatePickerBuilder(this, this)
-                .pickerType(CalendarView.MANY_DAYS_PICKER);
+                .pickerType(CalendarView.MANY_DAYS_PICKER)
+                .headerColor(android.R.color.holo_green_dark)
+                .selectionColor(android.R.color.holo_green_dark)
+                .todayLabelColor(android.R.color.holo_green_dark)
+                .dialogButtonsColor(android.R.color.holo_green_dark);
 
         DatePicker manyDayPicker = manyDaysBuilder.build();
 
@@ -65,7 +71,11 @@ public class MainActivity extends AppCompatActivity implements OnSelectDateListe
         openManyDaysPickerDialog.setOnClickListener(v -> manyDayPicker.show());
 
         DatePickerBuilder rangeBuilder = new DatePickerBuilder(this, this)
-                .pickerType(CalendarView.RANGE_PICKER);
+                .pickerType(CalendarView.RANGE_PICKER)
+                .headerColor(android.R.color.holo_green_dark)
+                .selectionColor(android.R.color.holo_green_dark)
+                .todayLabelColor(android.R.color.holo_green_dark)
+                .dialogButtonsColor(android.R.color.holo_green_dark);
 
         DatePicker rangePicker = rangeBuilder.build();
 
@@ -74,7 +84,10 @@ public class MainActivity extends AppCompatActivity implements OnSelectDateListe
     }
 
     @Override
-    public void onSelect(Calendar calendar) {
-        Toast.makeText(getApplicationContext(), calendar.getTime().toString(), Toast.LENGTH_LONG).show();
+    public void onSelect(List<Calendar> calendars) {
+        Stream.of(calendars).forEach(calendar ->
+                Toast.makeText(getApplicationContext(),
+                        calendar.getTime().toString(),
+                        Toast.LENGTH_SHORT).show());
     }
 }

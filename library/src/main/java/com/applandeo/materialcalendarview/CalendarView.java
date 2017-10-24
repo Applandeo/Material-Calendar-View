@@ -16,6 +16,7 @@ import com.annimon.stream.Stream;
 import com.applandeo.materialcalendarview.adapters.CalendarPageAdapter;
 import com.applandeo.materialcalendarview.listeners.OnDayClickListener;
 import com.applandeo.materialcalendarview.listeners.OnNavigationButtonClickListener;
+import com.applandeo.materialcalendarview.listeners.OnSelectionAbilityListener;
 import com.applandeo.materialcalendarview.utils.DateUtils;
 import com.applandeo.materialcalendarview.utils.SelectedDay;
 
@@ -83,6 +84,8 @@ public class CalendarView extends LinearLayout {
     private OnNavigationButtonClickListener mOnPreviousButtonClickListener;
     private OnNavigationButtonClickListener mOnForwardButtonClickListener;
 
+    private OnSelectionAbilityListener mOnSelectionAbilityListener;
+
     public CalendarView(Context context, AttributeSet attrs) {
         super(context, attrs);
         mContext = context;
@@ -100,7 +103,8 @@ public class CalendarView extends LinearLayout {
     //private constructor to create CalendarView using CalendarView.CalendarBuilder
     public CalendarView(Context context, int calendarType, int headerColor, int headerLabelColor,
                         int previousButtonSrc, int forwardButtonSrc, int selectionColor,
-                        int todayLabelColor, String[] monthsNames, int daysNames) {
+                        int todayLabelColor, String[] monthsNames, int daysNames,
+                        OnSelectionAbilityListener onSelectionAbilityListener) {
         super(context);
         mContext = context;
         mCalendarType = calendarType;
@@ -112,6 +116,7 @@ public class CalendarView extends LinearLayout {
         mTodayLabelColor = todayLabelColor;
         mMonthsNames = monthsNames;
         mDaysNames = daysNames;
+        mOnSelectionAbilityListener = onSelectionAbilityListener;
     }
 
     private void initControl(Context context, AttributeSet attrs) {
@@ -294,7 +299,7 @@ public class CalendarView extends LinearLayout {
 
     private void initCalendar() {
         mCalendarPageAdapter = new CalendarPageAdapter(mContext, mCurrentDate, mCalendarType,
-                mSelectedDate, mItemLayoutResource, mTodayLabelColor, mSelectionColor);
+                mSelectedDate, mItemLayoutResource, mTodayLabelColor, mSelectionColor, mOnSelectionAbilityListener);
 
         mViewPager.setAdapter(mCalendarPageAdapter);
         mViewPager.addOnPageChangeListener(onPageChangeListener);
