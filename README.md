@@ -1,6 +1,6 @@
 # Material-Calendar-View
 
-Material-Calendar-View is a simple and customizable calendar widget for Android based on Material Design. The widget has two funcionalities: a date picker to select dates (available as an XML widget and a dialog) and a classic calendar.
+Material-Calendar-View is a simple and customizable calendar widget for Android based on Material Design. The widget has two funcionalities: a date picker to select dates (available as an XML widget and a dialog) and a classic calendar. The date picker can work either as a single day picker, multi days picker or range picker.
 
 We described a simple usage of the component [in this article](http://applandeo.com/blog/material-calendar-view-customized-calendar-widget-android/).
 
@@ -9,7 +9,9 @@ We described a simple usage of the component [in this article](http://applandeo.
 
 ## Features
 * Material Design
-* Date picker mode
+* Single date picker
+* Multi dates picker
+* Range picker
 * Events icons
 * Marks today
 
@@ -27,7 +29,7 @@ allprojects {
 Add the dependency to module's **build.gradle** file:
 ```
 dependencies {
-    compile 'com.applandeo:material-calendar-view:1.1.1'
+    compile 'com.applandeo:material-calendar-view:1.2.0'
 }
 ```
 
@@ -60,9 +62,17 @@ calendarView.setOnDayClickListener(new OnDayClickListener() {
 });
 ```
 
-### Getting a selected day in the picker mode:
+### Getting a selected days in the picker mode:
+If you want to get all selected days, especially if you use multi date or range picker you should use the following code:
 ```java
-Calendar selectedDayCalendar = calendarView.getSelectedDate();
+List<Calendar> selectedDates = calendarView.getSelectedDates();
+```
+...or if you want to get the first selected day, for example in case of using single date picker, you can use:
+```java
+Calendar selectedDate = calendarView.getFirstSelectedDate();
+```
+```diff
+-getSelectedDate() method is deprecated
 ```
 
 ### Setting a current date:
@@ -142,6 +152,10 @@ new DatePicker.Builder(this, listener)
 ```
 
 ## Changelog
+#### Version 1.2.0:
+* Added multi days picker
+* Added range picker
+
 #### Version 1.1.1:
 * Added listeners for previous and forward arrow buttons
 
