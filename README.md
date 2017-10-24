@@ -1,6 +1,6 @@
 # Material-Calendar-View
 
-Material-Calendar-View is a simple and customizable calendar widget for Android based on Material Design. The widget has two funcionalities: a date picker to select dates (available as an XML widget and a dialog) and a classic calendar. The date picker can work either as a single day picker, multi days picker or range picker.
+Material-Calendar-View is a simple and customizable calendar widget for Android based on Material Design. The widget has two funcionalities: a date picker to select dates (available as an XML widget and a dialog) and a classic calendar. The date picker can work either as a single day picker, many days picker or range picker.
 
 We described a simple usage of the component [in this article](http://applandeo.com/blog/material-calendar-view-customized-calendar-widget-android/).
 
@@ -10,7 +10,7 @@ We described a simple usage of the component [in this article](http://applandeo.
 ## Features
 * Material Design
 * Single date picker
-* Multi dates picker
+* Many dates picker
 * Range picker
 * Events icons
 * Marks today
@@ -165,7 +165,7 @@ new DatePicker.Builder(this, listener)
 
 ## Changelog
 #### Version 1.2.0:
-* Added multi days picker
+* Added many days picker
 * Added range picker
 
 #### Version 1.1.1:
