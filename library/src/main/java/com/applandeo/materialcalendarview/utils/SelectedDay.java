@@ -52,7 +52,7 @@ public class SelectedDay {
             return getCalendar().equals(((SelectedDay) obj).getCalendar());
         }
 
-        return false;
+        return super.equals(obj);
     }
 }
 
