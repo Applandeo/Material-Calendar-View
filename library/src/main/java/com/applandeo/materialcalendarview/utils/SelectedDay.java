@@ -15,6 +15,10 @@ public class SelectedDay {
     private View mView;
     private Calendar mCalendar;
 
+    public SelectedDay(Calendar calendar) {
+        mCalendar = calendar;
+    }
+
     /**
      * @param view     View representing selected calendar cell
      * @param calendar Calendar instance representing selected cell date
@@ -31,11 +35,24 @@ public class SelectedDay {
         return mView;
     }
 
+    public void setView(View view) {
+        mView = view;
+    }
+
     /**
      * @return Calendar instance representing selected cell date
      */
     public Calendar getCalendar() {
         return mCalendar;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof SelectedDay) {
+            return getCalendar().equals(((SelectedDay) obj).getCalendar());
+        }
+
+        return super.equals(obj);
     }
 }
 

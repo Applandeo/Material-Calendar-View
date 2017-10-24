@@ -6,6 +6,7 @@ import android.support.annotation.ColorRes;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.StringRes;
 
+import com.applandeo.materialcalendarview.CalendarView;
 import com.applandeo.materialcalendarview.DatePicker;
 import com.applandeo.materialcalendarview.listeners.OnSelectDateListener;
 
@@ -16,6 +17,7 @@ import java.util.Calendar;
  */
 public class DatePickerBuilder {
     private Context mContext;
+    private int mCalendarType = CalendarView.ONE_DAY_PICKER;
     private Calendar mCalendar;
     private OnSelectDateListener mOnSelectDateListener;
     private int mHeaderColor;
@@ -33,6 +35,11 @@ public class DatePickerBuilder {
     public DatePickerBuilder(Context context, OnSelectDateListener onSelectDateListener) {
         mContext = context;
         mOnSelectDateListener = onSelectDateListener;
+    }
+
+    public DatePickerBuilder pickerType(int calendarType) {
+        mCalendarType = calendarType;
+        return this;
     }
 
     public DatePickerBuilder date(Calendar calendar) {
@@ -100,9 +107,9 @@ public class DatePickerBuilder {
     }
 
     public DatePicker build() {
-        return new DatePicker(mContext, mCalendar, mOnSelectDateListener, mHeaderColor,
-                mHeaderLabelColor, mPreviousButtonSrc, mForwardButtonSrc, mSelectionColor,
-                mTodayLabelColor, mDialogButtonsColor, mCancelButtonLabel, mOkButtonLabel,
-                mMonthsNames, mDaysNames);
+        return new DatePicker(mContext, mCalendarType, mCalendar, mOnSelectDateListener,
+                mHeaderColor, mHeaderLabelColor, mPreviousButtonSrc, mForwardButtonSrc,
+                mSelectionColor, mTodayLabelColor, mDialogButtonsColor, mCancelButtonLabel,
+                mOkButtonLabel, mMonthsNames, mDaysNames);
     }
 }

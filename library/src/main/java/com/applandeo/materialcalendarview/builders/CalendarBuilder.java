@@ -6,6 +6,7 @@ import android.support.annotation.ColorRes;
 import android.support.annotation.DrawableRes;
 
 import com.applandeo.materialcalendarview.CalendarView;
+import com.applandeo.materialcalendarview.listeners.OnSelectionAbilityListener;
 
 /**
  * This class is using to create CalendarView instance
@@ -14,7 +15,7 @@ import com.applandeo.materialcalendarview.CalendarView;
 
 public class CalendarBuilder {
     private Context mContext;
-    private boolean mIsDatePicker;
+    private int mCalendarType = CalendarView.CLASSIC;
     private int mHeaderColor;
     private int mHeaderLabelColor;
     private int mPreviousButtonSrc;
@@ -23,19 +24,29 @@ public class CalendarBuilder {
     private int mTodayLabelColor;
     private String[] mMonthsNames;
     private int mDaysNames;
+    private OnSelectionAbilityListener mOnSelectionAbilityListener;
 
     public CalendarBuilder(Context context) {
         mContext = context;
     }
 
     private CalendarView build() {
-        return new CalendarView(mContext, mIsDatePicker, mHeaderColor, mHeaderLabelColor,
+        return new CalendarView(mContext, mCalendarType, mHeaderColor, mHeaderLabelColor,
                 mPreviousButtonSrc, mForwardButtonSrc, mSelectionColor, mTodayLabelColor,
-                mMonthsNames, mDaysNames);
+                mMonthsNames, mDaysNames, mOnSelectionAbilityListener);
     }
 
+    @Deprecated
     public CalendarBuilder datePicker(boolean isDatePicker) {
-        mIsDatePicker = isDatePicker;
+        if (isDatePicker) {
+            mCalendarType = CalendarView.ONE_DAY_PICKER;
+        }
+
+        return this;
+    }
+
+    public CalendarBuilder setType(int calendarType) {
+        mCalendarType = calendarType;
         return this;
     }
 
@@ -79,6 +90,11 @@ public class CalendarBuilder {
 
     public CalendarBuilder daysNames(@ArrayRes int names) {
         mDaysNames = names;
+        return this;
+    }
+
+    public CalendarBuilder selectionAbilityListener(OnSelectionAbilityListener onSelectionAbilityListener) {
+        mOnSelectionAbilityListener = onSelectionAbilityListener;
         return this;
     }
 

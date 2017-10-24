@@ -7,18 +7,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridView;
 
+import com.applandeo.materialcalendarview.CalendarView;
 import com.applandeo.materialcalendarview.EventDay;
-import com.applandeo.materialcalendarview.listeners.OnDayClickListener;
 import com.applandeo.materialcalendarview.R;
 import com.applandeo.materialcalendarview.listeners.DayRowClickListener;
+import com.applandeo.materialcalendarview.listeners.OnDayClickListener;
+import com.applandeo.materialcalendarview.listeners.OnSelectionAbilityListener;
 import com.applandeo.materialcalendarview.utils.SelectedDay;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-
-import static com.applandeo.materialcalendarview.CalendarView.CALENDAR_SIZE;
 
 /**
  * This class is responsible for loading a calendar page content.
@@ -27,28 +27,42 @@ import static com.applandeo.materialcalendarview.CalendarView.CALENDAR_SIZE;
  */
 
 public class CalendarPageAdapter extends PagerAdapter {
+
+    /**
+     * A number of months (pages) in the calendar
+     * 2401 months means 1200 months (100 years) before and 1200 months after the current month
+     */
+    public static final int CALENDAR_SIZE = 2401;
+
     private Context mContext;
     private List<EventDay> mEventDays = new ArrayList<>();
-    private boolean mIsDatePicker;
+    private int mCalendarType;
     private GridView mCalendarGridView;
     private Calendar mCurrentDate;
-    private Calendar mSelectedDate;
     private int mItemLayoutResource;
     private int mTodayLabelColor;
     private int mSelectionColor;
     private OnDayClickListener mOnDayClickListener = null;
-    private SelectedDay mSelectedDay;
 
-    public CalendarPageAdapter(Context context, Calendar currentDate, boolean isDatePicker,
+    private OnSelectionAbilityListener mOnSelectionAbilityListener;
+
+    private List<SelectedDay> mSelectedDays = new ArrayList<>();
+
+    public CalendarPageAdapter(Context context, Calendar currentDate, int calendarType,
                                Calendar selectedDate, int itemLayoutResource, int todayLabelColor,
-                               int selectionColor) {
+                               int selectionColor, OnSelectionAbilityListener onSelectionAbilityListener) {
         mContext = context;
         mCurrentDate = currentDate;
-        mIsDatePicker = isDatePicker;
-        mSelectedDate = selectedDate;
+        mCalendarType = calendarType;
         mItemLayoutResource = itemLayoutResource;
         mTodayLabelColor = todayLabelColor;
         mSelectionColor = selectionColor;
+
+        if (calendarType == CalendarView.ONE_DAY_PICKER) {
+            addSelectedDay(new SelectedDay(selectedDate));
+        }
+
+        mOnSelectionAbilityListener = onSelectionAbilityListener;
     }
 
     @Override
@@ -73,7 +87,7 @@ public class CalendarPageAdapter extends PagerAdapter {
 
         mCalendarGridView = (GridView) viewLayout.findViewById(R.id.calendarGridView);
         mCalendarGridView.setOnItemClickListener(new DayRowClickListener(this, mContext, mEventDays,
-                mOnDayClickListener, mIsDatePicker, mTodayLabelColor, mSelectionColor));
+                mOnDayClickListener, mCalendarType, mTodayLabelColor, mSelectionColor));
 
         loadMonth(position);
 
@@ -90,24 +104,43 @@ public class CalendarPageAdapter extends PagerAdapter {
         notifyDataSetChanged();
     }
 
-    public void setSelectedDate(Calendar selectedDate) {
-        mSelectedDate = selectedDate;
+    public void addSelectedDay(SelectedDay selectedDay) {
+        if (!mSelectedDays.contains(selectedDay)) {
+            mSelectedDays.add(selectedDay);
+            informDatePicker();
+            return;
+        }
+
+        mSelectedDays.remove(selectedDay);
+        informDatePicker();
     }
 
-    public Calendar getSelectedDate() {
-        return mSelectedDate;
-    }
-
-    public void setSelectedDay(SelectedDay selectedDay) {
-        mSelectedDay = selectedDay;
+    public List<SelectedDay> getSelectedDays() {
+        return mSelectedDays;
     }
 
     public SelectedDay getSelectedDay() {
-        return mSelectedDay;
+        return mSelectedDays.get(0);
+    }
+
+    public void setSelectedDay(SelectedDay selectedDay) {
+        mSelectedDays.clear();
+        mSelectedDays.add(selectedDay);
+        informDatePicker();
+    }
+
+    /**
+     * This method inform DatePicker about ability to return selected days
+     */
+    private void informDatePicker() {
+        if (mOnSelectionAbilityListener != null) {
+            mOnSelectionAbilityListener.onChange(mSelectedDays.size() > 0);
+        }
     }
 
     /**
      * This method fill calendar GridView with days
+     *
      * @param position Position of current page in ViewPager
      */
     private void loadMonth(int position) {
@@ -142,7 +175,7 @@ public class CalendarPageAdapter extends PagerAdapter {
 
         CalendarDayAdapter calendarDayAdapter = new CalendarDayAdapter(this, mContext,
                 mItemLayoutResource, days, mEventDays, calendar.get(Calendar.MONTH) - 1,
-                mIsDatePicker, mTodayLabelColor, mSelectionColor);
+                mCalendarType, mTodayLabelColor, mSelectionColor);
 
         mCalendarGridView.setAdapter(calendarDayAdapter);
     }

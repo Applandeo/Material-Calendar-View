@@ -4,7 +4,7 @@ apply plugin: 'me.tatarka.retrolambda'
 ext {
     PUBLISH_GROUP_ID = 'com.applandeo'
     PUBLISH_ARTIFACT_ID = 'material-calendar-view'
-    PUBLISH_VERSION = '1.1.1'
+    PUBLISH_VERSION = '1.2.0'
 }
 
 android {
