@@ -32,7 +32,7 @@ public class CalendarPageAdapter extends PagerAdapter {
      * A number of months (pages) in the calendar
      * 2401 months means 1200 months (100 years) before and 1200 months after the current month
      */
-    public static final int CALENDAR_SIZE = 24;
+    public static final int CALENDAR_SIZE = 2401;
 
     private Context mContext;
     private List<EventDay> mEventDays = new ArrayList<>();
@@ -50,8 +50,6 @@ public class CalendarPageAdapter extends PagerAdapter {
 
     private Calendar mMinimumDate;
     private Calendar mMaximumDate;
-
-    private int size = 24;
 
     public CalendarPageAdapter(Context context, Calendar currentDate, int calendarType,
                                Calendar selectedDate, int itemLayoutResource, int todayLabelColor,
@@ -75,7 +73,7 @@ public class CalendarPageAdapter extends PagerAdapter {
 
     @Override
     public int getCount() {
-        return size;
+        return CALENDAR_SIZE;
     }
 
     @Override
@@ -199,19 +197,5 @@ public class CalendarPageAdapter extends PagerAdapter {
     @Override
     public void destroyItem(ViewGroup container, int position, Object object) {
         container.removeView((View) object);
-    }
-
-    private int getMaxPageNumber(Calendar startDate, Calendar endDate) {
-        if (startDate != null && endDate != null) {
-            int diffYear = endDate.get(Calendar.YEAR) - startDate.get(Calendar.YEAR);
-            return diffYear * 12 + endDate.get(Calendar.MONTH) - startDate.get(Calendar.MONTH) + 1;
-        }
-
-        return CALENDAR_SIZE;
-    }
-
-    public void setCalendarSize(){
-        size = 3;
-        notifyDataSetChanged();
     }
 }

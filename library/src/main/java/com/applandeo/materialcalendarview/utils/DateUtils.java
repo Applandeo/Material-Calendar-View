@@ -36,6 +36,48 @@ public class DateUtils {
     }
 
     /**
+     * This method compares calendars using month and year
+     * @param firstCalendar First calendar object to compare
+     * @param secondCalendar Second calendar object to compare
+     * @return Boolean value if second calendar is before the first one
+     */
+    public static boolean isMonthBefore(Calendar firstCalendar, Calendar secondCalendar) {
+        if (firstCalendar == null) {
+            return false;
+        }
+
+        Calendar firstDay = (Calendar) firstCalendar.clone();
+        setMidnight(firstDay);
+        firstDay.set(Calendar.DAY_OF_MONTH, 1);
+        Calendar secondDay = (Calendar) secondCalendar.clone();
+        setMidnight(secondDay);
+        secondDay.set(Calendar.DAY_OF_MONTH, 1);
+
+        return secondDay.before(firstDay);
+    }
+
+    /**
+     * This method compares calendars using month and year
+     * @param firstCalendar First calendar object to compare
+     * @param secondCalendar Second calendar object to compare
+     * @return Boolean value if second calendar is after the first one
+     */
+    public static boolean isMonthAfter(Calendar firstCalendar, Calendar secondCalendar) {
+        if (firstCalendar == null) {
+            return false;
+        }
+
+        Calendar firstDay = (Calendar) firstCalendar.clone();
+        setMidnight(firstDay);
+        firstDay.set(Calendar.DAY_OF_MONTH, 1);
+        Calendar secondDay = (Calendar) secondCalendar.clone();
+        setMidnight(secondDay);
+        secondDay.set(Calendar.DAY_OF_MONTH, 1);
+
+        return secondDay.after(firstDay);
+    }
+
+    /**
      * This method returns a string containing a month's name and a year (in number).
      * It's used instead of new SimpleDateFormat("MMMM yyyy", Locale.getDefault()).format([Date]);
      * because that method returns a month's name in incorrect form in some languages (i.e. in Polish)

@@ -346,6 +346,15 @@ public class CalendarView extends LinearLayout {
             calendar.add(Calendar.MONTH, position);
             mCurrentMonthLabel.setText(DateUtils.getMonthAndYearDate(mMonthsNames, calendar));
             callNavigationListeners(position);
+
+            if (DateUtils.isMonthBefore(mMinimumDate, calendar)) {
+                mViewPager.setCurrentItem(position + 1);
+                return;
+            }
+
+            if (DateUtils.isMonthAfter(mMaximumDate, calendar)) {
+                mViewPager.setCurrentItem(position - 1);
+            }
         }
 
         @Override
@@ -455,11 +464,13 @@ public class CalendarView extends LinearLayout {
     }
 
     public void setMinimumDate(Calendar calendar) {
+        mMinimumDate = calendar;
         mCalendarPageAdapter.setMinimumDate(calendar);
         mCalendarPageAdapter.notifyDataSetChanged();
     }
 
     public void setMaximumDate(Calendar calendar) {
+        mMaximumDate = calendar;
         mCalendarPageAdapter.setMaximumDate(calendar);
         mCalendarPageAdapter.notifyDataSetChanged();
     }

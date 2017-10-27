@@ -59,8 +59,7 @@ public class MainActivity extends AppCompatActivity implements OnSelectDateListe
                 .daysNames(R.array.days_names_symbol_array)
                 .monthsNames(R.array.polish_months_array)
                 .minimumDate(min)
-                .maximumDate(max)
-                ;
+                .maximumDate(max);
 
         DatePicker oneDayPicker = oneDayBuilder.build();
 
