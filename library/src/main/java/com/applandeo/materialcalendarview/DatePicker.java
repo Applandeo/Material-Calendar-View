@@ -36,11 +36,13 @@ public class DatePicker {
     private final int mOkButtonLabel;
     private final int mMonthsNames;
     private final int mDaysNames;
+    private Calendar mMinimumDate;
+    private Calendar mMaximumDate;
 
     public DatePicker(Context context, int calendarType, Calendar calendar, OnSelectDateListener onSelectDateListener,
                       int headerColor, int headerLabelColor, int previousButtonSrc, int forwardButtonSrc,
                       int selectionColor, int todayLabelColor, int dialogButtonsColor, int cancelButtonLabel,
-                      int okButtonLabel, int monthsNames, int daysNames) {
+                      int okButtonLabel, int monthsNames, int daysNames, Calendar minimumDate, Calendar maximumDate) {
         mContext = context;
         mCalendarType = calendarType;
         mCalendar = calendar;
@@ -56,6 +58,8 @@ public class DatePicker {
         mOkButtonLabel = okButtonLabel;
         mMonthsNames = monthsNames;
         mDaysNames = daysNames;
+        mMinimumDate = minimumDate;
+        mMaximumDate = maximumDate;
     }
 
     public DatePicker show() {
@@ -78,6 +82,8 @@ public class DatePicker {
                 .todayLabelColor(mTodayLabelColor)
                 .daysNames(mDaysNames)
                 .monthsNames(mMonthsNames)
+                .minimumDate(mMinimumDate)
+                .maximumDate(mMaximumDate)
                 .selectionAbilityListener(enabled -> {
                     okButton.setEnabled(enabled);
                     setDialogButtonsColors(cancelButton, okButton);

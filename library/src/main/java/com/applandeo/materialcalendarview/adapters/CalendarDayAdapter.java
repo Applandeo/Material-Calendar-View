@@ -43,10 +43,12 @@ class CalendarDayAdapter extends ArrayAdapter<Date> {
     private int mCalendarType;
     private int mTodayLabelColor;
     private int mSelectionColor;
+    private Calendar mMinimumDate;
+    private Calendar mMaximumDate;
 
     CalendarDayAdapter(CalendarPageAdapter calendarPageAdapter, Context context, int itemLayoutResource,
                        ArrayList<Date> dates, List<EventDay> eventDays, int month, int calendarType,
-                       int todayLabelColor, int selectionColor) {
+                       int todayLabelColor, int selectionColor, Calendar minimumDate, Calendar maximumDate) {
         super(context, itemLayoutResource, dates);
 
         mCalendarPageAdapter = calendarPageAdapter;
@@ -58,6 +60,8 @@ class CalendarDayAdapter extends ArrayAdapter<Date> {
         mCalendarType = calendarType;
         mTodayLabelColor = todayLabelColor;
         mSelectionColor = selectionColor;
+        mMinimumDate = minimumDate;
+        mMaximumDate = maximumDate;
     }
 
     @NonNull
@@ -85,7 +89,7 @@ class CalendarDayAdapter extends ArrayAdapter<Date> {
                     .findFirst().ifPresent(selectedDay -> selectedDay.setView(dayLabel));
 
             DayColorsUtils.setSelectedDayColors(mContext, dayLabel, mSelectionColor);
-        } else if (isCurrentMonthDay(day)) { // Setting current month day color
+        } else if (isCurrentMonthDay(day) && isActiveDay(day)) { // Setting current month day color
             DayColorsUtils.setCurrentMonthDayColors(mContext, day, mToday, dayLabel, mTodayLabelColor);
         } else { // Setting not current month day color
             DayColorsUtils.setDayColors(dayLabel, ContextCompat.getColor(mContext,
@@ -103,6 +107,11 @@ class CalendarDayAdapter extends ArrayAdapter<Date> {
 
     private boolean isCurrentMonthDay(Calendar day) {
         return day.get(Calendar.MONTH) == mMonth;
+    }
+
+    private boolean isActiveDay(Calendar day){
+        return !((mMinimumDate != null && day.before(mMinimumDate))
+                || (mMaximumDate != null && day.after(mMaximumDate)));
     }
 
     private void loadIcon(ImageView dayIcon, Calendar day) {

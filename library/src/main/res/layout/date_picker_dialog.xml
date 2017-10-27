@@ -8,7 +8,7 @@
     <FrameLayout
         android:id="@+id/calendarContainer"
         android:layout_width="match_parent"
-        android:layout_height="360dp"/>
+        android:layout_height="366dp"/>
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"

@@ -32,7 +32,7 @@ public class CalendarPageAdapter extends PagerAdapter {
      * A number of months (pages) in the calendar
      * 2401 months means 1200 months (100 years) before and 1200 months after the current month
      */
-    public static final int CALENDAR_SIZE = 2401;
+    public static final int CALENDAR_SIZE = 24;
 
     private Context mContext;
     private List<EventDay> mEventDays = new ArrayList<>();
@@ -48,9 +48,15 @@ public class CalendarPageAdapter extends PagerAdapter {
 
     private List<SelectedDay> mSelectedDays = new ArrayList<>();
 
+    private Calendar mMinimumDate;
+    private Calendar mMaximumDate;
+
+    private int size = 24;
+
     public CalendarPageAdapter(Context context, Calendar currentDate, int calendarType,
                                Calendar selectedDate, int itemLayoutResource, int todayLabelColor,
-                               int selectionColor, OnSelectionAbilityListener onSelectionAbilityListener) {
+                               int selectionColor, OnSelectionAbilityListener onSelectionAbilityListener,
+                               Calendar minimumDate, Calendar maximumDate) {
         mContext = context;
         mCurrentDate = currentDate;
         mCalendarType = calendarType;
@@ -63,11 +69,13 @@ public class CalendarPageAdapter extends PagerAdapter {
         }
 
         mOnSelectionAbilityListener = onSelectionAbilityListener;
+        mMinimumDate = minimumDate;
+        mMaximumDate = maximumDate;
     }
 
     @Override
     public int getCount() {
-        return CALENDAR_SIZE;
+        return size;
     }
 
     @Override
@@ -129,6 +137,14 @@ public class CalendarPageAdapter extends PagerAdapter {
         informDatePicker();
     }
 
+    public void setMinimumDate(Calendar calendar){
+        mMinimumDate = calendar;
+    }
+
+    public void setMaximumDate(Calendar calendar){
+        mMaximumDate = calendar;
+    }
+
     /**
      * This method inform DatePicker about ability to return selected days
      */
@@ -175,7 +191,7 @@ public class CalendarPageAdapter extends PagerAdapter {
 
         CalendarDayAdapter calendarDayAdapter = new CalendarDayAdapter(this, mContext,
                 mItemLayoutResource, days, mEventDays, calendar.get(Calendar.MONTH) - 1,
-                mCalendarType, mTodayLabelColor, mSelectionColor);
+                mCalendarType, mTodayLabelColor, mSelectionColor, mMinimumDate, mMaximumDate);
 
         mCalendarGridView.setAdapter(calendarDayAdapter);
     }
@@ -183,5 +199,19 @@ public class CalendarPageAdapter extends PagerAdapter {
     @Override
     public void destroyItem(ViewGroup container, int position, Object object) {
         container.removeView((View) object);
+    }
+
+    private int getMaxPageNumber(Calendar startDate, Calendar endDate) {
+        if (startDate != null && endDate != null) {
+            int diffYear = endDate.get(Calendar.YEAR) - startDate.get(Calendar.YEAR);
+            return diffYear * 12 + endDate.get(Calendar.MONTH) - startDate.get(Calendar.MONTH) + 1;
+        }
+
+        return CALENDAR_SIZE;
+    }
+
+    public void setCalendarSize(){
+        size = 3;
+        notifyDataSetChanged();
     }
 }

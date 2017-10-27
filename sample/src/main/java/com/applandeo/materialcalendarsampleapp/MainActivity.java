@@ -39,6 +39,12 @@ public class MainActivity extends AppCompatActivity implements OnSelectDateListe
         Button openRangePicker = (Button) findViewById(R.id.openRangePickerButton);
         openRangePicker.setOnClickListener(v -> startActivity(new Intent(this, RangePickerActivity.class)));
 
+        Calendar min = Calendar.getInstance();
+        min.add(Calendar.DAY_OF_MONTH, -5);
+
+        Calendar max = Calendar.getInstance();
+        max.add(Calendar.DAY_OF_MONTH, 51);
+
         DatePickerBuilder oneDayBuilder = new DatePickerBuilder(this, this)
                 .pickerType(CalendarView.ONE_DAY_PICKER)
                 .headerColor(R.color.colorPrimaryDark)
@@ -51,7 +57,10 @@ public class MainActivity extends AppCompatActivity implements OnSelectDateListe
                 .previousButtonSrc(R.drawable.ic_chevron_left_black_24dp)
                 .forwardButtonSrc(R.drawable.ic_chevron_right_black_24dp)
                 .daysNames(R.array.days_names_symbol_array)
-                .monthsNames(R.array.polish_months_array);
+                .monthsNames(R.array.polish_months_array)
+                .minimumDate(min)
+                .maximumDate(max)
+                ;
 
         DatePicker oneDayPicker = oneDayBuilder.build();
 

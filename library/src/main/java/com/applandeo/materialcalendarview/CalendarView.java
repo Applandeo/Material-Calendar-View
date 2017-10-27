@@ -55,14 +55,15 @@ public class CalendarView extends LinearLayout {
     public static final int MANY_DAYS_PICKER = 2;
     public static final int RANGE_PICKER = 3;
 
-    // The middle page of the calendar
-    private static final int MIDDLE_PAGE = CALENDAR_SIZE / 2;
+    private static final int FIRST_VISIBLE_PAGE = CALENDAR_SIZE / 2;
 
     private Context mContext;
     private CalendarPageAdapter mCalendarPageAdapter;
 
     private Calendar mCurrentDate = DateUtils.getCalendar();
     private Calendar mSelectedDate = DateUtils.getCalendar();
+    private Calendar mMinimumDate;
+    private Calendar mMaximumDate;
 
     private ImageButton mPreviousButton, mForwardButton;
     private TextView mCurrentMonthLabel;
@@ -81,9 +82,9 @@ public class CalendarView extends LinearLayout {
     private int mPreviousButtonSrc;
     private int mForwardButtonSrc;
     private int mDaysNames;
+
     private OnNavigationButtonClickListener mOnPreviousButtonClickListener;
     private OnNavigationButtonClickListener mOnForwardButtonClickListener;
-
     private OnSelectionAbilityListener mOnSelectionAbilityListener;
 
     public CalendarView(Context context, AttributeSet attrs) {
@@ -104,7 +105,8 @@ public class CalendarView extends LinearLayout {
     public CalendarView(Context context, int calendarType, int headerColor, int headerLabelColor,
                         int previousButtonSrc, int forwardButtonSrc, int selectionColor,
                         int todayLabelColor, String[] monthsNames, int daysNames,
-                        OnSelectionAbilityListener onSelectionAbilityListener) {
+                        OnSelectionAbilityListener onSelectionAbilityListener,
+                        Calendar minimumDate, Calendar maximumDate) {
         super(context);
         mContext = context;
         mCalendarType = calendarType;
@@ -117,6 +119,8 @@ public class CalendarView extends LinearLayout {
         mMonthsNames = monthsNames;
         mDaysNames = daysNames;
         mOnSelectionAbilityListener = onSelectionAbilityListener;
+        mMinimumDate = minimumDate;
+        mMaximumDate = maximumDate;
     }
 
     private void initControl(Context context, AttributeSet attrs) {
@@ -284,7 +288,7 @@ public class CalendarView extends LinearLayout {
     private void initUiElements() {
         // This line subtracts a half of all calendar months to set calendar
         // in the correct position (in the middle)
-        mCurrentDate.add(Calendar.MONTH, -MIDDLE_PAGE);
+        mCurrentDate.add(Calendar.MONTH, -FIRST_VISIBLE_PAGE);
 
         mForwardButton = (ImageButton) findViewById(R.id.forwardButton);
         mForwardButton.setOnClickListener(onNextClickListener);
@@ -299,13 +303,14 @@ public class CalendarView extends LinearLayout {
 
     private void initCalendar() {
         mCalendarPageAdapter = new CalendarPageAdapter(mContext, mCurrentDate, mCalendarType,
-                mSelectedDate, mItemLayoutResource, mTodayLabelColor, mSelectionColor, mOnSelectionAbilityListener);
+                mSelectedDate, mItemLayoutResource, mTodayLabelColor, mSelectionColor, mOnSelectionAbilityListener,
+                mMinimumDate, mMaximumDate);
 
         mViewPager.setAdapter(mCalendarPageAdapter);
         mViewPager.addOnPageChangeListener(onPageChangeListener);
 
         // This line move calendar to the middle page
-        mViewPager.setCurrentItem(MIDDLE_PAGE);
+        mViewPager.setCurrentItem(FIRST_VISIBLE_PAGE);
     }
 
     public void setOnPreviousButtonClickListener(OnNavigationButtonClickListener onPreviousButtonClickListener) {
@@ -325,6 +330,8 @@ public class CalendarView extends LinearLayout {
     private final ViewPager.OnPageChangeListener onPageChangeListener = new ViewPager.OnPageChangeListener() {
         @Override
         public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+            Calendar calendar = (Calendar) mCurrentDate.clone();
+            calendar.add(Calendar.MONTH, position);
         }
 
         /**
@@ -380,10 +387,10 @@ public class CalendarView extends LinearLayout {
         mSelectedDate.setTime(date.getTime());
 
         mCurrentDate.setTime(date.getTime());
-        mCurrentDate.add(Calendar.MONTH, -MIDDLE_PAGE);
+        mCurrentDate.add(Calendar.MONTH, -FIRST_VISIBLE_PAGE);
         mCurrentMonthLabel.setText(DateUtils.getMonthAndYearDate(mMonthsNames, date));
 
-        mViewPager.setCurrentItem(MIDDLE_PAGE);
+        mViewPager.setCurrentItem(FIRST_VISIBLE_PAGE);
         mCalendarPageAdapter.notifyDataSetChanged();
     }
 
@@ -445,5 +452,15 @@ public class CalendarView extends LinearLayout {
         calendar.set(Calendar.DAY_OF_MONTH, 1);
         calendar.add(Calendar.MONTH, mViewPager.getCurrentItem());
         return calendar;
+    }
+
+    public void setMinimumDate(Calendar calendar) {
+        mCalendarPageAdapter.setMinimumDate(calendar);
+        mCalendarPageAdapter.notifyDataSetChanged();
+    }
+
+    public void setMaximumDate(Calendar calendar) {
+        mCalendarPageAdapter.setMaximumDate(calendar);
+        mCalendarPageAdapter.notifyDataSetChanged();
     }
 }

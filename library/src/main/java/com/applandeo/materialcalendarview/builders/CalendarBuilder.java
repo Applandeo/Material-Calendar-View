@@ -8,6 +8,8 @@ import android.support.annotation.DrawableRes;
 import com.applandeo.materialcalendarview.CalendarView;
 import com.applandeo.materialcalendarview.listeners.OnSelectionAbilityListener;
 
+import java.util.Calendar;
+
 /**
  * This class is using to create CalendarView instance
  * Created by Mateusz Kornakiewicz on 12.10.2017.
@@ -25,6 +27,8 @@ public class CalendarBuilder {
     private String[] mMonthsNames;
     private int mDaysNames;
     private OnSelectionAbilityListener mOnSelectionAbilityListener;
+    private Calendar mMinimumDate;
+    private Calendar mMaximumDate;
 
     public CalendarBuilder(Context context) {
         mContext = context;
@@ -33,7 +37,7 @@ public class CalendarBuilder {
     private CalendarView build() {
         return new CalendarView(mContext, mCalendarType, mHeaderColor, mHeaderLabelColor,
                 mPreviousButtonSrc, mForwardButtonSrc, mSelectionColor, mTodayLabelColor,
-                mMonthsNames, mDaysNames, mOnSelectionAbilityListener);
+                mMonthsNames, mDaysNames, mOnSelectionAbilityListener, mMinimumDate, mMaximumDate);
     }
 
     @Deprecated
@@ -90,6 +94,16 @@ public class CalendarBuilder {
 
     public CalendarBuilder daysNames(@ArrayRes int names) {
         mDaysNames = names;
+        return this;
+    }
+
+    public CalendarBuilder minimumDate(Calendar calendar) {
+        mMinimumDate = calendar;
+        return this;
+    }
+
+    public CalendarBuilder maximumDate(Calendar calendar) {
+        mMaximumDate = calendar;
         return this;
     }
 

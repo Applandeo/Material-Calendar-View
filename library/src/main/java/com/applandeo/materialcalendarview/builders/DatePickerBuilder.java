@@ -19,6 +19,8 @@ public class DatePickerBuilder {
     private Context mContext;
     private int mCalendarType = CalendarView.ONE_DAY_PICKER;
     private Calendar mCalendar;
+    private Calendar mMinimumDate;
+    private Calendar mMaximumDate;
     private OnSelectDateListener mOnSelectDateListener;
     private int mHeaderColor;
     private int mHeaderLabelColor;
@@ -102,6 +104,16 @@ public class DatePickerBuilder {
         return this;
     }
 
+    public DatePickerBuilder minimumDate(Calendar calendar) {
+        mMinimumDate = calendar;
+        return this;
+    }
+
+    public DatePickerBuilder maximumDate(Calendar calendar) {
+        mMaximumDate = calendar;
+        return this;
+    }
+
     public DatePicker show() {
         return build().show();
     }
@@ -110,6 +122,6 @@ public class DatePickerBuilder {
         return new DatePicker(mContext, mCalendarType, mCalendar, mOnSelectDateListener,
                 mHeaderColor, mHeaderLabelColor, mPreviousButtonSrc, mForwardButtonSrc,
                 mSelectionColor, mTodayLabelColor, mDialogButtonsColor, mCancelButtonLabel,
-                mOkButtonLabel, mMonthsNames, mDaysNames);
+                mOkButtonLabel, mMonthsNames, mDaysNames, mMinimumDate, mMaximumDate);
     }
 }
