@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.annimon.stream.Stream;
 import com.applandeo.materialcalendarview.adapters.CalendarPageAdapter;
+import com.applandeo.materialcalendarview.exceptions.OutOfDateRangeException;
 import com.applandeo.materialcalendarview.listeners.OnDayClickListener;
 import com.applandeo.materialcalendarview.listeners.OnNavigationButtonClickListener;
 import com.applandeo.materialcalendarview.listeners.OnSelectionAbilityListener;
@@ -390,7 +391,15 @@ public class CalendarView extends LinearLayout {
      *
      * @param date A Calendar object representing a date to which the calendar will be set
      */
-    public void setDate(Calendar date) {
+    public void setDate(Calendar date) throws OutOfDateRangeException {
+        if(mMinimumDate != null && date.before(mMinimumDate)){
+            throw new OutOfDateRangeException("SET DATE EXCEEDS THE MINIMUM DATE");
+        }
+
+        if(mMaximumDate != null && date.after(mMaximumDate)){
+            throw new OutOfDateRangeException("SET DATE EXCEEDS THE MAXIMUM DATE");
+        }
+
         DateUtils.setMidnight(date);
 
         mSelectedDate.setTime(date.getTime());
@@ -408,7 +417,7 @@ public class CalendarView extends LinearLayout {
      *
      * @param currentDate A date to which the calendar will be set
      */
-    public void setDate(Date currentDate) {
+    public void setDate(Date currentDate) throws OutOfDateRangeException {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(currentDate);
 
