@@ -345,16 +345,9 @@ public class CalendarView extends LinearLayout {
         public void onPageSelected(int position) {
             Calendar calendar = (Calendar) mCurrentDate.clone();
             calendar.add(Calendar.MONTH, position);
-            mCurrentMonthLabel.setText(DateUtils.getMonthAndYearDate(mMonthsNames, calendar));
-            callNavigationListeners(position);
 
-            if (DateUtils.isMonthBefore(mMinimumDate, calendar)) {
-                mViewPager.setCurrentItem(position + 1);
-                return;
-            }
-
-            if (DateUtils.isMonthAfter(mMaximumDate, calendar)) {
-                mViewPager.setCurrentItem(position - 1);
+            if (!isScrollingLimited(calendar, position)) {
+                setHeaderName(calendar, position);
             }
         }
 
@@ -362,6 +355,25 @@ public class CalendarView extends LinearLayout {
         public void onPageScrollStateChanged(int state) {
         }
     };
+
+    private boolean isScrollingLimited(Calendar calendar, int position) {
+        if (DateUtils.isMonthBefore(mMinimumDate, calendar)) {
+            mViewPager.setCurrentItem(position + 1);
+            return true;
+        }
+
+        if (DateUtils.isMonthAfter(mMaximumDate, calendar)) {
+            mViewPager.setCurrentItem(position - 1);
+            return true;
+        }
+
+        return false;
+    }
+
+    private void setHeaderName(Calendar calendar, int position) {
+        mCurrentMonthLabel.setText(DateUtils.getMonthAndYearDate(mMonthsNames, calendar));
+        callNavigationListeners(position);
+    }
 
     // This method calls navigation button listeners after swipe calendar or click arrow buttons
     private void callNavigationListeners(int position) {
@@ -392,11 +404,11 @@ public class CalendarView extends LinearLayout {
      * @param date A Calendar object representing a date to which the calendar will be set
      */
     public void setDate(Calendar date) throws OutOfDateRangeException {
-        if(mMinimumDate != null && date.before(mMinimumDate)){
+        if (mMinimumDate != null && date.before(mMinimumDate)) {
             throw new OutOfDateRangeException("SET DATE EXCEEDS THE MINIMUM DATE");
         }
 
-        if(mMaximumDate != null && date.after(mMaximumDate)){
+        if (mMaximumDate != null && date.after(mMaximumDate)) {
             throw new OutOfDateRangeException("SET DATE EXCEEDS THE MAXIMUM DATE");
         }
 

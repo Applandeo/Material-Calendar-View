@@ -7,6 +7,7 @@ import android.widget.Toast;
 
 import com.applandeo.materialcalendarview.CalendarView;
 import com.applandeo.materialcalendarview.EventDay;
+import com.applandeo.materialcalendarview.exceptions.OutOfDateRangeException;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -56,7 +57,17 @@ public class CalendarActivity extends AppCompatActivity {
                         Toast.LENGTH_SHORT).show());
 
         Button setDateButton = (Button) findViewById(R.id.setDateButton);
-        setDateButton.setOnClickListener(v -> calendarView.setDate(getRandomCalendar()));
+        setDateButton.setOnClickListener(v -> {
+            try {
+                calendarView.setDate(getRandomCalendar());
+            } catch (OutOfDateRangeException exception) {
+                exception.printStackTrace();
+
+                Toast.makeText(getApplicationContext(),
+                        "Date is out of range",
+                        Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
     private Calendar getRandomCalendar() {

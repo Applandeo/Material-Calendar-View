@@ -10,6 +10,7 @@ import android.widget.FrameLayout;
 
 import com.annimon.stream.Optional;
 import com.applandeo.materialcalendarview.builders.CalendarBuilder;
+import com.applandeo.materialcalendarview.exceptions.OutOfDateRangeException;
 import com.applandeo.materialcalendarview.listeners.OnSelectDateListener;
 
 import java.util.Calendar;
@@ -93,7 +94,13 @@ public class DatePicker {
         FrameLayout calendarContainer = (FrameLayout) view.findViewById(R.id.calendarContainer);
         calendarContainer.addView(calendarView);
 
-        Optional.ofNullable(mCalendar).ifPresent(calendarView::setDate);
+        Optional.ofNullable(mCalendar).ifPresent(calendar -> {
+            try {
+                calendarView.setDate(calendar);
+            } catch (OutOfDateRangeException exception) {
+                exception.printStackTrace();
+            }
+        });
 
         if (mCancelButtonLabel != 0) {
             cancelButton.setText(mCancelButtonLabel);
