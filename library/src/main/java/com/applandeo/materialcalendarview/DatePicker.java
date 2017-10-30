@@ -11,9 +11,7 @@ import android.widget.FrameLayout;
 import com.annimon.stream.Optional;
 import com.applandeo.materialcalendarview.builders.CalendarBuilder;
 import com.applandeo.materialcalendarview.exceptions.OutOfDateRangeException;
-import com.applandeo.materialcalendarview.listeners.OnSelectDateListener;
-
-import java.util.Calendar;
+import com.applandeo.materialcalendarview.utils.CalendarProperties;
 
 /**
  * This class is responsible for creating DatePicker dialog.
@@ -23,44 +21,11 @@ import java.util.Calendar;
 
 public class DatePicker {
     private final Context mContext;
-    private final int mCalendarType;
-    private final Calendar mCalendar;
-    private final OnSelectDateListener mOnSelectDateListener;
-    private final int mHeaderColor;
-    private final int mHeaderLabelColor;
-    private final int mPreviousButtonSrc;
-    private final int mForwardButtonSrc;
-    private final int mSelectionColor;
-    private final int mTodayLabelColor;
-    private final int mDialogButtonsColor;
-    private final int mCancelButtonLabel;
-    private final int mOkButtonLabel;
-    private final int mMonthsNames;
-    private final int mDaysNames;
-    private Calendar mMinimumDate;
-    private Calendar mMaximumDate;
+    private CalendarProperties mCalendarProperties;
 
-    public DatePicker(Context context, int calendarType, Calendar calendar, OnSelectDateListener onSelectDateListener,
-                      int headerColor, int headerLabelColor, int previousButtonSrc, int forwardButtonSrc,
-                      int selectionColor, int todayLabelColor, int dialogButtonsColor, int cancelButtonLabel,
-                      int okButtonLabel, int monthsNames, int daysNames, Calendar minimumDate, Calendar maximumDate) {
+    public DatePicker(Context context, CalendarProperties calendarProperties) {
         mContext = context;
-        mCalendarType = calendarType;
-        mCalendar = calendar;
-        mOnSelectDateListener = onSelectDateListener;
-        mHeaderColor = headerColor;
-        mHeaderLabelColor = headerLabelColor;
-        mPreviousButtonSrc = previousButtonSrc;
-        mForwardButtonSrc = forwardButtonSrc;
-        mSelectionColor = selectionColor;
-        mTodayLabelColor = todayLabelColor;
-        mDialogButtonsColor = dialogButtonsColor;
-        mCancelButtonLabel = cancelButtonLabel;
-        mOkButtonLabel = okButtonLabel;
-        mMonthsNames = monthsNames;
-        mDaysNames = daysNames;
-        mMinimumDate = minimumDate;
-        mMaximumDate = maximumDate;
+        mCalendarProperties = calendarProperties;
     }
 
     public DatePicker show() {
@@ -70,21 +35,21 @@ public class DatePicker {
         AppCompatButton cancelButton = (AppCompatButton) view.findViewById(R.id.cancel_button);
         AppCompatButton okButton = (AppCompatButton) view.findViewById(R.id.ok_button);
 
-        okButton.setEnabled(mCalendarType == CalendarView.ONE_DAY_PICKER);
+        okButton.setEnabled(mCalendarProperties.getCalendarType() == CalendarView.ONE_DAY_PICKER);
         setDialogButtonsColors(cancelButton, okButton);
 
         CalendarView calendarView = new CalendarBuilder(mContext)
-                .setType(mCalendarType)
-                .headerColor(mHeaderColor)
-                .headerLabelColor(mHeaderLabelColor)
-                .previousButtonSrc(mPreviousButtonSrc)
-                .forwardButtonSrc(mForwardButtonSrc)
-                .selectionColor(mSelectionColor)
-                .todayLabelColor(mTodayLabelColor)
-                .daysNames(mDaysNames)
-                .monthsNames(mMonthsNames)
-                .minimumDate(mMinimumDate)
-                .maximumDate(mMaximumDate)
+                .setType(mCalendarProperties.getCalendarType())
+                .headerColor(mCalendarProperties.getHeaderColor())
+                .headerLabelColor(mCalendarProperties.getHeaderLabelColor())
+                .previousButtonSrc(mCalendarProperties.getPreviousButtonSrc())
+                .forwardButtonSrc(mCalendarProperties.getForwardButtonSrc())
+                .selectionColor(mCalendarProperties.getSelectionColor())
+                .todayLabelColor(mCalendarProperties.getTodayLabelColor())
+                .daysNames(mCalendarProperties.getDaysNames())
+                .monthsNames(mCalendarProperties.getMonthsNames())
+                .minimumDate(mCalendarProperties.getMinimumDate())
+                .maximumDate(mCalendarProperties.getMaximumDate())
                 .selectionAbilityListener(enabled -> {
                     okButton.setEnabled(enabled);
                     setDialogButtonsColors(cancelButton, okButton);
@@ -94,7 +59,7 @@ public class DatePicker {
         FrameLayout calendarContainer = (FrameLayout) view.findViewById(R.id.calendarContainer);
         calendarContainer.addView(calendarView);
 
-        Optional.ofNullable(mCalendar).ifPresent(calendar -> {
+        Optional.ofNullable(mCalendarProperties.getCalendar()).ifPresent(calendar -> {
             try {
                 calendarView.setDate(calendar);
             } catch (OutOfDateRangeException exception) {
@@ -102,12 +67,12 @@ public class DatePicker {
             }
         });
 
-        if (mCancelButtonLabel != 0) {
-            cancelButton.setText(mCancelButtonLabel);
+        if (mCalendarProperties.getCancelButtonLabel() != 0) {
+            cancelButton.setText(mCalendarProperties.getCancelButtonLabel());
         }
 
-        if (mOkButtonLabel != 0) {
-            okButton.setText(mOkButtonLabel);
+        if (mCalendarProperties.getOkButtonLabel() != 0) {
+            okButton.setText(mCalendarProperties.getOkButtonLabel());
         }
 
         AlertDialog.Builder alertBuilder = new AlertDialog.Builder(mContext);
@@ -118,7 +83,7 @@ public class DatePicker {
 
         okButton.setOnClickListener(v -> {
             alertdialog.cancel();
-            mOnSelectDateListener.onSelect(calendarView.getSelectedDates());
+            mCalendarProperties.getOnSelectDateListener().onSelect(calendarView.getSelectedDates());
         });
 
         alertdialog.show();
@@ -127,11 +92,11 @@ public class DatePicker {
     }
 
     private void setDialogButtonsColors(AppCompatButton cancelButton, AppCompatButton okButton) {
-        if (mDialogButtonsColor != 0) {
-            cancelButton.setTextColor(ContextCompat.getColor(mContext, mDialogButtonsColor));
+        if (mCalendarProperties.getDialogButtonsColor() != 0) {
+            cancelButton.setTextColor(ContextCompat.getColor(mContext, mCalendarProperties.getDialogButtonsColor()));
 
-            okButton.setTextColor(ContextCompat.getColor(mContext,
-                    okButton.isEnabled() ? mDialogButtonsColor : R.color.disabledDialogButtonColor));
+            okButton.setTextColor(ContextCompat.getColor(mContext, okButton.isEnabled()
+                    ? mCalendarProperties.getDialogButtonsColor() : R.color.disabledDialogButtonColor));
         }
     }
 }
