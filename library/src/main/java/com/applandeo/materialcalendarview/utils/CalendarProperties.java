@@ -1,10 +1,14 @@
 package com.applandeo.materialcalendarview.utils;
 
+import com.applandeo.materialcalendarview.EventDay;
+import com.applandeo.materialcalendarview.listeners.OnDayClickListener;
 import com.applandeo.materialcalendarview.listeners.OnNavigationButtonClickListener;
 import com.applandeo.materialcalendarview.listeners.OnSelectDateListener;
 import com.applandeo.materialcalendarview.listeners.OnSelectionAbilityListener;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 /**
  * This class contains all properties of the calendar
@@ -13,27 +17,23 @@ import java.util.Calendar;
  */
 
 public class CalendarProperties {
-    private int mCalendarType;
-    private int mHeaderColor;
-    private int mHeaderLabelColor;
-    private int mPreviousButtonSrc;
-    private int mForwardButtonSrc;
-    private int mSelectionColor;
-    private int mTodayLabelColor;
-    private int mDialogButtonsColor;
-    private int mCancelButtonLabel;
-    private int mOkButtonLabel;
-    private int mDaysNames;
-    private int mItemLayoutResource;
+    private int mCalendarType, mHeaderColor, mHeaderLabelColor, mPreviousButtonSrc, mForwardButtonSrc,
+            mSelectionColor, mTodayLabelColor, mDialogButtonsColor, mCancelButtonLabel, mOkButtonLabel,
+            mDaysNames, mItemLayoutResource;
+
     private String[] mMonthsNames;
+
+    private Calendar mCurrentDate = DateUtils.getCalendar();
+    private Calendar mSelectedDate = DateUtils.getCalendar();
     private Calendar mCalendar, mMinimumDate, mMaximumDate;
+
+    private OnDayClickListener mOnDayClickListener;
     private OnSelectDateListener mOnSelectDateListener;
     private OnSelectionAbilityListener mOnSelectionAbilityListener;
     private OnNavigationButtonClickListener mOnPreviousButtonClickListener;
     private OnNavigationButtonClickListener mOnForwardButtonClickListener;
 
-    private Calendar mCurrentDate = DateUtils.getCalendar();
-    private Calendar mSelectedDate = DateUtils.getCalendar();
+    private List<EventDay> mEventDays = new ArrayList<>();
 
     public int getCalendarType() {
         return mCalendarType;
@@ -199,15 +199,23 @@ public class CalendarProperties {
         return mCurrentDate;
     }
 
-    public void setCurrentDate(Calendar currentDate) {
-        mCurrentDate = currentDate;
-    }
-
     public Calendar getSelectedDate() {
         return mSelectedDate;
     }
 
-    public void setSelectedDate(Calendar selectedDate) {
-        mSelectedDate = selectedDate;
+    public OnDayClickListener getOnDayClickListener() {
+        return mOnDayClickListener;
+    }
+
+    public void setOnDayClickListener(OnDayClickListener onDayClickListener) {
+        mOnDayClickListener = onDayClickListener;
+    }
+
+    public List<EventDay> getEventDays() {
+        return mEventDays;
+    }
+
+    public void setEventDays(List<EventDay> eventDays) {
+        mEventDays = eventDays;
     }
 }

@@ -30,20 +30,14 @@ import java.util.List;
 public class DayRowClickListener implements AdapterView.OnItemClickListener {
     private CalendarPageAdapter mCalendarPageAdapter;
     private Context mContext;
-    private List<EventDay> mEventDays;
-    private OnDayClickListener mOnDayClickListener;
 
     private CalendarProperties mCalendarProperties;
 
     public DayRowClickListener(CalendarPageAdapter calendarPageAdapter, Context context,
-                               List<EventDay> eventDays, OnDayClickListener onDayClickListener,
                                CalendarProperties calendarProperties) {
         mCalendarPageAdapter = calendarPageAdapter;
         mContext = context;
         mCalendarProperties = calendarProperties;
-        mEventDays = eventDays;
-        mOnDayClickListener = onDayClickListener;
-
     }
 
     @Override
@@ -65,7 +59,7 @@ public class DayRowClickListener implements AdapterView.OnItemClickListener {
                 break;
 
             case CalendarView.CLASSIC:
-                if (mOnDayClickListener != null) {
+                if (mCalendarProperties.getOnDayClickListener() != null) {
                     mCalendarPageAdapter.setSelectedDay(new SelectedDay(view, day));
                     onClick(day);
                 }
@@ -157,16 +151,16 @@ public class DayRowClickListener implements AdapterView.OnItemClickListener {
     }
 
     private void onClick(Calendar day) {
-        if (mEventDays == null) {
-            mOnDayClickListener.onDayClick(new EventDay(day));
+        if (mCalendarProperties.getEventDays() == null) {
+            mCalendarProperties.getOnDayClickListener().onDayClick(new EventDay(day));
             return;
         }
 
-        Stream.of(mEventDays)
+        Stream.of(mCalendarProperties.getEventDays())
                 .filter(eventDate -> eventDate.getCalendar().equals(day))
                 .findFirst()
                 .ifPresentOrElse(
-                        calendarEventDay -> mOnDayClickListener.onDayClick(calendarEventDay),
-                        () -> mOnDayClickListener.onDayClick(new EventDay(day)));
+                        calendarEventDay -> mCalendarProperties.getOnDayClickListener().onDayClick(calendarEventDay),
+                        () -> mCalendarProperties.getOnDayClickListener().onDayClick(new EventDay(day)));
     }
 }

@@ -13,7 +13,6 @@ import android.widget.TextView;
 
 import com.annimon.stream.Stream;
 import com.applandeo.materialcalendarview.CalendarView;
-import com.applandeo.materialcalendarview.EventDay;
 import com.applandeo.materialcalendarview.R;
 import com.applandeo.materialcalendarview.utils.CalendarProperties;
 import com.applandeo.materialcalendarview.utils.DateUtils;
@@ -25,7 +24,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
-import java.util.List;
 
 /**
  * This class is responsible for loading a one day cell.
@@ -36,7 +34,6 @@ import java.util.List;
 class CalendarDayAdapter extends ArrayAdapter<Date> {
     private CalendarPageAdapter mCalendarPageAdapter;
     private Context mContext;
-    private List<EventDay> mEventDays;
     private LayoutInflater mLayoutInflater;
     private int mMonth;
     private Calendar mToday = DateUtils.getCalendar();
@@ -44,12 +41,11 @@ class CalendarDayAdapter extends ArrayAdapter<Date> {
     private CalendarProperties mCalendarProperties;
 
     CalendarDayAdapter(CalendarPageAdapter calendarPageAdapter, Context context, CalendarProperties calendarProperties,
-                       ArrayList<Date> dates, List<EventDay> eventDays, int month) {
+                       ArrayList<Date> dates, int month) {
         super(context, calendarProperties.getItemLayoutResource(), dates);
         mCalendarPageAdapter = calendarPageAdapter;
         mContext = context;
         mCalendarProperties = calendarProperties;
-        mEventDays = eventDays;
         mMonth = month < 0 ? 11 : month;
         mLayoutInflater = LayoutInflater.from(context);
     }
@@ -105,12 +101,12 @@ class CalendarDayAdapter extends ArrayAdapter<Date> {
     }
 
     private void loadIcon(ImageView dayIcon, Calendar day) {
-        if (mEventDays == null || mCalendarProperties.getCalendarType() != CalendarView.CLASSIC) {
+        if (mCalendarProperties.getEventDays() == null || mCalendarProperties.getCalendarType() != CalendarView.CLASSIC) {
             dayIcon.setVisibility(View.GONE);
             return;
         }
 
-        Stream.of(mEventDays).filter(eventDate ->
+        Stream.of(mCalendarProperties.getEventDays()).filter(eventDate ->
                 eventDate.getCalendar().equals(day)).findFirst().executeIfPresent(eventDay -> {
 
             ImageUtils.loadResource(dayIcon, eventDay.getImageResource());

@@ -35,9 +35,7 @@ public class CalendarPageAdapter extends PagerAdapter {
     public static final int CALENDAR_SIZE = 2401;
 
     private Context mContext;
-    private List<EventDay> mEventDays = new ArrayList<>();
     private GridView mCalendarGridView;
-    private OnDayClickListener mOnDayClickListener = null;
 
     private List<SelectedDay> mSelectedDays = new ArrayList<>();
 
@@ -73,8 +71,7 @@ public class CalendarPageAdapter extends PagerAdapter {
         View viewLayout = inflater.inflate(R.layout.calendar_view_grid, container, false);
 
         mCalendarGridView = (GridView) viewLayout.findViewById(R.id.calendarGridView);
-        mCalendarGridView.setOnItemClickListener(new DayRowClickListener(this, mContext, mEventDays,
-                mOnDayClickListener, mCalendarProperties));
+        mCalendarGridView.setOnItemClickListener(new DayRowClickListener(this, mContext, mCalendarProperties));
 
         loadMonth(position);
 
@@ -82,12 +79,12 @@ public class CalendarPageAdapter extends PagerAdapter {
         return viewLayout;
     }
 
-    public void setOnDayClickListener(OnDayClickListener onDayClickListener) {
-        mOnDayClickListener = onDayClickListener;
+    public void setOnDayClickListener(OnDayClickListener listener) {
+        mCalendarProperties.setOnDayClickListener(listener);
     }
 
     public void setEvents(List<EventDay> eventDays) {
-        mEventDays = eventDays;
+        mCalendarProperties.setEventDays(eventDays);
         notifyDataSetChanged();
     }
 
@@ -169,7 +166,7 @@ public class CalendarPageAdapter extends PagerAdapter {
         }
 
         CalendarDayAdapter calendarDayAdapter = new CalendarDayAdapter(this, mContext,
-                mCalendarProperties, days, mEventDays, calendar.get(Calendar.MONTH) - 1);
+                mCalendarProperties, days, calendar.get(Calendar.MONTH) - 1);
 
         mCalendarGridView.setAdapter(calendarDayAdapter);
     }
