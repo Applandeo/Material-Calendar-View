@@ -295,8 +295,6 @@ public class CalendarView extends LinearLayout {
     private final ViewPager.OnPageChangeListener onPageChangeListener = new ViewPager.OnPageChangeListener() {
         @Override
         public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-            Calendar calendar = (Calendar) mCalendarProperties.getCurrentDate().clone();
-            calendar.add(Calendar.MONTH, position);
         }
 
         /**
@@ -458,5 +456,10 @@ public class CalendarView extends LinearLayout {
         mCalendarProperties.setMaximumDate(calendar);
         mCalendarPageAdapter.setMaximumDate(calendar);
         mCalendarPageAdapter.notifyDataSetChanged();
+    }
+
+    public void showTodayPage() {
+        mViewPager.setCurrentItem(mViewPager.getCurrentItem()
+                - DateUtils.getMonthsBetweenDates(DateUtils.getCalendar(), getCurrentPageDate()), true);
     }
 }

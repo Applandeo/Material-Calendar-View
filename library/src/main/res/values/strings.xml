@@ -24,6 +24,7 @@
         <item>December</item>
     </array>
 
+    <string name="today_button">Today</string>
     <string name="ok_button">OK</string>
     <string name="cancel_button">Cancel</string>
 </resources>

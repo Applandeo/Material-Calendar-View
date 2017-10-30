@@ -23,6 +23,10 @@ public class DatePicker {
     private final Context mContext;
     private CalendarProperties mCalendarProperties;
 
+    private AppCompatButton mCancelButton;
+    private AppCompatButton mOkButton;
+    private AppCompatButton mTodayButton;
+
     public DatePicker(Context context, CalendarProperties calendarProperties) {
         mContext = context;
         mCalendarProperties = calendarProperties;
@@ -32,11 +36,12 @@ public class DatePicker {
         LayoutInflater layoutInflater = LayoutInflater.from(mContext);
         final View view = layoutInflater.inflate(R.layout.date_picker_dialog, null);
 
-        AppCompatButton cancelButton = (AppCompatButton) view.findViewById(R.id.cancel_button);
-        AppCompatButton okButton = (AppCompatButton) view.findViewById(R.id.ok_button);
+        mCancelButton = (AppCompatButton) view.findViewById(R.id.cancel_button);
+        mOkButton = (AppCompatButton) view.findViewById(R.id.ok_button);
+        mTodayButton = (AppCompatButton) view.findViewById(R.id.today_button);
 
-        okButton.setEnabled(mCalendarProperties.getCalendarType() == CalendarView.ONE_DAY_PICKER);
-        setDialogButtonsColors(cancelButton, okButton);
+        setDialogButtonsColors();
+        setOkButtonState(mCalendarProperties.getCalendarType() == CalendarView.ONE_DAY_PICKER);
 
         CalendarView calendarView = new CalendarBuilder(mContext)
                 .setType(mCalendarProperties.getCalendarType())
@@ -50,10 +55,7 @@ public class DatePicker {
                 .monthsNames(mCalendarProperties.getMonthsNames())
                 .minimumDate(mCalendarProperties.getMinimumDate())
                 .maximumDate(mCalendarProperties.getMaximumDate())
-                .selectionAbilityListener(enabled -> {
-                    okButton.setEnabled(enabled);
-                    setDialogButtonsColors(cancelButton, okButton);
-                })
+                .selectionAbilityListener(this::setOkButtonState)
                 .create();
 
         FrameLayout calendarContainer = (FrameLayout) view.findViewById(R.id.calendarContainer);
@@ -68,34 +70,43 @@ public class DatePicker {
         });
 
         if (mCalendarProperties.getCancelButtonLabel() != 0) {
-            cancelButton.setText(mCalendarProperties.getCancelButtonLabel());
+            mCancelButton.setText(mCalendarProperties.getCancelButtonLabel());
         }
 
         if (mCalendarProperties.getOkButtonLabel() != 0) {
-            okButton.setText(mCalendarProperties.getOkButtonLabel());
+            mOkButton.setText(mCalendarProperties.getOkButtonLabel());
         }
 
         AlertDialog.Builder alertBuilder = new AlertDialog.Builder(mContext);
         final AlertDialog alertdialog = alertBuilder.create();
         alertdialog.setView(view);
 
-        cancelButton.setOnClickListener(v -> alertdialog.cancel());
+        mCancelButton.setOnClickListener(v -> alertdialog.cancel());
 
-        okButton.setOnClickListener(v -> {
+        mOkButton.setOnClickListener(v -> {
             alertdialog.cancel();
             mCalendarProperties.getOnSelectDateListener().onSelect(calendarView.getSelectedDates());
         });
+
+        mTodayButton.setOnClickListener(v -> calendarView.showTodayPage());
 
         alertdialog.show();
 
         return this;
     }
 
-    private void setDialogButtonsColors(AppCompatButton cancelButton, AppCompatButton okButton) {
+    private void setDialogButtonsColors() {
         if (mCalendarProperties.getDialogButtonsColor() != 0) {
-            cancelButton.setTextColor(ContextCompat.getColor(mContext, mCalendarProperties.getDialogButtonsColor()));
+            mCancelButton.setTextColor(ContextCompat.getColor(mContext, mCalendarProperties.getDialogButtonsColor()));
+            mTodayButton.setTextColor(ContextCompat.getColor(mContext, mCalendarProperties.getDialogButtonsColor()));
+        }
+    }
 
-            okButton.setTextColor(ContextCompat.getColor(mContext, okButton.isEnabled()
+    private void setOkButtonState(boolean enabled) {
+        mOkButton.setEnabled(enabled);
+
+        if (mCalendarProperties.getDialogButtonsColor() != 0) {
+            mOkButton.setTextColor(ContextCompat.getColor(mContext, enabled
                     ? mCalendarProperties.getDialogButtonsColor() : R.color.disabledDialogButtonColor));
         }
     }

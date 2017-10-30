@@ -118,4 +118,9 @@ public class DateUtils {
 
         return calendars;
     }
+
+    public static int getMonthsBetweenDates(Calendar startCalendar, Calendar endCalendar){
+        int diffYear = endCalendar.get(Calendar.YEAR) - startCalendar.get(Calendar.YEAR);
+        return diffYear * 12 + endCalendar.get(Calendar.MONTH) - startCalendar.get(Calendar.MONTH);
+    }
 }
