@@ -15,6 +15,7 @@ import com.annimon.stream.Stream;
 import com.applandeo.materialcalendarview.CalendarView;
 import com.applandeo.materialcalendarview.EventDay;
 import com.applandeo.materialcalendarview.R;
+import com.applandeo.materialcalendarview.utils.CalendarProperties;
 import com.applandeo.materialcalendarview.utils.DateUtils;
 import com.applandeo.materialcalendarview.utils.DayColorsUtils;
 import com.applandeo.materialcalendarview.utils.ImageUtils;
@@ -37,38 +38,27 @@ class CalendarDayAdapter extends ArrayAdapter<Date> {
     private Context mContext;
     private List<EventDay> mEventDays;
     private LayoutInflater mLayoutInflater;
-    private int mItemLayoutResource;
     private int mMonth;
     private Calendar mToday = DateUtils.getCalendar();
-    private int mCalendarType;
-    private int mTodayLabelColor;
-    private int mSelectionColor;
-    private Calendar mMinimumDate;
-    private Calendar mMaximumDate;
 
-    CalendarDayAdapter(CalendarPageAdapter calendarPageAdapter, Context context, int itemLayoutResource,
-                       ArrayList<Date> dates, List<EventDay> eventDays, int month, int calendarType,
-                       int todayLabelColor, int selectionColor, Calendar minimumDate, Calendar maximumDate) {
-        super(context, itemLayoutResource, dates);
+    private CalendarProperties mCalendarProperties;
 
+    CalendarDayAdapter(CalendarPageAdapter calendarPageAdapter, Context context, CalendarProperties calendarProperties,
+                       ArrayList<Date> dates, List<EventDay> eventDays, int month) {
+        super(context, calendarProperties.getItemLayoutResource(), dates);
         mCalendarPageAdapter = calendarPageAdapter;
         mContext = context;
+        mCalendarProperties = calendarProperties;
         mEventDays = eventDays;
         mMonth = month < 0 ? 11 : month;
         mLayoutInflater = LayoutInflater.from(context);
-        mItemLayoutResource = itemLayoutResource;
-        mCalendarType = calendarType;
-        mTodayLabelColor = todayLabelColor;
-        mSelectionColor = selectionColor;
-        mMinimumDate = minimumDate;
-        mMaximumDate = maximumDate;
     }
 
     @NonNull
     @Override
     public View getView(int position, View view, @NonNull ViewGroup parent) {
         if (view == null) {
-            view = mLayoutInflater.inflate(mItemLayoutResource, parent, false);
+            view = mLayoutInflater.inflate(mCalendarProperties.getItemLayoutResource(), parent, false);
         }
 
         TextView dayLabel = (TextView) view.findViewById(R.id.dayLabel);
@@ -88,9 +78,9 @@ class CalendarDayAdapter extends ArrayAdapter<Date> {
                     .filter(selectedDay -> selectedDay.getCalendar().equals(day))
                     .findFirst().ifPresent(selectedDay -> selectedDay.setView(dayLabel));
 
-            DayColorsUtils.setSelectedDayColors(mContext, dayLabel, mSelectionColor);
+            DayColorsUtils.setSelectedDayColors(mContext, dayLabel, mCalendarProperties.getSelectionColor());
         } else if (isCurrentMonthDay(day) && isActiveDay(day)) { // Setting current month day color
-            DayColorsUtils.setCurrentMonthDayColors(mContext, day, mToday, dayLabel, mTodayLabelColor);
+            DayColorsUtils.setCurrentMonthDayColors(mContext, day, mToday, dayLabel, mCalendarProperties.getTodayLabelColor());
         } else { // Setting not current month day color
             DayColorsUtils.setDayColors(dayLabel, ContextCompat.getColor(mContext,
                     R.color.nextMonthDayColor), Typeface.NORMAL, R.drawable.background_transparent);
@@ -101,7 +91,7 @@ class CalendarDayAdapter extends ArrayAdapter<Date> {
     }
 
     private boolean isSelectedDay(Calendar day) {
-        return mCalendarType != CalendarView.CLASSIC && day.get(Calendar.MONTH) == mMonth
+        return mCalendarProperties.getCalendarType() != CalendarView.CLASSIC && day.get(Calendar.MONTH) == mMonth
                 && mCalendarPageAdapter.getSelectedDays().contains(new SelectedDay(day));
     }
 
@@ -109,13 +99,13 @@ class CalendarDayAdapter extends ArrayAdapter<Date> {
         return day.get(Calendar.MONTH) == mMonth;
     }
 
-    private boolean isActiveDay(Calendar day){
-        return !((mMinimumDate != null && day.before(mMinimumDate))
-                || (mMaximumDate != null && day.after(mMaximumDate)));
+    private boolean isActiveDay(Calendar day) {
+        return !((mCalendarProperties.getMinimumDate() != null && day.before(mCalendarProperties.getMinimumDate()))
+                || (mCalendarProperties.getMaximumDate() != null && day.after(mCalendarProperties.getMaximumDate())));
     }
 
     private void loadIcon(ImageView dayIcon, Calendar day) {
-        if (mEventDays == null || mCalendarType != CalendarView.CLASSIC) {
+        if (mEventDays == null || mCalendarProperties.getCalendarType() != CalendarView.CLASSIC) {
             dayIcon.setVisibility(View.GONE);
             return;
         }

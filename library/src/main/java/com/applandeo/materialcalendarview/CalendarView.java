@@ -17,7 +17,7 @@ import com.applandeo.materialcalendarview.adapters.CalendarPageAdapter;
 import com.applandeo.materialcalendarview.exceptions.OutOfDateRangeException;
 import com.applandeo.materialcalendarview.listeners.OnDayClickListener;
 import com.applandeo.materialcalendarview.listeners.OnNavigationButtonClickListener;
-import com.applandeo.materialcalendarview.listeners.OnSelectionAbilityListener;
+import com.applandeo.materialcalendarview.utils.CalendarProperties;
 import com.applandeo.materialcalendarview.utils.DateUtils;
 import com.applandeo.materialcalendarview.utils.SelectedDay;
 
@@ -61,70 +61,36 @@ public class CalendarView extends LinearLayout {
     private Context mContext;
     private CalendarPageAdapter mCalendarPageAdapter;
 
-    private Calendar mCurrentDate = DateUtils.getCalendar();
-    private Calendar mSelectedDate = DateUtils.getCalendar();
-    private Calendar mMinimumDate;
-    private Calendar mMaximumDate;
-
     private ImageButton mPreviousButton, mForwardButton;
     private TextView mCurrentMonthLabel;
     private int mCurrentPage;
     private ViewPager mViewPager;
 
-    private int mCalendarType;
-
-    private int mItemLayoutResource;
-    private int mTodayLabelColor;
-    private int mSelectionColor;
-    private String[] mMonthsNames;
-
-    private int mHeaderColor;
-    private int mHeaderLabelColor;
-    private int mPreviousButtonSrc;
-    private int mForwardButtonSrc;
-    private int mDaysNames;
-
-    private OnNavigationButtonClickListener mOnPreviousButtonClickListener;
-    private OnNavigationButtonClickListener mOnForwardButtonClickListener;
-    private OnSelectionAbilityListener mOnSelectionAbilityListener;
+    private CalendarProperties mCalendarProperties;
 
     public CalendarView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        mContext = context;
         initControl(context, attrs);
         initCalendar();
     }
 
     public CalendarView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        mContext = context;
         initControl(context, attrs);
         initCalendar();
     }
 
     //private constructor to create CalendarView using CalendarView.CalendarBuilder
-    public CalendarView(Context context, int calendarType, int headerColor, int headerLabelColor,
-                        int previousButtonSrc, int forwardButtonSrc, int selectionColor,
-                        int todayLabelColor, String[] monthsNames, int daysNames,
-                        OnSelectionAbilityListener onSelectionAbilityListener,
-                        Calendar minimumDate, Calendar maximumDate) {
+    public CalendarView(Context context, CalendarProperties calendarProperties) {
         super(context);
         mContext = context;
-        mCalendarType = calendarType;
-        mHeaderColor = headerColor;
-        mHeaderLabelColor = headerLabelColor;
-        mPreviousButtonSrc = previousButtonSrc;
-        mForwardButtonSrc = forwardButtonSrc;
-        mSelectionColor = selectionColor;
-        mTodayLabelColor = todayLabelColor;
-        mMonthsNames = monthsNames;
-        mDaysNames = daysNames;
-        mOnSelectionAbilityListener = onSelectionAbilityListener;
-        mMinimumDate = minimumDate;
-        mMaximumDate = maximumDate;
+        mCalendarProperties = calendarProperties;
     }
 
     private void initControl(Context context, AttributeSet attrs) {
+        mContext = context;
+        mCalendarProperties = new CalendarProperties();
+
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         inflater.inflate(R.layout.calendar_view, this);
 
@@ -168,12 +134,12 @@ public class CalendarView extends LinearLayout {
             }
 
             // Today number color
-            mTodayLabelColor = typedArray.getColor(R.styleable.CalendarView_todayLabelColor,
-                    ContextCompat.getColor(mContext, R.color.defaultColor));
+            mCalendarProperties.setTodayLabelColor(typedArray.getColor(R.styleable.CalendarView_todayLabelColor,
+                    ContextCompat.getColor(mContext, R.color.defaultColor)));
 
             // Selection circle color
-            mSelectionColor = typedArray.getColor(R.styleable.CalendarView_selectionColor,
-                    ContextCompat.getColor(mContext, R.color.defaultColor));
+            mCalendarProperties.setSelectionColor(typedArray.getColor(R.styleable.CalendarView_selectionColor,
+                    ContextCompat.getColor(mContext, R.color.defaultColor)));
 
             // Previous arrow resource
             Drawable previousButtonScr = typedArray.getDrawable(R.styleable.CalendarView_previousButtonSrc);
@@ -190,11 +156,11 @@ public class CalendarView extends LinearLayout {
             }
 
             // Set calendar type
-            mCalendarType = typedArray.getInt(R.styleable.CalendarView_type, CLASSIC);
+            mCalendarProperties.setCalendarType(typedArray.getInt(R.styleable.CalendarView_type, CLASSIC));
 
             // Set picker mode !DEPRECATED!
             if (typedArray.getBoolean(R.styleable.CalendarView_datePicker, false)) {
-                mCalendarType = ONE_DAY_PICKER;
+                mCalendarProperties.setCalendarType(ONE_DAY_PICKER);
             }
 
             // Sets layout for date picker or normal calendar
@@ -202,11 +168,11 @@ public class CalendarView extends LinearLayout {
 
             // Sets translations for months names
             int namesArray = typedArray.getResourceId(R.styleable.CalendarView_monthsNames, R.array.months_array);
-            mMonthsNames = getResources().getStringArray(namesArray);
+            mCalendarProperties.setMonthsNames(getResources().getStringArray(namesArray));
 
             // Checks if array has 12 elements, if not then set a english names
-            if (mMonthsNames.length < 12) {
-                mMonthsNames = getResources().getStringArray(R.array.months_array);
+            if (mCalendarProperties.getMonthsNames().length < 12) {
+                mCalendarProperties.setMonthsNames(getResources().getStringArray(R.array.months_array));
             }
 
             // Sets translations for day names symbols
@@ -222,10 +188,10 @@ public class CalendarView extends LinearLayout {
     }
 
     private void setCalendarRowLayout() {
-        if (mCalendarType == CLASSIC) {
-            mItemLayoutResource = R.layout.calendar_view_day;
+        if (mCalendarProperties.getCalendarType() == CLASSIC) {
+            mCalendarProperties.setItemLayoutResource(R.layout.calendar_view_day);
         } else {
-            mItemLayoutResource = R.layout.calendar_view_picker_day;
+            mCalendarProperties.setItemLayoutResource(R.layout.calendar_view_picker_day);
         }
     }
 
@@ -233,41 +199,41 @@ public class CalendarView extends LinearLayout {
     private void initAttributes() {
         setCalendarRowLayout();
 
-        if (mHeaderColor != 0) {
+        if (mCalendarProperties.getHeaderColor() != 0) {
             ConstraintLayout mCalendarHeader = (ConstraintLayout) findViewById(R.id.calendarHeader);
-            mCalendarHeader.setBackgroundColor(ContextCompat.getColor(mContext, mHeaderColor));
+            mCalendarHeader.setBackgroundColor(ContextCompat.getColor(mContext, mCalendarProperties.getHeaderColor()));
         }
 
-        if (mHeaderLabelColor != 0) {
-            mCurrentMonthLabel.setTextColor(ContextCompat.getColor(mContext, mHeaderLabelColor));
+        if (mCalendarProperties.getHeaderLabelColor() != 0) {
+            mCurrentMonthLabel.setTextColor(ContextCompat.getColor(mContext, mCalendarProperties.getHeaderLabelColor()));
         }
 
-        if (mPreviousButtonSrc != 0) {
-            mPreviousButton.setImageResource(mPreviousButtonSrc);
+        if (mCalendarProperties.getPreviousButtonSrc() != 0) {
+            mPreviousButton.setImageResource(mCalendarProperties.getPreviousButtonSrc());
         }
 
-        if (mForwardButtonSrc != 0) {
-            mForwardButton.setImageResource(mForwardButtonSrc);
+        if (mCalendarProperties.getForwardButtonSrc() != 0) {
+            mForwardButton.setImageResource(mCalendarProperties.getForwardButtonSrc());
         }
 
-        if (mSelectionColor != 0) {
-            mSelectionColor = ContextCompat.getColor(mContext, mSelectionColor);
+        if (mCalendarProperties.getSelectionColor() != 0) {
+            mCalendarProperties.setSelectionColor(ContextCompat.getColor(mContext, mCalendarProperties.getSelectionColor()));
         } else {
-            mSelectionColor = ContextCompat.getColor(mContext, R.color.defaultColor);
+            mCalendarProperties.setSelectionColor(ContextCompat.getColor(mContext, R.color.defaultColor));
         }
 
-        if (mTodayLabelColor != 0) {
-            mTodayLabelColor = ContextCompat.getColor(mContext, mTodayLabelColor);
+        if (mCalendarProperties.getTodayLabelColor() != 0) {
+            mCalendarProperties.setTodayLabelColor(ContextCompat.getColor(mContext, mCalendarProperties.getTodayLabelColor()));
         } else {
-            mTodayLabelColor = ContextCompat.getColor(mContext, R.color.defaultColor);
+            mCalendarProperties.setTodayLabelColor(ContextCompat.getColor(mContext, R.color.defaultColor));
         }
 
-        if (mMonthsNames == null || mMonthsNames.length < 12) {
-            mMonthsNames = getResources().getStringArray(R.array.months_array);
+        if (mCalendarProperties.getMonthsNames() == null || mCalendarProperties.getMonthsNames().length < 12) {
+            mCalendarProperties.setMonthsNames(getResources().getStringArray(R.array.months_array));
         }
 
-        if (mDaysNames != 0) {
-            setDaysSymbols(mDaysNames);
+        if (mCalendarProperties.getDaysNames() != 0) {
+            setDaysSymbols(mCalendarProperties.getDaysNames());
         }
     }
 
@@ -289,7 +255,7 @@ public class CalendarView extends LinearLayout {
     private void initUiElements() {
         // This line subtracts a half of all calendar months to set calendar
         // in the correct position (in the middle)
-        mCurrentDate.add(Calendar.MONTH, -FIRST_VISIBLE_PAGE);
+        mCalendarProperties.getCurrentDate().add(Calendar.MONTH, -FIRST_VISIBLE_PAGE);
 
         mForwardButton = (ImageButton) findViewById(R.id.forwardButton);
         mForwardButton.setOnClickListener(onNextClickListener);
@@ -303,9 +269,7 @@ public class CalendarView extends LinearLayout {
     }
 
     private void initCalendar() {
-        mCalendarPageAdapter = new CalendarPageAdapter(mContext, mCurrentDate, mCalendarType,
-                mSelectedDate, mItemLayoutResource, mTodayLabelColor, mSelectionColor, mOnSelectionAbilityListener,
-                mMinimumDate, mMaximumDate);
+        mCalendarPageAdapter = new CalendarPageAdapter(mContext, mCalendarProperties);
 
         mViewPager.setAdapter(mCalendarPageAdapter);
         mViewPager.addOnPageChangeListener(onPageChangeListener);
@@ -314,12 +278,12 @@ public class CalendarView extends LinearLayout {
         mViewPager.setCurrentItem(FIRST_VISIBLE_PAGE);
     }
 
-    public void setOnPreviousButtonClickListener(OnNavigationButtonClickListener onPreviousButtonClickListener) {
-        mOnPreviousButtonClickListener = onPreviousButtonClickListener;
+    public void setOnPreviousButtonClickListener(OnNavigationButtonClickListener listener) {
+        mCalendarProperties.setOnPreviousButtonClickListener(listener);
     }
 
-    public void setOnForwardButtonClickListener(OnNavigationButtonClickListener onForwardButtonClickListener) {
-        mOnForwardButtonClickListener = onForwardButtonClickListener;
+    public void setOnForwardButtonClickListener(OnNavigationButtonClickListener listener) {
+        mCalendarProperties.setOnForwardButtonClickListener(listener);
     }
 
     private final OnClickListener onNextClickListener =
@@ -331,7 +295,7 @@ public class CalendarView extends LinearLayout {
     private final ViewPager.OnPageChangeListener onPageChangeListener = new ViewPager.OnPageChangeListener() {
         @Override
         public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-            Calendar calendar = (Calendar) mCurrentDate.clone();
+            Calendar calendar = (Calendar) mCalendarProperties.getCurrentDate().clone();
             calendar.add(Calendar.MONTH, position);
         }
 
@@ -343,7 +307,7 @@ public class CalendarView extends LinearLayout {
          */
         @Override
         public void onPageSelected(int position) {
-            Calendar calendar = (Calendar) mCurrentDate.clone();
+            Calendar calendar = (Calendar) mCalendarProperties.getCurrentDate().clone();
             calendar.add(Calendar.MONTH, position);
 
             if (!isScrollingLimited(calendar, position)) {
@@ -357,12 +321,12 @@ public class CalendarView extends LinearLayout {
     };
 
     private boolean isScrollingLimited(Calendar calendar, int position) {
-        if (DateUtils.isMonthBefore(mMinimumDate, calendar)) {
+        if (DateUtils.isMonthBefore(mCalendarProperties.getMinimumDate(), calendar)) {
             mViewPager.setCurrentItem(position + 1);
             return true;
         }
 
-        if (DateUtils.isMonthAfter(mMaximumDate, calendar)) {
+        if (DateUtils.isMonthAfter(mCalendarProperties.getMaximumDate(), calendar)) {
             mViewPager.setCurrentItem(position - 1);
             return true;
         }
@@ -371,18 +335,18 @@ public class CalendarView extends LinearLayout {
     }
 
     private void setHeaderName(Calendar calendar, int position) {
-        mCurrentMonthLabel.setText(DateUtils.getMonthAndYearDate(mMonthsNames, calendar));
+        mCurrentMonthLabel.setText(DateUtils.getMonthAndYearDate(mCalendarProperties.getMonthsNames(), calendar));
         callNavigationListeners(position);
     }
 
     // This method calls navigation button listeners after swipe calendar or click arrow buttons
     private void callNavigationListeners(int position) {
-        if (position > mCurrentPage && mOnForwardButtonClickListener != null) {
-            mOnForwardButtonClickListener.onClick();
+        if (position > mCurrentPage && mCalendarProperties.getOnForwardButtonClickListener() != null) {
+            mCalendarProperties.getOnForwardButtonClickListener().onClick();
         }
 
-        if (position < mCurrentPage && mOnPreviousButtonClickListener != null) {
-            mOnPreviousButtonClickListener.onClick();
+        if (position < mCurrentPage && mCalendarProperties.getOnPreviousButtonClickListener() != null) {
+            mCalendarProperties.getOnPreviousButtonClickListener().onClick();
         }
 
         mCurrentPage = position;
@@ -404,21 +368,21 @@ public class CalendarView extends LinearLayout {
      * @param date A Calendar object representing a date to which the calendar will be set
      */
     public void setDate(Calendar date) throws OutOfDateRangeException {
-        if (mMinimumDate != null && date.before(mMinimumDate)) {
+        if (mCalendarProperties.getMinimumDate() != null && date.before(mCalendarProperties.getMinimumDate())) {
             throw new OutOfDateRangeException("SET DATE EXCEEDS THE MINIMUM DATE");
         }
 
-        if (mMaximumDate != null && date.after(mMaximumDate)) {
+        if (mCalendarProperties.getMaximumDate() != null && date.after(mCalendarProperties.getMaximumDate())) {
             throw new OutOfDateRangeException("SET DATE EXCEEDS THE MAXIMUM DATE");
         }
 
         DateUtils.setMidnight(date);
 
-        mSelectedDate.setTime(date.getTime());
+        mCalendarProperties.getSelectedDate().setTime(date.getTime());
 
-        mCurrentDate.setTime(date.getTime());
-        mCurrentDate.add(Calendar.MONTH, -FIRST_VISIBLE_PAGE);
-        mCurrentMonthLabel.setText(DateUtils.getMonthAndYearDate(mMonthsNames, date));
+        mCalendarProperties.getCurrentDate().setTime(date.getTime());
+        mCalendarProperties.getCurrentDate().add(Calendar.MONTH, -FIRST_VISIBLE_PAGE);
+        mCurrentMonthLabel.setText(DateUtils.getMonthAndYearDate(mCalendarProperties.getMonthsNames(), date));
 
         mViewPager.setCurrentItem(FIRST_VISIBLE_PAGE);
         mCalendarPageAdapter.notifyDataSetChanged();
@@ -444,7 +408,7 @@ public class CalendarView extends LinearLayout {
      * @see EventDay
      */
     public void setEvents(List<EventDay> eventDays) {
-        if (mCalendarType == CLASSIC) {
+        if (mCalendarProperties.getCalendarType() == CLASSIC) {
             mCalendarPageAdapter.setEvents(eventDays);
         }
     }
@@ -478,20 +442,20 @@ public class CalendarView extends LinearLayout {
      * @return Calendar object representing a date of current calendar page
      */
     public Calendar getCurrentPageDate() {
-        Calendar calendar = (Calendar) mCurrentDate.clone();
+        Calendar calendar = (Calendar) mCalendarProperties.getCurrentDate().clone();
         calendar.set(Calendar.DAY_OF_MONTH, 1);
         calendar.add(Calendar.MONTH, mViewPager.getCurrentItem());
         return calendar;
     }
 
     public void setMinimumDate(Calendar calendar) {
-        mMinimumDate = calendar;
+        mCalendarProperties.setMinimumDate(calendar);
         mCalendarPageAdapter.setMinimumDate(calendar);
         mCalendarPageAdapter.notifyDataSetChanged();
     }
 
     public void setMaximumDate(Calendar calendar) {
-        mMaximumDate = calendar;
+        mCalendarProperties.setMaximumDate(calendar);
         mCalendarPageAdapter.setMaximumDate(calendar);
         mCalendarPageAdapter.notifyDataSetChanged();
     }

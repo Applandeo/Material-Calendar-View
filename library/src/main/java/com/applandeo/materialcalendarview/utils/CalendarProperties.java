@@ -1,17 +1,19 @@
 package com.applandeo.materialcalendarview.utils;
 
+import com.applandeo.materialcalendarview.listeners.OnNavigationButtonClickListener;
 import com.applandeo.materialcalendarview.listeners.OnSelectDateListener;
+import com.applandeo.materialcalendarview.listeners.OnSelectionAbilityListener;
 
 import java.util.Calendar;
 
 /**
+ * This class contains all properties of the calendar
+ * <p>
  * Created by Mateusz Kornakiewicz on 30.10.2017.
  */
 
 public class CalendarProperties {
     private int mCalendarType;
-    private Calendar mCalendar;
-    private OnSelectDateListener mOnSelectDateListener;
     private int mHeaderColor;
     private int mHeaderLabelColor;
     private int mPreviousButtonSrc;
@@ -21,10 +23,17 @@ public class CalendarProperties {
     private int mDialogButtonsColor;
     private int mCancelButtonLabel;
     private int mOkButtonLabel;
-    private int mMonthsNames;
     private int mDaysNames;
-    private Calendar mMinimumDate;
-    private Calendar mMaximumDate;
+    private int mItemLayoutResource;
+    private String[] mMonthsNames;
+    private Calendar mCalendar, mMinimumDate, mMaximumDate;
+    private OnSelectDateListener mOnSelectDateListener;
+    private OnSelectionAbilityListener mOnSelectionAbilityListener;
+    private OnNavigationButtonClickListener mOnPreviousButtonClickListener;
+    private OnNavigationButtonClickListener mOnForwardButtonClickListener;
+
+    private Calendar mCurrentDate = DateUtils.getCalendar();
+    private Calendar mSelectedDate = DateUtils.getCalendar();
 
     public int getCalendarType() {
         return mCalendarType;
@@ -122,11 +131,11 @@ public class CalendarProperties {
         mOkButtonLabel = okButtonLabel;
     }
 
-    public int getMonthsNames() {
+    public String[] getMonthsNames() {
         return mMonthsNames;
     }
 
-    public void setMonthsNames(int monthsNames) {
+    public void setMonthsNames(String[] monthsNames) {
         mMonthsNames = monthsNames;
     }
 
@@ -152,5 +161,53 @@ public class CalendarProperties {
 
     public void setMaximumDate(Calendar maximumDate) {
         mMaximumDate = maximumDate;
+    }
+
+    public OnSelectionAbilityListener getOnSelectionAbilityListener() {
+        return mOnSelectionAbilityListener;
+    }
+
+    public void setOnSelectionAbilityListener(OnSelectionAbilityListener onSelectionAbilityListener) {
+        mOnSelectionAbilityListener = onSelectionAbilityListener;
+    }
+
+    public int getItemLayoutResource() {
+        return mItemLayoutResource;
+    }
+
+    public void setItemLayoutResource(int itemLayoutResource) {
+        mItemLayoutResource = itemLayoutResource;
+    }
+
+    public OnNavigationButtonClickListener getOnPreviousButtonClickListener() {
+        return mOnPreviousButtonClickListener;
+    }
+
+    public void setOnPreviousButtonClickListener(OnNavigationButtonClickListener onPreviousButtonClickListener) {
+        mOnPreviousButtonClickListener = onPreviousButtonClickListener;
+    }
+
+    public OnNavigationButtonClickListener getOnForwardButtonClickListener() {
+        return mOnForwardButtonClickListener;
+    }
+
+    public void setOnForwardButtonClickListener(OnNavigationButtonClickListener onForwardButtonClickListener) {
+        mOnForwardButtonClickListener = onForwardButtonClickListener;
+    }
+
+    public Calendar getCurrentDate() {
+        return mCurrentDate;
+    }
+
+    public void setCurrentDate(Calendar currentDate) {
+        mCurrentDate = currentDate;
+    }
+
+    public Calendar getSelectedDate() {
+        return mSelectedDate;
+    }
+
+    public void setSelectedDate(Calendar selectedDate) {
+        mSelectedDate = selectedDate;
     }
 }

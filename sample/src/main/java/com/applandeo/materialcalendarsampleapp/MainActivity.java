@@ -43,10 +43,11 @@ public class MainActivity extends AppCompatActivity implements OnSelectDateListe
         min.add(Calendar.DAY_OF_MONTH, -5);
 
         Calendar max = Calendar.getInstance();
-        max.add(Calendar.DAY_OF_MONTH, 51);
+        max.add(Calendar.MONTH, 5);
 
         DatePickerBuilder oneDayBuilder = new DatePickerBuilder(this, this)
                 .pickerType(CalendarView.ONE_DAY_PICKER)
+                .date(max)
                 .headerColor(R.color.colorPrimaryDark)
                 .headerLabelColor(R.color.currentMonthDayColor)
                 .selectionColor(R.color.daysLabelColor)

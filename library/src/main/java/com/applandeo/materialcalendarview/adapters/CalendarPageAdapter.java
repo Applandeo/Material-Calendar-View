@@ -12,7 +12,7 @@ import com.applandeo.materialcalendarview.EventDay;
 import com.applandeo.materialcalendarview.R;
 import com.applandeo.materialcalendarview.listeners.DayRowClickListener;
 import com.applandeo.materialcalendarview.listeners.OnDayClickListener;
-import com.applandeo.materialcalendarview.listeners.OnSelectionAbilityListener;
+import com.applandeo.materialcalendarview.utils.CalendarProperties;
 import com.applandeo.materialcalendarview.utils.SelectedDay;
 
 import java.util.ArrayList;
@@ -36,39 +36,20 @@ public class CalendarPageAdapter extends PagerAdapter {
 
     private Context mContext;
     private List<EventDay> mEventDays = new ArrayList<>();
-    private int mCalendarType;
     private GridView mCalendarGridView;
-    private Calendar mCurrentDate;
-    private int mItemLayoutResource;
-    private int mTodayLabelColor;
-    private int mSelectionColor;
     private OnDayClickListener mOnDayClickListener = null;
-
-    private OnSelectionAbilityListener mOnSelectionAbilityListener;
 
     private List<SelectedDay> mSelectedDays = new ArrayList<>();
 
-    private Calendar mMinimumDate;
-    private Calendar mMaximumDate;
+    private CalendarProperties mCalendarProperties;
 
-    public CalendarPageAdapter(Context context, Calendar currentDate, int calendarType,
-                               Calendar selectedDate, int itemLayoutResource, int todayLabelColor,
-                               int selectionColor, OnSelectionAbilityListener onSelectionAbilityListener,
-                               Calendar minimumDate, Calendar maximumDate) {
+    public CalendarPageAdapter(Context context, CalendarProperties calendarProperties) {
         mContext = context;
-        mCurrentDate = currentDate;
-        mCalendarType = calendarType;
-        mItemLayoutResource = itemLayoutResource;
-        mTodayLabelColor = todayLabelColor;
-        mSelectionColor = selectionColor;
+        mCalendarProperties = calendarProperties;
 
-        if (calendarType == CalendarView.ONE_DAY_PICKER) {
-            addSelectedDay(new SelectedDay(selectedDate));
+        if (mCalendarProperties.getCalendarType() == CalendarView.ONE_DAY_PICKER) {
+            addSelectedDay(new SelectedDay(calendarProperties.getSelectedDate()));
         }
-
-        mOnSelectionAbilityListener = onSelectionAbilityListener;
-        mMinimumDate = minimumDate;
-        mMaximumDate = maximumDate;
     }
 
     @Override
@@ -93,7 +74,7 @@ public class CalendarPageAdapter extends PagerAdapter {
 
         mCalendarGridView = (GridView) viewLayout.findViewById(R.id.calendarGridView);
         mCalendarGridView.setOnItemClickListener(new DayRowClickListener(this, mContext, mEventDays,
-                mOnDayClickListener, mCalendarType, mTodayLabelColor, mSelectionColor));
+                mOnDayClickListener, mCalendarProperties));
 
         loadMonth(position);
 
@@ -135,20 +116,20 @@ public class CalendarPageAdapter extends PagerAdapter {
         informDatePicker();
     }
 
-    public void setMinimumDate(Calendar calendar){
-        mMinimumDate = calendar;
+    public void setMinimumDate(Calendar calendar) {
+        mCalendarProperties.setMaximumDate(calendar);
     }
 
-    public void setMaximumDate(Calendar calendar){
-        mMaximumDate = calendar;
+    public void setMaximumDate(Calendar calendar) {
+        mCalendarProperties.setMaximumDate(calendar);
     }
 
     /**
      * This method inform DatePicker about ability to return selected days
      */
     private void informDatePicker() {
-        if (mOnSelectionAbilityListener != null) {
-            mOnSelectionAbilityListener.onChange(mSelectedDays.size() > 0);
+        if (mCalendarProperties.getOnSelectionAbilityListener() != null) {
+            mCalendarProperties.getOnSelectionAbilityListener().onChange(mSelectedDays.size() > 0);
         }
     }
 
@@ -161,7 +142,7 @@ public class CalendarPageAdapter extends PagerAdapter {
         ArrayList<Date> days = new ArrayList<>();
 
         // Get Calendar object instance
-        Calendar calendar = (Calendar) mCurrentDate.clone();
+        Calendar calendar = (Calendar) mCalendarProperties.getCurrentDate().clone();
 
         // Add months to Calendar (a number of months depends on ViewPager position)
         calendar.add(Calendar.MONTH, position);
@@ -188,8 +169,7 @@ public class CalendarPageAdapter extends PagerAdapter {
         }
 
         CalendarDayAdapter calendarDayAdapter = new CalendarDayAdapter(this, mContext,
-                mItemLayoutResource, days, mEventDays, calendar.get(Calendar.MONTH) - 1,
-                mCalendarType, mTodayLabelColor, mSelectionColor, mMinimumDate, mMaximumDate);
+                mCalendarProperties, days, mEventDays, calendar.get(Calendar.MONTH) - 1);
 
         mCalendarGridView.setAdapter(calendarDayAdapter);
     }

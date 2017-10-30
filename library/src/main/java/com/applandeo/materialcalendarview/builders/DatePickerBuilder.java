@@ -83,7 +83,7 @@ public class DatePickerBuilder {
     }
 
     public DatePickerBuilder monthsNames(@ArrayRes int names) {
-        mCalendarProperties.setMonthsNames(names);
+        mCalendarProperties.setMonthsNames(mContext.getResources().getStringArray(names));
         return this;
     }
 
