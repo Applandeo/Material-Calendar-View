@@ -166,22 +166,6 @@ public class CalendarView extends LinearLayout {
             // Sets layout for date picker or normal calendar
             setCalendarRowLayout();
 
-            // Sets translations for months names
-            int namesArray = typedArray.getResourceId(R.styleable.CalendarView_monthsNames, R.array.months_array);
-            mCalendarProperties.setMonthsNames(getResources().getStringArray(namesArray));
-
-            // Checks if array has 12 elements, if not then set a english names
-            if (mCalendarProperties.getMonthsNames().length < 12) {
-                mCalendarProperties.setMonthsNames(getResources().getStringArray(R.array.months_array));
-            }
-
-            // Sets translations for day names symbols
-            int symbolArray = typedArray.getResourceId(R.styleable.CalendarView_daysNames, 0);
-
-            if (symbolArray != 0) {
-                setDaysSymbols(symbolArray);
-            }
-
         } finally {
             typedArray.recycle();
         }
@@ -226,29 +210,6 @@ public class CalendarView extends LinearLayout {
             mCalendarProperties.setTodayLabelColor(ContextCompat.getColor(mContext, mCalendarProperties.getTodayLabelColor()));
         } else {
             mCalendarProperties.setTodayLabelColor(ContextCompat.getColor(mContext, R.color.defaultColor));
-        }
-
-        if (mCalendarProperties.getMonthsNames() == null || mCalendarProperties.getMonthsNames().length < 12) {
-            mCalendarProperties.setMonthsNames(getResources().getStringArray(R.array.months_array));
-        }
-
-        if (mCalendarProperties.getDaysNames() != 0) {
-            setDaysSymbols(mCalendarProperties.getDaysNames());
-        }
-    }
-
-    //This method sets days symbols
-    private void setDaysSymbols(int array) {
-        String[] daysSymbols = getResources().getStringArray(array);
-
-        if (daysSymbols.length == 7) {
-            ((TextView) findViewById(R.id.mondayLabel)).setText(daysSymbols[0]);
-            ((TextView) findViewById(R.id.tuesdayLabel)).setText(daysSymbols[1]);
-            ((TextView) findViewById(R.id.wednesdayLabel)).setText(daysSymbols[2]);
-            ((TextView) findViewById(R.id.thursdayLabel)).setText(daysSymbols[3]);
-            ((TextView) findViewById(R.id.fridayLabel)).setText(daysSymbols[4]);
-            ((TextView) findViewById(R.id.saturdayLabel)).setText(daysSymbols[5]);
-            ((TextView) findViewById(R.id.sundayLabel)).setText(daysSymbols[6]);
         }
     }
 
@@ -333,7 +294,7 @@ public class CalendarView extends LinearLayout {
     }
 
     private void setHeaderName(Calendar calendar, int position) {
-        mCurrentMonthLabel.setText(DateUtils.getMonthAndYearDate(mCalendarProperties.getMonthsNames(), calendar));
+        mCurrentMonthLabel.setText(DateUtils.getMonthAndYearDate(mContext, calendar));
         callNavigationListeners(position);
     }
 
@@ -380,7 +341,7 @@ public class CalendarView extends LinearLayout {
 
         mCalendarProperties.getCurrentDate().setTime(date.getTime());
         mCalendarProperties.getCurrentDate().add(Calendar.MONTH, -FIRST_VISIBLE_PAGE);
-        mCurrentMonthLabel.setText(DateUtils.getMonthAndYearDate(mCalendarProperties.getMonthsNames(), date));
+        mCurrentMonthLabel.setText(DateUtils.getMonthAndYearDate(mContext, date));
 
         mViewPager.setCurrentItem(FIRST_VISIBLE_PAGE);
         mCalendarPageAdapter.notifyDataSetChanged();

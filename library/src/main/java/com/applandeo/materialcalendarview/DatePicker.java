@@ -37,8 +37,8 @@ public class DatePicker {
         LayoutInflater layoutInflater = LayoutInflater.from(mContext);
         final View view = layoutInflater.inflate(R.layout.date_picker_dialog, null);
 
-        mCancelButton = (AppCompatButton) view.findViewById(R.id.cancel_button);
-        mOkButton = (AppCompatButton) view.findViewById(R.id.ok_button);
+        mCancelButton = (AppCompatButton) view.findViewById(R.id.negative_button);
+        mOkButton = (AppCompatButton) view.findViewById(R.id.positive_button);
         mTodayButton = (AppCompatButton) view.findViewById(R.id.today_button);
 
         setTodayButtonVisibility();
@@ -54,8 +54,6 @@ public class DatePicker {
                 .forwardButtonSrc(mCalendarProperties.getForwardButtonSrc())
                 .selectionColor(mCalendarProperties.getSelectionColor())
                 .todayLabelColor(mCalendarProperties.getTodayLabelColor())
-                .daysNames(mCalendarProperties.getDaysNames())
-                .monthsNames(mCalendarProperties.getMonthsNames())
                 .minimumDate(mCalendarProperties.getMinimumDate())
                 .maximumDate(mCalendarProperties.getMaximumDate())
                 .selectionAbilityListener(this::setOkButtonState)
@@ -71,14 +69,6 @@ public class DatePicker {
                 exception.printStackTrace();
             }
         });
-
-        if (mCalendarProperties.getCancelButtonLabel() != 0) {
-            mCancelButton.setText(mCalendarProperties.getCancelButtonLabel());
-        }
-
-        if (mCalendarProperties.getOkButtonLabel() != 0) {
-            mOkButton.setText(mCalendarProperties.getOkButtonLabel());
-        }
 
         AlertDialog.Builder alertBuilder = new AlertDialog.Builder(mContext);
         final AlertDialog alertdialog = alertBuilder.create();
@@ -114,7 +104,7 @@ public class DatePicker {
         }
     }
 
-    private void setTodayButtonVisibility(){
+    private void setTodayButtonVisibility() {
         if (DateUtils.isMonthAfter(mCalendarProperties.getMaximumDate(), DateUtils.getCalendar())
                 || DateUtils.isMonthBefore(mCalendarProperties.getMinimumDate(), DateUtils.getCalendar())) {
             mTodayButton.setVisibility(View.GONE);

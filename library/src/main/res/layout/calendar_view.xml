@@ -61,7 +61,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center_horizontal"
-            android:text="@string/monday"
+            android:text="@string/material_calendar_monday"
             android:textColor="@color/daysLabelColor" />
 
         <TextView
@@ -70,7 +70,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center_horizontal"
-            android:text="@string/tuesday"
+            android:text="@string/material_calendar_tuesday"
             android:textColor="@color/daysLabelColor" />
 
         <TextView
@@ -79,7 +79,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center_horizontal"
-            android:text="@string/wednesday"
+            android:text="@string/material_calendar_wednesday"
             android:textColor="@color/daysLabelColor" />
 
         <TextView
@@ -88,7 +88,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center_horizontal"
-            android:text="@string/thursday"
+            android:text="@string/material_calendar_thursday"
             android:textColor="@color/daysLabelColor" />
 
         <TextView
@@ -97,7 +97,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center_horizontal"
-            android:text="@string/friday"
+            android:text="@string/material_calendar_friday"
             android:textColor="@color/daysLabelColor" />
 
         <TextView
@@ -106,7 +106,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center_horizontal"
-            android:text="@string/saturday"
+            android:text="@string/material_calendar_saturday"
             android:textColor="@color/daysLabelColor" />
 
         <TextView
@@ -115,7 +115,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center_horizontal"
-            android:text="@string/sunday"
+            android:text="@string/material_calendar_sunday"
             android:textColor="@color/daysLabelColor" />
     </LinearLayout>
 

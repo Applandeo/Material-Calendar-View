@@ -53,12 +53,8 @@ public class MainActivity extends AppCompatActivity implements OnSelectDateListe
                 .selectionColor(R.color.daysLabelColor)
                 .todayLabelColor(R.color.colorAccent)
                 .dialogButtonsColor(android.R.color.holo_green_dark)
-                .cancelButtonLabel(R.string.cancel)
-                .okButtonLabel(R.string.ok)
                 .previousButtonSrc(R.drawable.ic_chevron_left_black_24dp)
                 .forwardButtonSrc(R.drawable.ic_chevron_right_black_24dp)
-                .daysNames(R.array.days_names_symbol_array)
-                .monthsNames(R.array.polish_months_array)
                 .minimumDate(min)
                 .maximumDate(max);
 

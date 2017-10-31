@@ -1,10 +1,8 @@
 package com.applandeo.materialcalendarview.builders;
 
 import android.content.Context;
-import android.support.annotation.ArrayRes;
 import android.support.annotation.ColorRes;
 import android.support.annotation.DrawableRes;
-import android.support.annotation.StringRes;
 
 import com.applandeo.materialcalendarview.CalendarView;
 import com.applandeo.materialcalendarview.DatePicker;
@@ -69,26 +67,6 @@ public class DatePickerBuilder {
 
     public DatePickerBuilder dialogButtonsColor(@ColorRes int color) {
         mCalendarProperties.setDialogButtonsColor(color);
-        return this;
-    }
-
-    public DatePickerBuilder cancelButtonLabel(@StringRes int label) {
-        mCalendarProperties.setCancelButtonLabel(label);
-        return this;
-    }
-
-    public DatePickerBuilder okButtonLabel(@StringRes int label) {
-        mCalendarProperties.setOkButtonLabel(label);
-        return this;
-    }
-
-    public DatePickerBuilder monthsNames(@ArrayRes int names) {
-        mCalendarProperties.setMonthsNames(mContext.getResources().getStringArray(names));
-        return this;
-    }
-
-    public DatePickerBuilder daysNames(@ArrayRes int names) {
-        mCalendarProperties.setDaysNames(names);
         return this;
     }
 

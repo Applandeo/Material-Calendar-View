@@ -1,7 +1,6 @@
 package com.applandeo.materialcalendarview.builders;
 
 import android.content.Context;
-import android.support.annotation.ArrayRes;
 import android.support.annotation.ColorRes;
 import android.support.annotation.DrawableRes;
 
@@ -71,16 +70,6 @@ public class CalendarBuilder {
 
     public CalendarBuilder todayLabelColor(@ColorRes int color) {
         mCalendarProperties.setTodayLabelColor(color);
-        return this;
-    }
-
-    public CalendarBuilder monthsNames(String[] names) {
-        mCalendarProperties.setMonthsNames(names);
-        return this;
-    }
-
-    public CalendarBuilder daysNames(@ArrayRes int names) {
-        mCalendarProperties.setDaysNames(names);
         return this;
     }
 

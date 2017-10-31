@@ -18,10 +18,7 @@ import java.util.List;
 
 public class CalendarProperties {
     private int mCalendarType, mHeaderColor, mHeaderLabelColor, mPreviousButtonSrc, mForwardButtonSrc,
-            mSelectionColor, mTodayLabelColor, mDialogButtonsColor, mCancelButtonLabel, mOkButtonLabel,
-            mDaysNames, mItemLayoutResource;
-
-    private String[] mMonthsNames;
+            mSelectionColor, mTodayLabelColor, mDialogButtonsColor, mItemLayoutResource;
 
     private Calendar mCurrentDate = DateUtils.getCalendar();
     private Calendar mSelectedDate = DateUtils.getCalendar();
@@ -113,38 +110,6 @@ public class CalendarProperties {
 
     public void setDialogButtonsColor(int dialogButtonsColor) {
         mDialogButtonsColor = dialogButtonsColor;
-    }
-
-    public int getCancelButtonLabel() {
-        return mCancelButtonLabel;
-    }
-
-    public void setCancelButtonLabel(int cancelButtonLabel) {
-        mCancelButtonLabel = cancelButtonLabel;
-    }
-
-    public int getOkButtonLabel() {
-        return mOkButtonLabel;
-    }
-
-    public void setOkButtonLabel(int okButtonLabel) {
-        mOkButtonLabel = okButtonLabel;
-    }
-
-    public String[] getMonthsNames() {
-        return mMonthsNames;
-    }
-
-    public void setMonthsNames(String[] monthsNames) {
-        mMonthsNames = monthsNames;
-    }
-
-    public int getDaysNames() {
-        return mDaysNames;
-    }
-
-    public void setDaysNames(int daysNames) {
-        mDaysNames = daysNames;
     }
 
     public Calendar getMinimumDate() {
