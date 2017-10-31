@@ -4,7 +4,9 @@ Material-Calendar-View is a simple and customizable calendar widget for Android 
 
 We described a simple usage of the component [in this article](http://applandeo.com/blog/material-calendar-view-customized-calendar-widget-android/).
 
-![device-2017-05-29-072746](https://user-images.githubusercontent.com/2614225/28766028-ef15ad58-75cd-11e7-8f11-1800d60d8bfc.png) ![device-2017-05-29-075947](https://user-images.githubusercontent.com/2614225/28766037-f49d0424-75cd-11e7-8671-2c9424f13ffd.png) ![device-2017-07-31-084300](https://user-images.githubusercontent.com/2614225/28766040-f70463d8-75cd-11e7-9e0d-ab247fd17749.png)
+![device-2017-05-29-072746](https://user-images.githubusercontent.com/2614225/28766028-ef15ad58-75cd-11e7-8f11-1800d60d8bfc.png) ![device-2017-05-29-075947](https://user-images.githubusercontent.com/2614225/28766037-f49d0424-75cd-11e7-8671-2c9424f13ffd.png) ![device-2017-07-31-084300](https://user-images.githubusercontent.com/2614225/28766040-f70463d8-75cd-11e7-9e0d-ab247fd17749.png) ![device-2017-10-25-144447](https://user-images.githubusercontent.com/2614225/31999378-522b290a-b993-11e7-8dbf-35674b95a5b6.png) ![device-2017-10-25-144725](https://user-images.githubusercontent.com/2614225/31999435-7c4d4c68-b993-11e7-9d1b-031553d6a06e.png)
+
+
 
 
 ## Features
