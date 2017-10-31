@@ -81,7 +81,7 @@ public class DatePicker {
             mCalendarProperties.getOnSelectDateListener().onSelect(calendarView.getSelectedDates());
         });
 
-        mTodayButton.setOnClickListener(v -> calendarView.showTodayPage());
+        mTodayButton.setOnClickListener(v -> calendarView.showCurrentMonthPage());
 
         alertdialog.show();
 

@@ -98,6 +98,12 @@ public class DateUtils {
                 calendar.get(Calendar.YEAR));
     }
 
+    /**
+     * This method returns a list of calendar objects between to dates
+     * @param firstDay Calendar representing a first selected date
+     * @param lastDay Calendar representing a last selected date
+     * @return List of selected dates between two dates
+     */
     public static ArrayList<Calendar> getDatesRange(Calendar firstDay, Calendar lastDay) {
         if (lastDay.before(firstDay)) {
             return getCalendarsBetweenDates(lastDay.getTime(), firstDay.getTime());
@@ -127,8 +133,14 @@ public class DateUtils {
         return calendars;
     }
 
+    /**
+     * This method is used to count a number of months between two dates
+     * @param startCalendar Calendar representing a first date
+     * @param endCalendar Calendar representing a last date
+     * @return Number of months
+     */
     public static int getMonthsBetweenDates(Calendar startCalendar, Calendar endCalendar) {
-        int diffYear = endCalendar.get(Calendar.YEAR) - startCalendar.get(Calendar.YEAR);
-        return diffYear * 12 + endCalendar.get(Calendar.MONTH) - startCalendar.get(Calendar.MONTH);
+        int years = endCalendar.get(Calendar.YEAR) - startCalendar.get(Calendar.YEAR);
+        return years * 12 + endCalendar.get(Calendar.MONTH) - startCalendar.get(Calendar.MONTH);
     }
 }

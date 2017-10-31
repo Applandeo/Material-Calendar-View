@@ -165,7 +165,6 @@ public class CalendarView extends LinearLayout {
 
             // Sets layout for date picker or normal calendar
             setCalendarRowLayout();
-
         } finally {
             typedArray.recycle();
         }
@@ -407,19 +406,30 @@ public class CalendarView extends LinearLayout {
         return calendar;
     }
 
+    /**
+     * This method set a minimum available date in calendar
+     * @param calendar Calendar object representing a minimum date
+     */
     public void setMinimumDate(Calendar calendar) {
         mCalendarProperties.setMinimumDate(calendar);
         mCalendarPageAdapter.setMinimumDate(calendar);
         mCalendarPageAdapter.notifyDataSetChanged();
     }
 
+    /**
+     * This method set a maximum available date in calendar
+     * @param calendar Calendar object representing a maximum date
+     */
     public void setMaximumDate(Calendar calendar) {
         mCalendarProperties.setMaximumDate(calendar);
         mCalendarPageAdapter.setMaximumDate(calendar);
         mCalendarPageAdapter.notifyDataSetChanged();
     }
 
-    public void showTodayPage() {
+    /**
+     * This method is used to return to current month page
+     */
+    public void showCurrentMonthPage() {
         mViewPager.setCurrentItem(mViewPager.getCurrentItem()
                 - DateUtils.getMonthsBetweenDates(DateUtils.getCalendar(), getCurrentPageDate()), true);
     }
