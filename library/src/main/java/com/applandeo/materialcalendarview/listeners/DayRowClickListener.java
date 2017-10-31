@@ -11,6 +11,7 @@ import com.applandeo.materialcalendarview.CalendarView;
 import com.applandeo.materialcalendarview.EventDay;
 import com.applandeo.materialcalendarview.R;
 import com.applandeo.materialcalendarview.adapters.CalendarPageAdapter;
+import com.applandeo.materialcalendarview.utils.CalendarProperties;
 import com.applandeo.materialcalendarview.utils.DateUtils;
 import com.applandeo.materialcalendarview.utils.DayColorsUtils;
 import com.applandeo.materialcalendarview.utils.SelectedDay;
@@ -29,23 +30,14 @@ import java.util.List;
 public class DayRowClickListener implements AdapterView.OnItemClickListener {
     private CalendarPageAdapter mCalendarPageAdapter;
     private Context mContext;
-    private List<EventDay> mEventDays;
-    private OnDayClickListener mOnDayClickListener;
-    private int mCalendarType;
-    private int mTodayLabelColor;
-    private int mSelectionColor;
 
+    private CalendarProperties mCalendarProperties;
 
     public DayRowClickListener(CalendarPageAdapter calendarPageAdapter, Context context,
-                               List<EventDay> eventDays, OnDayClickListener onDayClickListener,
-                               int calendarType, int todayLabelColor, int selectionColor) {
+                               CalendarProperties calendarProperties) {
         mCalendarPageAdapter = calendarPageAdapter;
         mContext = context;
-        mEventDays = eventDays;
-        mOnDayClickListener = onDayClickListener;
-        mCalendarType = calendarType;
-        mTodayLabelColor = todayLabelColor;
-        mSelectionColor = selectionColor;
+        mCalendarProperties = calendarProperties;
     }
 
     @Override
@@ -53,7 +45,7 @@ public class DayRowClickListener implements AdapterView.OnItemClickListener {
         Calendar day = new GregorianCalendar();
         day.setTime((Date) adapterView.getItemAtPosition(position));
 
-        switch (mCalendarType) {
+        switch (mCalendarProperties.getCalendarType()) {
             case CalendarView.ONE_DAY_PICKER:
                 selectOneDay(view, day);
                 break;
@@ -67,7 +59,7 @@ public class DayRowClickListener implements AdapterView.OnItemClickListener {
                 break;
 
             case CalendarView.CLASSIC:
-                if (mOnDayClickListener != null) {
+                if (mCalendarProperties.getOnDayClickListener() != null) {
                     mCalendarPageAdapter.setSelectedDay(new SelectedDay(view, day));
                     onClick(day);
                 }
@@ -92,7 +84,7 @@ public class DayRowClickListener implements AdapterView.OnItemClickListener {
             SelectedDay selectedDay = new SelectedDay(dayLabel, day);
 
             if (!mCalendarPageAdapter.getSelectedDays().contains(selectedDay)) {
-                DayColorsUtils.setSelectedDayColors(mContext, dayLabel, mSelectionColor);
+                DayColorsUtils.setSelectedDayColors(mContext, dayLabel, mCalendarProperties.getSelectionColor());
             } else {
                 reverseUnselectedColor(selectedDay);
             }
@@ -134,20 +126,20 @@ public class DayRowClickListener implements AdapterView.OnItemClickListener {
         Stream.of(DateUtils.getDatesRange(previousSelectedDay.getCalendar(), day))
                 .forEach(calendar -> mCalendarPageAdapter.addSelectedDay(new SelectedDay(calendar)));
 
-        DayColorsUtils.setSelectedDayColors(mContext, dayLabel, mSelectionColor);
+        DayColorsUtils.setSelectedDayColors(mContext, dayLabel, mCalendarProperties.getSelectionColor());
 
         mCalendarPageAdapter.addSelectedDay(new SelectedDay(dayLabel, day));
         mCalendarPageAdapter.notifyDataSetChanged();
     }
 
     private void selectDay(TextView dayLabel, Calendar day) {
-        DayColorsUtils.setSelectedDayColors(mContext, dayLabel, mSelectionColor);
+        DayColorsUtils.setSelectedDayColors(mContext, dayLabel, mCalendarProperties.getSelectionColor());
         mCalendarPageAdapter.setSelectedDay(new SelectedDay(dayLabel, day));
     }
 
     private void reverseUnselectedColor(SelectedDay selectedDay) {
         DayColorsUtils.setCurrentMonthDayColors(mContext, selectedDay.getCalendar(),
-                DateUtils.getCalendar(), (TextView) selectedDay.getView(), mTodayLabelColor);
+                DateUtils.getCalendar(), (TextView) selectedDay.getView(), mCalendarProperties.getTodayLabelColor());
     }
 
     private boolean isCurrentMonthLabel(TextView dayLabel) {
@@ -159,16 +151,16 @@ public class DayRowClickListener implements AdapterView.OnItemClickListener {
     }
 
     private void onClick(Calendar day) {
-        if (mEventDays == null) {
-            mOnDayClickListener.onDayClick(new EventDay(day));
+        if (mCalendarProperties.getEventDays() == null) {
+            mCalendarProperties.getOnDayClickListener().onDayClick(new EventDay(day));
             return;
         }
 
-        Stream.of(mEventDays)
+        Stream.of(mCalendarProperties.getEventDays())
                 .filter(eventDate -> eventDate.getCalendar().equals(day))
                 .findFirst()
                 .ifPresentOrElse(
-                        calendarEventDay -> mOnDayClickListener.onDayClick(calendarEventDay),
-                        () -> mOnDayClickListener.onDayClick(new EventDay(day)));
+                        calendarEventDay -> mCalendarProperties.getOnDayClickListener().onDayClick(calendarEventDay),
+                        () -> mCalendarProperties.getOnDayClickListener().onDayClick(new EventDay(day)));
     }
 }

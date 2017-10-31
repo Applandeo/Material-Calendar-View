@@ -1,14 +1,13 @@
 package com.applandeo.materialcalendarview.builders;
 
 import android.content.Context;
-import android.support.annotation.ArrayRes;
 import android.support.annotation.ColorRes;
 import android.support.annotation.DrawableRes;
-import android.support.annotation.StringRes;
 
 import com.applandeo.materialcalendarview.CalendarView;
 import com.applandeo.materialcalendarview.DatePicker;
 import com.applandeo.materialcalendarview.listeners.OnSelectDateListener;
+import com.applandeo.materialcalendarview.utils.CalendarProperties;
 
 import java.util.Calendar;
 
@@ -17,88 +16,67 @@ import java.util.Calendar;
  */
 public class DatePickerBuilder {
     private Context mContext;
-    private int mCalendarType = CalendarView.ONE_DAY_PICKER;
-    private Calendar mCalendar;
-    private OnSelectDateListener mOnSelectDateListener;
-    private int mHeaderColor;
-    private int mHeaderLabelColor;
-    private int mPreviousButtonSrc;
-    private int mForwardButtonSrc;
-    private int mSelectionColor;
-    private int mTodayLabelColor;
-    private int mDialogButtonsColor;
-    private int mCancelButtonLabel;
-    private int mOkButtonLabel;
-    private int mMonthsNames;
-    private int mDaysNames;
+    private CalendarProperties mCalendarProperties;
 
     public DatePickerBuilder(Context context, OnSelectDateListener onSelectDateListener) {
         mContext = context;
-        mOnSelectDateListener = onSelectDateListener;
+        mCalendarProperties = new CalendarProperties();
+        mCalendarProperties.setCalendarType(CalendarView.ONE_DAY_PICKER);
+        mCalendarProperties.setOnSelectDateListener(onSelectDateListener);
     }
 
     public DatePickerBuilder pickerType(int calendarType) {
-        mCalendarType = calendarType;
+        mCalendarProperties.setCalendarType(calendarType);
         return this;
     }
 
     public DatePickerBuilder date(Calendar calendar) {
-        mCalendar = calendar;
+        mCalendarProperties.setCalendar(calendar);
         return this;
     }
 
     public DatePickerBuilder headerColor(@ColorRes int color) {
-        mHeaderColor = color;
+        mCalendarProperties.setHeaderColor(color);
         return this;
     }
 
     public DatePickerBuilder headerLabelColor(@ColorRes int color) {
-        mHeaderLabelColor = color;
+        mCalendarProperties.setHeaderLabelColor(color);
         return this;
     }
 
     public DatePickerBuilder previousButtonSrc(@DrawableRes int drawable) {
-        mPreviousButtonSrc = drawable;
+        mCalendarProperties.setPreviousButtonSrc(drawable);
         return this;
     }
 
     public DatePickerBuilder forwardButtonSrc(@DrawableRes int drawable) {
-        mForwardButtonSrc = drawable;
+        mCalendarProperties.setForwardButtonSrc(drawable);
         return this;
     }
 
     public DatePickerBuilder selectionColor(@ColorRes int color) {
-        mSelectionColor = color;
+        mCalendarProperties.setSelectionColor(color);
         return this;
     }
 
     public DatePickerBuilder todayLabelColor(@ColorRes int color) {
-        mTodayLabelColor = color;
+        mCalendarProperties.setTodayLabelColor(color);
         return this;
     }
 
     public DatePickerBuilder dialogButtonsColor(@ColorRes int color) {
-        mDialogButtonsColor = color;
+        mCalendarProperties.setDialogButtonsColor(color);
         return this;
     }
 
-    public DatePickerBuilder cancelButtonLabel(@StringRes int label) {
-        mCancelButtonLabel = label;
+    public DatePickerBuilder minimumDate(Calendar calendar) {
+        mCalendarProperties.setMinimumDate(calendar);
         return this;
     }
 
-    public DatePickerBuilder okButtonLabel(@StringRes int label) {
-        mOkButtonLabel = label;
-        return this;
-    }
-
-    public DatePickerBuilder monthsNames(@ArrayRes int names) {
-        mMonthsNames = names;
-        return this;
-    }
-
-    public DatePickerBuilder daysNames(@ArrayRes int names) {
-        mDaysNames = names;
+    public DatePickerBuilder maximumDate(Calendar calendar) {
+        mCalendarProperties.setMaximumDate(calendar);
         return this;
     }
 
@@ -107,9 +85,6 @@ public class DatePickerBuilder {
     }
 
     public DatePicker build() {
-        return new DatePicker(mContext, mCalendarType, mCalendar, mOnSelectDateListener,
-                mHeaderColor, mHeaderLabelColor, mPreviousButtonSrc, mForwardButtonSrc,
-                mSelectionColor, mTodayLabelColor, mDialogButtonsColor, mCancelButtonLabel,
-                mOkButtonLabel, mMonthsNames, mDaysNames);
+        return new DatePicker(mContext, mCalendarProperties);
     }
 }

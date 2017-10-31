@@ -1,17 +1,15 @@
 <resources>
     <string name="app_name">Material Calendar View</string>
 
-    <array name="days_names_symbol_array">
-        <item>Pn</item>
-        <item>Wt</item>
-        <item>Śr</item>
-        <item>Cz</item>
-        <item>Pn</item>
-        <item>Sb</item>
-        <item>Nd</item>
-    </array>
+    <string name="material_calendar_monday">P</string>
+    <string name="material_calendar_tuesday">W</string>
+    <string name="material_calendar_wednesday">Ś</string>
+    <string name="material_calendar_thursday">C</string>
+    <string name="material_calendar_friday">P</string>
+    <string name="material_calendar_saturday">S</string>
+    <string name="material_calendar_sunday">N</string>
 
-    <array name="polish_months_array">
+    <array name="material_calendar_months_array">
         <item>Styczeń</item>
         <item>Luty</item>
         <item>Marzec</item>
@@ -26,6 +24,7 @@
         <item>Grudzień</item>
     </array>
 
-    <string name="ok">Wybierz</string>
-    <string name="cancel">Anuluj</string>
+    <string name="material_calendar_today_button">Dzisiaj</string>
+    <string name="material_calendar_positive_button">Wybierz</string>
+    <string name="material_calendar_negative_button">Anuluj</string>
 </resources>

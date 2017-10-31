@@ -1,5 +1,9 @@
 package com.applandeo.materialcalendarview.utils;
 
+import android.content.Context;
+
+import com.applandeo.materialcalendarview.R;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -36,18 +40,70 @@ public class DateUtils {
     }
 
     /**
+     * This method compares calendars using month and year
+     *
+     * @param firstCalendar  First calendar object to compare
+     * @param secondCalendar Second calendar object to compare
+     * @return Boolean value if second calendar is before the first one
+     */
+    public static boolean isMonthBefore(Calendar firstCalendar, Calendar secondCalendar) {
+        if (firstCalendar == null) {
+            return false;
+        }
+
+        Calendar firstDay = (Calendar) firstCalendar.clone();
+        setMidnight(firstDay);
+        firstDay.set(Calendar.DAY_OF_MONTH, 1);
+        Calendar secondDay = (Calendar) secondCalendar.clone();
+        setMidnight(secondDay);
+        secondDay.set(Calendar.DAY_OF_MONTH, 1);
+
+        return secondDay.before(firstDay);
+    }
+
+    /**
+     * This method compares calendars using month and year
+     *
+     * @param firstCalendar  First calendar object to compare
+     * @param secondCalendar Second calendar object to compare
+     * @return Boolean value if second calendar is after the first one
+     */
+    public static boolean isMonthAfter(Calendar firstCalendar, Calendar secondCalendar) {
+        if (firstCalendar == null) {
+            return false;
+        }
+
+        Calendar firstDay = (Calendar) firstCalendar.clone();
+        setMidnight(firstDay);
+        firstDay.set(Calendar.DAY_OF_MONTH, 1);
+        Calendar secondDay = (Calendar) secondCalendar.clone();
+        setMidnight(secondDay);
+        secondDay.set(Calendar.DAY_OF_MONTH, 1);
+
+        return secondDay.after(firstDay);
+    }
+
+    /**
      * This method returns a string containing a month's name and a year (in number).
      * It's used instead of new SimpleDateFormat("MMMM yyyy", Locale.getDefault()).format([Date]);
      * because that method returns a month's name in incorrect form in some languages (i.e. in Polish)
      *
-     * @param monthsNames An array of months names
-     * @param calendar    A Calendar object containing date which will be formatted
+     * @param context  An array of months names
+     * @param calendar A Calendar object containing date which will be formatted
      * @return A string of the formatted date containing a month's name and a year (in number)
      */
-    public static String getMonthAndYearDate(String[] monthsNames, Calendar calendar) {
-        return String.format("%s  %s", monthsNames[calendar.get(Calendar.MONTH)], calendar.get(Calendar.YEAR));
+    public static String getMonthAndYearDate(Context context, Calendar calendar) {
+        return String.format("%s  %s",
+                context.getResources().getStringArray(R.array.material_calendar_months_array)[calendar.get(Calendar.MONTH)],
+                calendar.get(Calendar.YEAR));
     }
 
+    /**
+     * This method returns a list of calendar objects between to dates
+     * @param firstDay Calendar representing a first selected date
+     * @param lastDay Calendar representing a last selected date
+     * @return List of selected dates between two dates
+     */
     public static ArrayList<Calendar> getDatesRange(Calendar firstDay, Calendar lastDay) {
         if (lastDay.before(firstDay)) {
             return getCalendarsBetweenDates(lastDay.getTime(), firstDay.getTime());
@@ -75,5 +131,16 @@ public class DateUtils {
         }
 
         return calendars;
+    }
+
+    /**
+     * This method is used to count a number of months between two dates
+     * @param startCalendar Calendar representing a first date
+     * @param endCalendar Calendar representing a last date
+     * @return Number of months
+     */
+    public static int getMonthsBetweenDates(Calendar startCalendar, Calendar endCalendar) {
+        int years = endCalendar.get(Calendar.YEAR) - startCalendar.get(Calendar.YEAR);
+        return years * 12 + endCalendar.get(Calendar.MONTH) - startCalendar.get(Calendar.MONTH);
     }
 }

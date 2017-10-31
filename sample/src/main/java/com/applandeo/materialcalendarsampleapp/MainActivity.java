@@ -39,19 +39,24 @@ public class MainActivity extends AppCompatActivity implements OnSelectDateListe
         Button openRangePicker = (Button) findViewById(R.id.openRangePickerButton);
         openRangePicker.setOnClickListener(v -> startActivity(new Intent(this, RangePickerActivity.class)));
 
+        Calendar min = Calendar.getInstance();
+        min.add(Calendar.MONTH, -5);
+
+        Calendar max = Calendar.getInstance();
+        max.add(Calendar.MONTH, -3);
+
         DatePickerBuilder oneDayBuilder = new DatePickerBuilder(this, this)
                 .pickerType(CalendarView.ONE_DAY_PICKER)
+                .date(max)
                 .headerColor(R.color.colorPrimaryDark)
                 .headerLabelColor(R.color.currentMonthDayColor)
                 .selectionColor(R.color.daysLabelColor)
                 .todayLabelColor(R.color.colorAccent)
                 .dialogButtonsColor(android.R.color.holo_green_dark)
-                .cancelButtonLabel(R.string.cancel)
-                .okButtonLabel(R.string.ok)
                 .previousButtonSrc(R.drawable.ic_chevron_left_black_24dp)
                 .forwardButtonSrc(R.drawable.ic_chevron_right_black_24dp)
-                .daysNames(R.array.days_names_symbol_array)
-                .monthsNames(R.array.polish_months_array);
+                .minimumDate(min)
+                .maximumDate(max);
 
         DatePicker oneDayPicker = oneDayBuilder.build();
 

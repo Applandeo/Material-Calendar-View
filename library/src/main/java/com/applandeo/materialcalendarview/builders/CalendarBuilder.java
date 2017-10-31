@@ -1,12 +1,14 @@
 package com.applandeo.materialcalendarview.builders;
 
 import android.content.Context;
-import android.support.annotation.ArrayRes;
 import android.support.annotation.ColorRes;
 import android.support.annotation.DrawableRes;
 
 import com.applandeo.materialcalendarview.CalendarView;
 import com.applandeo.materialcalendarview.listeners.OnSelectionAbilityListener;
+import com.applandeo.materialcalendarview.utils.CalendarProperties;
+
+import java.util.Calendar;
 
 /**
  * This class is using to create CalendarView instance
@@ -15,86 +17,74 @@ import com.applandeo.materialcalendarview.listeners.OnSelectionAbilityListener;
 
 public class CalendarBuilder {
     private Context mContext;
-    private int mCalendarType = CalendarView.CLASSIC;
-    private int mHeaderColor;
-    private int mHeaderLabelColor;
-    private int mPreviousButtonSrc;
-    private int mForwardButtonSrc;
-    private int mSelectionColor;
-    private int mTodayLabelColor;
-    private String[] mMonthsNames;
-    private int mDaysNames;
-    private OnSelectionAbilityListener mOnSelectionAbilityListener;
+    private CalendarProperties mCalendarProperties;
 
     public CalendarBuilder(Context context) {
         mContext = context;
+        mCalendarProperties = new CalendarProperties();
+        mCalendarProperties.setCalendarType(CalendarView.CLASSIC);
     }
 
     private CalendarView build() {
-        return new CalendarView(mContext, mCalendarType, mHeaderColor, mHeaderLabelColor,
-                mPreviousButtonSrc, mForwardButtonSrc, mSelectionColor, mTodayLabelColor,
-                mMonthsNames, mDaysNames, mOnSelectionAbilityListener);
+        return new CalendarView(mContext, mCalendarProperties);
     }
 
     @Deprecated
     public CalendarBuilder datePicker(boolean isDatePicker) {
         if (isDatePicker) {
-            mCalendarType = CalendarView.ONE_DAY_PICKER;
+            mCalendarProperties.setCalendarType(CalendarView.ONE_DAY_PICKER);
         }
 
         return this;
     }
 
     public CalendarBuilder setType(int calendarType) {
-        mCalendarType = calendarType;
+        mCalendarProperties.setCalendarType(calendarType);
         return this;
     }
 
     public CalendarBuilder headerColor(@ColorRes int color) {
-        mHeaderColor = color;
+        mCalendarProperties.setHeaderColor(color);
         return this;
     }
 
     public CalendarBuilder headerLabelColor(@ColorRes int color) {
-        mHeaderLabelColor = color;
+        mCalendarProperties.setHeaderLabelColor(color);
         return this;
     }
 
     public CalendarBuilder previousButtonSrc(@DrawableRes int drawable) {
-        mPreviousButtonSrc = drawable;
+        mCalendarProperties.setPreviousButtonSrc(drawable);
         return this;
     }
 
     public CalendarBuilder forwardButtonSrc(@DrawableRes int drawable) {
-        mForwardButtonSrc = drawable;
+        mCalendarProperties.setForwardButtonSrc(drawable);
         return this;
     }
 
     public CalendarBuilder selectionColor(@ColorRes int color) {
-        mSelectionColor = color;
+        mCalendarProperties.setSelectionColor(color);
         return this;
     }
 
     public CalendarBuilder todayLabelColor(@ColorRes int color) {
-        mTodayLabelColor = color;
+        mCalendarProperties.setTodayLabelColor(color);
         return this;
     }
 
-    public CalendarBuilder monthsNames(@ArrayRes int names) {
-        if (names != 0) {
-            mMonthsNames = mContext.getResources().getStringArray(names);
-        }
-
+    public CalendarBuilder minimumDate(Calendar calendar) {
+        mCalendarProperties.setMinimumDate(calendar);
         return this;
     }
 
-    public CalendarBuilder daysNames(@ArrayRes int names) {
-        mDaysNames = names;
+    public CalendarBuilder maximumDate(Calendar calendar) {
+        mCalendarProperties.setMaximumDate(calendar);
         return this;
     }
 
     public CalendarBuilder selectionAbilityListener(OnSelectionAbilityListener onSelectionAbilityListener) {
-        mOnSelectionAbilityListener = onSelectionAbilityListener;
+        mCalendarProperties.setOnSelectionAbilityListener(onSelectionAbilityListener);
         return this;
     }
 

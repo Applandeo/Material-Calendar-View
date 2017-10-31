@@ -8,8 +8,6 @@
         <attr name="todayLabelColor" format="color" />
         <attr name="selectionColor" format="color" />
         <attr name="datePicker" format="boolean" />
-        <attr name="daysNames" format="reference" />
-        <attr name="monthsNames" format="reference" />
         <attr name="type" />
     </declare-styleable>
 
