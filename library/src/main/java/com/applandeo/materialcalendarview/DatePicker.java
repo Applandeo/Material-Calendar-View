@@ -12,6 +12,7 @@ import com.annimon.stream.Optional;
 import com.applandeo.materialcalendarview.builders.CalendarBuilder;
 import com.applandeo.materialcalendarview.exceptions.OutOfDateRangeException;
 import com.applandeo.materialcalendarview.utils.CalendarProperties;
+import com.applandeo.materialcalendarview.utils.DateUtils;
 
 /**
  * This class is responsible for creating DatePicker dialog.
@@ -39,6 +40,8 @@ public class DatePicker {
         mCancelButton = (AppCompatButton) view.findViewById(R.id.cancel_button);
         mOkButton = (AppCompatButton) view.findViewById(R.id.ok_button);
         mTodayButton = (AppCompatButton) view.findViewById(R.id.today_button);
+
+        setTodayButtonVisibility();
 
         setDialogButtonsColors();
         setOkButtonState(mCalendarProperties.getCalendarType() == CalendarView.ONE_DAY_PICKER);
@@ -108,6 +111,13 @@ public class DatePicker {
         if (mCalendarProperties.getDialogButtonsColor() != 0) {
             mOkButton.setTextColor(ContextCompat.getColor(mContext, enabled
                     ? mCalendarProperties.getDialogButtonsColor() : R.color.disabledDialogButtonColor));
+        }
+    }
+
+    private void setTodayButtonVisibility(){
+        if (DateUtils.isMonthAfter(mCalendarProperties.getMaximumDate(), DateUtils.getCalendar())
+                || DateUtils.isMonthBefore(mCalendarProperties.getMinimumDate(), DateUtils.getCalendar())) {
+            mTodayButton.setVisibility(View.GONE);
         }
     }
 }

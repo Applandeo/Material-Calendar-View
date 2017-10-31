@@ -26,6 +26,7 @@
         <item>Grudzień</item>
     </array>
 
+    <string name="today_button">Dziś</string>
     <string name="ok">Wybierz</string>
     <string name="cancel">Anuluj</string>
 </resources>

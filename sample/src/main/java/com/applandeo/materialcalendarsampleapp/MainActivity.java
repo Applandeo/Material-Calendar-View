@@ -40,10 +40,10 @@ public class MainActivity extends AppCompatActivity implements OnSelectDateListe
         openRangePicker.setOnClickListener(v -> startActivity(new Intent(this, RangePickerActivity.class)));
 
         Calendar min = Calendar.getInstance();
-        min.add(Calendar.DAY_OF_MONTH, -5);
+        min.add(Calendar.MONTH, -5);
 
         Calendar max = Calendar.getInstance();
-        max.add(Calendar.MONTH, 5);
+        max.add(Calendar.MONTH, -3);
 
         DatePickerBuilder oneDayBuilder = new DatePickerBuilder(this, this)
                 .pickerType(CalendarView.ONE_DAY_PICKER)
