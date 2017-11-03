@@ -19,6 +19,8 @@ We described a simple usage of the component [in this article](http://applandeo.
 
 
 ## How to use?
+Make sure you are using the newest **com.android.support:appcompat-v7**.
+
 Make sure you have defined the **jcenter()** repository in project's **build.gradle** file:
 ```
 allprojects {
@@ -31,7 +33,7 @@ allprojects {
 Add the dependency to module's **build.gradle** file:
 ```
 dependencies {
-    compile 'com.applandeo:material-calendar-view:1.2.0'
+    compile 'com.applandeo:material-calendar-view:1.3.1'
 }
 ```
 
@@ -121,12 +123,39 @@ If you want to use calendar in the picker mode, you have to use the following ta
 * Today label color: ```app:todayLabelColor="[color]"```
 
 #### Translations:
-* Array of months names: ```app:monthsNames="[array]"``` (array must contains 12 names)
-* Array of abbreviations of days of the week: ```app:daysNames="[array]"``` (array must contains 7 abbreviations)
+To translate months names, abbreviations of days, "TODAY", "OK" and "CANCEL" buttons, just add below tags to your `strings.xml` file:
+```xml
+<string name="material_calendar_monday">M</string>
+<string name="material_calendar_tuesday">T</string>
+<string name="material_calendar_wednesday">W</string>
+<string name="material_calendar_thursday">T</string>
+<string name="material_calendar_friday">F</string>
+<string name="material_calendar_saturday">S</string>
+<string name="material_calendar_sunday">S</string>
+
+<array name="material_calendar_months_array">
+    <item>January</item>
+    <item>February</item>
+    <item>March</item>
+    <item>April</item>
+    <item>May</item>
+    <item>June</item>
+    <item>July</item>
+    <item>August</item>
+    <item>September</item>
+    <item>October</item>
+    <item>November</item>
+    <item>December</item>
+</array>
+
+<string name="material_calendar_today_button">Today</string>
+<string name="material_calendar_positive_button">OK</string>
+<string name="material_calendar_negative_button">Cancel</string>
+```
 
 ## Date Picker Dialog
 ```java
-DatePicker.Builder builder = new DatePicker.Builder(this, listener)
+DatePickerBuilder builder = new DatePickerBuilder(this, listener)
                 .pickerType(CalendarView.ONE_DAY_PICKER);
 
 DatePicker datePicker = builder.build();
@@ -150,22 +179,32 @@ private OnSelectDateListener listener = new OnSelectDateListener() {
 
 #### Customization:
 ```java
-new DatePicker.Builder(this, listener)
+new DatePickerBuilder(this, listener)
         .date(Calendar.getInstance()) // Initial date as Calendar object
         .headerColor(R.color.colorPrimaryDark) // Color of dialog header
         .headerLabelColor(R.color.currentMonthDayColor) // Color of header label
         .selectionColor(R.color.daysLabelColor) // Color of selection circle
         .todayLabelColor(R.color.colorAccent) // Color of today number
         .dialogButtonsColor(R.color.colorAccent) // Color of "Cancel" and "OK" buttons
-        .cancelButtonLabel(R.string.cancel) // Custom text of "Cancel" button
-        .okButtonLabel(R.string.ok) // Custom text of "OK" button
         .previousButtonSrc(R.drawable.ic_chevron_left_black_24dp) // Custom drawable of the previous arrow
-        .forwardButtonSrc(R.drawable.ic_chevron_right_black_24dp) // Custom drawable of the forward arrow
-        .daysNames(R.array.days_names_symbol_array) // Array of abbreviations of days of the week
-        .monthsNames(R.array.polish_months_array); // Array of months names
+        .forwardButtonSrc(R.drawable.ic_chevron_right_black_24dp); // Custom drawable of the forward arrow
+```
+```diff
+Removed methods (see [Translations](https://github.com/Applandeo/Material-Calendar-View#translations))
+-okButtonLabel()
+-cancelButtonLabel()
+-daysNames()
+-monthsNames()
 ```
 
 ## Changelog
+#### Version 1.3.1:
+* Bug fixes
+
+#### Version 1.3.0:
+* Added ability to set minimum and maximum available date
+* Added "Today" button to dialog picker
+
 #### Version 1.2.0:
 * Added many days picker
 * Added range picker
