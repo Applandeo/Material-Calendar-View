@@ -189,8 +189,9 @@ new DatePickerBuilder(this, listener)
         .previousButtonSrc(R.drawable.ic_chevron_left_black_24dp) // Custom drawable of the previous arrow
         .forwardButtonSrc(R.drawable.ic_chevron_right_black_24dp); // Custom drawable of the forward arrow
 ```
-```diff
+
 Removed methods (see [Translations](https://github.com/Applandeo/Material-Calendar-View#translations))
+```diff
 -okButtonLabel()
 -cancelButtonLabel()
 -daysNames()
