@@ -190,7 +190,7 @@ new DatePickerBuilder(this, listener)
         .forwardButtonSrc(R.drawable.ic_chevron_right_black_24dp); // Custom drawable of the forward arrow
 ```
 
-Removed methods (see [Translations](https://github.com/Applandeo/Material-Calendar-View#translations))
+Removed methods (see [Translations](https://github.com/Applandeo/Material-Calendar-View#translations)):
 ```diff
 -okButtonLabel()
 -cancelButtonLabel()
