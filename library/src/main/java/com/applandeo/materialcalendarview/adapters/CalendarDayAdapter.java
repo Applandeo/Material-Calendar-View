@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.annimon.stream.Stream;
 import com.applandeo.materialcalendarview.CalendarView;
+import com.applandeo.materialcalendarview.EventDay;
 import com.applandeo.materialcalendarview.R;
 import com.applandeo.materialcalendarview.utils.CalendarProperties;
 import com.applandeo.materialcalendarview.utils.DateUtils;
@@ -69,10 +70,13 @@ class CalendarDayAdapter extends ArrayAdapter<Date> {
         }
 
         if (isSelectedDay(day)) {
+
             // Set view for all SelectedDays
-            Stream.of(mCalendarPageAdapter.getSelectedDays())
-                    .filter(selectedDay -> selectedDay.getCalendar().equals(day))
-                    .findFirst().ifPresent(selectedDay -> selectedDay.setView(dayLabel));
+            for (SelectedDay selectedDay : mCalendarPageAdapter.getSelectedDays()) {
+                if (selectedDay.getCalendar().equals(day)) {
+                    selectedDay.setView(dayLabel);
+                }
+            }
 
             DayColorsUtils.setSelectedDayColors(mContext, dayLabel, mCalendarProperties.getSelectionColor());
         } else if (isCurrentMonthDay(day) && isActiveDay(day)) { // Setting current month day color
@@ -106,16 +110,17 @@ class CalendarDayAdapter extends ArrayAdapter<Date> {
             return;
         }
 
-        Stream.of(mCalendarProperties.getEventDays()).filter(eventDate ->
-                eventDate.getCalendar().equals(day)).findFirst().executeIfPresent(eventDay -> {
+        for (EventDay eventDay : mCalendarProperties.getEventDays()) {
+            if (eventDay.getCalendar().equals(day)) {
+                ImageUtils.loadResource(dayIcon, eventDay.getImageResource());
+                dayIcon.
 
-            ImageUtils.loadResource(dayIcon, eventDay.getImageResource());
-
-            // If a day doesn't belong to current month then image is transparent
-            if (!isCurrentMonthDay(day) || !isActiveDay(day)) {
-                dayIcon.setAlpha(0.2f);
+                // If a day doesn't belong to current month then image is transparent
+                if (!isCurrentMonthDay(day) || !isActiveDay(day)) {
+                    dayIcon.setAlpha(0.2f);
+                }
+                return;
             }
-
-        });
+        }
     }
 }

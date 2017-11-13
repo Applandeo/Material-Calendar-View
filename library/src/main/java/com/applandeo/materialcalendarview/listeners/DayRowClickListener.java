@@ -6,7 +6,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.TextView;
 
-import com.annimon.stream.Stream;
 import com.applandeo.materialcalendarview.CalendarView;
 import com.applandeo.materialcalendarview.EventDay;
 import com.applandeo.materialcalendarview.R;
@@ -16,6 +15,7 @@ import com.applandeo.materialcalendarview.utils.DateUtils;
 import com.applandeo.materialcalendarview.utils.DayColorsUtils;
 import com.applandeo.materialcalendarview.utils.SelectedDay;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -116,15 +116,21 @@ public class DayRowClickListener implements AdapterView.OnItemClickListener {
     }
 
     private void clearAndSelectOne(TextView dayLabel, Calendar day) {
-        Stream.of(mCalendarPageAdapter.getSelectedDays()).forEach(this::reverseUnselectedColor);
+        for (SelectedDay selectedDay :
+                mCalendarPageAdapter.getSelectedDays()) {
+            reverseUnselectedColor(selectedDay);
+        }
         selectDay(dayLabel, day);
     }
 
     private void selectOneAndRange(TextView dayLabel, Calendar day) {
         SelectedDay previousSelectedDay = mCalendarPageAdapter.getSelectedDay();
 
-        Stream.of(DateUtils.getDatesRange(previousSelectedDay.getCalendar(), day))
-                .forEach(calendar -> mCalendarPageAdapter.addSelectedDay(new SelectedDay(calendar)));
+        ArrayList<Calendar> calendars = DateUtils.getDatesRange(previousSelectedDay.getCalendar(), day);
+        for (Calendar calendar :
+                calendars) {
+            mCalendarPageAdapter.addSelectedDay(new SelectedDay(calendar));
+        }
 
         DayColorsUtils.setSelectedDayColors(mContext, dayLabel, mCalendarProperties.getSelectionColor());
 
@@ -156,11 +162,13 @@ public class DayRowClickListener implements AdapterView.OnItemClickListener {
             return;
         }
 
-        Stream.of(mCalendarProperties.getEventDays())
-                .filter(eventDate -> eventDate.getCalendar().equals(day))
-                .findFirst()
-                .ifPresentOrElse(
-                        calendarEventDay -> mCalendarProperties.getOnDayClickListener().onDayClick(calendarEventDay),
-                        () -> mCalendarProperties.getOnDayClickListener().onDayClick(new EventDay(day)));
+        for (EventDay eventDay : mCalendarProperties.getEventDays()) {
+            if (eventDay.getCalendar().equals(day)) {
+                mCalendarProperties.getOnDayClickListener().onDayClick(eventDay);
+                return;
+            }
+        }
+
+        mCalendarProperties.getOnDayClickListener().onDayClick(new EventDay(day));
     }
 }

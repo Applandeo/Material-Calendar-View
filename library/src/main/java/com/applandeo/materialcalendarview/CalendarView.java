@@ -12,7 +12,6 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.annimon.stream.Stream;
 import com.applandeo.materialcalendarview.adapters.CalendarPageAdapter;
 import com.applandeo.materialcalendarview.exceptions.OutOfDateRangeException;
 import com.applandeo.materialcalendarview.listeners.OnDayClickListener;
@@ -21,7 +20,10 @@ import com.applandeo.materialcalendarview.utils.CalendarProperties;
 import com.applandeo.materialcalendarview.utils.DateUtils;
 import com.applandeo.materialcalendarview.utils.SelectedDay;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
@@ -375,9 +377,13 @@ public class CalendarView extends LinearLayout {
      * @return List of Calendar object representing a selected dates
      */
     public List<Calendar> getSelectedDates() {
-        return Stream.of(mCalendarPageAdapter.getSelectedDays())
-                .map(SelectedDay::getCalendar)
-                .sortBy(calendar -> calendar).toList();
+        List<Calendar> calendars = new ArrayList<>();
+        for (SelectedDay selectedDay :
+                mCalendarPageAdapter.getSelectedDays()) {
+            calendars.add(selectedDay.getCalendar());
+        }
+        Collections.sort(calendars, (o1, o2) -> o1.getTime().compareTo(o2.getTime()));
+        return calendars;
     }
 
     /**
@@ -392,8 +398,8 @@ public class CalendarView extends LinearLayout {
      * @return Calendar object representing a selected date
      */
     public Calendar getFirstSelectedDate() {
-        return Stream.of(mCalendarPageAdapter.getSelectedDays())
-                .map(SelectedDay::getCalendar).findFirst().get();
+
+        return mCalendarPageAdapter.getSelectedDays().get(0).getCalendar();
     }
 
     /**
