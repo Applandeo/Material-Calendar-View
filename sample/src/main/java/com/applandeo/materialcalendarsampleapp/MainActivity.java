@@ -89,8 +89,7 @@ public class MainActivity extends AppCompatActivity implements OnSelectDateListe
 
     @Override
     public void onSelect(List<Calendar> calendars) {
-        for (Calendar calendar :
-                calendars) {
+        for (Calendar calendar : calendars) {
             Toast.makeText(getApplicationContext(),
                     calendar.getTime().toString(),
                     Toast.LENGTH_SHORT).show();

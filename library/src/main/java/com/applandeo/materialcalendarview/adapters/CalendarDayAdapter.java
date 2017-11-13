@@ -113,7 +113,6 @@ class CalendarDayAdapter extends ArrayAdapter<Date> {
         for (EventDay eventDay : mCalendarProperties.getEventDays()) {
             if (eventDay.getCalendar().equals(day)) {
                 ImageUtils.loadResource(dayIcon, eventDay.getImageResource());
-                dayIcon.
 
                 // If a day doesn't belong to current month then image is transparent
                 if (!isCurrentMonthDay(day) || !isActiveDay(day)) {
