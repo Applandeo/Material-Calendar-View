@@ -19,6 +19,7 @@ import com.applandeo.materialcalendarview.listeners.OnDayClickListener;
 import com.applandeo.materialcalendarview.listeners.OnNavigationButtonClickListener;
 import com.applandeo.materialcalendarview.utils.CalendarProperties;
 import com.applandeo.materialcalendarview.utils.DateUtils;
+import com.applandeo.materialcalendarview.utils.MyViewPager;
 import com.applandeo.materialcalendarview.utils.SelectedDay;
 
 import java.util.Calendar;
@@ -64,7 +65,7 @@ public class CalendarView extends LinearLayout {
     private ImageButton mPreviousButton, mForwardButton;
     private TextView mCurrentMonthLabel;
     private int mCurrentPage;
-    private ViewPager mViewPager;
+    private MyViewPager mViewPager;
 
     private CalendarProperties mCalendarProperties;
 
@@ -225,7 +226,7 @@ public class CalendarView extends LinearLayout {
 
         mCurrentMonthLabel = (TextView) findViewById(R.id.currentDateLabel);
 
-        mViewPager = (ViewPager) findViewById(R.id.calendarViewPager);
+        mViewPager = (MyViewPager) findViewById(R.id.calendarViewPager);
     }
 
     private void initCalendar() {
