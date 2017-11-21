@@ -119,9 +119,8 @@
             android:textColor="@color/daysLabelColor" />
     </LinearLayout>
 
-    <com.applandeo.materialcalendarview.utils.MyViewPager
+    <com.applandeo.materialcalendarview.extensions.CalendarViewPager
         android:id="@+id/calendarViewPager"
-        android:background="@android:color/holo_red_dark"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
