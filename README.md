@@ -33,7 +33,7 @@ allprojects {
 Add the dependency to module's **build.gradle** file:
 ```
 dependencies {
-    compile 'com.applandeo:material-calendar-view:1.3.1'
+    compile 'com.applandeo:material-calendar-view:1.3.2'
 }
 ```
 
@@ -199,6 +199,9 @@ Removed methods (see [Translations](https://github.com/Applandeo/Material-Calend
 ```
 
 ## Changelog
+#### Version 1.3.2:
+* Bug fixes
+
 #### Version 1.3.1:
 * Bug fixes
 
