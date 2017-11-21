@@ -5,7 +5,6 @@ import android.support.v4.view.PagerAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.GridView;
 
 import com.applandeo.materialcalendarview.CalendarView;
 import com.applandeo.materialcalendarview.EventDay;
@@ -13,6 +12,7 @@ import com.applandeo.materialcalendarview.R;
 import com.applandeo.materialcalendarview.listeners.DayRowClickListener;
 import com.applandeo.materialcalendarview.listeners.OnDayClickListener;
 import com.applandeo.materialcalendarview.utils.CalendarProperties;
+import com.applandeo.materialcalendarview.extensions.CalendarGridView;
 import com.applandeo.materialcalendarview.utils.SelectedDay;
 
 import java.util.ArrayList;
@@ -35,7 +35,7 @@ public class CalendarPageAdapter extends PagerAdapter {
     public static final int CALENDAR_SIZE = 2401;
 
     private Context mContext;
-    private GridView mCalendarGridView;
+    private CalendarGridView mCalendarGridView;
 
     private List<SelectedDay> mSelectedDays = new ArrayList<>();
 
@@ -68,15 +68,14 @@ public class CalendarPageAdapter extends PagerAdapter {
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
         LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View viewLayout = inflater.inflate(R.layout.calendar_view_grid, container, false);
+        mCalendarGridView = (CalendarGridView) inflater.inflate(R.layout.calendar_view_grid, null);
 
-        mCalendarGridView = (GridView) viewLayout.findViewById(R.id.calendarGridView);
         mCalendarGridView.setOnItemClickListener(new DayRowClickListener(this, mContext, mCalendarProperties));
 
         loadMonth(position);
 
-        container.addView(viewLayout);
-        return viewLayout;
+        container.addView(mCalendarGridView);
+        return mCalendarGridView;
     }
 
     public void setOnDayClickListener(OnDayClickListener listener) {
