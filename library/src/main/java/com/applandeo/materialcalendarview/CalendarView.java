@@ -15,11 +15,11 @@ import android.widget.TextView;
 import com.annimon.stream.Stream;
 import com.applandeo.materialcalendarview.adapters.CalendarPageAdapter;
 import com.applandeo.materialcalendarview.exceptions.OutOfDateRangeException;
+import com.applandeo.materialcalendarview.extensions.CalendarViewPager;
 import com.applandeo.materialcalendarview.listeners.OnDayClickListener;
 import com.applandeo.materialcalendarview.listeners.OnNavigationButtonClickListener;
 import com.applandeo.materialcalendarview.utils.CalendarProperties;
 import com.applandeo.materialcalendarview.utils.DateUtils;
-import com.applandeo.materialcalendarview.extensions.CalendarViewPager;
 import com.applandeo.materialcalendarview.utils.SelectedDay;
 
 import java.util.Calendar;
@@ -433,5 +433,9 @@ public class CalendarView extends LinearLayout {
     public void showCurrentMonthPage() {
         mViewPager.setCurrentItem(mViewPager.getCurrentItem()
                 - DateUtils.getMonthsBetweenDates(DateUtils.getCalendar(), getCurrentPageDate()), true);
+    }
+
+    public void setDisabledDays(List<Calendar> disabledDays) {
+        mCalendarProperties.setDisabledDays(disabledDays);
     }
 }

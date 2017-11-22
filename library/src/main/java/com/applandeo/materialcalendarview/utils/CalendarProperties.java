@@ -31,6 +31,7 @@ public class CalendarProperties {
     private OnNavigationButtonClickListener mOnForwardButtonClickListener;
 
     private List<EventDay> mEventDays = new ArrayList<>();
+    private List<Calendar> mDisabledDays = new ArrayList<>();
 
     public int getCalendarType() {
         return mCalendarType;
@@ -182,5 +183,13 @@ public class CalendarProperties {
 
     public void setEventDays(List<EventDay> eventDays) {
         mEventDays = eventDays;
+    }
+
+    public List<Calendar> getDisabledDays() {
+        return mDisabledDays;
+    }
+
+    public void setDisabledDays(List<Calendar> disabledDays) {
+        mDisabledDays = disabledDays;
     }
 }

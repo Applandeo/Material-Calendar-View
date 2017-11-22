@@ -10,6 +10,7 @@ import com.applandeo.materialcalendarview.listeners.OnSelectDateListener;
 import com.applandeo.materialcalendarview.utils.CalendarProperties;
 
 import java.util.Calendar;
+import java.util.List;
 
 /**
  * Created by Mateusz Kornakiewicz on 12.10.2017.
@@ -77,6 +78,11 @@ public class DatePickerBuilder {
 
     public DatePickerBuilder maximumDate(Calendar calendar) {
         mCalendarProperties.setMaximumDate(calendar);
+        return this;
+    }
+
+    public DatePickerBuilder disabledDays(List<Calendar> disabledDays) {
+        mCalendarProperties.setDisabledDays(disabledDays);
         return this;
     }
 

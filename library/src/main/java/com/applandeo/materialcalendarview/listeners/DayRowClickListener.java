@@ -124,6 +124,7 @@ public class DayRowClickListener implements AdapterView.OnItemClickListener {
         SelectedDay previousSelectedDay = mCalendarPageAdapter.getSelectedDay();
 
         Stream.of(DateUtils.getDatesRange(previousSelectedDay.getCalendar(), day))
+                .filter(calendar -> !mCalendarProperties.getDisabledDays().contains(calendar))
                 .forEach(calendar -> mCalendarPageAdapter.addSelectedDay(new SelectedDay(calendar)));
 
         DayColorsUtils.setSelectedDayColors(mContext, dayLabel, mCalendarProperties.getSelectionColor());
