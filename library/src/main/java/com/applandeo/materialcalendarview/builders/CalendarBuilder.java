@@ -9,6 +9,7 @@ import com.applandeo.materialcalendarview.listeners.OnSelectionAbilityListener;
 import com.applandeo.materialcalendarview.utils.CalendarProperties;
 
 import java.util.Calendar;
+import java.util.List;
 
 /**
  * This class is using to create CalendarView instance
@@ -85,6 +86,11 @@ public class CalendarBuilder {
 
     public CalendarBuilder selectionAbilityListener(OnSelectionAbilityListener onSelectionAbilityListener) {
         mCalendarProperties.setOnSelectionAbilityListener(onSelectionAbilityListener);
+        return this;
+    }
+
+    public CalendarBuilder disabledDays(List<Calendar> disabledDays) {
+        mCalendarProperties.setDisabledDays(disabledDays);
         return this;
     }
 

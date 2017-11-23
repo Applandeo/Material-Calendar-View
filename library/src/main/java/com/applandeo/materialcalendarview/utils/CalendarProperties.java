@@ -1,5 +1,6 @@
 package com.applandeo.materialcalendarview.utils;
 
+import com.annimon.stream.Stream;
 import com.applandeo.materialcalendarview.EventDay;
 import com.applandeo.materialcalendarview.listeners.OnDayClickListener;
 import com.applandeo.materialcalendarview.listeners.OnNavigationButtonClickListener;
@@ -190,6 +191,9 @@ public class CalendarProperties {
     }
 
     public void setDisabledDays(List<Calendar> disabledDays) {
-        mDisabledDays = disabledDays;
+        mDisabledDays = Stream.of(disabledDays).map(calendar -> {
+            DateUtils.setMidnight(calendar);
+            return calendar;
+        }).toList();
     }
 }

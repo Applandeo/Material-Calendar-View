@@ -57,6 +57,7 @@ public class DatePicker {
                 .minimumDate(mCalendarProperties.getMinimumDate())
                 .maximumDate(mCalendarProperties.getMaximumDate())
                 .selectionAbilityListener(this::setOkButtonState)
+                .disabledDays(mCalendarProperties.getDisabledDays())
                 .create();
 
         FrameLayout calendarContainer = (FrameLayout) view.findViewById(R.id.calendarContainer);

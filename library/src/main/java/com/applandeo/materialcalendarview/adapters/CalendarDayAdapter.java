@@ -96,11 +96,8 @@ class CalendarDayAdapter extends ArrayAdapter<Date> {
     }
 
     private boolean isActiveDay(Calendar day) {
-        if(mCalendarProperties.getDisabledDays().contains(day)){
-            return false;
-        }
-
-        return !((mCalendarProperties.getMinimumDate() != null && day.before(mCalendarProperties.getMinimumDate()))
+        return !mCalendarProperties.getDisabledDays().contains(day)
+                && !((mCalendarProperties.getMinimumDate() != null && day.before(mCalendarProperties.getMinimumDate()))
                 || (mCalendarProperties.getMaximumDate() != null && day.after(mCalendarProperties.getMaximumDate())));
     }
 
