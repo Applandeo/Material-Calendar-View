@@ -114,7 +114,7 @@ class CalendarDayAdapter extends ArrayAdapter<Date> {
 
             // If a day doesn't belong to current month then image is transparent
             if (!isCurrentMonthDay(day) || !isActiveDay(day)) {
-                dayIcon.setAlpha(0.2f);
+                dayIcon.setAlpha(0.12f);
             }
 
         });
