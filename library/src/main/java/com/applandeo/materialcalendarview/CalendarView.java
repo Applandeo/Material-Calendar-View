@@ -81,8 +81,8 @@ public class CalendarView extends LinearLayout {
         initCalendar();
     }
 
-    //private constructor to create CalendarView using CalendarView.CalendarBuilder
-    public CalendarView(Context context, CalendarProperties calendarProperties) {
+    //protected constructor to create CalendarView for the dialog date picker
+    protected CalendarView(Context context, CalendarProperties calendarProperties) {
         super(context);
         mContext = context;
         mCalendarProperties = calendarProperties;
@@ -176,7 +176,7 @@ public class CalendarView extends LinearLayout {
         }
     }
 
-    //This method set CalendarView attributes when the view is creating using CalendarBuilder
+    //This method set CalendarView attributes when the view is creating in the date picker
     private void initAttributes() {
         setCalendarRowLayout();
 
@@ -213,7 +213,7 @@ public class CalendarView extends LinearLayout {
     private void initUiElements() {
         // This line subtracts a half of all calendar months to set calendar
         // in the correct position (in the middle)
-        mCalendarProperties.getCurrentDate().add(Calendar.MONTH, -FIRST_VISIBLE_PAGE);
+        mCalendarProperties.getCurrentDate().set(Calendar.MONTH, -FIRST_VISIBLE_PAGE);
 
         mForwardButton = (ImageButton) findViewById(R.id.forwardButton);
         mForwardButton.setOnClickListener(onNextClickListener);

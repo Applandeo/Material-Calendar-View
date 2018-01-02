@@ -41,10 +41,8 @@ public class DatePicker {
         mTodayButton = (AppCompatButton) view.findViewById(R.id.today_button);
 
         setTodayButtonVisibility();
-
         setDialogButtonsColors();
         setOkButtonState(mCalendarProperties.getCalendarType() == CalendarView.ONE_DAY_PICKER);
-
         mCalendarProperties.setOnSelectionAbilityListener(this::setOkButtonState);
 
         CalendarView calendarView = new CalendarView(mContext, mCalendarProperties);
