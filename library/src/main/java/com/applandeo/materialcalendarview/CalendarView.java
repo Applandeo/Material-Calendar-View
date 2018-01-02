@@ -86,6 +86,13 @@ public class CalendarView extends LinearLayout {
         super(context);
         mContext = context;
         mCalendarProperties = calendarProperties;
+
+        LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        inflater.inflate(R.layout.calendar_view, this);
+
+        initUiElements();
+        initAttributes();
+        initCalendar();
     }
 
     private void initControl(Context context, AttributeSet attrs) {
@@ -98,16 +105,6 @@ public class CalendarView extends LinearLayout {
         initUiElements();
         setAttributes(attrs);
         initCalendar();
-    }
-
-    public CalendarView create() {
-        LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        inflater.inflate(R.layout.calendar_view, this);
-
-        initUiElements();
-        initAttributes();
-        initCalendar();
-        return this;
     }
 
     /**
@@ -135,12 +132,12 @@ public class CalendarView extends LinearLayout {
             }
 
             // Today number color
-            mCalendarProperties.setTodayLabelColor(typedArray.getColor(R.styleable.CalendarView_todayLabelColor,
-                    ContextCompat.getColor(mContext, R.color.defaultColor)));
+            mCalendarProperties.setTodayLabelColor(typedArray.getResourceId(R.styleable.CalendarView_todayLabelColor,
+                    R.color.defaultColor));
 
             // Selection circle color
-            mCalendarProperties.setSelectionColor(typedArray.getColor(R.styleable.CalendarView_selectionColor,
-                    ContextCompat.getColor(mContext, R.color.defaultColor)));
+            mCalendarProperties.setSelectionColor(typedArray.getResourceId(R.styleable.CalendarView_selectionColor,
+                    R.color.defaultColor));
 
             // Previous arrow resource
             Drawable previousButtonScr = typedArray.getDrawable(R.styleable.CalendarView_previousButtonSrc);
@@ -201,15 +198,15 @@ public class CalendarView extends LinearLayout {
         }
 
         if (mCalendarProperties.getSelectionColor() != 0) {
-            mCalendarProperties.setSelectionColor(ContextCompat.getColor(mContext, mCalendarProperties.getSelectionColor()));
+            mCalendarProperties.setSelectionColor(mCalendarProperties.getSelectionColor());
         } else {
-            mCalendarProperties.setSelectionColor(ContextCompat.getColor(mContext, R.color.defaultColor));
+            mCalendarProperties.setSelectionColor(R.color.defaultColor);
         }
 
         if (mCalendarProperties.getTodayLabelColor() != 0) {
-            mCalendarProperties.setTodayLabelColor(ContextCompat.getColor(mContext, mCalendarProperties.getTodayLabelColor()));
+            mCalendarProperties.setTodayLabelColor(mCalendarProperties.getTodayLabelColor());
         } else {
-            mCalendarProperties.setTodayLabelColor(ContextCompat.getColor(mContext, R.color.defaultColor));
+            mCalendarProperties.setTodayLabelColor(R.color.defaultColor);
         }
     }
 
@@ -409,6 +406,7 @@ public class CalendarView extends LinearLayout {
 
     /**
      * This method set a minimum available date in calendar
+     *
      * @param calendar Calendar object representing a minimum date
      */
     public void setMinimumDate(Calendar calendar) {
@@ -419,6 +417,7 @@ public class CalendarView extends LinearLayout {
 
     /**
      * This method set a maximum available date in calendar
+     *
      * @param calendar Calendar object representing a maximum date
      */
     public void setMaximumDate(Calendar calendar) {
