@@ -3,7 +3,7 @@ package com.applandeo.materialcalendarview.utils;
 import com.annimon.stream.Stream;
 import com.applandeo.materialcalendarview.EventDay;
 import com.applandeo.materialcalendarview.listeners.OnDayClickListener;
-import com.applandeo.materialcalendarview.listeners.OnNavigationButtonClickListener;
+import com.applandeo.materialcalendarview.listeners.OnCalendarPageChangeListener;
 import com.applandeo.materialcalendarview.listeners.OnSelectDateListener;
 import com.applandeo.materialcalendarview.listeners.OnSelectionAbilityListener;
 
@@ -28,8 +28,8 @@ public class CalendarProperties {
     private OnDayClickListener mOnDayClickListener;
     private OnSelectDateListener mOnSelectDateListener;
     private OnSelectionAbilityListener mOnSelectionAbilityListener;
-    private OnNavigationButtonClickListener mOnPreviousButtonClickListener;
-    private OnNavigationButtonClickListener mOnForwardButtonClickListener;
+    private OnCalendarPageChangeListener mOnPreviousPageChangeListener;
+    private OnCalendarPageChangeListener mOnForwardPageChangeListener;
 
     private List<EventDay> mEventDays = new ArrayList<>();
     private List<Calendar> mDisabledDays = new ArrayList<>();
@@ -146,20 +146,20 @@ public class CalendarProperties {
         mItemLayoutResource = itemLayoutResource;
     }
 
-    public OnNavigationButtonClickListener getOnPreviousButtonClickListener() {
-        return mOnPreviousButtonClickListener;
+    public OnCalendarPageChangeListener getOnPreviousPageChangeListener() {
+        return mOnPreviousPageChangeListener;
     }
 
-    public void setOnPreviousButtonClickListener(OnNavigationButtonClickListener onPreviousButtonClickListener) {
-        mOnPreviousButtonClickListener = onPreviousButtonClickListener;
+    public void setOnPreviousPageChangeListener(OnCalendarPageChangeListener onPreviousButtonClickListener) {
+        mOnPreviousPageChangeListener = onPreviousButtonClickListener;
     }
 
-    public OnNavigationButtonClickListener getOnForwardButtonClickListener() {
-        return mOnForwardButtonClickListener;
+    public OnCalendarPageChangeListener getOnForwardPageChangeListener() {
+        return mOnForwardPageChangeListener;
     }
 
-    public void setOnForwardButtonClickListener(OnNavigationButtonClickListener onForwardButtonClickListener) {
-        mOnForwardButtonClickListener = onForwardButtonClickListener;
+    public void setOnForwardPageChangeListener(OnCalendarPageChangeListener onForwardButtonClickListener) {
+        mOnForwardPageChangeListener = onForwardButtonClickListener;
     }
 
     public Calendar getCurrentDate() {

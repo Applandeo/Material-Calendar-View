@@ -17,7 +17,7 @@ import com.applandeo.materialcalendarview.adapters.CalendarPageAdapter;
 import com.applandeo.materialcalendarview.exceptions.OutOfDateRangeException;
 import com.applandeo.materialcalendarview.extensions.CalendarViewPager;
 import com.applandeo.materialcalendarview.listeners.OnDayClickListener;
-import com.applandeo.materialcalendarview.listeners.OnNavigationButtonClickListener;
+import com.applandeo.materialcalendarview.listeners.OnCalendarPageChangeListener;
 import com.applandeo.materialcalendarview.utils.CalendarProperties;
 import com.applandeo.materialcalendarview.utils.DateUtils;
 import com.applandeo.materialcalendarview.utils.SelectedDay;
@@ -236,12 +236,12 @@ public class CalendarView extends LinearLayout {
         mViewPager.setCurrentItem(FIRST_VISIBLE_PAGE);
     }
 
-    public void setOnPreviousButtonClickListener(OnNavigationButtonClickListener listener) {
-        mCalendarProperties.setOnPreviousButtonClickListener(listener);
+    public void setOnPreviousPageChangeListener(OnCalendarPageChangeListener listener) {
+        mCalendarProperties.setOnPreviousPageChangeListener(listener);
     }
 
-    public void setOnForwardButtonClickListener(OnNavigationButtonClickListener listener) {
-        mCalendarProperties.setOnForwardButtonClickListener(listener);
+    public void setOnForwardPageChangeListener(OnCalendarPageChangeListener listener) {
+        mCalendarProperties.setOnForwardPageChangeListener(listener);
     }
 
     private final OnClickListener onNextClickListener =
@@ -297,12 +297,12 @@ public class CalendarView extends LinearLayout {
 
     // This method calls navigation button listeners after swipe calendar or click arrow buttons
     private void callNavigationListeners(int position) {
-        if (position > mCurrentPage && mCalendarProperties.getOnForwardButtonClickListener() != null) {
-            mCalendarProperties.getOnForwardButtonClickListener().onClick();
+        if (position > mCurrentPage && mCalendarProperties.getOnForwardPageChangeListener() != null) {
+            mCalendarProperties.getOnForwardPageChangeListener().onChange();
         }
 
-        if (position < mCurrentPage && mCalendarProperties.getOnPreviousButtonClickListener() != null) {
-            mCalendarProperties.getOnPreviousButtonClickListener().onClick();
+        if (position < mCurrentPage && mCalendarProperties.getOnPreviousPageChangeListener() != null) {
+            mCalendarProperties.getOnPreviousPageChangeListener().onChange();
         }
 
         mCurrentPage = position;
