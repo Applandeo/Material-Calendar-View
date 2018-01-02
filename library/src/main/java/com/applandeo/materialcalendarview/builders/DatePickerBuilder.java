@@ -6,6 +6,7 @@ import android.support.annotation.DrawableRes;
 
 import com.applandeo.materialcalendarview.CalendarView;
 import com.applandeo.materialcalendarview.DatePicker;
+import com.applandeo.materialcalendarview.listeners.OnCalendarPageChangeListener;
 import com.applandeo.materialcalendarview.listeners.OnSelectDateListener;
 import com.applandeo.materialcalendarview.utils.CalendarProperties;
 
@@ -83,6 +84,16 @@ public class DatePickerBuilder {
 
     public DatePickerBuilder disabledDays(List<Calendar> disabledDays) {
         mCalendarProperties.setDisabledDays(disabledDays);
+        return this;
+    }
+
+    public DatePickerBuilder previousPageChangeListener(OnCalendarPageChangeListener listener) {
+        mCalendarProperties.setOnPreviousPageChangeListener(listener);
+        return this;
+    }
+
+    public DatePickerBuilder forwardPageChangeListener(OnCalendarPageChangeListener listener) {
+        mCalendarProperties.setOnForwardPageChangeListener(listener);
         return this;
     }
 
