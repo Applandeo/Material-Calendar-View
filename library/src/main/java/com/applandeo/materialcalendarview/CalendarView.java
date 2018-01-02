@@ -308,7 +308,6 @@ public class CalendarView extends LinearLayout {
         mCurrentPage = position;
     }
 
-
     /**
      * @param onDayClickListener OnDayClickListener interface responsible for handle clicks on calendar cells
      * @see OnDayClickListener
