@@ -7,12 +7,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.applandeo.materialcalendarview.CalendarView;
-import com.applandeo.materialcalendarview.EventDay;
 import com.applandeo.materialcalendarview.R;
-import com.applandeo.materialcalendarview.listeners.DayRowClickListener;
-import com.applandeo.materialcalendarview.listeners.OnDayClickListener;
-import com.applandeo.materialcalendarview.utils.CalendarProperties;
 import com.applandeo.materialcalendarview.extensions.CalendarGridView;
+import com.applandeo.materialcalendarview.listeners.DayRowClickListener;
+import com.applandeo.materialcalendarview.utils.CalendarProperties;
 import com.applandeo.materialcalendarview.utils.SelectedDay;
 
 import java.util.ArrayList;
@@ -78,15 +76,6 @@ public class CalendarPageAdapter extends PagerAdapter {
         return mCalendarGridView;
     }
 
-    public void setOnDayClickListener(OnDayClickListener listener) {
-        mCalendarProperties.setOnDayClickListener(listener);
-    }
-
-    public void setEvents(List<EventDay> eventDays) {
-        mCalendarProperties.setEventDays(eventDays);
-        notifyDataSetChanged();
-    }
-
     public void addSelectedDay(SelectedDay selectedDay) {
         if (!mSelectedDays.contains(selectedDay)) {
             mSelectedDays.add(selectedDay);
@@ -110,14 +99,6 @@ public class CalendarPageAdapter extends PagerAdapter {
         mSelectedDays.clear();
         mSelectedDays.add(selectedDay);
         informDatePicker();
-    }
-
-    public void setMinimumDate(Calendar calendar) {
-        mCalendarProperties.setMaximumDate(calendar);
-    }
-
-    public void setMaximumDate(Calendar calendar) {
-        mCalendarProperties.setMaximumDate(calendar);
     }
 
     /**

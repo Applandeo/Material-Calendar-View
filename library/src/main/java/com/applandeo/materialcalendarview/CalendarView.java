@@ -313,8 +313,7 @@ public class CalendarView extends LinearLayout {
      * @see OnDayClickListener
      */
     public void setOnDayClickListener(OnDayClickListener onDayClickListener) {
-        mCalendarPageAdapter.setOnDayClickListener(onDayClickListener);
-        mCalendarPageAdapter.notifyDataSetChanged();
+        mCalendarProperties.setOnDayClickListener(onDayClickListener);
     }
 
     /**
@@ -364,7 +363,8 @@ public class CalendarView extends LinearLayout {
      */
     public void setEvents(List<EventDay> eventDays) {
         if (mCalendarProperties.getCalendarType() == CLASSIC) {
-            mCalendarPageAdapter.setEvents(eventDays);
+            mCalendarProperties.setEventDays(eventDays);
+            mCalendarPageAdapter.notifyDataSetChanged();
         }
     }
 
@@ -410,8 +410,6 @@ public class CalendarView extends LinearLayout {
      */
     public void setMinimumDate(Calendar calendar) {
         mCalendarProperties.setMinimumDate(calendar);
-        mCalendarPageAdapter.setMinimumDate(calendar);
-        mCalendarPageAdapter.notifyDataSetChanged();
     }
 
     /**
@@ -421,8 +419,6 @@ public class CalendarView extends LinearLayout {
      */
     public void setMaximumDate(Calendar calendar) {
         mCalendarProperties.setMaximumDate(calendar);
-        mCalendarPageAdapter.setMaximumDate(calendar);
-        mCalendarPageAdapter.notifyDataSetChanged();
     }
 
     /**

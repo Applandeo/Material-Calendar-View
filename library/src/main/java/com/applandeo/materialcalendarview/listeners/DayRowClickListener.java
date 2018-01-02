@@ -45,6 +45,10 @@ public class DayRowClickListener implements AdapterView.OnItemClickListener {
         Calendar day = new GregorianCalendar();
         day.setTime((Date) adapterView.getItemAtPosition(position));
 
+        if (mCalendarProperties.getOnDayClickListener() != null) {
+            onClick(day);
+        }
+
         switch (mCalendarProperties.getCalendarType()) {
             case CalendarView.ONE_DAY_PICKER:
                 selectOneDay(view, day);
@@ -59,10 +63,7 @@ public class DayRowClickListener implements AdapterView.OnItemClickListener {
                 break;
 
             case CalendarView.CLASSIC:
-                if (mCalendarProperties.getOnDayClickListener() != null) {
-                    mCalendarPageAdapter.setSelectedDay(new SelectedDay(view, day));
-                    onClick(day);
-                }
+                mCalendarPageAdapter.setSelectedDay(new SelectedDay(view, day));
         }
     }
 
