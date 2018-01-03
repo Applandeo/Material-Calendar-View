@@ -148,7 +148,7 @@ public class DayRowClickListener implements AdapterView.OnItemClickListener {
         return dayLabel.getCurrentTextColor() != ContextCompat.getColor(mContext, R.color.nextMonthDayColor);
     }
 
-    private boolean isActiveDay(Calendar day){
+    private boolean isActiveDay(Calendar day) {
         return !mCalendarProperties.getDisabledDays().contains(day);
     }
 
@@ -159,15 +159,23 @@ public class DayRowClickListener implements AdapterView.OnItemClickListener {
 
     private void onClick(Calendar day) {
         if (mCalendarProperties.getEventDays() == null) {
-            mCalendarProperties.getOnDayClickListener().onDayClick(new EventDay(day));
+            createEmptyEventDay(day);
             return;
         }
 
         Stream.of(mCalendarProperties.getEventDays())
                 .filter(eventDate -> eventDate.getCalendar().equals(day))
                 .findFirst()
-                .ifPresentOrElse(
-                        calendarEventDay -> mCalendarProperties.getOnDayClickListener().onDayClick(calendarEventDay),
-                        () -> mCalendarProperties.getOnDayClickListener().onDayClick(new EventDay(day)));
+                .ifPresentOrElse(this::callOnClickListener, () -> createEmptyEventDay(day));
+    }
+
+    private void createEmptyEventDay(Calendar day) {
+        EventDay eventDay = new EventDay(day);
+        callOnClickListener(eventDay);
+    }
+
+    private void callOnClickListener(EventDay eventDay) {
+        eventDay.setEnabled(mCalendarProperties.getDisabledDays().contains(eventDay.getCalendar()));
+        mCalendarProperties.getOnDayClickListener().onDayClick(eventDay);
     }
 }
