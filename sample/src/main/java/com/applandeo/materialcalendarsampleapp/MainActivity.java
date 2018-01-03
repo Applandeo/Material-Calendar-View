@@ -90,6 +90,7 @@ public class MainActivity extends AppCompatActivity implements OnSelectDateListe
 //                .disabledDaysLabelsColor(android.R.color.holo_green_light)
                 .dialogButtonsColor(android.R.color.white)
                 .daysLabelsColor(android.R.color.white)
+                .anotherMonthsDaysLabelsColor(R.color.sampleLighter)
                 .disabledDays(getDisabledDays());
 
         DatePicker rangePicker = rangeBuilder.build();

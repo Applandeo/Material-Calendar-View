@@ -1,6 +1,5 @@
 package com.applandeo.materialcalendarview.listeners;
 
-import android.content.Context;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.TextView;
@@ -27,16 +26,16 @@ import java.util.List;
  */
 
 public class DayRowClickListener implements AdapterView.OnItemClickListener {
+
     private CalendarPageAdapter mCalendarPageAdapter;
-    private Context mContext;
 
     private CalendarProperties mCalendarProperties;
+    private int mPageMonth;
 
-    public DayRowClickListener(CalendarPageAdapter calendarPageAdapter, Context context,
-                               CalendarProperties calendarProperties) {
+    public DayRowClickListener(CalendarPageAdapter calendarPageAdapter, CalendarProperties calendarProperties, int pageMonth) {
         mCalendarPageAdapter = calendarPageAdapter;
-        mContext = context;
         mCalendarProperties = calendarProperties;
+        mPageMonth = pageMonth < 0 ? 11 : pageMonth;
     }
 
     @Override
@@ -71,7 +70,7 @@ public class DayRowClickListener implements AdapterView.OnItemClickListener {
 
         TextView dayLabel = (TextView) view.findViewById(R.id.dayLabel);
 
-        if (isAnotherDaySelected(previousSelectedDay, dayLabel, day)) {
+        if (isAnotherDaySelected(previousSelectedDay, day)) {
             selectDay(dayLabel, day);
             reverseUnselectedColor(previousSelectedDay);
         }
@@ -80,7 +79,7 @@ public class DayRowClickListener implements AdapterView.OnItemClickListener {
     private void selectManyDays(View view, Calendar day) {
         TextView dayLabel = (TextView) view.findViewById(R.id.dayLabel);
 
-        if (isCurrentMonthLabel(dayLabel) && isActiveDay(day)) {
+        if (isCurrentMonthDay(day) && isActiveDay(day)) {
             SelectedDay selectedDay = new SelectedDay(dayLabel, day);
 
             if (!mCalendarPageAdapter.getSelectedDays().contains(selectedDay)) {
@@ -96,7 +95,7 @@ public class DayRowClickListener implements AdapterView.OnItemClickListener {
     private void selectRange(View view, Calendar day) {
         TextView dayLabel = (TextView) view.findViewById(R.id.dayLabel);
 
-        if (!isCurrentMonthLabel(dayLabel) || !isActiveDay(day)) {
+        if (!isCurrentMonthDay(day) || !isActiveDay(day)) {
             return;
         }
 
@@ -143,17 +142,19 @@ public class DayRowClickListener implements AdapterView.OnItemClickListener {
                 DateUtils.getCalendar(), (TextView) selectedDay.getView(), mCalendarProperties);
     }
 
-    private boolean isCurrentMonthLabel(TextView dayLabel) {
-        return dayLabel.getCurrentTextColor() != mCalendarProperties.getAnotherMonthsDaysLabelsColor();
+    private boolean isCurrentMonthDay(Calendar day) {
+        return day.get(Calendar.MONTH) == mPageMonth &&
+                !((mCalendarProperties.getMinimumDate() != null && day.before(mCalendarProperties.getMinimumDate()))
+                        || (mCalendarProperties.getMaximumDate() != null && day.after(mCalendarProperties.getMaximumDate())));
     }
 
     private boolean isActiveDay(Calendar day) {
         return !mCalendarProperties.getDisabledDays().contains(day);
     }
 
-    private boolean isAnotherDaySelected(SelectedDay selectedDay, TextView dayLabel, Calendar day) {
-        return selectedDay != null && !day.equals(selectedDay.getCalendar()) && isCurrentMonthLabel(dayLabel)
-                && isActiveDay(day);
+    private boolean isAnotherDaySelected(SelectedDay selectedDay, Calendar day) {
+        return selectedDay != null && !day.equals(selectedDay.getCalendar())
+                && isCurrentMonthDay(day) && isActiveDay(day);
     }
 
     private void onClick(Calendar day) {

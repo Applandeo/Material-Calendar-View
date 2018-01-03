@@ -21,7 +21,7 @@
         app:pagesColor="#3F51B5"
         app:selectionColor="@android:color/white"
         app:selectionLabelColor="#3F51B5"
-        app:anotherMonthsDaysLabelsColor="@android:color/transparent"
+        app:anotherMonthsDaysLabelsColor="#3F51B5"
         app:todayLabelColor="#AEEA00"
         app:type="many_days_picker" />
 

@@ -32,20 +32,18 @@ import java.util.GregorianCalendar;
 
 class CalendarDayAdapter extends ArrayAdapter<Date> {
     private CalendarPageAdapter mCalendarPageAdapter;
-    private Context mContext;
     private LayoutInflater mLayoutInflater;
-    private int mMonth;
+    private int mPageMonth;
     private Calendar mToday = DateUtils.getCalendar();
 
     private CalendarProperties mCalendarProperties;
 
     CalendarDayAdapter(CalendarPageAdapter calendarPageAdapter, Context context, CalendarProperties calendarProperties,
-                       ArrayList<Date> dates, int month) {
+                       ArrayList<Date> dates, int pageMonth) {
         super(context, calendarProperties.getItemLayoutResource(), dates);
         mCalendarPageAdapter = calendarPageAdapter;
-        mContext = context;
         mCalendarProperties = calendarProperties;
-        mMonth = month < 0 ? 11 : month;
+        mPageMonth = pageMonth < 0 ? 11 : pageMonth;
         mLayoutInflater = LayoutInflater.from(context);
     }
 
@@ -103,12 +101,12 @@ class CalendarDayAdapter extends ArrayAdapter<Date> {
     }
 
     private boolean isSelectedDay(Calendar day) {
-        return mCalendarProperties.getCalendarType() != CalendarView.CLASSIC && day.get(Calendar.MONTH) == mMonth
+        return mCalendarProperties.getCalendarType() != CalendarView.CLASSIC && day.get(Calendar.MONTH) == mPageMonth
                 && mCalendarPageAdapter.getSelectedDays().contains(new SelectedDay(day));
     }
 
     private boolean isCurrentMonthDay(Calendar day) {
-        return day.get(Calendar.MONTH) == mMonth &&
+        return day.get(Calendar.MONTH) == mPageMonth &&
                 !((mCalendarProperties.getMinimumDate() != null && day.before(mCalendarProperties.getMinimumDate()))
                         || (mCalendarProperties.getMaximumDate() != null && day.after(mCalendarProperties.getMaximumDate())));
     }

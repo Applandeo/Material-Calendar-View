@@ -39,6 +39,8 @@ public class CalendarPageAdapter extends PagerAdapter {
 
     private CalendarProperties mCalendarProperties;
 
+    private int mPageMonth;
+
     public CalendarPageAdapter(Context context, CalendarProperties calendarProperties) {
         mContext = context;
         mCalendarProperties = calendarProperties;
@@ -68,9 +70,10 @@ public class CalendarPageAdapter extends PagerAdapter {
         LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         mCalendarGridView = (CalendarGridView) inflater.inflate(R.layout.calendar_view_grid, null);
 
-        mCalendarGridView.setOnItemClickListener(new DayRowClickListener(this, mContext, mCalendarProperties));
-
         loadMonth(position);
+
+        mCalendarGridView.setOnItemClickListener(new DayRowClickListener(this,
+                mCalendarProperties, mPageMonth));
 
         container.addView(mCalendarGridView);
         return mCalendarGridView;
@@ -145,8 +148,9 @@ public class CalendarPageAdapter extends PagerAdapter {
             calendar.add(Calendar.DAY_OF_MONTH, 1);
         }
 
+        mPageMonth = calendar.get(Calendar.MONTH) - 1;
         CalendarDayAdapter calendarDayAdapter = new CalendarDayAdapter(this, mContext,
-                mCalendarProperties, days, calendar.get(Calendar.MONTH) - 1);
+                mCalendarProperties, days, mPageMonth);
 
         mCalendarGridView.setAdapter(calendarDayAdapter);
     }
