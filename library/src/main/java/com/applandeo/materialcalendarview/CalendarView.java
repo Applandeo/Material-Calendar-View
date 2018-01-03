@@ -159,6 +159,10 @@ public class CalendarView extends LinearLayout {
                 mViewPager.setBackgroundColor(pagesColor);
             }
 
+            // Days numbers color
+            mCalendarProperties.setDaysLabelsColor(typedArray.getColor(R.styleable.CalendarView_daysLabelsColor,
+                    0));
+
             // Today number color
             mCalendarProperties.setTodayLabelColor(typedArray.getColor(R.styleable.CalendarView_todayLabelColor,
                     0));

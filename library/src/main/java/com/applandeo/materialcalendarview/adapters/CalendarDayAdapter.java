@@ -88,7 +88,7 @@ class CalendarDayAdapter extends ArrayAdapter<Date> {
                     .filter(selectedDay -> selectedDay.getCalendar().equals(day))
                     .findFirst().ifPresent(selectedDay -> selectedDay.setView(dayLabel));
 
-            DayColorsUtils.setSelectedDayColors(mContext, dayLabel, mCalendarProperties.getSelectionColor());
+            DayColorsUtils.setSelectedDayColors(mContext, dayLabel, mCalendarProperties);
             return;
         }
 
@@ -100,8 +100,7 @@ class CalendarDayAdapter extends ArrayAdapter<Date> {
         }
 
         // Setting current month day color
-        DayColorsUtils.setCurrentMonthDayColors(mContext, day,
-                mToday, dayLabel, mCalendarProperties.getTodayLabelColor());
+        DayColorsUtils.setCurrentMonthDayColors(day, mToday, dayLabel, mCalendarProperties);
     }
 
     private boolean isSelectedDay(Calendar day) {
@@ -112,7 +111,7 @@ class CalendarDayAdapter extends ArrayAdapter<Date> {
     private boolean isCurrentMonthDay(Calendar day) {
         return day.get(Calendar.MONTH) == mMonth &&
                 !((mCalendarProperties.getMinimumDate() != null && day.before(mCalendarProperties.getMinimumDate()))
-                || (mCalendarProperties.getMaximumDate() != null && day.after(mCalendarProperties.getMaximumDate())));
+                        || (mCalendarProperties.getMaximumDate() != null && day.after(mCalendarProperties.getMaximumDate())));
     }
 
     private boolean isActiveDay(Calendar day) {

@@ -13,6 +13,7 @@
         android:layout_marginTop="8dp"
         app:abbreviationsBarColor="#303F9F"
         app:abbreviationsLabelsColor="@android:color/white"
+        app:daysLabelsColor="@android:color/white"
         app:headerColor="#1A237E"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"

@@ -85,7 +85,7 @@ public class DayRowClickListener implements AdapterView.OnItemClickListener {
             SelectedDay selectedDay = new SelectedDay(dayLabel, day);
 
             if (!mCalendarPageAdapter.getSelectedDays().contains(selectedDay)) {
-                DayColorsUtils.setSelectedDayColors(mContext, dayLabel, mCalendarProperties.getSelectionColor());
+                DayColorsUtils.setSelectedDayColors(mContext, dayLabel, mCalendarProperties);
             } else {
                 reverseUnselectedColor(selectedDay);
             }
@@ -128,20 +128,20 @@ public class DayRowClickListener implements AdapterView.OnItemClickListener {
                 .filter(calendar -> !mCalendarProperties.getDisabledDays().contains(calendar))
                 .forEach(calendar -> mCalendarPageAdapter.addSelectedDay(new SelectedDay(calendar)));
 
-        DayColorsUtils.setSelectedDayColors(mContext, dayLabel, mCalendarProperties.getSelectionColor());
+        DayColorsUtils.setSelectedDayColors(mContext, dayLabel, mCalendarProperties);
 
         mCalendarPageAdapter.addSelectedDay(new SelectedDay(dayLabel, day));
         mCalendarPageAdapter.notifyDataSetChanged();
     }
 
     private void selectDay(TextView dayLabel, Calendar day) {
-        DayColorsUtils.setSelectedDayColors(mContext, dayLabel, mCalendarProperties.getSelectionColor());
+        DayColorsUtils.setSelectedDayColors(mContext, dayLabel, mCalendarProperties);
         mCalendarPageAdapter.setSelectedDay(new SelectedDay(dayLabel, day));
     }
 
     private void reverseUnselectedColor(SelectedDay selectedDay) {
-        DayColorsUtils.setCurrentMonthDayColors(mContext, selectedDay.getCalendar(),
-                DateUtils.getCalendar(), (TextView) selectedDay.getView(), mCalendarProperties.getTodayLabelColor());
+        DayColorsUtils.setCurrentMonthDayColors(selectedDay.getCalendar(),
+                DateUtils.getCalendar(), (TextView) selectedDay.getView(), mCalendarProperties);
     }
 
     private boolean isCurrentMonthLabel(TextView dayLabel) {

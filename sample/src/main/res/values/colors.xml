@@ -7,4 +7,6 @@
     <color name="sampleDark">#1B5E20</color>
     <color name="sampleLight">#388E3C</color>
     <color name="sampleLighter">#4CAF50</color>
+
+    <color name="dialogAccent">#795548</color>
 </resources>
