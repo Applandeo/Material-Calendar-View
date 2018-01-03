@@ -143,13 +143,16 @@ public class DayRowClickListener implements AdapterView.OnItemClickListener {
     }
 
     private boolean isCurrentMonthDay(Calendar day) {
-        return day.get(Calendar.MONTH) == mPageMonth &&
-                !((mCalendarProperties.getMinimumDate() != null && day.before(mCalendarProperties.getMinimumDate()))
-                        || (mCalendarProperties.getMaximumDate() != null && day.after(mCalendarProperties.getMaximumDate())));
+        return day.get(Calendar.MONTH) == mPageMonth && isBetweenMinAndMax(day);
     }
 
     private boolean isActiveDay(Calendar day) {
         return !mCalendarProperties.getDisabledDays().contains(day);
+    }
+
+    private boolean isBetweenMinAndMax(Calendar day) {
+        return !((mCalendarProperties.getMinimumDate() != null && day.before(mCalendarProperties.getMinimumDate()))
+                || (mCalendarProperties.getMaximumDate() != null && day.after(mCalendarProperties.getMaximumDate())));
     }
 
     private boolean isAnotherDaySelected(SelectedDay selectedDay, Calendar day) {
@@ -175,7 +178,10 @@ public class DayRowClickListener implements AdapterView.OnItemClickListener {
     }
 
     private void callOnClickListener(EventDay eventDay) {
-        eventDay.setEnabled(mCalendarProperties.getDisabledDays().contains(eventDay.getCalendar()));
+        boolean enabledDay = mCalendarProperties.getDisabledDays().contains(eventDay.getCalendar())
+                || !isBetweenMinAndMax(eventDay.getCalendar());
+
+        eventDay.setEnabled(enabledDay);
         mCalendarProperties.getOnDayClickListener().onDayClick(eventDay);
     }
 }
