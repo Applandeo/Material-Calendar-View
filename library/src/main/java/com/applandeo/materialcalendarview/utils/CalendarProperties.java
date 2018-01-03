@@ -24,7 +24,8 @@ import java.util.List;
 public class CalendarProperties {
     private int mCalendarType, mHeaderColor, mHeaderLabelColor, mPreviousButtonSrc, mForwardButtonSrc,
             mSelectionColor, mTodayLabelColor, mDialogButtonsColor, mItemLayoutResource, mDisabledDaysColor,
-            mPagesColor, mAbbreviationsBarColor, mAbbreviationsLabelsColor, mDaysLabelsColor;
+            mPagesColor, mAbbreviationsBarColor, mAbbreviationsLabelsColor, mDaysLabelsColor,
+            mSelectionLabelColor;
 
     private Calendar mCurrentDate = DateUtils.getCalendar();
     private Calendar mSelectedDate = DateUtils.getCalendar();
@@ -262,5 +263,17 @@ public class CalendarProperties {
 
     public void setDaysLabelsColor(int daysLabelsColor) {
         mDaysLabelsColor = daysLabelsColor;
+    }
+
+    public int getSelectionLabelColor() {
+        if (mSelectionLabelColor == 0) {
+            return ContextCompat.getColor(mContext, android.R.color.white);
+        }
+
+        return mSelectionLabelColor;
+    }
+
+    public void setSelectionLabelColor(int selectionLabelColor) {
+        mSelectionLabelColor = selectionLabelColor;
     }
 }

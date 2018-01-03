@@ -130,4 +130,9 @@ public class DatePickerBuilder {
         mCalendarProperties.setDaysLabelsColor(ContextCompat.getColor(mContext, color));
         return this;
     }
+
+    public DatePickerBuilder selectionLabelColor(int color) {
+        mCalendarProperties.setSelectionLabelColor(ContextCompat.getColor(mContext, color));
+        return this;
+    }
 }

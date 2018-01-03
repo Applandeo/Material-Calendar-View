@@ -88,7 +88,7 @@ class CalendarDayAdapter extends ArrayAdapter<Date> {
                     .filter(selectedDay -> selectedDay.getCalendar().equals(day))
                     .findFirst().ifPresent(selectedDay -> selectedDay.setView(dayLabel));
 
-            DayColorsUtils.setSelectedDayColors(mContext, dayLabel, mCalendarProperties);
+            DayColorsUtils.setSelectedDayColors(dayLabel, mCalendarProperties);
             return;
         }
 

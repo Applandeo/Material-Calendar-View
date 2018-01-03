@@ -1,8 +1,6 @@
 package com.applandeo.materialcalendarview.utils;
 
-import android.content.Context;
 import android.graphics.Typeface;
-import android.support.v4.content.ContextCompat;
 import android.widget.TextView;
 
 import com.applandeo.materialcalendarview.R;
@@ -41,14 +39,12 @@ public class DayColorsUtils {
      * It is used to set day cell (numbers) style in the case of selected day (when calendar is in
      * the picker mode). It also colors a background of the selection.
      *
-     * @param context            An application context necessary to get color from resources
      * @param dayLabel           TextView containing a day number
      * @param calendarProperties A resource of a selection background color
      */
-    public static void setSelectedDayColors(Context context, TextView dayLabel,
-                                            CalendarProperties calendarProperties) {
-        setDayColors(dayLabel, ContextCompat.getColor(context, android.R.color.white),
-                Typeface.NORMAL, R.drawable.background_color_circle_selector);
+    public static void setSelectedDayColors(TextView dayLabel, CalendarProperties calendarProperties) {
+        setDayColors(dayLabel, calendarProperties.getSelectionLabelColor(), Typeface.NORMAL,
+                R.drawable.background_color_circle_selector);
 
         dayLabel.getBackground().setColorFilter(calendarProperties.getSelectionColor(),
                 android.graphics.PorterDuff.Mode.MULTIPLY);

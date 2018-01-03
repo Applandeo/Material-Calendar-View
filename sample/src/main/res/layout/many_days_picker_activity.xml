@@ -19,7 +19,8 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:pagesColor="#3F51B5"
-        app:selectionColor="@color/colorAccent"
+        app:selectionColor="@android:color/white"
+        app:selectionLabelColor="#3F51B5"
         app:todayLabelColor="#AEEA00"
         app:type="many_days_picker" />
 

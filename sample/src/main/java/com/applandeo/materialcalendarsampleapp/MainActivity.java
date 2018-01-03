@@ -10,7 +10,6 @@ import com.annimon.stream.Stream;
 import com.applandeo.materialcalendarview.CalendarView;
 import com.applandeo.materialcalendarview.DatePicker;
 import com.applandeo.materialcalendarview.builders.DatePickerBuilder;
-import com.applandeo.materialcalendarview.listeners.OnCalendarPageChangeListener;
 import com.applandeo.materialcalendarview.listeners.OnSelectDateListener;
 import com.applandeo.materialcalendarview.utils.DateUtils;
 
@@ -85,13 +84,12 @@ public class MainActivity extends AppCompatActivity implements OnSelectDateListe
                 .abbreviationsBarColor(R.color.sampleLight)
                 .abbreviationsLabelsColor(android.R.color.white)
                 .pagesColor(R.color.sampleLighter)
-                .selectionColor(R.color.dialogAccent)
+                .selectionColor(android.R.color.white)
+                .selectionLabelColor(R.color.sampleDark)
                 .todayLabelColor(R.color.dialogAccent)
 //                .disabledDaysColor(android.R.color.holo_green_light)
                 .dialogButtonsColor(android.R.color.white)
                 .daysLabelsColor(android.R.color.white)
-                .previousPageChangeListener(previousPageChageListener)
-                .forwardPageChangeListener(forwardPageChangeListener)
                 .disabledDays(getDisabledDays());
 
         DatePicker rangePicker = rangeBuilder.build();
@@ -116,12 +114,6 @@ public class MainActivity extends AppCompatActivity implements OnSelectDateListe
         calendars.add(thirdDisabled);
         return calendars;
     }
-
-    private OnCalendarPageChangeListener previousPageChageListener = () ->
-            Toast.makeText(getApplicationContext(), "Forward", Toast.LENGTH_SHORT).show();
-
-    private OnCalendarPageChangeListener forwardPageChangeListener = () ->
-            Toast.makeText(getApplicationContext(), "Previous", Toast.LENGTH_SHORT).show();
 
     @Override
     public void onSelect(List<Calendar> calendars) {

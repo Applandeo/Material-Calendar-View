@@ -7,6 +7,7 @@
         <attr name="forwardButtonSrc" format="integer" />
         <attr name="todayLabelColor" format="color" />
         <attr name="selectionColor" format="color" />
+        <attr name="selectionLabelColor" format="color" />
         <attr name="disabledDaysColor" format="color" />
         <attr name="pagesColor" format="color" />
         <attr name="abbreviationsBarColor" format="color" />
