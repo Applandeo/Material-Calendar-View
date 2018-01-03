@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity implements OnSelectDateListe
                     .selectionColor(R.color.daysLabelColor)
                     .todayLabelColor(R.color.colorAccent)
                     .dialogButtonsColor(android.R.color.holo_green_dark)
-                    .disabledDaysColor(android.R.color.holo_purple)
+                    .disabledDaysLabelsColor(android.R.color.holo_purple)
                     .previousButtonSrc(R.drawable.ic_chevron_left_black_24dp)
                     .forwardButtonSrc(R.drawable.ic_chevron_right_black_24dp)
                     .minimumDate(min)
@@ -87,7 +87,7 @@ public class MainActivity extends AppCompatActivity implements OnSelectDateListe
                 .selectionColor(android.R.color.white)
                 .selectionLabelColor(R.color.sampleDark)
                 .todayLabelColor(R.color.dialogAccent)
-//                .disabledDaysColor(android.R.color.holo_green_light)
+//                .disabledDaysLabelsColor(android.R.color.holo_green_light)
                 .dialogButtonsColor(android.R.color.white)
                 .daysLabelsColor(android.R.color.white)
                 .disabledDays(getDisabledDays());

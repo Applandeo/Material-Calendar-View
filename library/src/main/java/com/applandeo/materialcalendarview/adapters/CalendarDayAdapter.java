@@ -3,7 +3,6 @@ package com.applandeo.materialcalendarview.adapters;
 import android.content.Context;
 import android.graphics.Typeface;
 import android.support.annotation.NonNull;
-import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -77,8 +76,8 @@ class CalendarDayAdapter extends ArrayAdapter<Date> {
     private void setLabelColors(TextView dayLabel, Calendar day) {
         // Setting not current month day color
         if (!isCurrentMonthDay(day)) {
-            DayColorsUtils.setDayColors(dayLabel, ContextCompat.getColor(mContext,
-                    R.color.nextMonthDayColor), Typeface.NORMAL, R.drawable.background_transparent);
+            DayColorsUtils.setDayColors(dayLabel, mCalendarProperties.getAnotherMonthsDaysLabelsColor(),
+                    Typeface.NORMAL, R.drawable.background_transparent);
             return;
         }
 
@@ -94,7 +93,7 @@ class CalendarDayAdapter extends ArrayAdapter<Date> {
 
         // Setting disabled days color
         if (!isActiveDay(day)) {
-            DayColorsUtils.setDayColors(dayLabel, mCalendarProperties.getDisabledDaysColor(),
+            DayColorsUtils.setDayColors(dayLabel, mCalendarProperties.getDisabledDaysLabelsColor(),
                     Typeface.NORMAL, R.drawable.background_transparent);
             return;
         }

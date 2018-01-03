@@ -23,9 +23,9 @@ import java.util.List;
 
 public class CalendarProperties {
     private int mCalendarType, mHeaderColor, mHeaderLabelColor, mPreviousButtonSrc, mForwardButtonSrc,
-            mSelectionColor, mTodayLabelColor, mDialogButtonsColor, mItemLayoutResource, mDisabledDaysColor,
-            mPagesColor, mAbbreviationsBarColor, mAbbreviationsLabelsColor, mDaysLabelsColor,
-            mSelectionLabelColor;
+            mSelectionColor, mTodayLabelColor, mDialogButtonsColor, mItemLayoutResource,
+            mDisabledDaysLabelsColor, mPagesColor, mAbbreviationsBarColor, mAbbreviationsLabelsColor,
+            mDaysLabelsColor, mSelectionLabelColor, mAnotherMonthsDaysLabelsColor;
 
     private Calendar mCurrentDate = DateUtils.getCalendar();
     private Calendar mSelectedDate = DateUtils.getCalendar();
@@ -217,16 +217,16 @@ public class CalendarProperties {
         }).toList();
     }
 
-    public int getDisabledDaysColor() {
-        if (mDisabledDaysColor == 0) {
+    public int getDisabledDaysLabelsColor() {
+        if (mDisabledDaysLabelsColor == 0) {
             return ContextCompat.getColor(mContext, R.color.nextMonthDayColor);
         }
 
-        return mDisabledDaysColor;
+        return mDisabledDaysLabelsColor;
     }
 
-    public void setDisabledDaysColor(int disabledDaysColor) {
-        mDisabledDaysColor = disabledDaysColor;
+    public void setDisabledDaysLabelsColor(int disabledDaysLabelsColor) {
+        mDisabledDaysLabelsColor = disabledDaysLabelsColor;
     }
 
     public int getPagesColor() {
@@ -275,5 +275,17 @@ public class CalendarProperties {
 
     public void setSelectionLabelColor(int selectionLabelColor) {
         mSelectionLabelColor = selectionLabelColor;
+    }
+
+    public int getAnotherMonthsDaysLabelsColor() {
+        if (mAnotherMonthsDaysLabelsColor == 0) {
+            return ContextCompat.getColor(mContext, R.color.nextMonthDayColor);
+        }
+
+        return mAnotherMonthsDaysLabelsColor;
+    }
+
+    public void setAnotherMonthsDaysLabelsColor(int anotherMonthsDaysLabelsColor) {
+        mAnotherMonthsDaysLabelsColor = anotherMonthsDaysLabelsColor;
     }
 }

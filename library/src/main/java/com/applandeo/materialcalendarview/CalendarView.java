@@ -163,6 +163,10 @@ public class CalendarView extends LinearLayout {
             mCalendarProperties.setDaysLabelsColor(typedArray.getColor(R.styleable.CalendarView_daysLabelsColor,
                     0));
 
+            // Days numbers of another months color
+            mCalendarProperties.setAnotherMonthsDaysLabelsColor(typedArray.getColor(R.styleable.CalendarView_anotherMonthsDaysLabelsColor,
+                    0));
+
             // Today number color
             mCalendarProperties.setTodayLabelColor(typedArray.getColor(R.styleable.CalendarView_todayLabelColor,
                     0));
@@ -176,7 +180,7 @@ public class CalendarView extends LinearLayout {
                     0));
 
             // Disabled days label color
-            mCalendarProperties.setDisabledDaysColor(typedArray.getColor(R.styleable.CalendarView_disabledDaysColor,
+            mCalendarProperties.setDisabledDaysLabelsColor(typedArray.getColor(R.styleable.CalendarView_disabledDaysLabelsColor,
                     0));
 
             // Previous arrow resource

@@ -106,8 +106,8 @@ public class DatePickerBuilder {
         return this;
     }
 
-    public DatePickerBuilder disabledDaysColor(@ColorRes int color) {
-        mCalendarProperties.setDisabledDaysColor(ContextCompat.getColor(mContext, color));
+    public DatePickerBuilder disabledDaysLabelsColor(@ColorRes int color) {
+        mCalendarProperties.setDisabledDaysLabelsColor(ContextCompat.getColor(mContext, color));
         return this;
     }
 

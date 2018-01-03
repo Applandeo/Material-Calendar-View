@@ -1,7 +1,6 @@
 package com.applandeo.materialcalendarview.listeners;
 
 import android.content.Context;
-import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.TextView;
@@ -145,7 +144,7 @@ public class DayRowClickListener implements AdapterView.OnItemClickListener {
     }
 
     private boolean isCurrentMonthLabel(TextView dayLabel) {
-        return dayLabel.getCurrentTextColor() != ContextCompat.getColor(mContext, R.color.nextMonthDayColor);
+        return dayLabel.getCurrentTextColor() != mCalendarProperties.getAnotherMonthsDaysLabelsColor();
     }
 
     private boolean isActiveDay(Calendar day) {

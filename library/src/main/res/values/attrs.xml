@@ -8,11 +8,12 @@
         <attr name="todayLabelColor" format="color" />
         <attr name="selectionColor" format="color" />
         <attr name="selectionLabelColor" format="color" />
-        <attr name="disabledDaysColor" format="color" />
+        <attr name="disabledDaysLabelsColor" format="color" />
         <attr name="pagesColor" format="color" />
         <attr name="abbreviationsBarColor" format="color" />
         <attr name="abbreviationsLabelsColor" format="color" />
         <attr name="daysLabelsColor" format="color" />
+        <attr name="anotherMonthsDaysLabelsColor" format="color" />
         <attr name="datePicker" format="boolean" />
         <attr name="type" />
     </declare-styleable>
