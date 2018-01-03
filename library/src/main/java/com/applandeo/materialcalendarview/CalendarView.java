@@ -16,8 +16,8 @@ import com.annimon.stream.Stream;
 import com.applandeo.materialcalendarview.adapters.CalendarPageAdapter;
 import com.applandeo.materialcalendarview.exceptions.OutOfDateRangeException;
 import com.applandeo.materialcalendarview.extensions.CalendarViewPager;
-import com.applandeo.materialcalendarview.listeners.OnDayClickListener;
 import com.applandeo.materialcalendarview.listeners.OnCalendarPageChangeListener;
+import com.applandeo.materialcalendarview.listeners.OnDayClickListener;
 import com.applandeo.materialcalendarview.utils.CalendarProperties;
 import com.applandeo.materialcalendarview.utils.DateUtils;
 import com.applandeo.materialcalendarview.utils.SelectedDay;
@@ -97,7 +97,7 @@ public class CalendarView extends LinearLayout {
 
     private void initControl(Context context, AttributeSet attrs) {
         mContext = context;
-        mCalendarProperties = new CalendarProperties();
+        mCalendarProperties = new CalendarProperties(context);
 
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         inflater.inflate(R.layout.calendar_view, this);
@@ -132,16 +132,16 @@ public class CalendarView extends LinearLayout {
             }
 
             // Today number color
-            mCalendarProperties.setTodayLabelColor(typedArray.getResourceId(R.styleable.CalendarView_todayLabelColor,
-                    R.color.defaultColor));
+            mCalendarProperties.setTodayLabelColor(typedArray.getColor(R.styleable.CalendarView_todayLabelColor,
+                    0));
 
             // Selection circle color
-            mCalendarProperties.setSelectionColor(typedArray.getResourceId(R.styleable.CalendarView_selectionColor,
-                    R.color.defaultColor));
+            mCalendarProperties.setSelectionColor(typedArray.getColor(R.styleable.CalendarView_selectionColor,
+                    0));
 
             // Disabled days label color
-            mCalendarProperties.setDisabledDaysColor(typedArray.getResourceId(R.styleable.CalendarView_disabledDaysColor,
-                    R.color.nextMonthDayColor));
+            mCalendarProperties.setDisabledDaysColor(typedArray.getColor(R.styleable.CalendarView_disabledDaysColor,
+                    0));
 
             // Previous arrow resource
             Drawable previousButtonScr = typedArray.getDrawable(R.styleable.CalendarView_previousButtonSrc);
@@ -180,7 +180,6 @@ public class CalendarView extends LinearLayout {
         }
     }
 
-    // TODO: 02.01.2018 Some setters can be moved to calendar properties
     //This method set CalendarView attributes when the view is creating in the date picker
     private void initAttributes() {
         setCalendarRowLayout();
@@ -200,18 +199,6 @@ public class CalendarView extends LinearLayout {
 
         if (mCalendarProperties.getForwardButtonSrc() != 0) {
             mForwardButton.setImageResource(mCalendarProperties.getForwardButtonSrc());
-        }
-
-        if (mCalendarProperties.getSelectionColor() != 0) {
-            mCalendarProperties.setSelectionColor(mCalendarProperties.getSelectionColor());
-        } else {
-            mCalendarProperties.setSelectionColor(R.color.defaultColor);
-        }
-
-        if (mCalendarProperties.getTodayLabelColor() != 0) {
-            mCalendarProperties.setTodayLabelColor(mCalendarProperties.getTodayLabelColor());
-        } else {
-            mCalendarProperties.setTodayLabelColor(R.color.defaultColor);
         }
     }
 

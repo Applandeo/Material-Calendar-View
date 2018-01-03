@@ -68,14 +68,14 @@ class CalendarDayAdapter extends ArrayAdapter<Date> {
             loadIcon(dayIcon, day);
         }
 
-        colorLabels(dayLabel, day);
+        setLabelColors(dayLabel, day);
 
         dayLabel.setText(String.valueOf(day.get(Calendar.DAY_OF_MONTH)));
         return view;
     }
 
     // TODO: 02.01.2018 Refactor, divide into small methods
-    private void colorLabels(TextView dayLabel, Calendar day) {
+    private void setLabelColors(TextView dayLabel, Calendar day) {
         if (isSelectedDay(day)) {
             // Set view for all SelectedDays
             Stream.of(mCalendarPageAdapter.getSelectedDays())
@@ -86,8 +86,8 @@ class CalendarDayAdapter extends ArrayAdapter<Date> {
         } else if (isCurrentMonthDay(day) && isActiveDay(day)) { // Setting current month day color
             DayColorsUtils.setCurrentMonthDayColors(mContext, day, mToday, dayLabel, mCalendarProperties.getTodayLabelColor());
         } else if (isCurrentMonthDay(day) && !isActiveDay(day)) { // Setting disabled days color
-            DayColorsUtils.setDayColors(dayLabel, ContextCompat.getColor(mContext,
-                    mCalendarProperties.getDisabledDaysColor()), Typeface.NORMAL, R.drawable.background_transparent);
+            DayColorsUtils.setDayColors(dayLabel, mCalendarProperties.getDisabledDaysColor(),
+                    Typeface.NORMAL, R.drawable.background_transparent);
         } else { // Setting not current month day color
             DayColorsUtils.setDayColors(dayLabel, ContextCompat.getColor(mContext,
                     R.color.nextMonthDayColor), Typeface.NORMAL, R.drawable.background_transparent);

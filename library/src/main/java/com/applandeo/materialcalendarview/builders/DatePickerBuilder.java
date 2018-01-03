@@ -3,6 +3,7 @@ package com.applandeo.materialcalendarview.builders;
 import android.content.Context;
 import android.support.annotation.ColorRes;
 import android.support.annotation.DrawableRes;
+import android.support.v4.content.ContextCompat;
 
 import com.applandeo.materialcalendarview.CalendarView;
 import com.applandeo.materialcalendarview.DatePicker;
@@ -22,7 +23,7 @@ public class DatePickerBuilder {
 
     public DatePickerBuilder(Context context, OnSelectDateListener onSelectDateListener) {
         mContext = context;
-        mCalendarProperties = new CalendarProperties();
+        mCalendarProperties = new CalendarProperties(context);
         mCalendarProperties.setCalendarType(CalendarView.ONE_DAY_PICKER);
         mCalendarProperties.setOnSelectDateListener(onSelectDateListener);
     }
@@ -66,12 +67,12 @@ public class DatePickerBuilder {
     }
 
     public DatePickerBuilder selectionColor(@ColorRes int color) {
-        mCalendarProperties.setSelectionColor(color);
+        mCalendarProperties.setSelectionColor(ContextCompat.getColor(mContext, color));
         return this;
     }
 
     public DatePickerBuilder todayLabelColor(@ColorRes int color) {
-        mCalendarProperties.setTodayLabelColor(color);
+        mCalendarProperties.setTodayLabelColor(ContextCompat.getColor(mContext, color));
         return this;
     }
 
@@ -106,7 +107,7 @@ public class DatePickerBuilder {
     }
 
     public DatePickerBuilder disabledDaysColor(@ColorRes int color) {
-        mCalendarProperties.setDisabledDaysColor(color);
+        mCalendarProperties.setDisabledDaysColor(ContextCompat.getColor(mContext, color));
         return this;
     }
 }

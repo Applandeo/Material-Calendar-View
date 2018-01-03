@@ -49,8 +49,7 @@ public class DayColorsUtils {
         setDayColors(dayLabel, ContextCompat.getColor(context, android.R.color.white), Typeface.NORMAL,
                 R.drawable.background_color_circle_selector);
 
-        dayLabel.getBackground().setColorFilter(ContextCompat.getColor(context, selectionColor),
-                android.graphics.PorterDuff.Mode.MULTIPLY);
+        dayLabel.getBackground().setColorFilter(selectionColor, android.graphics.PorterDuff.Mode.MULTIPLY);
     }
 
     /**
@@ -68,8 +67,7 @@ public class DayColorsUtils {
     public static void setCurrentMonthDayColors(Context context, Calendar day, Calendar today,
                                                 TextView dayLabel, int todayLabelColor) {
         if (today.equals(day)) {
-            setDayColors(dayLabel, ContextCompat.getColor(context, todayLabelColor),
-                    Typeface.BOLD, R.drawable.background_transparent);
+            setDayColors(dayLabel, todayLabelColor, Typeface.BOLD, R.drawable.background_transparent);
         } else {
             setDayColors(dayLabel, ContextCompat.getColor(context, R.color.currentMonthDayColor),
                     Typeface.NORMAL, R.drawable.background_transparent);

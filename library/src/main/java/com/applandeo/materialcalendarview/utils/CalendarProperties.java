@@ -1,5 +1,8 @@
 package com.applandeo.materialcalendarview.utils;
 
+import android.content.Context;
+import android.support.v4.content.ContextCompat;
+
 import com.annimon.stream.Stream;
 import com.applandeo.materialcalendarview.EventDay;
 import com.applandeo.materialcalendarview.R;
@@ -34,6 +37,12 @@ public class CalendarProperties {
 
     private List<EventDay> mEventDays = new ArrayList<>();
     private List<Calendar> mDisabledDays = new ArrayList<>();
+
+    private Context mContext;
+
+    public CalendarProperties(Context context) {
+        mContext = context;
+    }
 
     public int getCalendarType() {
         return mCalendarType;
@@ -92,6 +101,10 @@ public class CalendarProperties {
     }
 
     public int getSelectionColor() {
+        if (mSelectionColor == 0) {
+            return ContextCompat.getColor(mContext, R.color.defaultColor);
+        }
+
         return mSelectionColor;
     }
 
@@ -100,6 +113,10 @@ public class CalendarProperties {
     }
 
     public int getTodayLabelColor() {
+        if (mTodayLabelColor == 0) {
+            return ContextCompat.getColor(mContext, R.color.defaultColor);
+        }
+
         return mTodayLabelColor;
     }
 
@@ -200,7 +217,7 @@ public class CalendarProperties {
 
     public int getDisabledDaysColor() {
         if (mDisabledDaysColor == 0) {
-            return R.color.nextMonthDayColor;
+            return ContextCompat.getColor(mContext, R.color.nextMonthDayColor);
         }
 
         return mDisabledDaysColor;
