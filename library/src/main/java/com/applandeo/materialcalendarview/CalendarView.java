@@ -66,6 +66,7 @@ public class CalendarView extends LinearLayout {
     private TextView mCurrentMonthLabel;
     private int mCurrentPage;
     private CalendarViewPager mViewPager;
+    private LinearLayout mAbbreviationsBar;
 
     private CalendarProperties mCalendarProperties;
 
@@ -129,6 +130,33 @@ public class CalendarView extends LinearLayout {
 
             if (headerLabelColor != 0) {
                 mCurrentMonthLabel.setTextColor(headerLabelColor);
+            }
+
+            // Abbreviations bar color
+            int abbreviationsBarColor = typedArray.getColor(R.styleable.CalendarView_abbreviationsBarColor, 0);
+
+            if (abbreviationsBarColor != 0) {
+                mAbbreviationsBar.setBackgroundColor(abbreviationsBarColor);
+            }
+
+            // Abbreviations labels colors
+            int abbreviationsLabelsColor = typedArray.getColor(R.styleable.CalendarView_abbreviationsLabelsColor, 0);
+
+            if (abbreviationsLabelsColor != 0) {
+                ((TextView)findViewById(R.id.mondayLabel)).setTextColor(abbreviationsLabelsColor);
+                ((TextView)findViewById(R.id.tuesdayLabel)).setTextColor(abbreviationsLabelsColor);
+                ((TextView)findViewById(R.id.wednesdayLabel)).setTextColor(abbreviationsLabelsColor);
+                ((TextView)findViewById(R.id.thursdayLabel)).setTextColor(abbreviationsLabelsColor);
+                ((TextView)findViewById(R.id.fridayLabel)).setTextColor(abbreviationsLabelsColor);
+                ((TextView)findViewById(R.id.saturdayLabel)).setTextColor(abbreviationsLabelsColor);
+                ((TextView)findViewById(R.id.sundayLabel)).setTextColor(abbreviationsLabelsColor);
+            }
+
+            // Calendar pages color
+            int pagesColor = typedArray.getColor(R.styleable.CalendarView_pagesColor, 0);
+
+            if (pagesColor != 0) {
+                mViewPager.setBackgroundColor(pagesColor);
             }
 
             // Today number color
@@ -200,6 +228,24 @@ public class CalendarView extends LinearLayout {
         if (mCalendarProperties.getForwardButtonSrc() != 0) {
             mForwardButton.setImageResource(mCalendarProperties.getForwardButtonSrc());
         }
+
+        if (mCalendarProperties.getAbbreviationsBarColor() != 0) {
+            mAbbreviationsBar.setBackgroundColor(mCalendarProperties.getAbbreviationsBarColor());
+        }
+
+        if (mCalendarProperties.getAbbreviationsLabelsColor() != 0) {
+            ((TextView)findViewById(R.id.mondayLabel)).setTextColor(mCalendarProperties.getAbbreviationsLabelsColor());
+            ((TextView)findViewById(R.id.tuesdayLabel)).setTextColor(mCalendarProperties.getAbbreviationsLabelsColor());
+            ((TextView)findViewById(R.id.wednesdayLabel)).setTextColor(mCalendarProperties.getAbbreviationsLabelsColor());
+            ((TextView)findViewById(R.id.thursdayLabel)).setTextColor(mCalendarProperties.getAbbreviationsLabelsColor());
+            ((TextView)findViewById(R.id.fridayLabel)).setTextColor(mCalendarProperties.getAbbreviationsLabelsColor());
+            ((TextView)findViewById(R.id.saturdayLabel)).setTextColor(mCalendarProperties.getAbbreviationsLabelsColor());
+            ((TextView)findViewById(R.id.sundayLabel)).setTextColor(mCalendarProperties.getAbbreviationsLabelsColor());
+        }
+
+        if (mCalendarProperties.getPagesColor() != 0) {
+            mViewPager.setBackgroundColor(mCalendarProperties.getPagesColor());
+        }
     }
 
     private void initUiElements() {
@@ -215,6 +261,7 @@ public class CalendarView extends LinearLayout {
 
         mCurrentMonthLabel = (TextView) findViewById(R.id.currentDateLabel);
 
+        mAbbreviationsBar = (LinearLayout) findViewById(R.id.abbreviationsBar);
         mViewPager = (CalendarViewPager) findViewById(R.id.calendarViewPager);
     }
 

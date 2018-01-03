@@ -23,7 +23,8 @@ import java.util.List;
 
 public class CalendarProperties {
     private int mCalendarType, mHeaderColor, mHeaderLabelColor, mPreviousButtonSrc, mForwardButtonSrc,
-            mSelectionColor, mTodayLabelColor, mDialogButtonsColor, mItemLayoutResource, mDisabledDaysColor;
+            mSelectionColor, mTodayLabelColor, mDialogButtonsColor, mItemLayoutResource, mDisabledDaysColor,
+            mPagesColor, mAbbreviationsBarColor, mAbbreviationsLabelsColor;
 
     private Calendar mCurrentDate = DateUtils.getCalendar();
     private Calendar mSelectedDate = DateUtils.getCalendar();
@@ -225,5 +226,29 @@ public class CalendarProperties {
 
     public void setDisabledDaysColor(int disabledDaysColor) {
         mDisabledDaysColor = disabledDaysColor;
+    }
+
+    public int getPagesColor() {
+        return mPagesColor;
+    }
+
+    public void setPagesColor(int pagesColor) {
+        mPagesColor = pagesColor;
+    }
+
+    public int getAbbreviationsBarColor() {
+        return mAbbreviationsBarColor;
+    }
+
+    public void setAbbreviationsBarColor(int abbreviationsBarColor) {
+        mAbbreviationsBarColor = abbreviationsBarColor;
+    }
+
+    public int getAbbreviationsLabelsColor() {
+        return mAbbreviationsLabelsColor;
+    }
+
+    public void setAbbreviationsLabelsColor(int abbreviationsLabelsColor) {
+        mAbbreviationsLabelsColor = abbreviationsLabelsColor;
     }
 }

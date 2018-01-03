@@ -110,4 +110,19 @@ public class DatePickerBuilder {
         mCalendarProperties.setDisabledDaysColor(ContextCompat.getColor(mContext, color));
         return this;
     }
+
+    public DatePickerBuilder abbreviationsBarColor(@ColorRes int color) {
+        mCalendarProperties.setAbbreviationsBarColor(ContextCompat.getColor(mContext, color));
+        return this;
+    }
+
+    public DatePickerBuilder pagesColor(@ColorRes int color) {
+        mCalendarProperties.setPagesColor(ContextCompat.getColor(mContext, color));
+        return this;
+    }
+
+    public DatePickerBuilder abbreviationsLabelsColor(@ColorRes int color) {
+        mCalendarProperties.setAbbreviationsLabelsColor(ContextCompat.getColor(mContext, color));
+        return this;
+    }
 }

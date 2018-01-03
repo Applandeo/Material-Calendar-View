@@ -45,27 +45,61 @@ public class MainActivity extends AppCompatActivity implements OnSelectDateListe
         min.add(Calendar.MONTH, -5);
 
         Calendar max = Calendar.getInstance();
-        max.add(Calendar.MONTH, -3);
+        max.add(Calendar.DAY_OF_MONTH, 3);
 
         Button openOneDayPickerDialog = (Button) findViewById(R.id.openOneDayPickerDialogButton);
         openOneDayPickerDialog.setOnClickListener(v -> {
             DatePickerBuilder oneDayBuilder = new DatePickerBuilder(this, this)
                     .pickerType(CalendarView.ONE_DAY_PICKER)
-                    .date(max)
+//                    .date(max)
                     .headerColor(R.color.colorPrimaryDark)
                     .headerLabelColor(R.color.currentMonthDayColor)
                     .selectionColor(R.color.daysLabelColor)
                     .todayLabelColor(R.color.colorAccent)
                     .dialogButtonsColor(android.R.color.holo_green_dark)
+                    .disabledDaysColor(android.R.color.holo_purple)
                     .previousButtonSrc(R.drawable.ic_chevron_left_black_24dp)
                     .forwardButtonSrc(R.drawable.ic_chevron_right_black_24dp)
                     .minimumDate(min)
-                    .maximumDate(max);
+                    .maximumDate(max)
+                    .disabledDays(getDisabledDays());
 
             DatePicker oneDayPicker = oneDayBuilder.build();
             oneDayPicker.show();
         });
 
+        DatePickerBuilder manyDaysBuilder = new DatePickerBuilder(this, this)
+                .pickerType(CalendarView.MANY_DAYS_PICKER)
+                .headerColor(android.R.color.holo_green_dark)
+                .selectionColor(android.R.color.holo_green_dark)
+                .todayLabelColor(android.R.color.holo_green_dark)
+                .dialogButtonsColor(android.R.color.holo_green_dark)
+                .disabledDays(getDisabledDays());
+
+        Button openManyDaysPickerDialog = (Button) findViewById(R.id.openManyDaysPickerDialogButton);
+        openManyDaysPickerDialog.setOnClickListener(v -> manyDaysBuilder.show());
+
+        DatePickerBuilder rangeBuilder = new DatePickerBuilder(this, this)
+                .pickerType(CalendarView.RANGE_PICKER)
+                .headerColor(R.color.sampleDark)
+                .abbreviationsBarColor(R.color.sampleLight)
+                .abbreviationsLabelsColor(android.R.color.white)
+                .pagesColor(R.color.sampleLighter)
+                .selectionColor(android.R.color.holo_green_dark)
+                .todayLabelColor(android.R.color.holo_green_dark)
+                .disabledDaysColor(android.R.color.holo_green_light)
+                .dialogButtonsColor(android.R.color.white)
+                .previousPageChangeListener(previousPageChageListener)
+                .forwardPageChangeListener(forwardPageChangeListener)
+                .disabledDays(getDisabledDays());
+
+        DatePicker rangePicker = rangeBuilder.build();
+
+        Button openRangePickerDialog = (Button) findViewById(R.id.openRangePickerDialogButton);
+        openRangePickerDialog.setOnClickListener(v -> rangePicker.show());
+    }
+
+    private List<Calendar> getDisabledDays(){
         Calendar firstDisabled = DateUtils.getCalendar();
         firstDisabled.add(Calendar.DAY_OF_MONTH, 2);
 
@@ -79,32 +113,7 @@ public class MainActivity extends AppCompatActivity implements OnSelectDateListe
         calendars.add(firstDisabled);
         calendars.add(secondDisabled);
         calendars.add(thirdDisabled);
-
-        DatePickerBuilder manyDaysBuilder = new DatePickerBuilder(this, this)
-                .pickerType(CalendarView.MANY_DAYS_PICKER)
-                .headerColor(android.R.color.holo_green_dark)
-                .selectionColor(android.R.color.holo_green_dark)
-                .todayLabelColor(android.R.color.holo_green_dark)
-                .dialogButtonsColor(android.R.color.holo_green_dark)
-                .disabledDays(calendars);
-
-        Button openManyDaysPickerDialog = (Button) findViewById(R.id.openManyDaysPickerDialogButton);
-        openManyDaysPickerDialog.setOnClickListener(v -> manyDaysBuilder.show());
-
-        DatePickerBuilder rangeBuilder = new DatePickerBuilder(this, this)
-                .pickerType(CalendarView.RANGE_PICKER)
-                .headerColor(android.R.color.holo_green_dark)
-                .selectionColor(android.R.color.holo_green_dark)
-                .todayLabelColor(android.R.color.holo_green_dark)
-                .dialogButtonsColor(android.R.color.holo_green_dark)
-                .previousPageChangeListener(previousPageChageListener)
-                .forwardPageChangeListener(forwardPageChangeListener)
-                .disabledDays(calendars);
-
-        DatePicker rangePicker = rangeBuilder.build();
-
-        Button openRangePickerDialog = (Button) findViewById(R.id.openRangePickerDialogButton);
-        openRangePickerDialog.setOnClickListener(v -> rangePicker.show());
+        return calendars;
     }
 
     private OnCalendarPageChangeListener previousPageChageListener = () ->

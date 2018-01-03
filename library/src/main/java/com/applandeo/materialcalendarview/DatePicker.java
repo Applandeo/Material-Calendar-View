@@ -36,6 +36,10 @@ public class DatePicker {
         LayoutInflater layoutInflater = LayoutInflater.from(mContext);
         final View view = layoutInflater.inflate(R.layout.date_picker_dialog, null);
 
+        if(mCalendarProperties.getPagesColor() != 0){
+            view.setBackgroundColor(mCalendarProperties.getPagesColor());
+        }
+
         mCancelButton = (AppCompatButton) view.findViewById(R.id.negative_button);
         mOkButton = (AppCompatButton) view.findViewById(R.id.positive_button);
         mTodayButton = (AppCompatButton) view.findViewById(R.id.today_button);

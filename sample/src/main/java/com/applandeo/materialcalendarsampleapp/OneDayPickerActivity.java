@@ -33,7 +33,8 @@ public class OneDayPickerActivity extends AppCompatActivity {
 
         calendarView.setOnDayClickListener(eventDay ->
                 Toast.makeText(getApplicationContext(),
-                        eventDay.getCalendar().getTime().toString(),
+                        eventDay.getCalendar().getTime().toString() + " "
+                                + eventDay.isEnabled(),
                         Toast.LENGTH_SHORT).show());
 
         Button getDateButton = (Button) findViewById(R.id.getDateButton);

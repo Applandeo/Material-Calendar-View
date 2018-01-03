@@ -8,6 +8,7 @@ import android.widget.Toast;
 import com.applandeo.materialcalendarview.CalendarView;
 import com.applandeo.materialcalendarview.EventDay;
 import com.applandeo.materialcalendarview.exceptions.OutOfDateRangeException;
+import com.applandeo.materialcalendarview.utils.DateUtils;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -51,9 +52,12 @@ public class CalendarActivity extends AppCompatActivity {
 
         calendarView.setEvents(events);
 
+        calendarView.setDisabledDays(getDisabledDays());
+
         calendarView.setOnDayClickListener(eventDay ->
                 Toast.makeText(getApplicationContext(),
-                        eventDay.getCalendar().getTime().toString(),
+                        eventDay.getCalendar().getTime().toString() + " "
+                                + eventDay.isEnabled(),
                         Toast.LENGTH_SHORT).show());
 
         Button setDateButton = (Button) findViewById(R.id.setDateButton);
@@ -68,6 +72,23 @@ public class CalendarActivity extends AppCompatActivity {
                         Toast.LENGTH_LONG).show();
             }
         });
+    }
+
+    private List<Calendar> getDisabledDays() {
+        Calendar firstDisabled = DateUtils.getCalendar();
+        firstDisabled.add(Calendar.DAY_OF_MONTH, 2);
+
+        Calendar secondDisabled = DateUtils.getCalendar();
+        secondDisabled.add(Calendar.DAY_OF_MONTH, 1);
+
+        Calendar thirdDisabled = DateUtils.getCalendar();
+        thirdDisabled.add(Calendar.DAY_OF_MONTH, 18);
+
+        List<Calendar> calendars = new ArrayList<>();
+        calendars.add(firstDisabled);
+        calendars.add(secondDisabled);
+        calendars.add(thirdDisabled);
+        return calendars;
     }
 
     private Calendar getRandomCalendar() {
