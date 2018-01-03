@@ -27,6 +27,14 @@ public class DatePickerBuilder {
         mCalendarProperties.setOnSelectDateListener(onSelectDateListener);
     }
 
+    public DatePicker show() {
+        return build().show();
+    }
+
+    public DatePicker build() {
+        return new DatePicker(mContext, mCalendarProperties);
+    }
+
     public DatePickerBuilder pickerType(int calendarType) {
         mCalendarProperties.setCalendarType(calendarType);
         return this;
@@ -97,11 +105,8 @@ public class DatePickerBuilder {
         return this;
     }
 
-    public DatePicker show() {
-        return build().show();
-    }
-
-    public DatePicker build() {
-        return new DatePicker(mContext, mCalendarProperties);
+    public DatePickerBuilder disabledDaysColor(@ColorRes int color) {
+        mCalendarProperties.setDisabledDaysColor(color);
+        return this;
     }
 }

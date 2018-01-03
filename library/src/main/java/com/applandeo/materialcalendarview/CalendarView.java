@@ -139,6 +139,10 @@ public class CalendarView extends LinearLayout {
             mCalendarProperties.setSelectionColor(typedArray.getResourceId(R.styleable.CalendarView_selectionColor,
                     R.color.defaultColor));
 
+            // Disabled days label color
+            mCalendarProperties.setDisabledDaysColor(typedArray.getResourceId(R.styleable.CalendarView_disabledDaysColor,
+                    R.color.nextMonthDayColor));
+
             // Previous arrow resource
             Drawable previousButtonScr = typedArray.getDrawable(R.styleable.CalendarView_previousButtonSrc);
 
@@ -176,6 +180,7 @@ public class CalendarView extends LinearLayout {
         }
     }
 
+    // TODO: 02.01.2018 Some setters can be moved to calendar properties
     //This method set CalendarView attributes when the view is creating in the date picker
     private void initAttributes() {
         setCalendarRowLayout();
@@ -292,11 +297,11 @@ public class CalendarView extends LinearLayout {
 
     private void setHeaderName(Calendar calendar, int position) {
         mCurrentMonthLabel.setText(DateUtils.getMonthAndYearDate(mContext, calendar));
-        callNavigationListeners(position);
+        callOnPageChangeListeners(position);
     }
 
-    // This method calls navigation button listeners after swipe calendar or click arrow buttons
-    private void callNavigationListeners(int position) {
+    // This method calls page change listeners after swipe calendar or click arrow buttons
+    private void callOnPageChangeListeners(int position) {
         if (position > mCurrentPage && mCalendarProperties.getOnForwardPageChangeListener() != null) {
             mCalendarProperties.getOnForwardPageChangeListener().onChange();
         }

@@ -2,8 +2,9 @@ package com.applandeo.materialcalendarview.utils;
 
 import com.annimon.stream.Stream;
 import com.applandeo.materialcalendarview.EventDay;
-import com.applandeo.materialcalendarview.listeners.OnDayClickListener;
+import com.applandeo.materialcalendarview.R;
 import com.applandeo.materialcalendarview.listeners.OnCalendarPageChangeListener;
+import com.applandeo.materialcalendarview.listeners.OnDayClickListener;
 import com.applandeo.materialcalendarview.listeners.OnSelectDateListener;
 import com.applandeo.materialcalendarview.listeners.OnSelectionAbilityListener;
 
@@ -19,7 +20,7 @@ import java.util.List;
 
 public class CalendarProperties {
     private int mCalendarType, mHeaderColor, mHeaderLabelColor, mPreviousButtonSrc, mForwardButtonSrc,
-            mSelectionColor, mTodayLabelColor, mDialogButtonsColor, mItemLayoutResource;
+            mSelectionColor, mTodayLabelColor, mDialogButtonsColor, mItemLayoutResource, mDisabledDaysColor;
 
     private Calendar mCurrentDate = DateUtils.getCalendar();
     private Calendar mSelectedDate = DateUtils.getCalendar();
@@ -195,5 +196,17 @@ public class CalendarProperties {
             DateUtils.setMidnight(calendar);
             return calendar;
         }).toList();
+    }
+
+    public int getDisabledDaysColor() {
+        if (mDisabledDaysColor == 0) {
+            return R.color.nextMonthDayColor;
+        }
+
+        return mDisabledDaysColor;
+    }
+
+    public void setDisabledDaysColor(int disabledDaysColor) {
+        mDisabledDaysColor = disabledDaysColor;
     }
 }
