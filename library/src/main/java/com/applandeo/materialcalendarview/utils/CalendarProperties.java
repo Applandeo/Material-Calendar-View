@@ -1,6 +1,7 @@
 package com.applandeo.materialcalendarview.utils;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.support.v4.content.ContextCompat;
 
 import com.annimon.stream.Stream;
@@ -22,10 +23,12 @@ import java.util.List;
  */
 
 public class CalendarProperties {
-    private int mCalendarType, mHeaderColor, mHeaderLabelColor, mPreviousButtonSrc, mForwardButtonSrc,
-            mSelectionColor, mTodayLabelColor, mDialogButtonsColor, mItemLayoutResource,
-            mDisabledDaysLabelsColor, mPagesColor, mAbbreviationsBarColor, mAbbreviationsLabelsColor,
-            mDaysLabelsColor, mSelectionLabelColor, mAnotherMonthsDaysLabelsColor;
+    private int mCalendarType, mHeaderColor, mHeaderLabelColor, mSelectionColor, mTodayLabelColor,
+            mDialogButtonsColor, mItemLayoutResource, mDisabledDaysLabelsColor, mPagesColor,
+            mAbbreviationsBarColor, mAbbreviationsLabelsColor, mDaysLabelsColor, mSelectionLabelColor,
+            mAnotherMonthsDaysLabelsColor;
+
+    private Drawable mPreviousButtonSrc, mForwardButtonSrc;
 
     private Calendar mCurrentDate = DateUtils.getCalendar();
     private Calendar mSelectedDate = DateUtils.getCalendar();
@@ -71,7 +74,11 @@ public class CalendarProperties {
     }
 
     public int getHeaderColor() {
-        return mHeaderColor;
+        if (mHeaderColor <= 0) {
+            return mHeaderColor;
+        }
+
+        return ContextCompat.getColor(mContext, mHeaderColor);
     }
 
     public void setHeaderColor(int headerColor) {
@@ -79,26 +86,30 @@ public class CalendarProperties {
     }
 
     public int getHeaderLabelColor() {
-        return mHeaderLabelColor;
+        if (mHeaderLabelColor <= 0) {
+            return mHeaderLabelColor;
+        }
+
+        return ContextCompat.getColor(mContext, mHeaderLabelColor);
     }
 
     public void setHeaderLabelColor(int headerLabelColor) {
         mHeaderLabelColor = headerLabelColor;
     }
 
-    public int getPreviousButtonSrc() {
+    public Drawable getPreviousButtonSrc() {
         return mPreviousButtonSrc;
     }
 
-    public void setPreviousButtonSrc(int previousButtonSrc) {
+    public void setPreviousButtonSrc(Drawable previousButtonSrc) {
         mPreviousButtonSrc = previousButtonSrc;
     }
 
-    public int getForwardButtonSrc() {
+    public Drawable getForwardButtonSrc() {
         return mForwardButtonSrc;
     }
 
-    public void setForwardButtonSrc(int forwardButtonSrc) {
+    public void setForwardButtonSrc(Drawable forwardButtonSrc) {
         mForwardButtonSrc = forwardButtonSrc;
     }
 

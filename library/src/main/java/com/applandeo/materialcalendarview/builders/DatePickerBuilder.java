@@ -57,12 +57,12 @@ public class DatePickerBuilder {
     }
 
     public DatePickerBuilder previousButtonSrc(@DrawableRes int drawable) {
-        mCalendarProperties.setPreviousButtonSrc(drawable);
+        mCalendarProperties.setPreviousButtonSrc(ContextCompat.getDrawable(mContext, drawable));
         return this;
     }
 
     public DatePickerBuilder forwardButtonSrc(@DrawableRes int drawable) {
-        mCalendarProperties.setForwardButtonSrc(drawable);
+        mCalendarProperties.setForwardButtonSrc(ContextCompat.getDrawable(mContext, drawable));
         return this;
     }
 

@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         app:forwardButtonSrc="@drawable/ic_chevron_right_black_24dp"
-        app:headerColor="@color/colorPrimaryDark"
+        app:headerColor="#cc0000"
         app:headerLabelColor="#000000"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"

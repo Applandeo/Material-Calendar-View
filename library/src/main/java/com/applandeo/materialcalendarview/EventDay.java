@@ -1,5 +1,7 @@
 package com.applandeo.materialcalendarview;
 
+import android.support.annotation.RestrictTo;
+
 import com.applandeo.materialcalendarview.utils.DateUtils;
 
 import java.util.Calendar;
@@ -59,7 +61,7 @@ public class EventDay {
         return !mIsDisabled;
     }
 
-    // TODO: 03.01.2018 Pytanie do Mateusza, jak to zablokować żeby użytkownik nie miał dostępu do tej metody (bo tak :D ), bez zmieniania sturkury katalogów. Nie moze byc protected ani package-private bo uzywam tego w klasie w innym pakiecie.
+    @RestrictTo(RestrictTo.Scope.SUBCLASSES)
     public void setEnabled(boolean enabled) {
         mIsDisabled = enabled;
     }
