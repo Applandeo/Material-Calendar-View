@@ -4,7 +4,7 @@ Material-Calendar-View is a simple and customizable calendar widget for Android 
 
 We described a simple usage of the component [in this article](http://applandeo.com/blog/material-calendar-view-customized-calendar-widget-android/).
 
-![device-2017-05-29-072746](https://user-images.githubusercontent.com/2614225/28766028-ef15ad58-75cd-11e7-8f11-1800d60d8bfc.png) ![device-2017-05-29-075947](https://user-images.githubusercontent.com/2614225/28766037-f49d0424-75cd-11e7-8671-2c9424f13ffd.png) ![device-2017-07-31-084300](https://user-images.githubusercontent.com/2614225/28766040-f70463d8-75cd-11e7-9e0d-ab247fd17749.png) ![device-2017-10-25-144447](https://user-images.githubusercontent.com/2614225/31999378-522b290a-b993-11e7-8dbf-35674b95a5b6.png) ![device-2017-10-25-144725](https://user-images.githubusercontent.com/2614225/31999435-7c4d4c68-b993-11e7-9d1b-031553d6a06e.png)
+![device-2018-01-04-130322](https://user-images.githubusercontent.com/2614225/34562830-637ddbae-f150-11e7-8004-9024fb84a883.png) ![device-2018-01-04-125741](https://user-images.githubusercontent.com/2614225/34562842-709a71ee-f150-11e7-966b-cbbe6169b88b.png) ![device-2018-01-04-125831](https://user-images.githubusercontent.com/2614225/34562859-7bd3e64e-f150-11e7-98f4-f00bafe846c6.png) ![device-2018-01-04-125915](https://user-images.githubusercontent.com/2614225/34562878-8f382f06-f150-11e7-97e4-5ac9babe5aa8.png)
 
 
 
@@ -15,8 +15,10 @@ We described a simple usage of the component [in this article](http://applandeo.
 * Many dates picker
 * Range picker
 * Events icons
-* Marks today
+* Fully colors customization
 
+## How to migrate from previous version to 1.4.0?
+We have renamed setOnPreviousButtonClickListener() and setOnForwardButtonClickListener() so please refer to [Previous and forward buttons listeners](https://github.com/Applandeo/Material-Calendar-View/blob/master/README.md#previous-and-forward-buttons-listeners).
 
 ## How to use?
 Make sure you are using the newest **com.android.support:appcompat-v7**.
@@ -33,7 +35,7 @@ allprojects {
 Add the dependency to module's **build.gradle** file:
 ```
 dependencies {
-    compile 'com.applandeo:material-calendar-view:1.3.2'
+    compile 'com.applandeo:material-calendar-view:1.4.0'
 }
 ```
 
@@ -75,9 +77,6 @@ List<Calendar> selectedDates = calendarView.getSelectedDates();
 ```java
 Calendar selectedDate = calendarView.getFirstSelectedDate();
 ```
-```diff
--getSelectedDate() method is deprecated
-```
 
 ### Setting a current date:
 ```java
@@ -87,39 +86,57 @@ calendar.set(2019, 7, 5);
 calendarView.setDate(calendar);
 ```
 
-### Previous and forward buttons listeners:
+### Setting minumum and maximum dates:
 ```java
-calendarView.setOnPreviousButtonClickListener(new OnNavigationButtonClickListener() {
+Calendar min = Calendar.getInstance();
+Calendar max = Calendar.getInstance();
+
+calendarView.setMinimumDate(min);
+calendarView.setMaximumDate(max);
+```
+
+### Setting disabled dates:
+```java
+List<Calendar> calendars = new ArrayList<>();
+calendarView.setDisabledDays(calendars);
+```
+
+### Previous and forward page change listeners:
+```java
+calendarView.setOnPreviousPageChangeListener(new OnCalendarPageChangeListener() {
     @Override
-    public void onClick() {
+    public void onChange() {
         ...
     }
 });
 
-calendarView.setOnForwardButtonClickListener(new OnNavigationButtonClickListener() {
+calendarView.setOnForwardPageChangeListener(new OnCalendarPageChangeListener() {
     @Override
-    public void onClick() {
+    public void onChange() {
         ...
     }
 });
 ```
-
 
 ## Customization
 If you want to use calendar in the picker mode, you have to use the following tags:
 * ```app:type="one_day_picker"```
 * ```app:type="many_days_picker"```
 * ```app:type="range_picker"```
-```diff
--app:datePicker="true" tag is deprecated
-```
 
 #### Colors customization:
 * Header color: ```app:headerColor="[color]"```
 * Header label color: ```app:headerLabelColor="[color]"```
 * Previous button image resource: ```app:previousButtonSrc="[drawable]"```
 * Forward button image resource: ```app:forwardButtonSrc="[drawable]"```
+* Abbreviations bar color: ```app:abbreviationsBarColor="[color]"```
+* Abbreviations labels color: ```app:abbreviationsLabelsColor="[color]"```
+* Calendar pages color: ```app:pagesColor="[color]"```
 * Selection color in picker mode: ```app:selectionColor="[color]"```
+* Selection label color in picker mode: ```app:selectionLabelColor="[color]"```
+* Days labels color: ```app:daysLabelsColor="[color]"```
+* Color of visible days labels from previous and next month page: ```app:anotherMonthsDaysLabelsColor="[color]"```
+* Disabled days labels color: ```app:disabledDaysLabelsColor="[color]"```
 * Today label color: ```app:todayLabelColor="[color]"```
 
 #### Translations:
@@ -173,32 +190,40 @@ private OnSelectDateListener listener = new OnSelectDateListener() {
     }
 };
 ```
-```diff
--onSelect(Calendar calendar) has been removed
-```
 
 #### Customization:
 ```java
 new DatePickerBuilder(this, listener)
         .date(Calendar.getInstance()) // Initial date as Calendar object
-        .headerColor(R.color.colorPrimaryDark) // Color of dialog header
-        .headerLabelColor(R.color.currentMonthDayColor) // Color of header label
-        .selectionColor(R.color.daysLabelColor) // Color of selection circle
-        .todayLabelColor(R.color.colorAccent) // Color of today number
-        .dialogButtonsColor(R.color.colorAccent) // Color of "Cancel" and "OK" buttons
-        .previousButtonSrc(R.drawable.ic_chevron_left_black_24dp) // Custom drawable of the previous arrow
-        .forwardButtonSrc(R.drawable.ic_chevron_right_black_24dp); // Custom drawable of the forward arrow
-```
-
-Removed methods (see [Translations](https://github.com/Applandeo/Material-Calendar-View#translations)):
-```diff
--okButtonLabel()
--cancelButtonLabel()
--daysNames()
--monthsNames()
+        .minimumDate(Calendar.getInstance()) // Minimum available date
+        .maximumDate(Calendar.getInstance()) // Maximum available date
+        .disabledDays(List<Calendar>) /// List of disabled days
+        .headerColor(R.color.color) // Color of the dialog header
+        .headerLabelColor(R.color.color) // Color of the header label
+        .previousButtonSrc(R.drawable.drawable) // Custom drawable of the previous arrow
+        .forwardButtonSrc(R.drawable.drawable) // Custom drawable of the forward arrow
+        .previousPageChangeListener(new OnCalendarPageChangeListener(){}) // Listener called when scroll to the previous page
+        .forwardPageChangeListener(new OnCalendarPageChangeListener(){}) // Listener called when scroll to the next page
+        .abbreviationsBarColor(R.color.color) // Color of bar with day symbols
+        .abbreviationsLabelsColor(R.color.color) // Color of symbol labels
+        .pagesColor(R.color.sampleLighter) // Color of the calendar background
+        .selectionColor(R.color.color) // Color of the selection circle
+        .selectionLabelColor(R.color.color) // Color of the label in the circle
+        .daysLabelsColor(R.color.color) // Color of days numbers
+        .anotherMonthsDaysLabelsColor(R.color.color) // Color of visible days numbers from previous and next month page
+        .disabledDaysLabelsColor(R.color.color) // Color of disabled days numbers
+        .todayLabelColor(R.color.color) // Color of the today number
+        .dialogButtonsColor(R.color.color); // Color of "Cancel" and "OK" buttons
 ```
 
 ## Changelog
+#### Version 1.4.0:
+* More color customization (abbreviations, calendar pages, labels colors)
+* Changed onNavigationButtonClickListeners to onCalendarPageChangeListeners
+* Added page change listeners to dialog pickers
+* Added onDayClickListener to pickers (not dialog pickers)
+* Added ability to insert list of disabled days
+
 #### Version 1.3.2:
 * Bug fixes
 
