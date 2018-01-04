@@ -17,6 +17,8 @@ We described a simple usage of the component [in this article](http://applandeo.
 * Events icons
 * Fully colors customization
 
+## How to migrate from previous version to 1.4.0?
+We have renamed setOnPreviousButtonClickListener() and setOnForwardButtonClickListener() so please refer to [Previous and forward buttons listeners](https://github.com/Applandeo/Material-Calendar-View/blob/master/README.md#previous-and-forward-buttons-listeners).
 
 ## How to use?
 Make sure you are using the newest **com.android.support:appcompat-v7**.
@@ -217,9 +219,9 @@ new DatePickerBuilder(this, listener)
 ## Changelog
 #### Version 1.4.0:
 * More color customization (abbreviations, calendar pages, labels colors)
-* Changed NavigationButtonClickListeners to CalendarPageChangeListeners
+* Changed onNavigationButtonClickListeners to onCalendarPageChangeListeners
 * Added page change listeners to dialog pickers
-* Added DayClickListener to pickers (not dialog pickers)
+* Added onDayClickListener to pickers (not dialog pickers)
 * Added ability to insert list of disabled days
 
 #### Version 1.3.2:
