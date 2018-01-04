@@ -61,7 +61,7 @@ public class EventDay {
         return !mIsDisabled;
     }
 
-    @RestrictTo(RestrictTo.Scope.SUBCLASSES)
+    @RestrictTo(RestrictTo.Scope.LIBRARY)
     public void setEnabled(boolean enabled) {
         mIsDisabled = enabled;
     }

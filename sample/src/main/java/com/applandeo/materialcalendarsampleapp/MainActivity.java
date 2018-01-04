@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity implements OnSelectDateListe
         openOneDayPickerDialog.setOnClickListener(v -> {
             DatePickerBuilder oneDayBuilder = new DatePickerBuilder(this, this)
                     .pickerType(CalendarView.ONE_DAY_PICKER)
-//                    .date(max)
+                    .date(max)
                     .headerColor(R.color.colorPrimaryDark)
                     .headerLabelColor(R.color.currentMonthDayColor)
                     .selectionColor(R.color.daysLabelColor)
@@ -87,7 +87,6 @@ public class MainActivity extends AppCompatActivity implements OnSelectDateListe
                 .selectionColor(android.R.color.white)
                 .selectionLabelColor(R.color.sampleDark)
                 .todayLabelColor(R.color.dialogAccent)
-//                .disabledDaysLabelsColor(android.R.color.holo_green_light)
                 .dialogButtonsColor(android.R.color.white)
                 .daysLabelsColor(android.R.color.white)
                 .anotherMonthsDaysLabelsColor(R.color.sampleLighter)
@@ -99,7 +98,7 @@ public class MainActivity extends AppCompatActivity implements OnSelectDateListe
         openRangePickerDialog.setOnClickListener(v -> rangePicker.show());
     }
 
-    private List<Calendar> getDisabledDays(){
+    private List<Calendar> getDisabledDays() {
         Calendar firstDisabled = DateUtils.getCalendar();
         firstDisabled.add(Calendar.DAY_OF_MONTH, 2);
 
