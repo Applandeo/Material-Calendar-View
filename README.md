@@ -188,9 +188,6 @@ private OnSelectDateListener listener = new OnSelectDateListener() {
     }
 };
 ```
-```diff
--onSelect(Calendar calendar) has been removed
-```
 
 #### Customization:
 ```java
