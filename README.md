@@ -84,6 +84,21 @@ calendar.set(2019, 7, 5);
 calendarView.setDate(calendar);
 ```
 
+### Setting minumum and maximum dates:
+```java
+Calendar min = Calendar.getInstance();
+Calendar max = Calendar.getInstance();
+
+calendarView.setMinimumDate(min);
+calendarView.setMaximumDate(max);
+```
+
+### Setting disabled dates:
+```java
+List<Calendar> calendars = new ArrayList<>();
+calendarView.setDisabledDays(calendars);
+```
+
 ### Previous and forward page change listeners:
 ```java
 calendarView.setOnPreviousPageChangeListener(new OnCalendarPageChangeListener() {
@@ -183,6 +198,7 @@ new DatePickerBuilder(this, listener)
         .date(Calendar.getInstance()) // Initial date as Calendar object
         .minimumDate(Calendar.getInstance()) // Minimum available date
         .maximumDate(Calendar.getInstance()) // Maximum available date
+        .disabledDays(List<Calendar>) /// List of disabled days
         .headerColor(R.color.color) // Color of the dialog header
         .headerLabelColor(R.color.color) // Color of the header label
         .previousButtonSrc(R.drawable.drawable) // Custom drawable of the previous arrow
@@ -196,7 +212,7 @@ new DatePickerBuilder(this, listener)
         .selectionLabelColor(R.color.color) // Color of the label in the circle
         .daysLabelsColor(R.color.color) // Color of days numbers
         .anotherMonthsDaysLabelsColor(R.color.color) // Color of visible days numbers from previous and next month page
-        .disabledDays(getDisabledDays()) // Color of disabled days numbers
+        .disabledDaysLabelsColor(R.color.color) // Color of disabled days numbers
         .todayLabelColor(R.color.color) // Color of the today number
         .dialogButtonsColor(R.color.color); // Color of "Cancel" and "OK" buttons
 ```
