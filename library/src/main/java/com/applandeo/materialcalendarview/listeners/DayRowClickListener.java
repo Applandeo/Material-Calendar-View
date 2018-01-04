@@ -1,7 +1,5 @@
 package com.applandeo.materialcalendarview.listeners;
 
-import android.content.Context;
-import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.TextView;
@@ -28,22 +26,26 @@ import java.util.List;
  */
 
 public class DayRowClickListener implements AdapterView.OnItemClickListener {
+
     private CalendarPageAdapter mCalendarPageAdapter;
-    private Context mContext;
 
     private CalendarProperties mCalendarProperties;
+    private int mPageMonth;
 
-    public DayRowClickListener(CalendarPageAdapter calendarPageAdapter, Context context,
-                               CalendarProperties calendarProperties) {
+    public DayRowClickListener(CalendarPageAdapter calendarPageAdapter, CalendarProperties calendarProperties, int pageMonth) {
         mCalendarPageAdapter = calendarPageAdapter;
-        mContext = context;
         mCalendarProperties = calendarProperties;
+        mPageMonth = pageMonth < 0 ? 11 : pageMonth;
     }
 
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
         Calendar day = new GregorianCalendar();
         day.setTime((Date) adapterView.getItemAtPosition(position));
+
+        if (mCalendarProperties.getOnDayClickListener() != null) {
+            onClick(day);
+        }
 
         switch (mCalendarProperties.getCalendarType()) {
             case CalendarView.ONE_DAY_PICKER:
@@ -59,10 +61,7 @@ public class DayRowClickListener implements AdapterView.OnItemClickListener {
                 break;
 
             case CalendarView.CLASSIC:
-                if (mCalendarProperties.getOnDayClickListener() != null) {
-                    mCalendarPageAdapter.setSelectedDay(new SelectedDay(view, day));
-                    onClick(day);
-                }
+                mCalendarPageAdapter.setSelectedDay(new SelectedDay(view, day));
         }
     }
 
@@ -71,7 +70,7 @@ public class DayRowClickListener implements AdapterView.OnItemClickListener {
 
         TextView dayLabel = (TextView) view.findViewById(R.id.dayLabel);
 
-        if (isAnotherDaySelected(previousSelectedDay, dayLabel, day)) {
+        if (isAnotherDaySelected(previousSelectedDay, day)) {
             selectDay(dayLabel, day);
             reverseUnselectedColor(previousSelectedDay);
         }
@@ -80,11 +79,11 @@ public class DayRowClickListener implements AdapterView.OnItemClickListener {
     private void selectManyDays(View view, Calendar day) {
         TextView dayLabel = (TextView) view.findViewById(R.id.dayLabel);
 
-        if (isCurrentMonthLabel(dayLabel)) {
+        if (isCurrentMonthDay(day) && isActiveDay(day)) {
             SelectedDay selectedDay = new SelectedDay(dayLabel, day);
 
             if (!mCalendarPageAdapter.getSelectedDays().contains(selectedDay)) {
-                DayColorsUtils.setSelectedDayColors(mContext, dayLabel, mCalendarProperties.getSelectionColor());
+                DayColorsUtils.setSelectedDayColors(dayLabel, mCalendarProperties);
             } else {
                 reverseUnselectedColor(selectedDay);
             }
@@ -96,7 +95,7 @@ public class DayRowClickListener implements AdapterView.OnItemClickListener {
     private void selectRange(View view, Calendar day) {
         TextView dayLabel = (TextView) view.findViewById(R.id.dayLabel);
 
-        if (!isCurrentMonthLabel(dayLabel)) {
+        if (!isCurrentMonthDay(day) || !isActiveDay(day)) {
             return;
         }
 
@@ -124,43 +123,65 @@ public class DayRowClickListener implements AdapterView.OnItemClickListener {
         SelectedDay previousSelectedDay = mCalendarPageAdapter.getSelectedDay();
 
         Stream.of(DateUtils.getDatesRange(previousSelectedDay.getCalendar(), day))
+                .filter(calendar -> !mCalendarProperties.getDisabledDays().contains(calendar))
                 .forEach(calendar -> mCalendarPageAdapter.addSelectedDay(new SelectedDay(calendar)));
 
-        DayColorsUtils.setSelectedDayColors(mContext, dayLabel, mCalendarProperties.getSelectionColor());
+        DayColorsUtils.setSelectedDayColors(dayLabel, mCalendarProperties);
 
         mCalendarPageAdapter.addSelectedDay(new SelectedDay(dayLabel, day));
         mCalendarPageAdapter.notifyDataSetChanged();
     }
 
     private void selectDay(TextView dayLabel, Calendar day) {
-        DayColorsUtils.setSelectedDayColors(mContext, dayLabel, mCalendarProperties.getSelectionColor());
+        DayColorsUtils.setSelectedDayColors(dayLabel, mCalendarProperties);
         mCalendarPageAdapter.setSelectedDay(new SelectedDay(dayLabel, day));
     }
 
     private void reverseUnselectedColor(SelectedDay selectedDay) {
-        DayColorsUtils.setCurrentMonthDayColors(mContext, selectedDay.getCalendar(),
-                DateUtils.getCalendar(), (TextView) selectedDay.getView(), mCalendarProperties.getTodayLabelColor());
+        DayColorsUtils.setCurrentMonthDayColors(selectedDay.getCalendar(),
+                DateUtils.getCalendar(), (TextView) selectedDay.getView(), mCalendarProperties);
     }
 
-    private boolean isCurrentMonthLabel(TextView dayLabel) {
-        return dayLabel.getCurrentTextColor() != ContextCompat.getColor(mContext, R.color.nextMonthDayColor);
+    private boolean isCurrentMonthDay(Calendar day) {
+        return day.get(Calendar.MONTH) == mPageMonth && isBetweenMinAndMax(day);
     }
 
-    private boolean isAnotherDaySelected(SelectedDay selectedDay, TextView dayLabel, Calendar day) {
-        return selectedDay != null && !day.equals(selectedDay.getCalendar()) && isCurrentMonthLabel(dayLabel);
+    private boolean isActiveDay(Calendar day) {
+        return !mCalendarProperties.getDisabledDays().contains(day);
+    }
+
+    private boolean isBetweenMinAndMax(Calendar day) {
+        return !((mCalendarProperties.getMinimumDate() != null && day.before(mCalendarProperties.getMinimumDate()))
+                || (mCalendarProperties.getMaximumDate() != null && day.after(mCalendarProperties.getMaximumDate())));
+    }
+
+    private boolean isAnotherDaySelected(SelectedDay selectedDay, Calendar day) {
+        return selectedDay != null && !day.equals(selectedDay.getCalendar())
+                && isCurrentMonthDay(day) && isActiveDay(day);
     }
 
     private void onClick(Calendar day) {
         if (mCalendarProperties.getEventDays() == null) {
-            mCalendarProperties.getOnDayClickListener().onDayClick(new EventDay(day));
+            createEmptyEventDay(day);
             return;
         }
 
         Stream.of(mCalendarProperties.getEventDays())
                 .filter(eventDate -> eventDate.getCalendar().equals(day))
                 .findFirst()
-                .ifPresentOrElse(
-                        calendarEventDay -> mCalendarProperties.getOnDayClickListener().onDayClick(calendarEventDay),
-                        () -> mCalendarProperties.getOnDayClickListener().onDayClick(new EventDay(day)));
+                .ifPresentOrElse(this::callOnClickListener, () -> createEmptyEventDay(day));
+    }
+
+    private void createEmptyEventDay(Calendar day) {
+        EventDay eventDay = new EventDay(day);
+        callOnClickListener(eventDay);
+    }
+
+    private void callOnClickListener(EventDay eventDay) {
+        boolean enabledDay = mCalendarProperties.getDisabledDays().contains(eventDay.getCalendar())
+                || !isBetweenMinAndMax(eventDay.getCalendar());
+
+        eventDay.setEnabled(enabledDay);
+        mCalendarProperties.getOnDayClickListener().onDayClick(eventDay);
     }
 }

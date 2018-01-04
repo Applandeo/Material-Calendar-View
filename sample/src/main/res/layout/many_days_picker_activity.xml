@@ -11,11 +11,18 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
+        app:abbreviationsBarColor="#303F9F"
+        app:abbreviationsLabelsColor="@android:color/white"
+        app:daysLabelsColor="@android:color/white"
+        app:headerColor="#1A237E"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:selectionColor="@color/colorAccent"
-        app:todayLabelColor="#cc0000"
+        app:pagesColor="#3F51B5"
+        app:selectionColor="@android:color/white"
+        app:selectionLabelColor="#3F51B5"
+        app:anotherMonthsDaysLabelsColor="#3F51B5"
+        app:todayLabelColor="#AEEA00"
         app:type="many_days_picker" />
 
     <Button

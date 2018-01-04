@@ -1,8 +1,6 @@
 package com.applandeo.materialcalendarview.utils;
 
-import android.content.Context;
 import android.graphics.Typeface;
-import android.support.v4.content.ContextCompat;
 import android.widget.TextView;
 
 import com.applandeo.materialcalendarview.R;
@@ -27,7 +25,7 @@ public class DayColorsUtils {
      * @param background A resource of a background drawable
      */
     public static void setDayColors(TextView textView, int textColor, int typeface, int background) {
-        if(textView == null){
+        if (textView == null) {
             return;
         }
 
@@ -41,15 +39,15 @@ public class DayColorsUtils {
      * It is used to set day cell (numbers) style in the case of selected day (when calendar is in
      * the picker mode). It also colors a background of the selection.
      *
-     * @param context        An application context necessary to get color from resources
-     * @param dayLabel       TextView containing a day number
-     * @param selectionColor A resource of a selection background color
+     * @param dayLabel           TextView containing a day number
+     * @param calendarProperties A resource of a selection background color
      */
-    public static void setSelectedDayColors(Context context, TextView dayLabel, int selectionColor) {
-        setDayColors(dayLabel, ContextCompat.getColor(context, android.R.color.white), Typeface.NORMAL,
+    public static void setSelectedDayColors(TextView dayLabel, CalendarProperties calendarProperties) {
+        setDayColors(dayLabel, calendarProperties.getSelectionLabelColor(), Typeface.NORMAL,
                 R.drawable.background_color_circle_selector);
 
-        dayLabel.getBackground().setColorFilter(selectionColor, android.graphics.PorterDuff.Mode.MULTIPLY);
+        dayLabel.getBackground().setColorFilter(calendarProperties.getSelectionColor(),
+                android.graphics.PorterDuff.Mode.MULTIPLY);
     }
 
     /**
@@ -58,18 +56,18 @@ public class DayColorsUtils {
      * setDayColors() method. It also checks if a day number is a day number of today and set it
      * a different color and bold face type.
      *
-     * @param context         An application context necessary to get color from resources
-     * @param day             A calendar instance representing day date
-     * @param today           A calendar instance representing today date
-     * @param dayLabel        TextView containing a day number
-     * @param todayLabelColor A resource of a color used to mark today day
+     * @param day                A calendar instance representing day date
+     * @param today              A calendar instance representing today date
+     * @param dayLabel           TextView containing a day number
+     * @param calendarProperties A resource of a color used to mark today day
      */
-    public static void setCurrentMonthDayColors(Context context, Calendar day, Calendar today,
-                                                TextView dayLabel, int todayLabelColor) {
+    public static void setCurrentMonthDayColors(Calendar day, Calendar today, TextView dayLabel,
+                                                CalendarProperties calendarProperties) {
         if (today.equals(day)) {
-            setDayColors(dayLabel, todayLabelColor, Typeface.BOLD, R.drawable.background_transparent);
+            setDayColors(dayLabel, calendarProperties.getTodayLabelColor(), Typeface.BOLD,
+                    R.drawable.background_transparent);
         } else {
-            setDayColors(dayLabel, ContextCompat.getColor(context, R.color.currentMonthDayColor), Typeface.NORMAL,
+            setDayColors(dayLabel, calendarProperties.getDaysLabelsColor(), Typeface.NORMAL,
                     R.drawable.background_transparent);
         }
     }

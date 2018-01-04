@@ -49,7 +49,7 @@
 
     <!-- eventDays header -->
     <LinearLayout
-        android:id="@+id/calendar_header"
+        android:id="@+id/abbreviationsBar"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:gravity="center_vertical"

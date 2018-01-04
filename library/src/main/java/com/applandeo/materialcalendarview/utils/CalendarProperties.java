@@ -1,8 +1,14 @@
 package com.applandeo.materialcalendarview.utils;
 
+import android.content.Context;
+import android.graphics.drawable.Drawable;
+import android.support.v4.content.ContextCompat;
+
+import com.annimon.stream.Stream;
 import com.applandeo.materialcalendarview.EventDay;
+import com.applandeo.materialcalendarview.R;
+import com.applandeo.materialcalendarview.listeners.OnCalendarPageChangeListener;
 import com.applandeo.materialcalendarview.listeners.OnDayClickListener;
-import com.applandeo.materialcalendarview.listeners.OnNavigationButtonClickListener;
 import com.applandeo.materialcalendarview.listeners.OnSelectDateListener;
 import com.applandeo.materialcalendarview.listeners.OnSelectionAbilityListener;
 
@@ -17,8 +23,12 @@ import java.util.List;
  */
 
 public class CalendarProperties {
-    private int mCalendarType, mHeaderColor, mHeaderLabelColor, mPreviousButtonSrc, mForwardButtonSrc,
-            mSelectionColor, mTodayLabelColor, mDialogButtonsColor, mItemLayoutResource;
+    private int mCalendarType, mHeaderColor, mHeaderLabelColor, mSelectionColor, mTodayLabelColor,
+            mDialogButtonsColor, mItemLayoutResource, mDisabledDaysLabelsColor, mPagesColor,
+            mAbbreviationsBarColor, mAbbreviationsLabelsColor, mDaysLabelsColor, mSelectionLabelColor,
+            mAnotherMonthsDaysLabelsColor;
+
+    private Drawable mPreviousButtonSrc, mForwardButtonSrc;
 
     private Calendar mCurrentDate = DateUtils.getCalendar();
     private Calendar mSelectedDate = DateUtils.getCalendar();
@@ -27,10 +37,17 @@ public class CalendarProperties {
     private OnDayClickListener mOnDayClickListener;
     private OnSelectDateListener mOnSelectDateListener;
     private OnSelectionAbilityListener mOnSelectionAbilityListener;
-    private OnNavigationButtonClickListener mOnPreviousButtonClickListener;
-    private OnNavigationButtonClickListener mOnForwardButtonClickListener;
+    private OnCalendarPageChangeListener mOnPreviousPageChangeListener;
+    private OnCalendarPageChangeListener mOnForwardPageChangeListener;
 
     private List<EventDay> mEventDays = new ArrayList<>();
+    private List<Calendar> mDisabledDays = new ArrayList<>();
+
+    private Context mContext;
+
+    public CalendarProperties(Context context) {
+        mContext = context;
+    }
 
     public int getCalendarType() {
         return mCalendarType;
@@ -57,7 +74,11 @@ public class CalendarProperties {
     }
 
     public int getHeaderColor() {
-        return mHeaderColor;
+        if (mHeaderColor <= 0) {
+            return mHeaderColor;
+        }
+
+        return ContextCompat.getColor(mContext, mHeaderColor);
     }
 
     public void setHeaderColor(int headerColor) {
@@ -65,30 +86,38 @@ public class CalendarProperties {
     }
 
     public int getHeaderLabelColor() {
-        return mHeaderLabelColor;
+        if (mHeaderLabelColor <= 0) {
+            return mHeaderLabelColor;
+        }
+
+        return ContextCompat.getColor(mContext, mHeaderLabelColor);
     }
 
     public void setHeaderLabelColor(int headerLabelColor) {
         mHeaderLabelColor = headerLabelColor;
     }
 
-    public int getPreviousButtonSrc() {
+    public Drawable getPreviousButtonSrc() {
         return mPreviousButtonSrc;
     }
 
-    public void setPreviousButtonSrc(int previousButtonSrc) {
+    public void setPreviousButtonSrc(Drawable previousButtonSrc) {
         mPreviousButtonSrc = previousButtonSrc;
     }
 
-    public int getForwardButtonSrc() {
+    public Drawable getForwardButtonSrc() {
         return mForwardButtonSrc;
     }
 
-    public void setForwardButtonSrc(int forwardButtonSrc) {
+    public void setForwardButtonSrc(Drawable forwardButtonSrc) {
         mForwardButtonSrc = forwardButtonSrc;
     }
 
     public int getSelectionColor() {
+        if (mSelectionColor == 0) {
+            return ContextCompat.getColor(mContext, R.color.defaultColor);
+        }
+
         return mSelectionColor;
     }
 
@@ -97,6 +126,10 @@ public class CalendarProperties {
     }
 
     public int getTodayLabelColor() {
+        if (mTodayLabelColor == 0) {
+            return ContextCompat.getColor(mContext, R.color.defaultColor);
+        }
+
         return mTodayLabelColor;
     }
 
@@ -144,20 +177,20 @@ public class CalendarProperties {
         mItemLayoutResource = itemLayoutResource;
     }
 
-    public OnNavigationButtonClickListener getOnPreviousButtonClickListener() {
-        return mOnPreviousButtonClickListener;
+    public OnCalendarPageChangeListener getOnPreviousPageChangeListener() {
+        return mOnPreviousPageChangeListener;
     }
 
-    public void setOnPreviousButtonClickListener(OnNavigationButtonClickListener onPreviousButtonClickListener) {
-        mOnPreviousButtonClickListener = onPreviousButtonClickListener;
+    public void setOnPreviousPageChangeListener(OnCalendarPageChangeListener onPreviousButtonClickListener) {
+        mOnPreviousPageChangeListener = onPreviousButtonClickListener;
     }
 
-    public OnNavigationButtonClickListener getOnForwardButtonClickListener() {
-        return mOnForwardButtonClickListener;
+    public OnCalendarPageChangeListener getOnForwardPageChangeListener() {
+        return mOnForwardPageChangeListener;
     }
 
-    public void setOnForwardButtonClickListener(OnNavigationButtonClickListener onForwardButtonClickListener) {
-        mOnForwardButtonClickListener = onForwardButtonClickListener;
+    public void setOnForwardPageChangeListener(OnCalendarPageChangeListener onForwardButtonClickListener) {
+        mOnForwardPageChangeListener = onForwardButtonClickListener;
     }
 
     public Calendar getCurrentDate() {
@@ -182,5 +215,88 @@ public class CalendarProperties {
 
     public void setEventDays(List<EventDay> eventDays) {
         mEventDays = eventDays;
+    }
+
+    public List<Calendar> getDisabledDays() {
+        return mDisabledDays;
+    }
+
+    public void setDisabledDays(List<Calendar> disabledDays) {
+        mDisabledDays = Stream.of(disabledDays).map(calendar -> {
+            DateUtils.setMidnight(calendar);
+            return calendar;
+        }).toList();
+    }
+
+    public int getDisabledDaysLabelsColor() {
+        if (mDisabledDaysLabelsColor == 0) {
+            return ContextCompat.getColor(mContext, R.color.nextMonthDayColor);
+        }
+
+        return mDisabledDaysLabelsColor;
+    }
+
+    public void setDisabledDaysLabelsColor(int disabledDaysLabelsColor) {
+        mDisabledDaysLabelsColor = disabledDaysLabelsColor;
+    }
+
+    public int getPagesColor() {
+        return mPagesColor;
+    }
+
+    public void setPagesColor(int pagesColor) {
+        mPagesColor = pagesColor;
+    }
+
+    public int getAbbreviationsBarColor() {
+        return mAbbreviationsBarColor;
+    }
+
+    public void setAbbreviationsBarColor(int abbreviationsBarColor) {
+        mAbbreviationsBarColor = abbreviationsBarColor;
+    }
+
+    public int getAbbreviationsLabelsColor() {
+        return mAbbreviationsLabelsColor;
+    }
+
+    public void setAbbreviationsLabelsColor(int abbreviationsLabelsColor) {
+        mAbbreviationsLabelsColor = abbreviationsLabelsColor;
+    }
+
+    public int getDaysLabelsColor() {
+        if (mDaysLabelsColor == 0) {
+            return ContextCompat.getColor(mContext, R.color.currentMonthDayColor);
+        }
+
+        return mDaysLabelsColor;
+    }
+
+    public void setDaysLabelsColor(int daysLabelsColor) {
+        mDaysLabelsColor = daysLabelsColor;
+    }
+
+    public int getSelectionLabelColor() {
+        if (mSelectionLabelColor == 0) {
+            return ContextCompat.getColor(mContext, android.R.color.white);
+        }
+
+        return mSelectionLabelColor;
+    }
+
+    public void setSelectionLabelColor(int selectionLabelColor) {
+        mSelectionLabelColor = selectionLabelColor;
+    }
+
+    public int getAnotherMonthsDaysLabelsColor() {
+        if (mAnotherMonthsDaysLabelsColor == 0) {
+            return ContextCompat.getColor(mContext, R.color.nextMonthDayColor);
+        }
+
+        return mAnotherMonthsDaysLabelsColor;
+    }
+
+    public void setAnotherMonthsDaysLabelsColor(int anotherMonthsDaysLabelsColor) {
+        mAnotherMonthsDaysLabelsColor = anotherMonthsDaysLabelsColor;
     }
 }

@@ -9,7 +9,6 @@ import android.view.View;
 import android.widget.FrameLayout;
 
 import com.annimon.stream.Optional;
-import com.applandeo.materialcalendarview.builders.CalendarBuilder;
 import com.applandeo.materialcalendarview.exceptions.OutOfDateRangeException;
 import com.applandeo.materialcalendarview.utils.CalendarProperties;
 import com.applandeo.materialcalendarview.utils.DateUtils;
@@ -37,27 +36,20 @@ public class DatePicker {
         LayoutInflater layoutInflater = LayoutInflater.from(mContext);
         final View view = layoutInflater.inflate(R.layout.date_picker_dialog, null);
 
+        if(mCalendarProperties.getPagesColor() != 0){
+            view.setBackgroundColor(mCalendarProperties.getPagesColor());
+        }
+
         mCancelButton = (AppCompatButton) view.findViewById(R.id.negative_button);
         mOkButton = (AppCompatButton) view.findViewById(R.id.positive_button);
         mTodayButton = (AppCompatButton) view.findViewById(R.id.today_button);
 
         setTodayButtonVisibility();
-
         setDialogButtonsColors();
         setOkButtonState(mCalendarProperties.getCalendarType() == CalendarView.ONE_DAY_PICKER);
+        mCalendarProperties.setOnSelectionAbilityListener(this::setOkButtonState);
 
-        CalendarView calendarView = new CalendarBuilder(mContext)
-                .setType(mCalendarProperties.getCalendarType())
-                .headerColor(mCalendarProperties.getHeaderColor())
-                .headerLabelColor(mCalendarProperties.getHeaderLabelColor())
-                .previousButtonSrc(mCalendarProperties.getPreviousButtonSrc())
-                .forwardButtonSrc(mCalendarProperties.getForwardButtonSrc())
-                .selectionColor(mCalendarProperties.getSelectionColor())
-                .todayLabelColor(mCalendarProperties.getTodayLabelColor())
-                .minimumDate(mCalendarProperties.getMinimumDate())
-                .maximumDate(mCalendarProperties.getMaximumDate())
-                .selectionAbilityListener(this::setOkButtonState)
-                .create();
+        CalendarView calendarView = new CalendarView(mContext, mCalendarProperties);
 
         FrameLayout calendarContainer = (FrameLayout) view.findViewById(R.id.calendarContainer);
         calendarContainer.addView(calendarView);
