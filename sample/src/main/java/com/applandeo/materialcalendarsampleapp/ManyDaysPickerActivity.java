@@ -22,6 +22,12 @@ public class ManyDaysPickerActivity extends AppCompatActivity {
 
         CalendarView calendarView = (CalendarView) findViewById(R.id.calendarView);
 
+        calendarView.setOnForwardPageChangeListener(() ->
+                Toast.makeText(getApplicationContext(), "Forward", Toast.LENGTH_SHORT).show());
+
+        calendarView.setOnPreviousPageChangeListener(() ->
+                Toast.makeText(getApplicationContext(), "Previous", Toast.LENGTH_SHORT).show());
+
         Button getDateButton = (Button) findViewById(R.id.getDateButton);
         getDateButton.setOnClickListener(v -> {
             for (Calendar calendar : calendarView.getSelectedDates()) {

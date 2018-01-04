@@ -1,13 +1,13 @@
 <resources>
     <string name="app_name">Material Calendar View</string>
 
-    <string name="material_calendar_monday">P</string>
-    <string name="material_calendar_tuesday">W</string>
-    <string name="material_calendar_wednesday">Ś</string>
-    <string name="material_calendar_thursday">C</string>
-    <string name="material_calendar_friday">P</string>
-    <string name="material_calendar_saturday">S</string>
-    <string name="material_calendar_sunday">N</string>
+    <string name="material_calendar_monday">Pn</string>
+    <string name="material_calendar_tuesday">Wt</string>
+    <string name="material_calendar_wednesday">Śr</string>
+    <string name="material_calendar_thursday">Cz</string>
+    <string name="material_calendar_friday">Pt</string>
+    <string name="material_calendar_saturday">Sb</string>
+    <string name="material_calendar_sunday">Nd</string>
 
     <array name="material_calendar_months_array">
         <item>Styczeń</item>
