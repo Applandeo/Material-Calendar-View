@@ -28,6 +28,8 @@ public class CalendarProperties {
             mAbbreviationsBarColor, mAbbreviationsLabelsColor, mDaysLabelsColor, mSelectionLabelColor,
             mAnotherMonthsDaysLabelsColor;
 
+    private boolean mEventsEnabled;
+
     private Drawable mPreviousButtonSrc, mForwardButtonSrc;
 
     private Calendar mCurrentDate = DateUtils.getCalendar();
@@ -55,6 +57,14 @@ public class CalendarProperties {
 
     public void setCalendarType(int calendarType) {
         mCalendarType = calendarType;
+    }
+
+    public boolean getEventsEnabled() {
+        return mEventsEnabled;
+    }
+
+    public void setEventsEnabled(boolean eventsEnabled) {
+        mEventsEnabled = eventsEnabled;
     }
 
     public Calendar getCalendar() {
