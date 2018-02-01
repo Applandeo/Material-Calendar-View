@@ -7,8 +7,8 @@
 
     <TextView
         android:id="@+id/dayLabel"
-        android:layout_width="@dimen/textView_size_classic"
-        android:layout_height="@dimen/textView_size_classic"
+        android:layout_width="@dimen/day_label_size_events_enabled"
+        android:layout_height="@dimen/day_label_size_events_enabled"
         android:layout_marginTop="4dp"
         android:gravity="center"
         android:layout_gravity="center_horizontal"
