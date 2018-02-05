@@ -134,7 +134,8 @@ public class CalendarPageAdapter extends PagerAdapter {
         int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
 
         // Count when month is beginning
-        int monthBeginningCell = dayOfWeek + (dayOfWeek == 1 ? 5 : -2);
+        int firstDayOfWeek = calendar.getFirstDayOfWeek();
+        int monthBeginningCell = (dayOfWeek < firstDayOfWeek ? 7 : 0) + dayOfWeek - firstDayOfWeek;
 
         // Subtract a number of beginning days, it will let to load a part of a previous month
         calendar.add(Calendar.DAY_OF_MONTH, -monthBeginningCell);
