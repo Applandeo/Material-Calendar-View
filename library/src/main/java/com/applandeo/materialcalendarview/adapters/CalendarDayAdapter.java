@@ -116,7 +116,7 @@ class CalendarDayAdapter extends ArrayAdapter<Date> {
     }
 
     private void loadIcon(ImageView dayIcon, Calendar day) {
-        if (mCalendarProperties.getEventDays() == null || mCalendarProperties.getCalendarType() != CalendarView.CLASSIC) {
+        if (mCalendarProperties.getEventDays() == null || !mCalendarProperties.getEventsEnabled()) {
             dayIcon.setVisibility(View.GONE);
             return;
         }

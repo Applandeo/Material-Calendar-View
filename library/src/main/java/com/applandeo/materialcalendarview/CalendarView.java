@@ -163,6 +163,10 @@ public class CalendarView extends LinearLayout {
             mCalendarProperties.setCalendarType(ONE_DAY_PICKER);
         }
 
+        boolean eventsEnabled = typedArray.getBoolean(R.styleable.CalendarView_eventsEnabled,
+                mCalendarProperties.getCalendarType() == CLASSIC);
+        mCalendarProperties.setEventsEnabled(eventsEnabled);
+
         Drawable previousButtonSrc = typedArray.getDrawable(R.styleable.CalendarView_previousButtonSrc);
         mCalendarProperties.setPreviousButtonSrc(previousButtonSrc);
 
@@ -191,7 +195,7 @@ public class CalendarView extends LinearLayout {
     }
 
     private void setCalendarRowLayout() {
-        if (mCalendarProperties.getCalendarType() == CLASSIC) {
+        if (mCalendarProperties.getEventsEnabled()) {
             mCalendarProperties.setItemLayoutResource(R.layout.calendar_view_day);
         } else {
             mCalendarProperties.setItemLayoutResource(R.layout.calendar_view_picker_day);
@@ -350,7 +354,7 @@ public class CalendarView extends LinearLayout {
      * @see EventDay
      */
     public void setEvents(List<EventDay> eventDays) {
-        if (mCalendarProperties.getCalendarType() == CLASSIC) {
+        if (mCalendarProperties.getEventsEnabled()) {
             mCalendarProperties.setEventDays(eventDays);
             mCalendarPageAdapter.notifyDataSetChanged();
         }
