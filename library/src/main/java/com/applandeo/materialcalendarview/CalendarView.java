@@ -256,11 +256,14 @@ public class CalendarView extends LinearLayout {
             if (!isScrollingLimited(calendar, position)) {
                 setHeaderName(calendar, position);
             }
+
         }
 
         @Override
         public void onPageScrollStateChanged(int state) {
+
         }
+
     };
 
     private boolean isScrollingLimited(Calendar calendar, int position) {
@@ -279,20 +282,22 @@ public class CalendarView extends LinearLayout {
 
     private void setHeaderName(Calendar calendar, int position) {
         mCurrentMonthLabel.setText(DateUtils.getMonthAndYearDate(mContext, calendar));
-        callOnPageChangeListeners(position);
+        callOnPageChangeListeners(calendar, position);
     }
 
     // This method calls page change listeners after swipe calendar or click arrow buttons
-    private void callOnPageChangeListeners(int position) {
+    private void callOnPageChangeListeners(Calendar calendar, int position) {
+
         if (position > mCurrentPage && mCalendarProperties.getOnForwardPageChangeListener() != null) {
-            mCalendarProperties.getOnForwardPageChangeListener().onChange();
+            mCalendarProperties.getOnForwardPageChangeListener().onChange(calendar);
         }
 
         if (position < mCurrentPage && mCalendarProperties.getOnPreviousPageChangeListener() != null) {
-            mCalendarProperties.getOnPreviousPageChangeListener().onChange();
+            mCalendarProperties.getOnPreviousPageChangeListener().onChange(calendar);
         }
 
         mCurrentPage = position;
+
     }
 
     /**

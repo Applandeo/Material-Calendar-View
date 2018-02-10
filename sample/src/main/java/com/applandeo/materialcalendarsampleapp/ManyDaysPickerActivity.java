@@ -6,6 +6,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.applandeo.materialcalendarview.CalendarView;
+import com.applandeo.materialcalendarview.listeners.OnCalendarPageChangeListener;
 
 import java.util.Calendar;
 
@@ -22,11 +23,24 @@ public class ManyDaysPickerActivity extends AppCompatActivity {
 
         CalendarView calendarView = (CalendarView) findViewById(R.id.calendarView);
 
-        calendarView.setOnForwardPageChangeListener(() ->
-                Toast.makeText(getApplicationContext(), "Forward", Toast.LENGTH_SHORT).show());
+        calendarView.setOnForwardPageChangeListener(new OnCalendarPageChangeListener() {
+            @Override
+            public void onChange(Calendar newDate) {
+                Toast.makeText(getApplicationContext(),
+                        "New page is: " + newDate.get(Calendar.YEAR) +"" +newDate.get(Calendar.MONTH)
+                        , Toast.LENGTH_SHORT).show();
 
-        calendarView.setOnPreviousPageChangeListener(() ->
-                Toast.makeText(getApplicationContext(), "Previous", Toast.LENGTH_SHORT).show());
+            }
+        });
+
+        calendarView.setOnPreviousPageChangeListener(new OnCalendarPageChangeListener() {
+            @Override
+            public void onChange(Calendar newDate) {
+                Toast.makeText(getApplicationContext(),
+                        "New page is: " + newDate.get(Calendar.YEAR) +"" +newDate.get(Calendar.MONTH)
+                        , Toast.LENGTH_SHORT).show();
+            }
+        });
 
         Button getDateButton = (Button) findViewById(R.id.getDateButton);
         getDateButton.setOnClickListener(v -> {

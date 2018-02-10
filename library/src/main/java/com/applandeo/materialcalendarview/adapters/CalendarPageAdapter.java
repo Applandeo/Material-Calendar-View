@@ -16,7 +16,7 @@ import com.applandeo.materialcalendarview.utils.SelectedDay;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
+import java.util.HashSet;
 
 /**
  * This class is responsible for loading a calendar page content.
@@ -35,7 +35,7 @@ public class CalendarPageAdapter extends PagerAdapter {
     private Context mContext;
     private CalendarGridView mCalendarGridView;
 
-    private List<SelectedDay> mSelectedDays = new ArrayList<>();
+    private HashSet<SelectedDay> mSelectedDays = new HashSet<>();
 
     private CalendarProperties mCalendarProperties;
 
@@ -90,12 +90,15 @@ public class CalendarPageAdapter extends PagerAdapter {
         informDatePicker();
     }
 
-    public List<SelectedDay> getSelectedDays() {
+    public HashSet<SelectedDay> getSelectedDays() {
         return mSelectedDays;
     }
 
     public SelectedDay getSelectedDay() {
-        return mSelectedDays.get(0);
+        if(!mSelectedDays.isEmpty())
+            return mSelectedDays.iterator().next();
+        else
+            return null;
     }
 
     public void setSelectedDay(SelectedDay selectedDay) {
@@ -119,6 +122,8 @@ public class CalendarPageAdapter extends PagerAdapter {
      * @param position Position of current page in ViewPager
      */
     private void loadMonth(int position) {
+
+
         ArrayList<Date> days = new ArrayList<>();
 
         // Get Calendar object instance
