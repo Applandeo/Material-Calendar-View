@@ -32,7 +32,10 @@ public final class AppearanceUtils {
         for (int i = 0; i < 7; i++) {
             TextView label = labels.get(i);
             label.setText(abbreviations[(i + firstDayOfWeek - 1) % 7]);
-            if (color != 0) label.setTextColor(color);
+
+            if (color != 0) {
+                label.setTextColor(color);
+            }
         }
     }
 

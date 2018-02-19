@@ -225,7 +225,7 @@ public class CalendarView extends LinearLayout {
         mViewPager.addOnPageChangeListener(onPageChangeListener);
 
         // This line move calendar to the middle page
-        mViewPager.setCurrentItem(FIRST_VISIBLE_PAGE);
+        mViewPager.setCurrentItem(FIRST_VISIBLE_PAGE + 1);
     }
 
     public void setOnPreviousPageChangeListener(OnCalendarPageChangeListener listener) {
