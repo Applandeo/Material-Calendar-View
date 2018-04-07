@@ -22,6 +22,10 @@
             android:label="Standard calendar" />
 
         <activity
+            android:name=".NoteCalendarActivity"
+            android:label="Calendar for notes" />
+
+        <activity
             android:name=".OneDayPickerActivity"
             android:label="One day picker" />
 

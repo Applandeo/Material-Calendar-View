@@ -15,6 +15,13 @@
         android:text="Standard calendar" />
 
     <Button
+        android:id="@+id/openNoteCalendarButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Calendar for notes" />
+
+    <Button
         android:id="@+id/openOneDayPickerButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

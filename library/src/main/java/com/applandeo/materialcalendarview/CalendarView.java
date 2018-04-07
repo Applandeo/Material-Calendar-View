@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.annimon.stream.Stream;
+import com.applandeo.materialcalendarview.adapters.CalendarDayImage;
 import com.applandeo.materialcalendarview.adapters.CalendarPageAdapter;
 import com.applandeo.materialcalendarview.exceptions.OutOfDateRangeException;
 import com.applandeo.materialcalendarview.extensions.CalendarViewPager;
@@ -55,6 +56,7 @@ public class CalendarView extends LinearLayout {
     public static final int ONE_DAY_PICKER = 1;
     public static final int MANY_DAYS_PICKER = 2;
     public static final int RANGE_PICKER = 3;
+    public static final int CLASSIC_NOTES = 4;
 
     private static final int FIRST_VISIBLE_PAGE = CALENDAR_SIZE / 2;
 
@@ -192,6 +194,8 @@ public class CalendarView extends LinearLayout {
     private void setCalendarRowLayout() {
         if (mCalendarProperties.getCalendarType() == CLASSIC) {
             mCalendarProperties.setItemLayoutResource(R.layout.calendar_view_day);
+        } else if (mCalendarProperties.getCalendarType() == CLASSIC_NOTES) {
+            mCalendarProperties.setItemLayoutResource(R.layout.calendar_view_day_notes);
         } else {
             mCalendarProperties.setItemLayoutResource(R.layout.calendar_view_picker_day);
         }
@@ -221,6 +225,10 @@ public class CalendarView extends LinearLayout {
 
         // This line move calendar to the middle page
         mViewPager.setCurrentItem(FIRST_VISIBLE_PAGE);
+    }
+
+    public void setCalendarDayImage (CalendarDayImage calendarDayImage) {
+        mCalendarProperties.setCalendarDayImage(calendarDayImage);
     }
 
     public void setOnPreviousPageChangeListener(OnCalendarPageChangeListener listener) {
@@ -349,7 +357,7 @@ public class CalendarView extends LinearLayout {
      * @see EventDay
      */
     public void setEvents(List<EventDay> eventDays) {
-        if (mCalendarProperties.getCalendarType() == CLASSIC) {
+        if (mCalendarProperties.getCalendarType() == CLASSIC || mCalendarProperties.getCalendarType() == CLASSIC_NOTES) {
             mCalendarProperties.setEventDays(eventDays);
             mCalendarPageAdapter.notifyDataSetChanged();
         }

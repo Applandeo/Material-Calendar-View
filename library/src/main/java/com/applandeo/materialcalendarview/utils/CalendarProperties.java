@@ -7,6 +7,7 @@ import android.support.v4.content.ContextCompat;
 import com.annimon.stream.Stream;
 import com.applandeo.materialcalendarview.EventDay;
 import com.applandeo.materialcalendarview.R;
+import com.applandeo.materialcalendarview.adapters.CalendarDayImage;
 import com.applandeo.materialcalendarview.listeners.OnCalendarPageChangeListener;
 import com.applandeo.materialcalendarview.listeners.OnDayClickListener;
 import com.applandeo.materialcalendarview.listeners.OnSelectDateListener;
@@ -42,6 +43,8 @@ public class CalendarProperties {
 
     private List<EventDay> mEventDays = new ArrayList<>();
     private List<Calendar> mDisabledDays = new ArrayList<>();
+
+    private CalendarDayImage mCalendarDayImage;
 
     private Context mContext;
 
@@ -298,5 +301,13 @@ public class CalendarProperties {
 
     public void setAnotherMonthsDaysLabelsColor(int anotherMonthsDaysLabelsColor) {
         mAnotherMonthsDaysLabelsColor = anotherMonthsDaysLabelsColor;
+    }
+
+    public void setCalendarDayImage (CalendarDayImage calendarDayImage) {
+        this.mCalendarDayImage = calendarDayImage;
+    }
+
+    public CalendarDayImage getCalendarDayImage() {
+        return this.mCalendarDayImage;
     }
 }

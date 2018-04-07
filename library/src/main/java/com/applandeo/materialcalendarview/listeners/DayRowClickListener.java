@@ -61,6 +61,7 @@ public class DayRowClickListener implements AdapterView.OnItemClickListener {
                 break;
 
             case CalendarView.CLASSIC:
+            case CalendarView.CLASSIC_NOTES:
                 mCalendarPageAdapter.setSelectedDay(new SelectedDay(view, day));
         }
     }

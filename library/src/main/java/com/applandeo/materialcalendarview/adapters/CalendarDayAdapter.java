@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.annimon.stream.Stream;
@@ -56,6 +57,7 @@ class CalendarDayAdapter extends ArrayAdapter<Date> {
 
         TextView dayLabel = (TextView) view.findViewById(R.id.dayLabel);
         ImageView dayIcon = (ImageView) view.findViewById(R.id.dayIcon);
+        LinearLayout dayImageLayout = (LinearLayout) view.findViewById(R.id.dayImageLayout);
 
         Calendar day = new GregorianCalendar();
         day.setTime(getItem(position));
@@ -63,6 +65,8 @@ class CalendarDayAdapter extends ArrayAdapter<Date> {
         // Loading an image of the event
         if (dayIcon != null) {
             loadIcon(dayIcon, day);
+        } else if (dayImageLayout != null) {
+            loadImages(dayImageLayout, day);
         }
 
         setLabelColors(dayLabel, day);
@@ -101,7 +105,9 @@ class CalendarDayAdapter extends ArrayAdapter<Date> {
     }
 
     private boolean isSelectedDay(Calendar day) {
-        return mCalendarProperties.getCalendarType() != CalendarView.CLASSIC && day.get(Calendar.MONTH) == mPageMonth
+        return mCalendarProperties.getCalendarType() != CalendarView.CLASSIC
+                && mCalendarProperties.getCalendarType() != CalendarView.CLASSIC_NOTES
+                && day.get(Calendar.MONTH) == mPageMonth
                 && mCalendarPageAdapter.getSelectedDays().contains(new SelectedDay(day));
     }
 
@@ -130,7 +136,26 @@ class CalendarDayAdapter extends ArrayAdapter<Date> {
             if (!isCurrentMonthDay(day) || !isActiveDay(day)) {
                 dayIcon.setAlpha(0.12f);
             }
+        });
+    }
 
+    private void loadImages (LinearLayout layout, Calendar day) {
+        if (mCalendarProperties.getEventDays() == null || mCalendarProperties.getCalendarType() != CalendarView.CLASSIC_NOTES) {
+            layout.setVisibility(View.GONE);
+            return;
+        }
+
+        Stream.of(mCalendarProperties.getEventDays()).filter(eventDate ->
+                eventDate.getCalendar().equals(day)).findFirst().executeIfPresent(eventDay -> {
+
+            // If a day doesn't belong to current month then image is transparent
+            boolean setTransparent = (!isCurrentMonthDay(day) || !isActiveDay(day)) ? true : false;
+
+            CalendarDayImage calendarDayImage = mCalendarProperties.getCalendarDayImage();
+
+            if (calendarDayImage != null) {
+                calendarDayImage.addImagesToLayout(layout, eventDay, setTransparent);
+            }
         });
     }
 }

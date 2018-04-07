@@ -31,6 +31,13 @@ public class MainActivity extends AppCompatActivity implements OnSelectDateListe
             startActivity(intent);
         });
 
+        Button openNoteCalendarButton = (Button) findViewById(R.id.openNoteCalendarButton);
+
+        openNoteCalendarButton.setOnClickListener(v -> {
+            Intent intent = new Intent(this, NoteCalendarActivity.class);
+            startActivity(intent);
+        });
+
         Button openOneDayPicker = (Button) findViewById(R.id.openOneDayPickerButton);
         openOneDayPicker.setOnClickListener(v -> startActivity(new Intent(this, OneDayPickerActivity.class)));
 
