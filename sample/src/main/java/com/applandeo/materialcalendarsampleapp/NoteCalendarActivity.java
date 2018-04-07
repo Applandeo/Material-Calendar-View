@@ -110,44 +110,41 @@ public class NoteCalendarActivity extends AppCompatActivity {
                                 + eventDay.isEnabled(),
                         Toast.LENGTH_SHORT).show());
 
-        calendarView.setCalendarDayImage(new CalendarDayImage() {
-            @Override
-            public void addImagesToLayout(LinearLayout layout, EventDay day, boolean setTransparent) {
-                if (day instanceof NoteEventDay) {
-                    NoteEventDay multipleEventDay = (NoteEventDay) day;
-                    List<Note> noteList = multipleEventDay.getNoteList();
+        calendarView.setCalendarDayImage((layout, day, setTransparent) -> {
+            if (day instanceof NoteEventDay) {
+                NoteEventDay multipleEventDay = (NoteEventDay) day;
+                List<Note> noteList = multipleEventDay.getNoteList();
 
-                    final Context context = layout.getContext();
-                    View view = LayoutInflater.from(context).inflate(R.layout.note_images, null, false);
+                final Context context = layout.getContext();
+                View view = LayoutInflater.from(context).inflate(R.layout.note_images, null, false);
 
-                    final List<ImageView> imageViews = new ArrayList<>();
-                    imageViews.add(view.findViewById(R.id.image_view_1));
-                    imageViews.add(view.findViewById(R.id.image_view_2));
-                    imageViews.add(view.findViewById(R.id.image_view_3));
-                    imageViews.add(view.findViewById(R.id.image_view_4));
-                    imageViews.add(view.findViewById(R.id.image_view_5));
-                    imageViews.add(view.findViewById(R.id.image_view_6));
+                final List<ImageView> imageViews = new ArrayList<>();
+                imageViews.add(view.findViewById(R.id.image_view_1));
+                imageViews.add(view.findViewById(R.id.image_view_2));
+                imageViews.add(view.findViewById(R.id.image_view_3));
+                imageViews.add(view.findViewById(R.id.image_view_4));
+                imageViews.add(view.findViewById(R.id.image_view_5));
+                imageViews.add(view.findViewById(R.id.image_view_6));
 
-                    for (int i = 0; i < noteList.size(); i++) {
-                        if (i >= 6) {
-                            break;
-                        }
-
-                        @ColorInt int color = noteList.get(i).getColor();
-                        ImageView imageView = imageViews.get(i);
-
-                        Drawable d = context.getResources().getDrawable(R.drawable.rectangle);
-                        ((GradientDrawable) d.mutate()).setColor(color);
-
-                        imageView.setImageDrawable(d);
-
-                        if (setTransparent) {
-                            imageView.setAlpha(0.12f);
-                        }
+                for (int i = 0; i < noteList.size(); i++) {
+                    if (i >= 6) {
+                        break;
                     }
 
-                    layout.addView(view);
+                    @ColorInt int color = noteList.get(i).getColor();
+                    ImageView imageView = imageViews.get(i);
+
+                    Drawable d = context.getResources().getDrawable(R.drawable.rectangle);
+                    ((GradientDrawable) d.mutate()).setColor(color);
+
+                    imageView.setImageDrawable(d);
+
+                    if (setTransparent) {
+                        imageView.setAlpha(0.12f);
+                    }
                 }
+
+                layout.addView(view);
             }
         });
 
