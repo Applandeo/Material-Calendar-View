@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
+import android.support.annotation.ColorInt;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -41,8 +42,8 @@ public class NoteCalendarActivity extends AppCompatActivity {
         Calendar day1 = Calendar.getInstance();
         DateUtils.setMidnight(day1);
 
-        List<Integer> e1 = new ArrayList<>();
-        e1.add(Color.RED);
+        List<Note> e1 = new ArrayList<>();
+        e1.add(new Note("Note 1", Color.RED));
 
         NoteEventDay ed1 = new NoteEventDay(day1, e1);
         eventList.add(ed1);
@@ -52,9 +53,9 @@ public class NoteCalendarActivity extends AppCompatActivity {
         day2.add(Calendar.DAY_OF_MONTH, 2);
         DateUtils.setMidnight(day2);
 
-        List<Integer> e2 = new ArrayList<>();
-        e2.add(Color.RED);
-        e2.add(Color.BLUE);
+        List<Note> e2 = new ArrayList<>();
+        e2.add(new Note("Note 1", Color.RED));
+        e2.add(new Note("Note 2", Color.BLUE));
 
         NoteEventDay ed2 = new NoteEventDay(day2, e2);
         eventList.add(ed2);
@@ -64,10 +65,10 @@ public class NoteCalendarActivity extends AppCompatActivity {
         DateUtils.setMidnight(day3);
         day3.add(Calendar.DAY_OF_MONTH, 5);
 
-        List<Integer> e3 = new ArrayList<>();
-        e3.add(Color.RED);
-        e3.add(Color.YELLOW);
-        e3.add(Color.BLUE);
+        List<Note> e3 = new ArrayList<>();
+        e3.add(new Note("Note 1", Color.RED));
+        e3.add(new Note("Note 2", Color.YELLOW));
+        e3.add(new Note("Note 3", Color.BLUE));
 
         NoteEventDay ed3 = new NoteEventDay(day3, e3);
         eventList.add(ed3);
@@ -77,13 +78,13 @@ public class NoteCalendarActivity extends AppCompatActivity {
         DateUtils.setMidnight(day4);
         day4.add(Calendar.DAY_OF_MONTH, 10);
 
-        List<Integer> e4 = new ArrayList<>();
-        e4.add(Color.RED);
-        e4.add(Color.YELLOW);
-        e4.add(Color.BLUE);
-        e4.add(Color.GREEN);
-        e4.add(Color.GRAY);
-        e4.add(Color.BLACK);
+        List<Note> e4 = new ArrayList<>();
+        e4.add(new Note("Note 1", Color.RED));
+        e4.add(new Note("Note 2", Color.YELLOW));
+        e4.add(new Note("Note 3", Color.BLUE));
+        e4.add(new Note("Note 4", Color.GREEN));
+        e4.add(new Note("Note 5", Color.GRAY));
+        e4.add(new Note("Note 6", Color.BLACK));
 
         NoteEventDay ed4 = new NoteEventDay(day4, e4);
         eventList.add(ed4);
@@ -114,7 +115,7 @@ public class NoteCalendarActivity extends AppCompatActivity {
             public void addImagesToLayout(LinearLayout layout, EventDay day, boolean setTransparent) {
                 if (day instanceof NoteEventDay) {
                     NoteEventDay multipleEventDay = (NoteEventDay) day;
-                    List<Integer> noteList = multipleEventDay.getNoteList();
+                    List<Note> noteList = multipleEventDay.getNoteList();
 
                     final Context context = layout.getContext();
                     View view = LayoutInflater.from(context).inflate(R.layout.note_images, null, false);
@@ -132,7 +133,7 @@ public class NoteCalendarActivity extends AppCompatActivity {
                             break;
                         }
 
-                        int color = noteList.get(i);
+                        @ColorInt int color = noteList.get(i).getColor();
                         ImageView imageView = imageViews.get(i);
 
                         Drawable d = context.getResources().getDrawable(R.drawable.rectangle);

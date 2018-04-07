@@ -11,14 +11,14 @@ import java.util.List;
  */
 
 public class NoteEventDay extends EventDay {
-    private final List<Integer> noteList = new ArrayList<>();
+    private final List<Note> noteList = new ArrayList<>();
 
-    public NoteEventDay(Calendar day, List<Integer> noteList) {
+    public NoteEventDay(Calendar day, List<Note> noteList) {
         super(day);
         this.noteList.addAll(noteList);
     }
 
-    public List<Integer> getNoteList() {
+    public List<Note> getNoteList() {
         return this.noteList;
     }
 }
