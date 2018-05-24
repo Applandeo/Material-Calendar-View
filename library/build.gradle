@@ -9,7 +9,7 @@ ext {
 
 android {
     compileSdkVersion 25
-    buildToolsVersion '26.0.2'
+    buildToolsVersion '27.0.3'
     defaultConfig {
         minSdkVersion 15
         targetSdkVersion 25
@@ -39,7 +39,6 @@ dependencies {
     compile 'com.android.support:appcompat-v7:25.3.1'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'com.annimon:stream:1.1.7'
-    compile 'com.github.bumptech.glide:glide:4.3.0'
     testCompile 'junit:junit:4.12'
 }
 
