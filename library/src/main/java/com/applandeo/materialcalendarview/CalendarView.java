@@ -163,6 +163,10 @@ public class CalendarView extends LinearLayout {
             mCalendarProperties.setCalendarType(ONE_DAY_PICKER);
         }
 
+        boolean eventsEnabled = typedArray.getBoolean(R.styleable.CalendarView_eventsEnabled,
+                mCalendarProperties.getCalendarType() == CLASSIC);
+        mCalendarProperties.setEventsEnabled(eventsEnabled);
+
         Drawable previousButtonSrc = typedArray.getDrawable(R.styleable.CalendarView_previousButtonSrc);
         mCalendarProperties.setPreviousButtonSrc(previousButtonSrc);
 
@@ -177,7 +181,8 @@ public class CalendarView extends LinearLayout {
 
         AppearanceUtils.setAbbreviationsBarColor(getRootView(), mCalendarProperties.getAbbreviationsBarColor());
 
-        AppearanceUtils.setAbbreviationsLabelsColor(getRootView(), mCalendarProperties.getAbbreviationsLabelsColor());
+        AppearanceUtils.setAbbreviationsLabels(getRootView(), mCalendarProperties.getAbbreviationsLabelsColor(),
+                mCalendarProperties.getCurrentDate().getFirstDayOfWeek());
 
         AppearanceUtils.setPagesColor(getRootView(), mCalendarProperties.getPagesColor());
 
@@ -190,7 +195,7 @@ public class CalendarView extends LinearLayout {
     }
 
     private void setCalendarRowLayout() {
-        if (mCalendarProperties.getCalendarType() == CLASSIC) {
+        if (mCalendarProperties.getEventsEnabled()) {
             mCalendarProperties.setItemLayoutResource(R.layout.calendar_view_day);
         } else {
             mCalendarProperties.setItemLayoutResource(R.layout.calendar_view_picker_day);
@@ -220,7 +225,7 @@ public class CalendarView extends LinearLayout {
         mViewPager.addOnPageChangeListener(onPageChangeListener);
 
         // This line move calendar to the middle page
-        mViewPager.setCurrentItem(FIRST_VISIBLE_PAGE);
+        mViewPager.setCurrentItem(FIRST_VISIBLE_PAGE + 1);
     }
 
     public void setOnPreviousPageChangeListener(OnCalendarPageChangeListener listener) {
@@ -349,7 +354,7 @@ public class CalendarView extends LinearLayout {
      * @see EventDay
      */
     public void setEvents(List<EventDay> eventDays) {
-        if (mCalendarProperties.getCalendarType() == CLASSIC) {
+        if (mCalendarProperties.getEventsEnabled()) {
             mCalendarProperties.setEventDays(eventDays);
             mCalendarPageAdapter.notifyDataSetChanged();
         }
