@@ -52,7 +52,7 @@ public class CalendarActivity extends AppCompatActivity {
 
         calendarView.setEvents(events);
 
-//        calendarView.setDisabledDays(getDisabledDays());
+        calendarView.setDisabledDays(getDisabledDays());
 
         calendarView.setOnDayClickListener(eventDay ->
                 Toast.makeText(getApplicationContext(),

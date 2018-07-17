@@ -366,6 +366,11 @@ public class CalendarView extends LinearLayout {
                 .sortBy(calendar -> calendar).toList();
     }
 
+    // TODO: 17.07.2018 Napisac dokumentacje
+    public void setSelectedDates(List<Calendar> selectedDates){
+        mCalendarProperties.setSelectedDays(selectedDates);
+    }
+
     /**
      * @return Calendar object representing a selected date
      */

@@ -251,6 +251,13 @@ public class CalendarProperties {
         return mSelectedDays;
     }
 
+    public void setSelectedDays(List<Calendar> selectedDays) {
+        mSelectedDays = Stream.of(selectedDays).map(calendar -> {
+            DateUtils.setMidnight(calendar);
+            return new SelectedDay(calendar);
+        }).toList();
+    }
+
     public int getDisabledDaysLabelsColor() {
         if (mDisabledDaysLabelsColor == 0) {
             return ContextCompat.getColor(mContext, R.color.nextMonthDayColor);
