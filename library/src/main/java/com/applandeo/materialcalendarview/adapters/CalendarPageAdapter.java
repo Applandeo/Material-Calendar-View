@@ -18,6 +18,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import static com.applandeo.materialcalendarview.utils.CalendarProperties.CALENDAR_SIZE;
+
 /**
  * This class is responsible for loading a calendar page content.
  * <p>
@@ -25,12 +27,6 @@ import java.util.List;
  */
 
 public class CalendarPageAdapter extends PagerAdapter {
-
-    /**
-     * A number of months (pages) in the calendar
-     * 2401 months means 1200 months (100 years) before and 1200 months after the current month
-     */
-    public static final int CALENDAR_SIZE = 2401;
 
     private Context mContext;
     private CalendarGridView mCalendarGridView;
@@ -122,7 +118,7 @@ public class CalendarPageAdapter extends PagerAdapter {
         ArrayList<Date> days = new ArrayList<>();
 
         // Get Calendar object instance
-        Calendar calendar = (Calendar) mCalendarProperties.getCurrentDate().clone();
+        Calendar calendar = (Calendar) mCalendarProperties.getFirstPageCalendarDate().clone();
 
         // Add months to Calendar (a number of months depends on ViewPager position)
         calendar.add(Calendar.MONTH, position);

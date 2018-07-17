@@ -23,6 +23,14 @@ import java.util.List;
  */
 
 public class CalendarProperties {
+
+    /**
+     * A number of months (pages) in the calendar
+     * 2401 months means 1200 months (100 years) before and 1200 months after the current month
+     */
+    public static final int CALENDAR_SIZE = 2401;
+    public static final int FIRST_VISIBLE_PAGE = CALENDAR_SIZE / 2;
+
     private int mCalendarType, mHeaderColor, mHeaderLabelColor, mSelectionColor, mTodayLabelColor,
             mDialogButtonsColor, mItemLayoutResource, mDisabledDaysLabelsColor, mPagesColor,
             mAbbreviationsBarColor, mAbbreviationsLabelsColor, mDaysLabelsColor, mSelectionLabelColor,
@@ -32,7 +40,7 @@ public class CalendarProperties {
 
     private Drawable mPreviousButtonSrc, mForwardButtonSrc;
 
-    private Calendar mCurrentDate = DateUtils.getCalendar();
+    private Calendar mFirstPageCalendarDate = DateUtils.getCalendar();
     private Calendar mSelectedDate = DateUtils.getCalendar();
     private Calendar mCalendar, mMinimumDate, mMaximumDate;
 
@@ -203,8 +211,8 @@ public class CalendarProperties {
         mOnForwardPageChangeListener = onForwardButtonClickListener;
     }
 
-    public Calendar getCurrentDate() {
-        return mCurrentDate;
+    public Calendar getFirstPageCalendarDate() {
+        return mFirstPageCalendarDate;
     }
 
     public Calendar getSelectedDate() {

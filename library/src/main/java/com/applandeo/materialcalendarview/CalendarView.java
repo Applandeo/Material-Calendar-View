@@ -25,7 +25,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-import static com.applandeo.materialcalendarview.adapters.CalendarPageAdapter.CALENDAR_SIZE;
+import static com.applandeo.materialcalendarview.utils.CalendarProperties.FIRST_VISIBLE_PAGE;
 
 /**
  * This class represents a view, displays to user as calendar. It allows to work in date picker
@@ -55,8 +55,6 @@ public class CalendarView extends LinearLayout {
     public static final int ONE_DAY_PICKER = 1;
     public static final int MANY_DAYS_PICKER = 2;
     public static final int RANGE_PICKER = 3;
-
-    private static final int FIRST_VISIBLE_PAGE = CALENDAR_SIZE / 2;
 
     private Context mContext;
     private CalendarPageAdapter mCalendarPageAdapter;
@@ -102,7 +100,6 @@ public class CalendarView extends LinearLayout {
 
         initUiElements();
         setAttributes(attrs);
-        initCalendar();
     }
 
     /**
@@ -182,7 +179,7 @@ public class CalendarView extends LinearLayout {
         AppearanceUtils.setAbbreviationsBarColor(getRootView(), mCalendarProperties.getAbbreviationsBarColor());
 
         AppearanceUtils.setAbbreviationsLabels(getRootView(), mCalendarProperties.getAbbreviationsLabelsColor(),
-                mCalendarProperties.getCurrentDate().getFirstDayOfWeek());
+                mCalendarProperties.getFirstPageCalendarDate().getFirstDayOfWeek());
 
         AppearanceUtils.setPagesColor(getRootView(), mCalendarProperties.getPagesColor());
 
@@ -225,8 +222,11 @@ public class CalendarView extends LinearLayout {
 
     private void setUpCalendarPosition(Calendar calendar) {
         DateUtils.setMidnight(calendar);
-        mCalendarProperties.getCurrentDate().setTime(calendar.getTime());
-        mCalendarProperties.getCurrentDate().add(Calendar.MONTH, -FIRST_VISIBLE_PAGE);
+        mCalendarProperties.getFirstPageCalendarDate().setTime(calendar.getTime());
+        mCalendarProperties.getFirstPageCalendarDate().add(Calendar.MONTH, -FIRST_VISIBLE_PAGE);
+
+        System.out.println(mCalendarProperties.getFirstPageCalendarDate().getTime());
+
         mViewPager.setCurrentItem(FIRST_VISIBLE_PAGE);
     }
 
@@ -257,7 +257,7 @@ public class CalendarView extends LinearLayout {
          */
         @Override
         public void onPageSelected(int position) {
-            Calendar calendar = (Calendar) mCalendarProperties.getCurrentDate().clone();
+            Calendar calendar = (Calendar) mCalendarProperties.getFirstPageCalendarDate().clone();
             calendar.add(Calendar.MONTH, position);
 
             if (!isScrollingLimited(calendar, position)) {
@@ -386,7 +386,7 @@ public class CalendarView extends LinearLayout {
      * @return Calendar object representing a date of current calendar page
      */
     public Calendar getCurrentPageDate() {
-        Calendar calendar = (Calendar) mCalendarProperties.getCurrentDate().clone();
+        Calendar calendar = (Calendar) mCalendarProperties.getFirstPageCalendarDate().clone();
         calendar.set(Calendar.DAY_OF_MONTH, 1);
         calendar.add(Calendar.MONTH, mViewPager.getCurrentItem());
         return calendar;
