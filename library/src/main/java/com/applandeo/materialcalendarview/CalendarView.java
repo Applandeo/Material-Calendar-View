@@ -121,7 +121,7 @@ public class CalendarView extends LinearLayout {
         }
     }
 
-    private void initCalendarProperties(TypedArray typedArray){
+    private void initCalendarProperties(TypedArray typedArray) {
         int headerColor = typedArray.getColor(R.styleable.CalendarView_headerColor, 0);
         mCalendarProperties.setHeaderColor(headerColor);
 
@@ -203,10 +203,6 @@ public class CalendarView extends LinearLayout {
     }
 
     private void initUiElements() {
-        // This line subtracts a half of all calendar months to set calendar
-        // in the correct position (in the middle)
-        mCalendarProperties.getCurrentDate().set(Calendar.MONTH, -FIRST_VISIBLE_PAGE);
-
         ImageButton forwardButton = (ImageButton) findViewById(R.id.forwardButton);
         forwardButton.setOnClickListener(onNextClickListener);
 
@@ -224,8 +220,14 @@ public class CalendarView extends LinearLayout {
         mViewPager.setAdapter(mCalendarPageAdapter);
         mViewPager.addOnPageChangeListener(onPageChangeListener);
 
-        // This line move calendar to the middle page
-        mViewPager.setCurrentItem(FIRST_VISIBLE_PAGE + 1);
+        setUpCalendarPosition(Calendar.getInstance());
+    }
+
+    private void setUpCalendarPosition(Calendar calendar) {
+        DateUtils.setMidnight(calendar);
+        mCalendarProperties.getCurrentDate().setTime(calendar.getTime());
+        mCalendarProperties.getCurrentDate().add(Calendar.MONTH, -FIRST_VISIBLE_PAGE);
+        mViewPager.setCurrentItem(FIRST_VISIBLE_PAGE);
     }
 
     public void setOnPreviousPageChangeListener(OnCalendarPageChangeListener listener) {
@@ -321,16 +323,11 @@ public class CalendarView extends LinearLayout {
         if (mCalendarProperties.getMaximumDate() != null && date.after(mCalendarProperties.getMaximumDate())) {
             throw new OutOfDateRangeException("SET DATE EXCEEDS THE MAXIMUM DATE");
         }
-
-        DateUtils.setMidnight(date);
-
         mCalendarProperties.getSelectedDate().setTime(date.getTime());
 
-        mCalendarProperties.getCurrentDate().setTime(date.getTime());
-        mCalendarProperties.getCurrentDate().add(Calendar.MONTH, -FIRST_VISIBLE_PAGE);
-        mCurrentMonthLabel.setText(DateUtils.getMonthAndYearDate(mContext, date));
+        setUpCalendarPosition(date);
 
-        mViewPager.setCurrentItem(FIRST_VISIBLE_PAGE);
+        mCurrentMonthLabel.setText(DateUtils.getMonthAndYearDate(mContext, date));
         mCalendarPageAdapter.notifyDataSetChanged();
     }
 

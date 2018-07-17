@@ -52,7 +52,7 @@ public class CalendarActivity extends AppCompatActivity {
 
         calendarView.setEvents(events);
 
-        calendarView.setDisabledDays(getDisabledDays());
+//        calendarView.setDisabledDays(getDisabledDays());
 
         calendarView.setOnDayClickListener(eventDay ->
                 Toast.makeText(getApplicationContext(),
@@ -62,8 +62,16 @@ public class CalendarActivity extends AppCompatActivity {
 
         Button setDateButton = (Button) findViewById(R.id.setDateButton);
         setDateButton.setOnClickListener(v -> {
+            String currentDate = calendarView.getCurrentPageDate().getTime().toString();
+            Toast.makeText(getApplicationContext(), currentDate, Toast.LENGTH_LONG).show();
+            System.out.println("CURRENT DATE : " + currentDate);
+
             try {
-                calendarView.setDate(getRandomCalendar());
+                Calendar randomCalendar = getRandomCalendar();
+                String text = randomCalendar.getTime().toString();
+                Toast.makeText(getApplicationContext(), text, Toast.LENGTH_LONG).show();
+                System.out.println("DATE : " + text);
+                calendarView.setDate(randomCalendar);
             } catch (OutOfDateRangeException exception) {
                 exception.printStackTrace();
 
