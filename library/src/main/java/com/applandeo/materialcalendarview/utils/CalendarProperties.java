@@ -52,6 +52,7 @@ public class CalendarProperties {
 
     private List<EventDay> mEventDays = new ArrayList<>();
     private List<Calendar> mDisabledDays = new ArrayList<>();
+    private List<SelectedDay> mSelectedDays = new ArrayList<>();
 
     private Context mContext;
 
@@ -244,6 +245,10 @@ public class CalendarProperties {
             DateUtils.setMidnight(calendar);
             return calendar;
         }).toList();
+    }
+
+    public List<SelectedDay> getSelectedDays() {
+        return mSelectedDays;
     }
 
     public int getDisabledDaysLabelsColor() {

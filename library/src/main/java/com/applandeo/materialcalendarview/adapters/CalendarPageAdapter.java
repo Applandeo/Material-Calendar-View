@@ -31,8 +31,6 @@ public class CalendarPageAdapter extends PagerAdapter {
     private Context mContext;
     private CalendarGridView mCalendarGridView;
 
-    private List<SelectedDay> mSelectedDays = new ArrayList<>();
-
     private CalendarProperties mCalendarProperties;
 
     private int mPageMonth;
@@ -76,27 +74,27 @@ public class CalendarPageAdapter extends PagerAdapter {
     }
 
     public void addSelectedDay(SelectedDay selectedDay) {
-        if (!mSelectedDays.contains(selectedDay)) {
-            mSelectedDays.add(selectedDay);
+        if (!mCalendarProperties.getSelectedDays().contains(selectedDay)) {
+            mCalendarProperties.getSelectedDays().add(selectedDay);
             informDatePicker();
             return;
         }
 
-        mSelectedDays.remove(selectedDay);
+        mCalendarProperties.getSelectedDays().remove(selectedDay);
         informDatePicker();
     }
 
     public List<SelectedDay> getSelectedDays() {
-        return mSelectedDays;
+        return mCalendarProperties.getSelectedDays();
     }
 
     public SelectedDay getSelectedDay() {
-        return mSelectedDays.get(0);
+        return mCalendarProperties.getSelectedDays().get(0);
     }
 
     public void setSelectedDay(SelectedDay selectedDay) {
-        mSelectedDays.clear();
-        mSelectedDays.add(selectedDay);
+        mCalendarProperties.getSelectedDays().clear();
+        mCalendarProperties.getSelectedDays().add(selectedDay);
         informDatePicker();
     }
 
@@ -105,7 +103,7 @@ public class CalendarPageAdapter extends PagerAdapter {
      */
     private void informDatePicker() {
         if (mCalendarProperties.getOnSelectionAbilityListener() != null) {
-            mCalendarProperties.getOnSelectionAbilityListener().onChange(mSelectedDays.size() > 0);
+            mCalendarProperties.getOnSelectionAbilityListener().onChange(mCalendarProperties.getSelectedDays().size() > 0);
         }
     }
 
