@@ -47,8 +47,14 @@ public class CalendarActivity extends AppCompatActivity {
         Calendar max = Calendar.getInstance();
         max.add(Calendar.MONTH, 2);
 
-        calendarView.setMinimumDate(min);
-        calendarView.setMaximumDate(max);
+//        calendarView.setMinimumDate(min);
+//        calendarView.setMaximumDate(max);
+
+        for(int i = 0; i < 1000; i++){
+            Calendar calendar3 = Calendar.getInstance();
+            calendar3.add(Calendar.DAY_OF_MONTH, i);
+            events.add(new EventDay(calendar3, R.drawable.sample_icon_3));
+        }
 
         calendarView.setEvents(events);
 
@@ -80,6 +86,20 @@ public class CalendarActivity extends AppCompatActivity {
                         Toast.LENGTH_LONG).show();
             }
         });
+    }
+
+
+
+    private List<Calendar> getDaysWithIcons() {
+        List<Calendar> calendars = new ArrayList<>();
+
+        for(int i = 0; i < 1000; i++){
+            Calendar calendar = DateUtils.getCalendar();
+            calendar.add(Calendar.DAY_OF_YEAR, i);
+            calendars.add(calendar);
+        }
+
+        return calendars;
     }
 
     private List<Calendar> getDisabledDays() {
