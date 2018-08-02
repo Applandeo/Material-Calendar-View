@@ -1,18 +1,15 @@
 package com.applandeo.materialcalendarsampleapp;
 
-import android.graphics.drawable.Drawable;
-import android.graphics.drawable.LayerDrawable;
 import android.os.Bundle;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.applandeo.materialcalendarsampleapp.utils.DrawableUtils;
 import com.applandeo.materialcalendarview.CalendarView;
 import com.applandeo.materialcalendarview.EventDay;
 import com.applandeo.materialcalendarview.exceptions.OutOfDateRangeException;
 import com.applandeo.materialcalendarview.utils.DateUtils;
-import com.applandeo.materialcalendarview.utils.ImageUtils;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -33,7 +30,7 @@ public class CalendarActivity extends AppCompatActivity {
         List<EventDay> events = new ArrayList<>();
 
         Calendar calendar = Calendar.getInstance();
-        events.add(new EventDay(calendar, getCircleDrawableWithText(String.valueOf(calendar.get(Calendar.DAY_OF_MONTH)))));
+        events.add(new EventDay(calendar, DrawableUtils.getCircleDrawableWithText(this, "M")));
 
         Calendar calendar1 = Calendar.getInstance();
         calendar1.add(Calendar.DAY_OF_MONTH, 2);
@@ -49,7 +46,7 @@ public class CalendarActivity extends AppCompatActivity {
 
         Calendar calendar4 = Calendar.getInstance();
         calendar4.add(Calendar.DAY_OF_MONTH, 13);
-        events.add(new EventDay(calendar4, R.drawable.sample_three_icons));
+        events.add(new EventDay(calendar4, DrawableUtils.getThreeDots(this)));
 
         CalendarView calendarView = (CalendarView) findViewById(R.id.calendarView);
 
@@ -87,26 +84,6 @@ public class CalendarActivity extends AppCompatActivity {
                         Toast.LENGTH_LONG).show();
             }
         });
-    }
-
-    public Drawable getCircleDrawableWithText(String string) {
-        Drawable background = ContextCompat.getDrawable(getApplicationContext(), R.drawable.sample_circle);
-        Drawable text = ImageUtils.getDrawableText(this, string, null, R.color.sampleDark, 12);
-
-        Drawable[] layers = {background, text};
-        return new LayerDrawable(layers);
-    }
-
-    private List<Calendar> getDaysWithIcons() {
-        List<Calendar> calendars = new ArrayList<>();
-
-        for (int i = 0; i < 1000; i++) {
-            Calendar calendar = DateUtils.getCalendar();
-            calendar.add(Calendar.DAY_OF_YEAR, i);
-            calendars.add(calendar);
-        }
-
-        return calendars;
     }
 
     private List<Calendar> getDisabledDays() {

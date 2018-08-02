@@ -41,7 +41,7 @@ public class ImageUtils {
 
     public static Drawable getDrawableText(Context context, String text, Typeface typeface, int color, int size) {
         Resources resources = context.getResources();
-        Bitmap bitmap = Bitmap.createBitmap(50, 50, Bitmap.Config.ARGB_8888);
+        Bitmap bitmap = Bitmap.createBitmap(48, 48, Bitmap.Config.ARGB_8888);
 
         Canvas canvas = new Canvas(bitmap);
 
