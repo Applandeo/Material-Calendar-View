@@ -20,12 +20,23 @@ import android.widget.ImageView;
 
 public class ImageUtils {
 
-    public static void loadImage(ImageView imageView, Drawable resource) {
-        if (resource == null) {
+    public static void loadImage(ImageView imageView, Object image) {
+        if (image == null) {
             return;
         }
 
-        imageView.setImageDrawable(resource);
+        Drawable drawable = null;
+        if (image instanceof Drawable) {
+            drawable = (Drawable) image;
+        } else if (image instanceof Integer) {
+            drawable = ContextCompat.getDrawable(imageView.getContext(), (Integer) image);
+        }
+
+        if (drawable == null) {
+            return;
+        }
+
+        imageView.setImageDrawable(drawable);
     }
 
     public static Drawable getDrawableText(Context context, String text, Typeface typeface, int color, int size) {

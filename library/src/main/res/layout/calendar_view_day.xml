@@ -16,7 +16,7 @@
 
     <ImageView
         android:id="@+id/dayIcon"
-        android:layout_width="match_parent"
+        android:layout_width="30dp"
         android:layout_height="20dp"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="2dp"

@@ -33,20 +33,23 @@ public class CalendarActivity extends AppCompatActivity {
         List<EventDay> events = new ArrayList<>();
 
         Calendar calendar = Calendar.getInstance();
-        events.add(new EventDay(calendar, getCircleDrawable(String.valueOf(calendar.get(Calendar.DAY_OF_MONTH)))));
+        events.add(new EventDay(calendar, getCircleDrawableWithText(String.valueOf(calendar.get(Calendar.DAY_OF_MONTH)))));
 
         Calendar calendar1 = Calendar.getInstance();
         calendar1.add(Calendar.DAY_OF_MONTH, 2);
-        events.add(new EventDay(calendar1, getImage(R.drawable.sample_icon_2)));
+        events.add(new EventDay(calendar1, R.drawable.sample_icon_2));
 
         Calendar calendar2 = Calendar.getInstance();
         calendar2.add(Calendar.DAY_OF_MONTH, 5);
-        events.add(new EventDay(calendar2, getImage(R.drawable.sample_icon_3)));
+        events.add(new EventDay(calendar2, R.drawable.sample_icon_3));
 
         Calendar calendar3 = Calendar.getInstance();
         calendar3.add(Calendar.DAY_OF_MONTH, 7);
+        events.add(new EventDay(calendar3, R.drawable.sample_four_icons));
 
-        events.add(new EventDay(calendar3, getImage(R.drawable.sample_dots)));
+        Calendar calendar4 = Calendar.getInstance();
+        calendar4.add(Calendar.DAY_OF_MONTH, 13);
+        events.add(new EventDay(calendar4, R.drawable.sample_three_icons));
 
         CalendarView calendarView = (CalendarView) findViewById(R.id.calendarView);
 
@@ -86,14 +89,11 @@ public class CalendarActivity extends AppCompatActivity {
         });
     }
 
-    public Drawable getImage(int res) {
-        return ContextCompat.getDrawable(getApplicationContext(), res);
-    }
+    public Drawable getCircleDrawableWithText(String string) {
+        Drawable background = ContextCompat.getDrawable(getApplicationContext(), R.drawable.sample_circle);
+        Drawable text = ImageUtils.getDrawableText(this, string, null, R.color.sampleDark, 12);
 
-    public Drawable getCircleDrawable(String string) {
-        Drawable drawableText = ImageUtils.getDrawableText(this, string, null, R.color.sampleDark, 12);
-
-        Drawable[] layers = {getImage(R.drawable.sample_circle), drawableText};
+        Drawable[] layers = {background, text};
         return new LayerDrawable(layers);
     }
 
