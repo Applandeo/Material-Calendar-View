@@ -32,7 +32,6 @@ public class EventDay {
      * @param day      Calendar object which represents a date of the event
      * @param drawable Drawable resource which will be displayed in a day cell
      */
-    @Deprecated
     public EventDay(Calendar day, @DrawableRes int drawable) {
         DateUtils.setMidnight(day);
         mDay = day;

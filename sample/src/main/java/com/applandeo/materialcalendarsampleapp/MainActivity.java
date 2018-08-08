@@ -75,8 +75,10 @@ public class MainActivity extends AppCompatActivity implements OnSelectDateListe
                 .dialogButtonsColor(android.R.color.holo_green_dark)
                 .disabledDays(getDisabledDays());
 
+        DatePicker manyDaysPicker = manyDaysBuilder.build();
+
         Button openManyDaysPickerDialog = (Button) findViewById(R.id.openManyDaysPickerDialogButton);
-        openManyDaysPickerDialog.setOnClickListener(v -> manyDaysBuilder.show());
+        openManyDaysPickerDialog.setOnClickListener(v -> manyDaysPicker.show());
 
         DatePickerBuilder rangeBuilder = new DatePickerBuilder(this, this)
                 .pickerType(CalendarView.RANGE_PICKER)

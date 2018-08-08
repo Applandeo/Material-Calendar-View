@@ -41,7 +41,6 @@ public class CalendarProperties {
     private Drawable mPreviousButtonSrc, mForwardButtonSrc;
 
     private Calendar mFirstPageCalendarDate = DateUtils.getCalendar();
-    private Calendar mSelectedDate = DateUtils.getCalendar();
     private Calendar mCalendar, mMinimumDate, mMaximumDate;
 
     private OnDayClickListener mOnDayClickListener;
@@ -216,10 +215,6 @@ public class CalendarProperties {
         return mFirstPageCalendarDate;
     }
 
-    public Calendar getSelectedDate() {
-        return mSelectedDate;
-    }
-
     public OnDayClickListener getOnDayClickListener() {
         return mOnDayClickListener;
     }
@@ -249,6 +244,15 @@ public class CalendarProperties {
 
     public List<SelectedDay> getSelectedDays() {
         return mSelectedDays;
+    }
+
+    public void setSelectedDay(Calendar calendar){
+        setSelectedDay(new SelectedDay(calendar));
+    }
+
+    public void setSelectedDay(SelectedDay selectedDay) {
+        mSelectedDays.clear();
+        mSelectedDays.add(selectedDay);
     }
 
     public void setSelectedDays(List<Calendar> selectedDays) {

@@ -222,10 +222,16 @@ public class CalendarView extends LinearLayout {
 
     private void setUpCalendarPosition(Calendar calendar) {
         DateUtils.setMidnight(calendar);
+
+        if (mCalendarProperties.getCalendarType() == CalendarView.ONE_DAY_PICKER) {
+            mCalendarProperties.setSelectedDay(calendar);
+        }
+
         mCalendarProperties.getFirstPageCalendarDate().setTime(calendar.getTime());
         mCalendarProperties.getFirstPageCalendarDate().add(Calendar.MONTH, -FIRST_VISIBLE_PAGE);
 
-        System.out.println(mCalendarProperties.getFirstPageCalendarDate().getTime());
+        System.out.println("FIRST DATE : " + calendar.getTime());
+        System.out.println("FIRST DATE : " + mCalendarProperties.getFirstPageCalendarDate().getTime());
 
         mViewPager.setCurrentItem(FIRST_VISIBLE_PAGE);
     }
@@ -323,7 +329,8 @@ public class CalendarView extends LinearLayout {
         if (mCalendarProperties.getMaximumDate() != null && date.after(mCalendarProperties.getMaximumDate())) {
             throw new OutOfDateRangeException("SET DATE EXCEEDS THE MAXIMUM DATE");
         }
-        mCalendarProperties.getSelectedDate().setTime(date.getTime());
+
+//        mCalendarProperties.getSelectedDate().setTime(date.getTime());
 
         setUpCalendarPosition(date);
 
@@ -367,7 +374,7 @@ public class CalendarView extends LinearLayout {
     }
 
     // TODO: 17.07.2018 Napisac dokumentacje
-    public void setSelectedDates(List<Calendar> selectedDates){
+    public void setSelectedDates(List<Calendar> selectedDates) {
         mCalendarProperties.setSelectedDays(selectedDates);
     }
 

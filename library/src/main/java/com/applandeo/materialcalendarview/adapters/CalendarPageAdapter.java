@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.applandeo.materialcalendarview.CalendarView;
 import com.applandeo.materialcalendarview.R;
 import com.applandeo.materialcalendarview.extensions.CalendarGridView;
 import com.applandeo.materialcalendarview.listeners.DayRowClickListener;
@@ -38,10 +37,6 @@ public class CalendarPageAdapter extends PagerAdapter {
     public CalendarPageAdapter(Context context, CalendarProperties calendarProperties) {
         mContext = context;
         mCalendarProperties = calendarProperties;
-
-        if (mCalendarProperties.getCalendarType() == CalendarView.ONE_DAY_PICKER) {
-            addSelectedDay(new SelectedDay(calendarProperties.getSelectedDate()));
-        }
     }
 
     @Override
@@ -93,8 +88,7 @@ public class CalendarPageAdapter extends PagerAdapter {
     }
 
     public void setSelectedDay(SelectedDay selectedDay) {
-        mCalendarProperties.getSelectedDays().clear();
-        mCalendarProperties.getSelectedDays().add(selectedDay);
+        mCalendarProperties.setSelectedDay(selectedDay);
         informDatePicker();
     }
 

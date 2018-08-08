@@ -28,10 +28,6 @@ public class DatePickerBuilder {
         mCalendarProperties.setOnSelectDateListener(onSelectDateListener);
     }
 
-    public DatePicker show() {
-        return build().show();
-    }
-
     public DatePicker build() {
         return new DatePicker(mContext, mCalendarProperties);
     }
