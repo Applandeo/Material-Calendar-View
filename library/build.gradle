@@ -1,5 +1,4 @@
 apply plugin: 'com.android.library'
-apply plugin: 'me.tatarka.retrolambda'
 
 ext {
     PUBLISH_GROUP_ID = 'com.applandeo'

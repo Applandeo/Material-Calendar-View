@@ -19,6 +19,7 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:pagesColor="#3F51B5"
+        app:eventsEnabled="false"
         app:selectionColor="@android:color/white"
         app:selectionLabelColor="#3F51B5"
         app:anotherMonthsDaysLabelsColor="#3F51B5"
