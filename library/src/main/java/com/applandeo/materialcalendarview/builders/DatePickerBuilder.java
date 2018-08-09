@@ -136,4 +136,9 @@ public class DatePickerBuilder {
         mCalendarProperties.setAnotherMonthsDaysLabelsColor(ContextCompat.getColor(mContext, color));
         return this;
     }
+
+    public DatePickerBuilder selectedDays(List<Calendar> selectedDays) {
+        mCalendarProperties.setSelectedDays(selectedDays);
+        return this;
+    }
 }

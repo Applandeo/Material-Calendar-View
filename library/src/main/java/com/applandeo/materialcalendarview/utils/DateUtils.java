@@ -99,41 +99,6 @@ public class DateUtils {
     }
 
     /**
-     * This method returns a list of calendar objects between to dates
-     * @param firstDay Calendar representing a first selected date
-     * @param lastDay Calendar representing a last selected date
-     * @return List of selected dates between two dates
-     */
-    public static ArrayList<Calendar> getDatesRange(Calendar firstDay, Calendar lastDay) {
-        if (lastDay.before(firstDay)) {
-            return getCalendarsBetweenDates(lastDay.getTime(), firstDay.getTime());
-        }
-
-        return getCalendarsBetweenDates(firstDay.getTime(), lastDay.getTime());
-    }
-
-    private static ArrayList<Calendar> getCalendarsBetweenDates(Date dateFrom, Date dateTo) {
-        ArrayList<Calendar> calendars = new ArrayList<>();
-
-        Calendar calendarFrom = Calendar.getInstance();
-        calendarFrom.setTime(dateFrom);
-
-        Calendar calendarTo = Calendar.getInstance();
-        calendarTo.setTime(dateTo);
-
-        long daysBetweenDates = TimeUnit.MILLISECONDS.toDays(
-                calendarTo.getTimeInMillis() - calendarFrom.getTimeInMillis());
-
-        for (int i = 1; i < daysBetweenDates; i++) {
-            Calendar calendar = (Calendar) calendarFrom.clone();
-            calendars.add(calendar);
-            calendar.add(Calendar.DATE, i);
-        }
-
-        return calendars;
-    }
-
-    /**
      * This method is used to count a number of months between two dates
      * @param startCalendar Calendar representing a first date
      * @param endCalendar Calendar representing a last date

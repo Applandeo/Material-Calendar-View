@@ -37,6 +37,7 @@ public class CalendarPageAdapter extends PagerAdapter {
     public CalendarPageAdapter(Context context, CalendarProperties calendarProperties) {
         mContext = context;
         mCalendarProperties = calendarProperties;
+        informDatePicker();
     }
 
     @Override
