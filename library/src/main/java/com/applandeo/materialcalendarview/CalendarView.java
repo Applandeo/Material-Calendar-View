@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.annimon.stream.Stream;
 import com.applandeo.materialcalendarview.adapters.CalendarPageAdapter;
+import com.applandeo.materialcalendarview.exceptions.ErrorsMessages;
 import com.applandeo.materialcalendarview.exceptions.OutOfDateRangeException;
 import com.applandeo.materialcalendarview.extensions.CalendarViewPager;
 import com.applandeo.materialcalendarview.listeners.OnCalendarPageChangeListener;
@@ -230,9 +231,6 @@ public class CalendarView extends LinearLayout {
         mCalendarProperties.getFirstPageCalendarDate().setTime(calendar.getTime());
         mCalendarProperties.getFirstPageCalendarDate().add(Calendar.MONTH, -FIRST_VISIBLE_PAGE);
 
-        System.out.println("FIRST DATE : " + calendar.getTime());
-        System.out.println("FIRST DATE : " + mCalendarProperties.getFirstPageCalendarDate().getTime());
-
         mViewPager.setCurrentItem(FIRST_VISIBLE_PAGE);
     }
 
@@ -323,14 +321,12 @@ public class CalendarView extends LinearLayout {
      */
     public void setDate(Calendar date) throws OutOfDateRangeException {
         if (mCalendarProperties.getMinimumDate() != null && date.before(mCalendarProperties.getMinimumDate())) {
-            throw new OutOfDateRangeException("SET DATE EXCEEDS THE MINIMUM DATE");
+            throw new OutOfDateRangeException(ErrorsMessages.OUT_OF_RANGE_MIN);
         }
 
         if (mCalendarProperties.getMaximumDate() != null && date.after(mCalendarProperties.getMaximumDate())) {
-            throw new OutOfDateRangeException("SET DATE EXCEEDS THE MAXIMUM DATE");
+            throw new OutOfDateRangeException(ErrorsMessages.OUT_OF_RANGE_MAX);
         }
-
-//        mCalendarProperties.getSelectedDate().setTime(date.getTime());
 
         setUpCalendarPosition(date);
 
@@ -373,7 +369,6 @@ public class CalendarView extends LinearLayout {
                 .sortBy(calendar -> calendar).toList();
     }
 
-    // TODO: 17.07.2018 Napisac dokumentacje
     public void setSelectedDates(List<Calendar> selectedDates) {
         mCalendarProperties.setSelectedDays(selectedDates);
     }

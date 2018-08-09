@@ -7,6 +7,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.annimon.stream.Stream;
+import com.applandeo.materialcalendarview.CalendarUtils;
 import com.applandeo.materialcalendarview.CalendarView;
 import com.applandeo.materialcalendarview.DatePicker;
 import com.applandeo.materialcalendarview.builders.DatePickerBuilder;
@@ -83,7 +84,7 @@ public class MainActivity extends AppCompatActivity implements OnSelectDateListe
         Calendar max = Calendar.getInstance();
         max.add(Calendar.DAY_OF_MONTH, 3);
 
-        List<Calendar> selectedDays = new ArrayList<>();
+        List<Calendar> selectedDays = new ArrayList<>(getDisabledDays());
         selectedDays.add(min);
         selectedDays.add(max);
 
@@ -101,6 +102,17 @@ public class MainActivity extends AppCompatActivity implements OnSelectDateListe
     }
 
     private void openRangePicker() {
+        Calendar min = Calendar.getInstance();
+        min.add(Calendar.DAY_OF_MONTH, -5);
+
+        Calendar max = Calendar.getInstance();
+        max.add(Calendar.DAY_OF_MONTH, 3);
+
+        List<Calendar> selectedDays = new ArrayList<>();
+        selectedDays.add(min);
+        selectedDays.addAll(CalendarUtils.getDatesRange(min, max));
+        selectedDays.add(max);
+
         DatePickerBuilder rangeBuilder = new DatePickerBuilder(this, this)
                 .pickerType(CalendarView.RANGE_PICKER)
                 .headerColor(R.color.sampleDark)
@@ -113,6 +125,7 @@ public class MainActivity extends AppCompatActivity implements OnSelectDateListe
                 .dialogButtonsColor(android.R.color.white)
                 .daysLabelsColor(android.R.color.white)
                 .anotherMonthsDaysLabelsColor(R.color.sampleLighter)
+                .selectedDays(selectedDays)
                 .disabledDays(getDisabledDays());
 
         DatePicker rangePicker = rangeBuilder.build();

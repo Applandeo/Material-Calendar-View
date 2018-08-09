@@ -52,6 +52,10 @@ public class SelectedDay {
             return getCalendar().equals(((SelectedDay) obj).getCalendar());
         }
 
+        if(obj instanceof Calendar){
+            return getCalendar().equals(obj);
+        }
+
         return super.equals(obj);
     }
 }

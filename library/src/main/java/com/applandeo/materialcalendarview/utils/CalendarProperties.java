@@ -5,8 +5,11 @@ import android.graphics.drawable.Drawable;
 import android.support.v4.content.ContextCompat;
 
 import com.annimon.stream.Stream;
+import com.applandeo.materialcalendarview.CalendarView;
 import com.applandeo.materialcalendarview.EventDay;
 import com.applandeo.materialcalendarview.R;
+import com.applandeo.materialcalendarview.exceptions.ErrorsMessages;
+import com.applandeo.materialcalendarview.exceptions.UnsupportedMethodsException;
 import com.applandeo.materialcalendarview.listeners.OnCalendarPageChangeListener;
 import com.applandeo.materialcalendarview.listeners.OnDayClickListener;
 import com.applandeo.materialcalendarview.listeners.OnSelectDateListener;
@@ -236,17 +239,20 @@ public class CalendarProperties {
     }
 
     public void setDisabledDays(List<Calendar> disabledDays) {
-        mDisabledDays = Stream.of(disabledDays).map(calendar -> {
-            DateUtils.setMidnight(calendar);
-            return calendar;
-        }).toList();
+        mSelectedDays.removeAll(disabledDays);
+
+        mDisabledDays = Stream.of(disabledDays)
+                .map(calendar -> {
+                    DateUtils.setMidnight(calendar);
+                    return calendar;
+                }).toList();
     }
 
     public List<SelectedDay> getSelectedDays() {
         return mSelectedDays;
     }
 
-    public void setSelectedDay(Calendar calendar){
+    public void setSelectedDay(Calendar calendar) {
         setSelectedDay(new SelectedDay(calendar));
     }
 
@@ -256,10 +262,16 @@ public class CalendarProperties {
     }
 
     public void setSelectedDays(List<Calendar> selectedDays) {
-        mSelectedDays = Stream.of(selectedDays).map(calendar -> {
-            DateUtils.setMidnight(calendar);
-            return new SelectedDay(calendar);
-        }).toList();
+        if (mCalendarType == CalendarView.ONE_DAY_PICKER) {
+            throw new UnsupportedMethodsException(ErrorsMessages.ONE_DAY_PICKER_MULTIPLE_SELECTION);
+        }
+
+        mSelectedDays = Stream.of(selectedDays)
+                .map(calendar -> {
+                    DateUtils.setMidnight(calendar);
+                    return new SelectedDay(calendar);
+                }).filterNot(value -> mDisabledDays.contains(value.getCalendar()))
+                .toList();
     }
 
     public int getDisabledDaysLabelsColor() {
