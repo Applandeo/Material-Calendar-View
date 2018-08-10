@@ -3,6 +3,7 @@ package com.applandeo.materialcalendarview;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
+import android.support.annotation.ColorRes;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -190,6 +191,11 @@ public class CalendarView extends LinearLayout {
 
         // Sets layout for date picker or normal calendar
         setCalendarRowLayout();
+    }
+
+    public void setHeaderColor(@ColorRes int color){
+        mCalendarProperties.setHeaderColor(color);
+        AppearanceUtils.setHeaderColor(getRootView(), mCalendarProperties.getHeaderColor());
     }
 
     private void setCalendarRowLayout() {

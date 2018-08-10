@@ -266,6 +266,10 @@ public class CalendarProperties {
             throw new UnsupportedMethodsException(ErrorsMessages.ONE_DAY_PICKER_MULTIPLE_SELECTION);
         }
 
+        if(mCalendarType == CalendarView.RANGE_PICKER && !DateUtils.isFullDatesRange(selectedDays)){
+            throw new UnsupportedMethodsException(ErrorsMessages.RANGE_PICKER_NOT_RANGE);
+        }
+
         mSelectedDays = Stream.of(selectedDays)
                 .map(calendar -> {
                     DateUtils.setMidnight(calendar);
