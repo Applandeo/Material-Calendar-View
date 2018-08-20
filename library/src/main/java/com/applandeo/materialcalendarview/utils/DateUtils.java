@@ -119,8 +119,8 @@ public class DateUtils {
      * @return Number of days
      */
     private static long getDaysBetweenDates(Calendar startCalendar, Calendar endCalendar) {
-        long msDiff = endCalendar.getTimeInMillis() - startCalendar.getTimeInMillis();
-        return TimeUnit.MILLISECONDS.toDays(msDiff);
+        long milliseconds = endCalendar.getTimeInMillis() - startCalendar.getTimeInMillis();
+        return TimeUnit.MILLISECONDS.toDays(milliseconds);
     }
 
     public static boolean isFullDatesRange(List<Calendar> days) {

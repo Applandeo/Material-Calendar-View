@@ -193,9 +193,24 @@ public class CalendarView extends LinearLayout {
         setCalendarRowLayout();
     }
 
-    public void setHeaderColor(@ColorRes int color){
+    public void setHeaderColor(@ColorRes int color) {
         mCalendarProperties.setHeaderColor(color);
         AppearanceUtils.setHeaderColor(getRootView(), mCalendarProperties.getHeaderColor());
+    }
+
+    public void setHeaderLabelColor(@ColorRes int color) {
+        mCalendarProperties.setHeaderLabelColor(color);
+        AppearanceUtils.setHeaderLabelColor(getRootView(), mCalendarProperties.getHeaderLabelColor());
+    }
+
+    public void setPreviousButtonImage(Drawable drawable){
+        mCalendarProperties.setPreviousButtonSrc(drawable);
+        AppearanceUtils.setPreviousButtonImage(getRootView(), mCalendarProperties.getPreviousButtonSrc());
+    }
+
+    public void setForwardButtonImage(Drawable drawable){
+        mCalendarProperties.setForwardButtonSrc(drawable);
+        AppearanceUtils.setForwardButtonImage(getRootView(), mCalendarProperties.getPreviousButtonSrc());
     }
 
     private void setCalendarRowLayout() {
