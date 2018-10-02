@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="row_height">44dp</dimen>
+    <dimen name="day_label_size_events_enabled">30dp</dimen>
+    <dimen name="day_label_size_events_disabled">38dp</dimen>
 </resources>

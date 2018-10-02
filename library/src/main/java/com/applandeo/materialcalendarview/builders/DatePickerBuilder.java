@@ -28,10 +28,6 @@ public class DatePickerBuilder {
         mCalendarProperties.setOnSelectDateListener(onSelectDateListener);
     }
 
-    public DatePicker show() {
-        return build().show();
-    }
-
     public DatePicker build() {
         return new DatePicker(mContext, mCalendarProperties);
     }
@@ -138,6 +134,11 @@ public class DatePickerBuilder {
 
     public DatePickerBuilder anotherMonthsDaysLabelsColor(int color) {
         mCalendarProperties.setAnotherMonthsDaysLabelsColor(ContextCompat.getColor(mContext, color));
+        return this;
+    }
+
+    public DatePickerBuilder selectedDays(List<Calendar> selectedDays) {
+        mCalendarProperties.setSelectedDays(selectedDays);
         return this;
     }
 }

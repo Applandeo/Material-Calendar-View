@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.applandeo.materialcalendarview.CalendarView;
 import com.applandeo.materialcalendarview.R;
 import com.applandeo.materialcalendarview.extensions.CalendarGridView;
 import com.applandeo.materialcalendarview.listeners.DayRowClickListener;
@@ -18,6 +17,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import static com.applandeo.materialcalendarview.utils.CalendarProperties.CALENDAR_SIZE;
+
 /**
  * This class is responsible for loading a calendar page content.
  * <p>
@@ -26,16 +27,8 @@ import java.util.List;
 
 public class CalendarPageAdapter extends PagerAdapter {
 
-    /**
-     * A number of months (pages) in the calendar
-     * 2401 months means 1200 months (100 years) before and 1200 months after the current month
-     */
-    public static final int CALENDAR_SIZE = 2401;
-
     private Context mContext;
     private CalendarGridView mCalendarGridView;
-
-    private List<SelectedDay> mSelectedDays = new ArrayList<>();
 
     private CalendarProperties mCalendarProperties;
 
@@ -44,10 +37,7 @@ public class CalendarPageAdapter extends PagerAdapter {
     public CalendarPageAdapter(Context context, CalendarProperties calendarProperties) {
         mContext = context;
         mCalendarProperties = calendarProperties;
-
-        if (mCalendarProperties.getCalendarType() == CalendarView.ONE_DAY_PICKER) {
-            addSelectedDay(new SelectedDay(calendarProperties.getSelectedDate()));
-        }
+        informDatePicker();
     }
 
     @Override
@@ -80,27 +70,26 @@ public class CalendarPageAdapter extends PagerAdapter {
     }
 
     public void addSelectedDay(SelectedDay selectedDay) {
-        if (!mSelectedDays.contains(selectedDay)) {
-            mSelectedDays.add(selectedDay);
+        if (!mCalendarProperties.getSelectedDays().contains(selectedDay)) {
+            mCalendarProperties.getSelectedDays().add(selectedDay);
             informDatePicker();
             return;
         }
 
-        mSelectedDays.remove(selectedDay);
+        mCalendarProperties.getSelectedDays().remove(selectedDay);
         informDatePicker();
     }
 
     public List<SelectedDay> getSelectedDays() {
-        return mSelectedDays;
+        return mCalendarProperties.getSelectedDays();
     }
 
     public SelectedDay getSelectedDay() {
-        return mSelectedDays.get(0);
+        return mCalendarProperties.getSelectedDays().get(0);
     }
 
     public void setSelectedDay(SelectedDay selectedDay) {
-        mSelectedDays.clear();
-        mSelectedDays.add(selectedDay);
+        mCalendarProperties.setSelectedDay(selectedDay);
         informDatePicker();
     }
 
@@ -109,7 +98,7 @@ public class CalendarPageAdapter extends PagerAdapter {
      */
     private void informDatePicker() {
         if (mCalendarProperties.getOnSelectionAbilityListener() != null) {
-            mCalendarProperties.getOnSelectionAbilityListener().onChange(mSelectedDays.size() > 0);
+            mCalendarProperties.getOnSelectionAbilityListener().onChange(mCalendarProperties.getSelectedDays().size() > 0);
         }
     }
 
@@ -122,7 +111,7 @@ public class CalendarPageAdapter extends PagerAdapter {
         ArrayList<Date> days = new ArrayList<>();
 
         // Get Calendar object instance
-        Calendar calendar = (Calendar) mCalendarProperties.getCurrentDate().clone();
+        Calendar calendar = (Calendar) mCalendarProperties.getFirstPageCalendarDate().clone();
 
         // Add months to Calendar (a number of months depends on ViewPager position)
         calendar.add(Calendar.MONTH, position);
@@ -134,7 +123,8 @@ public class CalendarPageAdapter extends PagerAdapter {
         int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
 
         // Count when month is beginning
-        int monthBeginningCell = dayOfWeek + (dayOfWeek == 1 ? 5 : -2);
+        int firstDayOfWeek = calendar.getFirstDayOfWeek();
+        int monthBeginningCell = (dayOfWeek < firstDayOfWeek ? 7 : 0) + dayOfWeek - firstDayOfWeek;
 
         // Subtract a number of beginning days, it will let to load a part of a previous month
         calendar.add(Calendar.DAY_OF_MONTH, -monthBeginningCell);

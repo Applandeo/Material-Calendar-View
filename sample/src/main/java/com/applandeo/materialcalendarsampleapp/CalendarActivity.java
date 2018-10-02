@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.applandeo.materialcalendarsampleapp.utils.DrawableUtils;
 import com.applandeo.materialcalendarview.CalendarView;
 import com.applandeo.materialcalendarview.EventDay;
 import com.applandeo.materialcalendarview.exceptions.OutOfDateRangeException;
@@ -29,7 +30,7 @@ public class CalendarActivity extends AppCompatActivity {
         List<EventDay> events = new ArrayList<>();
 
         Calendar calendar = Calendar.getInstance();
-        events.add(new EventDay(calendar, R.drawable.sample_icon_1));
+        events.add(new EventDay(calendar, DrawableUtils.getCircleDrawableWithText(this, "M")));
 
         Calendar calendar1 = Calendar.getInstance();
         calendar1.add(Calendar.DAY_OF_MONTH, 2);
@@ -38,6 +39,14 @@ public class CalendarActivity extends AppCompatActivity {
         Calendar calendar2 = Calendar.getInstance();
         calendar2.add(Calendar.DAY_OF_MONTH, 5);
         events.add(new EventDay(calendar2, R.drawable.sample_icon_3));
+
+        Calendar calendar3 = Calendar.getInstance();
+        calendar3.add(Calendar.DAY_OF_MONTH, 7);
+        events.add(new EventDay(calendar3, R.drawable.sample_four_icons));
+
+        Calendar calendar4 = Calendar.getInstance();
+        calendar4.add(Calendar.DAY_OF_MONTH, 13);
+        events.add(new EventDay(calendar4, DrawableUtils.getThreeDots(this)));
 
         CalendarView calendarView = (CalendarView) findViewById(R.id.calendarView);
 
@@ -63,7 +72,10 @@ public class CalendarActivity extends AppCompatActivity {
         Button setDateButton = (Button) findViewById(R.id.setDateButton);
         setDateButton.setOnClickListener(v -> {
             try {
-                calendarView.setDate(getRandomCalendar());
+                Calendar randomCalendar = getRandomCalendar();
+                String text = randomCalendar.getTime().toString();
+                Toast.makeText(getApplicationContext(), text, Toast.LENGTH_LONG).show();
+                calendarView.setDate(randomCalendar);
             } catch (OutOfDateRangeException exception) {
                 exception.printStackTrace();
 

@@ -3,6 +3,7 @@ package com.applandeo.materialcalendarview;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
+import android.support.annotation.ColorRes;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -12,6 +13,7 @@ import android.widget.TextView;
 
 import com.annimon.stream.Stream;
 import com.applandeo.materialcalendarview.adapters.CalendarPageAdapter;
+import com.applandeo.materialcalendarview.exceptions.ErrorsMessages;
 import com.applandeo.materialcalendarview.exceptions.OutOfDateRangeException;
 import com.applandeo.materialcalendarview.extensions.CalendarViewPager;
 import com.applandeo.materialcalendarview.listeners.OnCalendarPageChangeListener;
@@ -25,7 +27,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-import static com.applandeo.materialcalendarview.adapters.CalendarPageAdapter.CALENDAR_SIZE;
+import static com.applandeo.materialcalendarview.utils.CalendarProperties.FIRST_VISIBLE_PAGE;
 
 /**
  * This class represents a view, displays to user as calendar. It allows to work in date picker
@@ -55,8 +57,6 @@ public class CalendarView extends LinearLayout {
     public static final int ONE_DAY_PICKER = 1;
     public static final int MANY_DAYS_PICKER = 2;
     public static final int RANGE_PICKER = 3;
-
-    private static final int FIRST_VISIBLE_PAGE = CALENDAR_SIZE / 2;
 
     private Context mContext;
     private CalendarPageAdapter mCalendarPageAdapter;
@@ -102,7 +102,6 @@ public class CalendarView extends LinearLayout {
 
         initUiElements();
         setAttributes(attrs);
-        initCalendar();
     }
 
     /**
@@ -121,7 +120,7 @@ public class CalendarView extends LinearLayout {
         }
     }
 
-    private void initCalendarProperties(TypedArray typedArray){
+    private void initCalendarProperties(TypedArray typedArray) {
         int headerColor = typedArray.getColor(R.styleable.CalendarView_headerColor, 0);
         mCalendarProperties.setHeaderColor(headerColor);
 
@@ -163,6 +162,10 @@ public class CalendarView extends LinearLayout {
             mCalendarProperties.setCalendarType(ONE_DAY_PICKER);
         }
 
+        boolean eventsEnabled = typedArray.getBoolean(R.styleable.CalendarView_eventsEnabled,
+                mCalendarProperties.getCalendarType() == CLASSIC);
+        mCalendarProperties.setEventsEnabled(eventsEnabled);
+
         Drawable previousButtonSrc = typedArray.getDrawable(R.styleable.CalendarView_previousButtonSrc);
         mCalendarProperties.setPreviousButtonSrc(previousButtonSrc);
 
@@ -177,7 +180,8 @@ public class CalendarView extends LinearLayout {
 
         AppearanceUtils.setAbbreviationsBarColor(getRootView(), mCalendarProperties.getAbbreviationsBarColor());
 
-        AppearanceUtils.setAbbreviationsLabelsColor(getRootView(), mCalendarProperties.getAbbreviationsLabelsColor());
+        AppearanceUtils.setAbbreviationsLabels(getRootView(), mCalendarProperties.getAbbreviationsLabelsColor(),
+                mCalendarProperties.getFirstPageCalendarDate().getFirstDayOfWeek());
 
         AppearanceUtils.setPagesColor(getRootView(), mCalendarProperties.getPagesColor());
 
@@ -189,8 +193,28 @@ public class CalendarView extends LinearLayout {
         setCalendarRowLayout();
     }
 
+    public void setHeaderColor(@ColorRes int color) {
+        mCalendarProperties.setHeaderColor(color);
+        AppearanceUtils.setHeaderColor(getRootView(), mCalendarProperties.getHeaderColor());
+    }
+
+    public void setHeaderLabelColor(@ColorRes int color) {
+        mCalendarProperties.setHeaderLabelColor(color);
+        AppearanceUtils.setHeaderLabelColor(getRootView(), mCalendarProperties.getHeaderLabelColor());
+    }
+
+    public void setPreviousButtonImage(Drawable drawable){
+        mCalendarProperties.setPreviousButtonSrc(drawable);
+        AppearanceUtils.setPreviousButtonImage(getRootView(), mCalendarProperties.getPreviousButtonSrc());
+    }
+
+    public void setForwardButtonImage(Drawable drawable){
+        mCalendarProperties.setForwardButtonSrc(drawable);
+        AppearanceUtils.setForwardButtonImage(getRootView(), mCalendarProperties.getPreviousButtonSrc());
+    }
+
     private void setCalendarRowLayout() {
-        if (mCalendarProperties.getCalendarType() == CLASSIC) {
+        if (mCalendarProperties.getEventsEnabled()) {
             mCalendarProperties.setItemLayoutResource(R.layout.calendar_view_day);
         } else {
             mCalendarProperties.setItemLayoutResource(R.layout.calendar_view_picker_day);
@@ -198,10 +222,6 @@ public class CalendarView extends LinearLayout {
     }
 
     private void initUiElements() {
-        // This line subtracts a half of all calendar months to set calendar
-        // in the correct position (in the middle)
-        mCalendarProperties.getCurrentDate().set(Calendar.MONTH, -FIRST_VISIBLE_PAGE);
-
         ImageButton forwardButton = (ImageButton) findViewById(R.id.forwardButton);
         forwardButton.setOnClickListener(onNextClickListener);
 
@@ -219,7 +239,19 @@ public class CalendarView extends LinearLayout {
         mViewPager.setAdapter(mCalendarPageAdapter);
         mViewPager.addOnPageChangeListener(onPageChangeListener);
 
-        // This line move calendar to the middle page
+        setUpCalendarPosition(Calendar.getInstance());
+    }
+
+    private void setUpCalendarPosition(Calendar calendar) {
+        DateUtils.setMidnight(calendar);
+
+        if (mCalendarProperties.getCalendarType() == CalendarView.ONE_DAY_PICKER) {
+            mCalendarProperties.setSelectedDay(calendar);
+        }
+
+        mCalendarProperties.getFirstPageCalendarDate().setTime(calendar.getTime());
+        mCalendarProperties.getFirstPageCalendarDate().add(Calendar.MONTH, -FIRST_VISIBLE_PAGE);
+
         mViewPager.setCurrentItem(FIRST_VISIBLE_PAGE);
     }
 
@@ -250,7 +282,7 @@ public class CalendarView extends LinearLayout {
          */
         @Override
         public void onPageSelected(int position) {
-            Calendar calendar = (Calendar) mCalendarProperties.getCurrentDate().clone();
+            Calendar calendar = (Calendar) mCalendarProperties.getFirstPageCalendarDate().clone();
             calendar.add(Calendar.MONTH, position);
 
             if (!isScrollingLimited(calendar, position)) {
@@ -310,22 +342,16 @@ public class CalendarView extends LinearLayout {
      */
     public void setDate(Calendar date) throws OutOfDateRangeException {
         if (mCalendarProperties.getMinimumDate() != null && date.before(mCalendarProperties.getMinimumDate())) {
-            throw new OutOfDateRangeException("SET DATE EXCEEDS THE MINIMUM DATE");
+            throw new OutOfDateRangeException(ErrorsMessages.OUT_OF_RANGE_MIN);
         }
 
         if (mCalendarProperties.getMaximumDate() != null && date.after(mCalendarProperties.getMaximumDate())) {
-            throw new OutOfDateRangeException("SET DATE EXCEEDS THE MAXIMUM DATE");
+            throw new OutOfDateRangeException(ErrorsMessages.OUT_OF_RANGE_MAX);
         }
 
-        DateUtils.setMidnight(date);
+        setUpCalendarPosition(date);
 
-        mCalendarProperties.getSelectedDate().setTime(date.getTime());
-
-        mCalendarProperties.getCurrentDate().setTime(date.getTime());
-        mCalendarProperties.getCurrentDate().add(Calendar.MONTH, -FIRST_VISIBLE_PAGE);
         mCurrentMonthLabel.setText(DateUtils.getMonthAndYearDate(mContext, date));
-
-        mViewPager.setCurrentItem(FIRST_VISIBLE_PAGE);
         mCalendarPageAdapter.notifyDataSetChanged();
     }
 
@@ -349,7 +375,7 @@ public class CalendarView extends LinearLayout {
      * @see EventDay
      */
     public void setEvents(List<EventDay> eventDays) {
-        if (mCalendarProperties.getCalendarType() == CLASSIC) {
+        if (mCalendarProperties.getEventsEnabled()) {
             mCalendarProperties.setEventDays(eventDays);
             mCalendarPageAdapter.notifyDataSetChanged();
         }
@@ -362,6 +388,10 @@ public class CalendarView extends LinearLayout {
         return Stream.of(mCalendarPageAdapter.getSelectedDays())
                 .map(SelectedDay::getCalendar)
                 .sortBy(calendar -> calendar).toList();
+    }
+
+    public void setSelectedDates(List<Calendar> selectedDates) {
+        mCalendarProperties.setSelectedDays(selectedDates);
     }
 
     /**
@@ -384,7 +414,7 @@ public class CalendarView extends LinearLayout {
      * @return Calendar object representing a date of current calendar page
      */
     public Calendar getCurrentPageDate() {
-        Calendar calendar = (Calendar) mCalendarProperties.getCurrentDate().clone();
+        Calendar calendar = (Calendar) mCalendarProperties.getFirstPageCalendarDate().clone();
         calendar.set(Calendar.DAY_OF_MONTH, 1);
         calendar.add(Calendar.MONTH, mViewPager.getCurrentItem());
         return calendar;

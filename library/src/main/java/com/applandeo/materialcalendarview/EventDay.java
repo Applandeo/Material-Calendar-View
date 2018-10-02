@@ -1,5 +1,7 @@
 package com.applandeo.materialcalendarview;
 
+import android.graphics.drawable.Drawable;
+import android.support.annotation.DrawableRes;
 import android.support.annotation.RestrictTo;
 
 import com.applandeo.materialcalendarview.utils.DateUtils;
@@ -16,7 +18,7 @@ import java.util.Calendar;
 
 public class EventDay {
     private Calendar mDay;
-    private int mImageResource;
+    private Object mDrawable;
     private boolean mIsDisabled;
 
     /**
@@ -26,23 +28,33 @@ public class EventDay {
         mDay = day;
     }
 
-
     /**
-     * @param day           Calendar object which represents a date of the event
-     * @param imageResource Resource of an image which will be displayed in a day cell
+     * @param day      Calendar object which represents a date of the event
+     * @param drawable Drawable resource which will be displayed in a day cell
      */
-    public EventDay(Calendar day, int imageResource) {
+    public EventDay(Calendar day, @DrawableRes int drawable) {
         DateUtils.setMidnight(day);
         mDay = day;
-        mImageResource = imageResource;
+        mDrawable = drawable;
+    }
+
+    /**
+     * @param day      Calendar object which represents a date of the event
+     * @param drawable Drawable which will be displayed in a day cell
+     */
+    public EventDay(Calendar day, Drawable drawable) {
+        DateUtils.setMidnight(day);
+        mDay = day;
+        mDrawable = drawable;
     }
 
 
     /**
      * @return An image resource which will be displayed in the day row
      */
-    public int getImageResource() {
-        return mImageResource;
+    @RestrictTo(RestrictTo.Scope.LIBRARY)
+    public Object getImageDrawable() {
+        return mDrawable;
     }
 
 

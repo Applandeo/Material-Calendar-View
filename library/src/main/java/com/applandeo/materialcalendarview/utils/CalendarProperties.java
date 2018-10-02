@@ -5,8 +5,11 @@ import android.graphics.drawable.Drawable;
 import android.support.v4.content.ContextCompat;
 
 import com.annimon.stream.Stream;
+import com.applandeo.materialcalendarview.CalendarView;
 import com.applandeo.materialcalendarview.EventDay;
 import com.applandeo.materialcalendarview.R;
+import com.applandeo.materialcalendarview.exceptions.ErrorsMessages;
+import com.applandeo.materialcalendarview.exceptions.UnsupportedMethodsException;
 import com.applandeo.materialcalendarview.listeners.OnCalendarPageChangeListener;
 import com.applandeo.materialcalendarview.listeners.OnDayClickListener;
 import com.applandeo.materialcalendarview.listeners.OnSelectDateListener;
@@ -23,15 +26,24 @@ import java.util.List;
  */
 
 public class CalendarProperties {
+
+    /**
+     * A number of months (pages) in the calendar
+     * 2401 months means 1200 months (100 years) before and 1200 months after the current month
+     */
+    public static final int CALENDAR_SIZE = 2401;
+    public static final int FIRST_VISIBLE_PAGE = CALENDAR_SIZE / 2;
+
     private int mCalendarType, mHeaderColor, mHeaderLabelColor, mSelectionColor, mTodayLabelColor,
             mDialogButtonsColor, mItemLayoutResource, mDisabledDaysLabelsColor, mPagesColor,
             mAbbreviationsBarColor, mAbbreviationsLabelsColor, mDaysLabelsColor, mSelectionLabelColor,
             mAnotherMonthsDaysLabelsColor;
 
+    private boolean mEventsEnabled;
+
     private Drawable mPreviousButtonSrc, mForwardButtonSrc;
 
-    private Calendar mCurrentDate = DateUtils.getCalendar();
-    private Calendar mSelectedDate = DateUtils.getCalendar();
+    private Calendar mFirstPageCalendarDate = DateUtils.getCalendar();
     private Calendar mCalendar, mMinimumDate, mMaximumDate;
 
     private OnDayClickListener mOnDayClickListener;
@@ -42,6 +54,7 @@ public class CalendarProperties {
 
     private List<EventDay> mEventDays = new ArrayList<>();
     private List<Calendar> mDisabledDays = new ArrayList<>();
+    private List<SelectedDay> mSelectedDays = new ArrayList<>();
 
     private Context mContext;
 
@@ -55,6 +68,14 @@ public class CalendarProperties {
 
     public void setCalendarType(int calendarType) {
         mCalendarType = calendarType;
+    }
+
+    public boolean getEventsEnabled() {
+        return mEventsEnabled;
+    }
+
+    public void setEventsEnabled(boolean eventsEnabled) {
+        mEventsEnabled = eventsEnabled;
     }
 
     public Calendar getCalendar() {
@@ -193,12 +214,8 @@ public class CalendarProperties {
         mOnForwardPageChangeListener = onForwardButtonClickListener;
     }
 
-    public Calendar getCurrentDate() {
-        return mCurrentDate;
-    }
-
-    public Calendar getSelectedDate() {
-        return mSelectedDate;
+    public Calendar getFirstPageCalendarDate() {
+        return mFirstPageCalendarDate;
     }
 
     public OnDayClickListener getOnDayClickListener() {
@@ -222,10 +239,43 @@ public class CalendarProperties {
     }
 
     public void setDisabledDays(List<Calendar> disabledDays) {
-        mDisabledDays = Stream.of(disabledDays).map(calendar -> {
-            DateUtils.setMidnight(calendar);
-            return calendar;
-        }).toList();
+        mSelectedDays.removeAll(disabledDays);
+
+        mDisabledDays = Stream.of(disabledDays)
+                .map(calendar -> {
+                    DateUtils.setMidnight(calendar);
+                    return calendar;
+                }).toList();
+    }
+
+    public List<SelectedDay> getSelectedDays() {
+        return mSelectedDays;
+    }
+
+    public void setSelectedDay(Calendar calendar) {
+        setSelectedDay(new SelectedDay(calendar));
+    }
+
+    public void setSelectedDay(SelectedDay selectedDay) {
+        mSelectedDays.clear();
+        mSelectedDays.add(selectedDay);
+    }
+
+    public void setSelectedDays(List<Calendar> selectedDays) {
+        if (mCalendarType == CalendarView.ONE_DAY_PICKER) {
+            throw new UnsupportedMethodsException(ErrorsMessages.ONE_DAY_PICKER_MULTIPLE_SELECTION);
+        }
+
+        if(mCalendarType == CalendarView.RANGE_PICKER && !DateUtils.isFullDatesRange(selectedDays)){
+            throw new UnsupportedMethodsException(ErrorsMessages.RANGE_PICKER_NOT_RANGE);
+        }
+
+        mSelectedDays = Stream.of(selectedDays)
+                .map(calendar -> {
+                    DateUtils.setMidnight(calendar);
+                    return new SelectedDay(calendar);
+                }).filterNot(value -> mDisabledDays.contains(value.getCalendar()))
+                .toList();
     }
 
     public int getDisabledDaysLabelsColor() {

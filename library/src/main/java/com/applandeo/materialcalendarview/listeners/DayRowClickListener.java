@@ -5,6 +5,7 @@ import android.widget.AdapterView;
 import android.widget.TextView;
 
 import com.annimon.stream.Stream;
+import com.applandeo.materialcalendarview.CalendarUtils;
 import com.applandeo.materialcalendarview.CalendarView;
 import com.applandeo.materialcalendarview.EventDay;
 import com.applandeo.materialcalendarview.R;
@@ -122,7 +123,7 @@ public class DayRowClickListener implements AdapterView.OnItemClickListener {
     private void selectOneAndRange(TextView dayLabel, Calendar day) {
         SelectedDay previousSelectedDay = mCalendarPageAdapter.getSelectedDay();
 
-        Stream.of(DateUtils.getDatesRange(previousSelectedDay.getCalendar(), day))
+        Stream.of(CalendarUtils.getDatesRange(previousSelectedDay.getCalendar(), day))
                 .filter(calendar -> !mCalendarProperties.getDisabledDays().contains(calendar))
                 .forEach(calendar -> mCalendarPageAdapter.addSelectedDay(new SelectedDay(calendar)));
 

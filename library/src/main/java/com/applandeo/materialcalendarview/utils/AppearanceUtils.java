@@ -8,24 +8,35 @@ import android.widget.TextView;
 
 import com.applandeo.materialcalendarview.R;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by Mateusz Kornakiewicz on 04.01.2018.
  */
 
 public final class AppearanceUtils {
 
-    public static void setAbbreviationsLabelsColor(View view, int color) {
-        if (color == 0) {
-            return;
-        }
+    public static void setAbbreviationsLabels(View view, int color, int firstDayOfWeek) {
 
-        ((TextView) view.findViewById(R.id.mondayLabel)).setTextColor(color);
-        ((TextView) view.findViewById(R.id.tuesdayLabel)).setTextColor(color);
-        ((TextView) view.findViewById(R.id.wednesdayLabel)).setTextColor(color);
-        ((TextView) view.findViewById(R.id.thursdayLabel)).setTextColor(color);
-        ((TextView) view.findViewById(R.id.fridayLabel)).setTextColor(color);
-        ((TextView) view.findViewById(R.id.saturdayLabel)).setTextColor(color);
-        ((TextView) view.findViewById(R.id.sundayLabel)).setTextColor(color);
+        List<TextView> labels = new ArrayList<>();
+        labels.add((TextView) view.findViewById(R.id.mondayLabel));
+        labels.add((TextView) view.findViewById(R.id.tuesdayLabel));
+        labels.add((TextView) view.findViewById(R.id.wednesdayLabel));
+        labels.add((TextView) view.findViewById(R.id.thursdayLabel));
+        labels.add((TextView) view.findViewById(R.id.fridayLabel));
+        labels.add((TextView) view.findViewById(R.id.saturdayLabel));
+        labels.add((TextView) view.findViewById(R.id.sundayLabel));
+
+        String[] abbreviations = view.getContext().getResources().getStringArray(R.array.material_calendar_day_abbreviations_array);
+        for (int i = 0; i < 7; i++) {
+            TextView label = labels.get(i);
+            label.setText(abbreviations[(i + firstDayOfWeek - 1) % 7]);
+
+            if (color != 0) {
+                label.setTextColor(color);
+            }
+        }
     }
 
     public static void setHeaderColor(View view, int color) {

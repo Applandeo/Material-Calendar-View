@@ -116,7 +116,7 @@ class CalendarDayAdapter extends ArrayAdapter<Date> {
     }
 
     private void loadIcon(ImageView dayIcon, Calendar day) {
-        if (mCalendarProperties.getEventDays() == null || mCalendarProperties.getCalendarType() != CalendarView.CLASSIC) {
+        if (mCalendarProperties.getEventDays() == null || !mCalendarProperties.getEventsEnabled()) {
             dayIcon.setVisibility(View.GONE);
             return;
         }
@@ -124,7 +124,7 @@ class CalendarDayAdapter extends ArrayAdapter<Date> {
         Stream.of(mCalendarProperties.getEventDays()).filter(eventDate ->
                 eventDate.getCalendar().equals(day)).findFirst().executeIfPresent(eventDay -> {
 
-            ImageUtils.loadResource(dayIcon, eventDay.getImageResource());
+            ImageUtils.loadImage(dayIcon, eventDay.getImageDrawable());
 
             // If a day doesn't belong to current month then image is transparent
             if (!isCurrentMonthDay(day) || !isActiveDay(day)) {

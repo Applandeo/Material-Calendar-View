@@ -7,6 +7,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.annimon.stream.Stream;
+import com.applandeo.materialcalendarview.CalendarUtils;
 import com.applandeo.materialcalendarview.CalendarView;
 import com.applandeo.materialcalendarview.DatePicker;
 import com.applandeo.materialcalendarview.builders.DatePickerBuilder;
@@ -40,32 +41,52 @@ public class MainActivity extends AppCompatActivity implements OnSelectDateListe
         Button openRangePicker = (Button) findViewById(R.id.openRangePickerButton);
         openRangePicker.setOnClickListener(v -> startActivity(new Intent(this, RangePickerActivity.class)));
 
+        Button openOneDayPickerDialog = (Button) findViewById(R.id.openOneDayPickerDialogButton);
+        openOneDayPickerDialog.setOnClickListener(v -> openOneDayPicker());
+
+        Button openManyDaysPickerDialog = (Button) findViewById(R.id.openManyDaysPickerDialogButton);
+        openManyDaysPickerDialog.setOnClickListener(v -> openManyDaysPicker());
+
+        Button openRangePickerDialog = (Button) findViewById(R.id.openRangePickerDialogButton);
+        openRangePickerDialog.setOnClickListener(v -> openRangePicker());
+    }
+
+    private void openOneDayPicker() {
         Calendar min = Calendar.getInstance();
         min.add(Calendar.MONTH, -5);
 
         Calendar max = Calendar.getInstance();
         max.add(Calendar.DAY_OF_MONTH, 3);
 
-        Button openOneDayPickerDialog = (Button) findViewById(R.id.openOneDayPickerDialogButton);
-        openOneDayPickerDialog.setOnClickListener(v -> {
-            DatePickerBuilder oneDayBuilder = new DatePickerBuilder(this, this)
-                    .pickerType(CalendarView.ONE_DAY_PICKER)
-                    .date(max)
-                    .headerColor(R.color.colorPrimaryDark)
-                    .headerLabelColor(R.color.currentMonthDayColor)
-                    .selectionColor(R.color.daysLabelColor)
-                    .todayLabelColor(R.color.colorAccent)
-                    .dialogButtonsColor(android.R.color.holo_green_dark)
-                    .disabledDaysLabelsColor(android.R.color.holo_purple)
-                    .previousButtonSrc(R.drawable.ic_chevron_left_black_24dp)
-                    .forwardButtonSrc(R.drawable.ic_chevron_right_black_24dp)
-                    .minimumDate(min)
-                    .maximumDate(max)
-                    .disabledDays(getDisabledDays());
+        DatePickerBuilder oneDayBuilder = new DatePickerBuilder(this, this)
+                .pickerType(CalendarView.ONE_DAY_PICKER)
+                .date(max)
+                .headerColor(R.color.colorPrimaryDark)
+                .headerLabelColor(R.color.currentMonthDayColor)
+                .selectionColor(R.color.daysLabelColor)
+                .todayLabelColor(R.color.colorAccent)
+                .dialogButtonsColor(android.R.color.holo_green_dark)
+                .disabledDaysLabelsColor(android.R.color.holo_purple)
+                .previousButtonSrc(R.drawable.ic_chevron_left_black_24dp)
+                .forwardButtonSrc(R.drawable.ic_chevron_right_black_24dp)
+                .minimumDate(min)
+                .maximumDate(max)
+                .disabledDays(getDisabledDays());
 
-            DatePicker oneDayPicker = oneDayBuilder.build();
-            oneDayPicker.show();
-        });
+        DatePicker oneDayPicker = oneDayBuilder.build();
+        oneDayPicker.show();
+    }
+
+    private void openManyDaysPicker() {
+        Calendar min = Calendar.getInstance();
+        min.add(Calendar.DAY_OF_MONTH, -5);
+
+        Calendar max = Calendar.getInstance();
+        max.add(Calendar.DAY_OF_MONTH, 3);
+
+        List<Calendar> selectedDays = new ArrayList<>(getDisabledDays());
+        selectedDays.add(min);
+        selectedDays.add(max);
 
         DatePickerBuilder manyDaysBuilder = new DatePickerBuilder(this, this)
                 .pickerType(CalendarView.MANY_DAYS_PICKER)
@@ -73,10 +94,24 @@ public class MainActivity extends AppCompatActivity implements OnSelectDateListe
                 .selectionColor(android.R.color.holo_green_dark)
                 .todayLabelColor(android.R.color.holo_green_dark)
                 .dialogButtonsColor(android.R.color.holo_green_dark)
+                .selectedDays(selectedDays)
                 .disabledDays(getDisabledDays());
 
-        Button openManyDaysPickerDialog = (Button) findViewById(R.id.openManyDaysPickerDialogButton);
-        openManyDaysPickerDialog.setOnClickListener(v -> manyDaysBuilder.show());
+        DatePicker manyDaysPicker = manyDaysBuilder.build();
+        manyDaysPicker.show();
+    }
+
+    private void openRangePicker() {
+        Calendar min = Calendar.getInstance();
+        min.add(Calendar.DAY_OF_MONTH, -5);
+
+        Calendar max = Calendar.getInstance();
+        max.add(Calendar.DAY_OF_MONTH, 3);
+
+        List<Calendar> selectedDays = new ArrayList<>();
+        selectedDays.add(min);
+        selectedDays.addAll(CalendarUtils.getDatesRange(min, max));
+        selectedDays.add(max);
 
         DatePickerBuilder rangeBuilder = new DatePickerBuilder(this, this)
                 .pickerType(CalendarView.RANGE_PICKER)
@@ -90,12 +125,11 @@ public class MainActivity extends AppCompatActivity implements OnSelectDateListe
                 .dialogButtonsColor(android.R.color.white)
                 .daysLabelsColor(android.R.color.white)
                 .anotherMonthsDaysLabelsColor(R.color.sampleLighter)
+                .selectedDays(selectedDays)
                 .disabledDays(getDisabledDays());
 
         DatePicker rangePicker = rangeBuilder.build();
-
-        Button openRangePickerDialog = (Button) findViewById(R.id.openRangePickerDialogButton);
-        openRangePickerDialog.setOnClickListener(v -> rangePicker.show());
+        rangePicker.show();
     }
 
     private List<Calendar> getDisabledDays() {
