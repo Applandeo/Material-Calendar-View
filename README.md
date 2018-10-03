@@ -217,6 +217,14 @@ new DatePickerBuilder(this, listener)
 ```
 
 ## Changelog
+#### Version 1.5.0:
+* Added support for events (images) in picker calendars (many thanks [thavelka](https://github.com/thavelka) for your contribution)
+* Added method which let you set selected dates programmatically
+* Now, the first day of a week depends on device location (thanks [thavelka](https://github.com/thavelka))
+* Removed Glide dependency
+* Added support for Drawable in EventDay object (You can set any drawable you want)
+* Added ability to set header colours (background, label and arrows) programmatically
+
 #### Version 1.4.0:
 * More color customization (abbreviations, calendar pages, labels colors)
 * Changed onNavigationButtonClickListeners to onCalendarPageChangeListeners
