@@ -58,6 +58,13 @@ CalendarView calendarView = (CalendarView) findViewById(R.id.calendarView);
 calendarView.setEvents(events);
 ```
 
+### How to create icons?
+#### Drawable with text
+You can use our utils method to create Drawable text
+```java
+CalendarUtils.getDrawableText(Context context, String text, Typeface typeface, int color, int size)
+````
+
 ### Clicks handling:
 ```java
 calendarView.setOnDayClickListener(new OnDayClickListener() {
