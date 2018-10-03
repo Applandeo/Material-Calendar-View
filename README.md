@@ -222,7 +222,7 @@ new DatePickerBuilder(this, listener)
 * Added method which let you set selected dates programmatically
 * Now, the first day of a week depends on device location (thanks [thavelka](https://github.com/thavelka))
 * Removed Glide dependency
-* Added support for Drawable in EventDay object (You can set any drawable you want)
+* Added support for Drawable in EventDay object (You can set any drawable you want) (See [Adding events with icons](https://github.com/Applandeo/Material-Calendar-View/blob/master/README.md#adding-events-with-icons))
 * Added ability to set header colours (background, label and arrows) programmatically
 
 #### Version 1.4.0:
