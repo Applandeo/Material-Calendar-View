@@ -254,7 +254,7 @@ new DatePickerBuilder(this, listener)
 #### Version 1.5.0:
 * Added support for events (images) in picker calendars (many thanks [thavelka](https://github.com/thavelka) for your contribution)
 --> [Customization](https://github.com/Applandeo/Material-Calendar-View#customization)
-* Added method which let you set selected dates programmatically
+* Added method which let you set selected dates programmatically --> [Setting selected dates](https://github.com/Applandeo/Material-Calendar-View#setting-selected-dates)
 * Now, the first day of a week depends on device location (thanks [thavelka](https://github.com/thavelka))
 * Removed Glide dependency
 * Added support for Drawable in EventDay object (You can set any drawable you want) --> [Adding events with icons](https://github.com/Applandeo/Material-Calendar-View/blob/master/README.md#adding-events-with-icons)
