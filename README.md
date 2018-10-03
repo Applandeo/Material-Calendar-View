@@ -53,6 +53,8 @@ List<EventDay> events = new ArrayList<>();
 
 Calendar calendar = Calendar.getInstance();
 events.add(new EventDay(calendar, R.drawable.sample_icon));
+//or
+events.add(new EventDay(calendar, new Drawable()));
 
 CalendarView calendarView = (CalendarView) findViewById(R.id.calendarView);
 calendarView.setEvents(events);
@@ -148,6 +150,16 @@ If you want to use calendar in the picker mode, you have to use the following ta
 * Disabled days labels color: ```app:disabledDaysLabelsColor="[color]"```
 * Today label color: ```app:todayLabelColor="[color]"```
 
+...or in code:
+
+```java
+CalendarView calendarView = (CalendarView) findViewById(R.id.calendarView);
+calendarView.setHeaderColor([color]);
+calendarView.setHeaderLabelColor([color]);
+calendarView.setForwardButtonImage([drawable]);
+calendarView.setPreviousButtonImage([drawable]);
+```
+
 #### Translations:
 To translate months names, abbreviations of days, "TODAY", "OK" and "CANCEL" buttons, just add below tags to your `strings.xml` file:
 ```xml
@@ -231,8 +243,8 @@ new DatePickerBuilder(this, listener)
 * Added method which let you set selected dates programmatically
 * Now, the first day of a week depends on device location (thanks [thavelka](https://github.com/thavelka))
 * Removed Glide dependency
-* Added support for Drawable in EventDay object (You can set any drawable you want) (See [Adding events with icons](https://github.com/Applandeo/Material-Calendar-View/blob/master/README.md#adding-events-with-icons))
-* Added ability to set header colours (background, label and arrows) programmatically
+* Added support for Drawable in EventDay object (You can set any drawable you want) --> [Adding events with icons](https://github.com/Applandeo/Material-Calendar-View/blob/master/README.md#adding-events-with-icons)
+* Added ability to set header colours (background, label and arrows) programmatically --> [Colors customization](https://github.com/Applandeo/Material-Calendar-View#colors-customization)
 
 #### Version 1.4.0:
 * More color customization (abbreviations, calendar pages, labels colors)
