@@ -59,11 +59,13 @@ calendarView.setEvents(events);
 ```
 
 ### How to create icons?
-#### Drawable with text
-You can use our utils method to create Drawable text
+#### Drawable with text:
+You can use our utils method to create Drawable with text
 ```java
-CalendarUtils.getDrawableText(Context context, String text, Typeface typeface, int color, int size)
+CalendarUtils.getDrawableText(Context context, String text, Typeface typeface, int color, int size);
 ````
+#### Dots indicator:
+Take a look at [sample_three_icons.xml](https://github.com/Applandeo/Material-Calendar-View/blob/master/sample/src/main/res/drawable/sample_three_icons.xml) and adjust it to your project
 
 ### Clicks handling:
 ```java
