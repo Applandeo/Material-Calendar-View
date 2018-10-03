@@ -135,6 +135,9 @@ If you want to use calendar in the picker mode, you have to use the following ta
 * ```app:type="many_days_picker"```
 * ```app:type="range_picker"```
 
+If you want to display event icons in the picker mode, add:
+* ```app:eventsEnabled="true"```
+
 #### Colors customization:
 * Header color: ```app:headerColor="[color]"```
 * Header label color: ```app:headerLabelColor="[color]"```
@@ -240,6 +243,7 @@ new DatePickerBuilder(this, listener)
 ## Changelog
 #### Version 1.5.0:
 * Added support for events (images) in picker calendars (many thanks [thavelka](https://github.com/thavelka) for your contribution)
+--> [Customization](https://github.com/Applandeo/Material-Calendar-View#customization)
 * Added method which let you set selected dates programmatically
 * Now, the first day of a week depends on device location (thanks [thavelka](https://github.com/thavelka))
 * Removed Glide dependency
