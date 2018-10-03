@@ -112,6 +112,16 @@ List<Calendar> calendars = new ArrayList<>();
 calendarView.setDisabledDays(calendars);
 ```
 
+### Setting selected dates:
+```java
+List<Calendar> calendars = new ArrayList<>();
+calendarView.setSelectedDates(calendars);
+```
+
+#### Caution!
+* Don't pass more than one calendar object to method above if your calendar type is `CalendarView.ONE_DAY_PICKER`.
+* If your calendar type is `CalendarView.RANGE_PICKER` you have to pass full dates range. To get it you can use our utils method `CalendarUtils.getDatesRange(Calendar firstDay, Calendar lastDay)`.
+
 ### Previous and forward page change listeners:
 ```java
 calendarView.setOnPreviousPageChangeListener(new OnCalendarPageChangeListener() {
