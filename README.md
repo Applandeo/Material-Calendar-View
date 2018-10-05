@@ -23,7 +23,7 @@ We have renamed setOnPreviousButtonClickListener() and setOnForwardButtonClickLi
 ## How to use?
 Make sure you are using the newest **com.android.support:appcompat-v7**.
 
-Make sure you are using Java 8 in your project. If not add below code to **build.gradle** file:
+Make sure you are using Java 8 in your project. If not, add below code to **build.gradle** file:
 ```
 android {
     compileOptions {
