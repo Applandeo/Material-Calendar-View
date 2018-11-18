@@ -16,6 +16,7 @@
         <attr name="anotherMonthsDaysLabelsColor" format="color" />
         <attr name="datePicker" format="boolean" />
         <attr name="eventsEnabled" format="boolean" />
+        <attr name="swipeEnabled" format="boolean" />
         <attr name="type" />
     </declare-styleable>
 

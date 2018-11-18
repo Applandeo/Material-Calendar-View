@@ -40,6 +40,7 @@ public class CalendarProperties {
             mAnotherMonthsDaysLabelsColor;
 
     private boolean mEventsEnabled;
+    private boolean mSwipeEnabled;
 
     private Drawable mPreviousButtonSrc, mForwardButtonSrc;
 
@@ -76,6 +77,14 @@ public class CalendarProperties {
 
     public void setEventsEnabled(boolean eventsEnabled) {
         mEventsEnabled = eventsEnabled;
+    }
+
+    public boolean getSwipeEnabled() {
+        return mSwipeEnabled;
+    }
+
+    public void setSwipeEnabled(boolean swipeEnabled) {
+        mSwipeEnabled = swipeEnabled;
     }
 
     public Calendar getCalendar() {
