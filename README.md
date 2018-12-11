@@ -4,7 +4,7 @@ Material-Calendar-View is a simple and customizable calendar widget for Android 
 
 We described a simple usage of the component [in this article](http://applandeo.com/blog/material-calendar-view-customized-calendar-widget-android/).
 
-![device-2018-01-04-130322](https://user-images.githubusercontent.com/2614225/34562830-637ddbae-f150-11e7-8004-9024fb84a883.png) ![device-2018-01-04-125741](https://user-images.githubusercontent.com/2614225/34562842-709a71ee-f150-11e7-966b-cbbe6169b88b.png) ![device-2018-01-04-125831](https://user-images.githubusercontent.com/2614225/34562859-7bd3e64e-f150-11e7-98f4-f00bafe846c6.png) ![device-2018-01-04-125915](https://user-images.githubusercontent.com/2614225/34562878-8f382f06-f150-11e7-97e4-5ac9babe5aa8.png)
+![34562830-637ddbae-f150-11e7-8004-9024fb84a883](https://user-images.githubusercontent.com/2614225/46456381-f72da200-c7ae-11e8-8284-1799fe83a1c9.png) ![device-2018-01-04-125741](https://user-images.githubusercontent.com/2614225/34562842-709a71ee-f150-11e7-966b-cbbe6169b88b.png) ![device-2018-01-04-125831](https://user-images.githubusercontent.com/2614225/34562859-7bd3e64e-f150-11e7-98f4-f00bafe846c6.png) ![device-2018-01-04-125915](https://user-images.githubusercontent.com/2614225/34562878-8f382f06-f150-11e7-97e4-5ac9babe5aa8.png)
 
 
 
@@ -17,11 +17,21 @@ We described a simple usage of the component [in this article](http://applandeo.
 * Events icons
 * Fully colors customization
 
-## How to migrate from previous version to 1.4.0?
+## How to migrate from previous version to 1.5.0?
 We have renamed setOnPreviousButtonClickListener() and setOnForwardButtonClickListener() so please refer to [Previous and forward buttons listeners](https://github.com/Applandeo/Material-Calendar-View/blob/master/README.md#previous-and-forward-buttons-listeners).
 
 ## How to use?
 Make sure you are using the newest **com.android.support:appcompat-v7**.
+
+Make sure you are using Java 8 in your project. If not, add below code to **build.gradle** file:
+```
+android {
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+```
 
 Make sure you have defined the **jcenter()** repository in project's **build.gradle** file:
 ```
@@ -35,7 +45,7 @@ allprojects {
 Add the dependency to module's **build.gradle** file:
 ```
 dependencies {
-    compile 'com.applandeo:material-calendar-view:1.4.0'
+    compile 'com.applandeo:material-calendar-view:1.5.0'
 }
 ```
 
@@ -53,10 +63,21 @@ List<EventDay> events = new ArrayList<>();
 
 Calendar calendar = Calendar.getInstance();
 events.add(new EventDay(calendar, R.drawable.sample_icon));
+//or
+events.add(new EventDay(calendar, new Drawable()));
 
 CalendarView calendarView = (CalendarView) findViewById(R.id.calendarView);
 calendarView.setEvents(events);
 ```
+
+### How to create icons?
+#### Drawable with text:
+You can use our utils method to create Drawable with text
+```java
+CalendarUtils.getDrawableText(Context context, String text, Typeface typeface, int color, int size);
+````
+#### Dots indicator:
+Take a look at [sample_three_icons.xml](https://github.com/Applandeo/Material-Calendar-View/blob/master/sample/src/main/res/drawable/sample_three_icons.xml) and adjust it to your project
 
 ### Clicks handling:
 ```java
@@ -101,6 +122,16 @@ List<Calendar> calendars = new ArrayList<>();
 calendarView.setDisabledDays(calendars);
 ```
 
+### Setting selected dates:
+```java
+List<Calendar> calendars = new ArrayList<>();
+calendarView.setSelectedDates(calendars);
+```
+
+#### Caution!
+* Don't pass more than one calendar object to method above if your calendar type is `CalendarView.ONE_DAY_PICKER`.
+* If your calendar type is `CalendarView.RANGE_PICKER` you have to pass full dates range. To get it you can use our utils method `CalendarUtils.getDatesRange(Calendar firstDay, Calendar lastDay)`.
+
 ### Previous and forward page change listeners:
 ```java
 calendarView.setOnPreviousPageChangeListener(new OnCalendarPageChangeListener() {
@@ -124,6 +155,9 @@ If you want to use calendar in the picker mode, you have to use the following ta
 * ```app:type="many_days_picker"```
 * ```app:type="range_picker"```
 
+If you want to display event icons in the picker mode, add:
+* ```app:eventsEnabled="true"```
+
 #### Colors customization:
 * Header color: ```app:headerColor="[color]"```
 * Header label color: ```app:headerLabelColor="[color]"```
@@ -138,6 +172,16 @@ If you want to use calendar in the picker mode, you have to use the following ta
 * Color of visible days labels from previous and next month page: ```app:anotherMonthsDaysLabelsColor="[color]"```
 * Disabled days labels color: ```app:disabledDaysLabelsColor="[color]"```
 * Today label color: ```app:todayLabelColor="[color]"```
+
+...or in code:
+
+```java
+CalendarView calendarView = (CalendarView) findViewById(R.id.calendarView);
+calendarView.setHeaderColor([color]);
+calendarView.setHeaderLabelColor([color]);
+calendarView.setForwardButtonImage([drawable]);
+calendarView.setPreviousButtonImage([drawable]);
+```
 
 #### Translations:
 To translate months names, abbreviations of days, "TODAY", "OK" and "CANCEL" buttons, just add below tags to your `strings.xml` file:
@@ -217,6 +261,15 @@ new DatePickerBuilder(this, listener)
 ```
 
 ## Changelog
+#### Version 1.5.0:
+* Added support for events (images) in picker calendars (many thanks [thavelka](https://github.com/thavelka) for your contribution)
+--> [Customization](https://github.com/Applandeo/Material-Calendar-View#customization)
+* Added method which let you set selected dates programmatically --> [Setting selected dates](https://github.com/Applandeo/Material-Calendar-View#setting-selected-dates)
+* Now, the first day of a week depends on device location (thanks [thavelka](https://github.com/thavelka))
+* Removed Glide dependency
+* Added support for Drawable in EventDay object (You can set any drawable you want) --> [Adding events with icons](https://github.com/Applandeo/Material-Calendar-View/blob/master/README.md#adding-events-with-icons)
+* Added ability to set header colours (background, label and arrows) programmatically --> [Colors customization](https://github.com/Applandeo/Material-Calendar-View#colors-customization)
+
 #### Version 1.4.0:
 * More color customization (abbreviations, calendar pages, labels colors)
 * Changed onNavigationButtonClickListeners to onCalendarPageChangeListeners
