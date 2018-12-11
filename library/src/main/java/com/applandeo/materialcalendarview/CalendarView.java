@@ -392,6 +392,7 @@ public class CalendarView extends LinearLayout {
 
     public void setSelectedDates(List<Calendar> selectedDates) {
         mCalendarProperties.setSelectedDays(selectedDates);
+        mCalendarPageAdapter.notifyDataSetChanged();
     }
 
     /**
