@@ -210,7 +210,7 @@ public class CalendarView extends LinearLayout {
 
     public void setForwardButtonImage(Drawable drawable){
         mCalendarProperties.setForwardButtonSrc(drawable);
-        AppearanceUtils.setForwardButtonImage(getRootView(), mCalendarProperties.getPreviousButtonSrc());
+        AppearanceUtils.setForwardButtonImage(getRootView(), mCalendarProperties.getForwardButtonSrc());
     }
 
     private void setCalendarRowLayout() {
