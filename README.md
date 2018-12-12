@@ -17,7 +17,7 @@ We described a simple usage of the component [in this article](http://applandeo.
 * Events icons
 * Fully colors customization
 
-## How to migrate from previous version to 1.5.0?
+## How to migrate from previous version to 1.5.1?
 We have renamed setOnPreviousButtonClickListener() and setOnForwardButtonClickListener() so please refer to [Previous and forward buttons listeners](https://github.com/Applandeo/Material-Calendar-View/blob/master/README.md#previous-and-forward-buttons-listeners).
 
 ## How to use?
@@ -45,7 +45,7 @@ allprojects {
 Add the dependency to module's **build.gradle** file:
 ```
 dependencies {
-    compile 'com.applandeo:material-calendar-view:1.5.0'
+    compile 'com.applandeo:material-calendar-view:1.5.1'
 }
 ```
 
