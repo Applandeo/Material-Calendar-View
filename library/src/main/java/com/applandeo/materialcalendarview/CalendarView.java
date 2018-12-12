@@ -176,6 +176,8 @@ public class CalendarView extends LinearLayout {
     private void initAttributes() {
         AppearanceUtils.setHeaderColor(getRootView(), mCalendarProperties.getHeaderColor());
 
+        AppearanceUtils.setHeaderVisibility(getRootView(), mCalendarProperties.getHeaderVisibility());
+
         AppearanceUtils.setHeaderLabelColor(getRootView(), mCalendarProperties.getHeaderLabelColor());
 
         AppearanceUtils.setAbbreviationsBarColor(getRootView(), mCalendarProperties.getAbbreviationsBarColor());
@@ -198,17 +200,22 @@ public class CalendarView extends LinearLayout {
         AppearanceUtils.setHeaderColor(getRootView(), mCalendarProperties.getHeaderColor());
     }
 
+    public void setHeaderVisibility(int visibility) {
+        mCalendarProperties.setHeaderVisibility(visibility);
+        AppearanceUtils.setHeaderVisibility(getRootView(), mCalendarProperties.getHeaderVisibility());
+    }
+
     public void setHeaderLabelColor(@ColorRes int color) {
         mCalendarProperties.setHeaderLabelColor(color);
         AppearanceUtils.setHeaderLabelColor(getRootView(), mCalendarProperties.getHeaderLabelColor());
     }
 
-    public void setPreviousButtonImage(Drawable drawable){
+    public void setPreviousButtonImage(Drawable drawable) {
         mCalendarProperties.setPreviousButtonSrc(drawable);
         AppearanceUtils.setPreviousButtonImage(getRootView(), mCalendarProperties.getPreviousButtonSrc());
     }
 
-    public void setForwardButtonImage(Drawable drawable){
+    public void setForwardButtonImage(Drawable drawable) {
         mCalendarProperties.setForwardButtonSrc(drawable);
         AppearanceUtils.setForwardButtonImage(getRootView(), mCalendarProperties.getForwardButtonSrc());
     }

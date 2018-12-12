@@ -18,7 +18,6 @@ import java.util.List;
 public final class AppearanceUtils {
 
     public static void setAbbreviationsLabels(View view, int color, int firstDayOfWeek) {
-
         List<TextView> labels = new ArrayList<>();
         labels.add((TextView) view.findViewById(R.id.mondayLabel));
         labels.add((TextView) view.findViewById(R.id.tuesdayLabel));
@@ -44,8 +43,8 @@ public final class AppearanceUtils {
             return;
         }
 
-        ConstraintLayout mCalendarHeader = (ConstraintLayout) view.findViewById(R.id.calendarHeader);
-        mCalendarHeader.setBackgroundColor(color);
+        ConstraintLayout calendarHeader = (ConstraintLayout) view.findViewById(R.id.calendarHeader);
+        calendarHeader.setBackgroundColor(color);
     }
 
     public static void setHeaderLabelColor(View view, int color) {
@@ -89,5 +88,10 @@ public final class AppearanceUtils {
         }
 
         ((ImageButton) view.findViewById(R.id.forwardButton)).setImageDrawable(drawable);
+    }
+
+    public static void setHeaderVisibility(View view, int visibility){
+        ConstraintLayout calendarHeader = (ConstraintLayout) view.findViewById(R.id.calendarHeader);
+        calendarHeader.setVisibility(visibility);
     }
 }

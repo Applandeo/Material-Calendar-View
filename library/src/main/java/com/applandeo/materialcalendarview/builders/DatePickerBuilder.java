@@ -47,6 +47,11 @@ public class DatePickerBuilder {
         return this;
     }
 
+    public DatePickerBuilder headerVisibility(int visibility) {
+        mCalendarProperties.setHeaderVisibility(visibility);
+        return this;
+    }
+
     public DatePickerBuilder headerLabelColor(@ColorRes int color) {
         mCalendarProperties.setHeaderLabelColor(color);
         return this;

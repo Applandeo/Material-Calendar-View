@@ -37,7 +37,7 @@ public class CalendarProperties {
     private int mCalendarType, mHeaderColor, mHeaderLabelColor, mSelectionColor, mTodayLabelColor,
             mDialogButtonsColor, mItemLayoutResource, mDisabledDaysLabelsColor, mPagesColor,
             mAbbreviationsBarColor, mAbbreviationsLabelsColor, mDaysLabelsColor, mSelectionLabelColor,
-            mAnotherMonthsDaysLabelsColor;
+            mAnotherMonthsDaysLabelsColor, mHeaderVisibility;
 
     private boolean mEventsEnabled;
 
@@ -348,5 +348,13 @@ public class CalendarProperties {
 
     public void setAnotherMonthsDaysLabelsColor(int anotherMonthsDaysLabelsColor) {
         mAnotherMonthsDaysLabelsColor = anotherMonthsDaysLabelsColor;
+    }
+
+    public int getHeaderVisibility() {
+        return mHeaderVisibility;
+    }
+
+    public void setHeaderVisibility(int headerVisibility) {
+        mHeaderVisibility = headerVisibility;
     }
 }
