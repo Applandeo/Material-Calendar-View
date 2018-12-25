@@ -23,10 +23,10 @@ public class OneDayPickerActivity extends AppCompatActivity {
         CalendarView calendarView = (CalendarView) findViewById(R.id.calendarView);
 
         Calendar min = Calendar.getInstance();
-        min.add(Calendar.DAY_OF_MONTH, -2);
+        min.add(Calendar.DAY_OF_MONTH, -12);
 
         Calendar max = Calendar.getInstance();
-        max.add(Calendar.DAY_OF_MONTH, 2);
+        max.add(Calendar.DAY_OF_MONTH, 12);
 
         calendarView.setMinimumDate(min);
         calendarView.setMaximumDate(max);

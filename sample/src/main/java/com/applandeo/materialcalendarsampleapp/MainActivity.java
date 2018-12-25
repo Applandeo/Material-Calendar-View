@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity implements OnSelectDateListe
 
     private void openOneDayPicker() {
         Calendar min = Calendar.getInstance();
-        min.add(Calendar.MONTH, -5);
+        min.add(Calendar.MONTH, -2);
 
         Calendar max = Calendar.getInstance();
         max.add(Calendar.DAY_OF_MONTH, 3);
@@ -61,8 +61,8 @@ public class MainActivity extends AppCompatActivity implements OnSelectDateListe
         DatePickerBuilder oneDayBuilder = new DatePickerBuilder(this, this)
                 .pickerType(CalendarView.ONE_DAY_PICKER)
                 .date(max)
-                .headerColor(R.color.colorPrimaryDark)
-                .headerLabelColor(R.color.currentMonthDayColor)
+                .headerColor(R.color.colorAccent)
+                .headerLabelColor(R.color.colorPrimary)
                 .selectionColor(R.color.daysLabelColor)
                 .todayLabelColor(R.color.colorAccent)
                 .dialogButtonsColor(android.R.color.holo_green_dark)

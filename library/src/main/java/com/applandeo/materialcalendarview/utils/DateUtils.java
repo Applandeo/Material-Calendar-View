@@ -1,6 +1,7 @@
 package com.applandeo.materialcalendarview.utils;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.annimon.stream.Stream;
 import com.applandeo.materialcalendarview.R;
@@ -52,12 +53,15 @@ public class DateUtils {
         }
 
         Calendar firstDay = (Calendar) firstCalendar.clone();
+        Log.d("TEST", "isMonthBefore -> " + firstDay.getTimeInMillis());
+
         setMidnight(firstDay);
         firstDay.set(Calendar.DAY_OF_MONTH, 1);
         Calendar secondDay = (Calendar) secondCalendar.clone();
         setMidnight(secondDay);
         secondDay.set(Calendar.DAY_OF_MONTH, 1);
 
+        //지금날짜가 최저 날짜보다 이전이면 true
         return secondDay.before(firstDay);
     }
 
@@ -74,11 +78,16 @@ public class DateUtils {
         }
 
         Calendar firstDay = (Calendar) firstCalendar.clone();
+        Log.d("TEST", "isMonth First -> " + firstDay.getTimeInMillis());
+
         setMidnight(firstDay);
         firstDay.set(Calendar.DAY_OF_MONTH, 1);
         Calendar secondDay = (Calendar) secondCalendar.clone();
+        Log.d("TEST", "isMonth First2 -> " + secondDay.getTimeInMillis());
+
         setMidnight(secondDay);
         secondDay.set(Calendar.DAY_OF_MONTH, 1);
+
 
         return secondDay.after(firstDay);
     }

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.AppCompatButton;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -20,6 +21,8 @@ import com.applandeo.materialcalendarview.utils.DateUtils;
  */
 
 public class DatePicker {
+    static final String TAG = DatePicker.class.getSimpleName();
+
     private final Context mContext;
     private CalendarProperties mCalendarProperties;
 
@@ -97,6 +100,8 @@ public class DatePicker {
     }
 
     private void setTodayButtonVisibility() {
+        Log.d(TAG, "setToday - > " +DateUtils.isMonthAfter(mCalendarProperties.getMaximumDate(), DateUtils.getCalendar()));
+        Log.d(TAG, "setToday2 -> " + DateUtils.isMonthBefore(mCalendarProperties.getMinimumDate(), DateUtils.getCalendar()));
         if (DateUtils.isMonthAfter(mCalendarProperties.getMaximumDate(), DateUtils.getCalendar())
                 || DateUtils.isMonthBefore(mCalendarProperties.getMinimumDate(), DateUtils.getCalendar())) {
             mTodayButton.setVisibility(View.GONE);
