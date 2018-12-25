@@ -15,6 +15,7 @@ import com.applandeo.materialcalendarview.CalendarUtils;
 
 public final class DrawableUtils {
 
+    
     public static Drawable getCircleDrawableWithText(Context context, String string) {
         Drawable background = ContextCompat.getDrawable(context, R.drawable.sample_circle);
         Drawable text = CalendarUtils.getDrawableText(context, string, null, android.R.color.white, 12);
