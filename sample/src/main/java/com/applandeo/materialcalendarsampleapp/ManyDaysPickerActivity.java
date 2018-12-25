@@ -57,6 +57,7 @@ public class ManyDaysPickerActivity extends AppCompatActivity {
     private List<Calendar> getSelectedDays() {
         List<Calendar> calendars = new ArrayList<>();
 
+        //기본 오늘날짜로부터 10일동안 체크 .
         for (int i = 0; i < 10; i++) {
             Calendar calendar = DateUtils.getCalendar();
             calendar.add(Calendar.DAY_OF_MONTH, i);

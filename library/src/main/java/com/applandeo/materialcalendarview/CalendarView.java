@@ -6,6 +6,7 @@ import android.graphics.drawable.Drawable;
 import android.support.annotation.ColorRes;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -289,10 +290,12 @@ public class CalendarView extends LinearLayout {
          */
         @Override
         public void onPageSelected(int position) {
+            Log.d("TEST", "onPageSelected -> " + position);
             Calendar calendar = (Calendar) mCalendarProperties.getFirstPageCalendarDate().clone();
-            calendar.add(Calendar.MONTH, position);
+            calendar.add(Calendar.MONTH, position); //1200 개월을 더함.
 
             if (!isScrollingLimited(calendar, position)) {
+                Log.d("TEST", "isLimit? " + !isScrollingLimited(calendar, position));
                 setHeaderName(calendar, position);
             }
         }
@@ -305,11 +308,13 @@ public class CalendarView extends LinearLayout {
     private boolean isScrollingLimited(Calendar calendar, int position) {
         if (DateUtils.isMonthBefore(mCalendarProperties.getMinimumDate(), calendar)) {
             mViewPager.setCurrentItem(position + 1);
+            Log.d("TEST", "isScrolling before.");
             return true;
         }
 
         if (DateUtils.isMonthAfter(mCalendarProperties.getMaximumDate(), calendar)) {
             mViewPager.setCurrentItem(position - 1);
+            Log.d("TEST", "isScrolling after.");
             return true;
         }
 
@@ -323,6 +328,7 @@ public class CalendarView extends LinearLayout {
 
     // This method calls page change listeners after swipe calendar or click arrow buttons
     private void callOnPageChangeListeners(int position) {
+        Log.d("TEST", "callOnPosition- > " + position + "mCurrentPage -> " + mCurrentPage);
         if (position > mCurrentPage && mCalendarProperties.getOnForwardPageChangeListener() != null) {
             mCalendarProperties.getOnForwardPageChangeListener().onChange();
         }
