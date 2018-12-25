@@ -240,7 +240,7 @@ public class CalendarProperties {
 
     public void setDisabledDays(List<Calendar> disabledDays) {
         mSelectedDays.removeAll(disabledDays);
-
+        //https://futurecreator.github.io/2018/08/26/java-8-streams/
         mDisabledDays = Stream.of(disabledDays)
                 .map(calendar -> {
                     DateUtils.setMidnight(calendar);

@@ -29,19 +29,22 @@ public class CalendarActivity extends AppCompatActivity {
 
         List<EventDay> events = new ArrayList<>();
 
+        //오늘 날짜를 찾아서 빨간색 원에 M
         Calendar calendar = Calendar.getInstance();
         events.add(new EventDay(calendar, DrawableUtils.getCircleDrawableWithText(this, "M")));
 
+
         Calendar calendar1 = Calendar.getInstance();
-        calendar1.add(Calendar.DAY_OF_MONTH, 2);
+        calendar1.add(Calendar.DAY_OF_MONTH, 1);
+//        calendar1.add(Calendar.DATE, 3);
         events.add(new EventDay(calendar1, R.drawable.sample_icon_2));
 
         Calendar calendar2 = Calendar.getInstance();
-        calendar2.add(Calendar.DAY_OF_MONTH, 5);
+        calendar2.add(Calendar.DAY_OF_MONTH, 2);
         events.add(new EventDay(calendar2, R.drawable.sample_icon_3));
 
         Calendar calendar3 = Calendar.getInstance();
-        calendar3.add(Calendar.DAY_OF_MONTH, 7);
+        calendar3.add(Calendar.DAY_OF_MONTH, 3);
         events.add(new EventDay(calendar3, R.drawable.sample_four_icons));
 
         Calendar calendar4 = Calendar.getInstance();
@@ -51,10 +54,10 @@ public class CalendarActivity extends AppCompatActivity {
         CalendarView calendarView = (CalendarView) findViewById(R.id.calendarView);
 
         Calendar min = Calendar.getInstance();
-        min.add(Calendar.MONTH, -2);
+        min.add(Calendar.MONTH, -12);
 
         Calendar max = Calendar.getInstance();
-        max.add(Calendar.MONTH, 2);
+        max.add(Calendar.MONTH, 12);
 
         calendarView.setMinimumDate(min);
         calendarView.setMaximumDate(max);
@@ -77,6 +80,7 @@ public class CalendarActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), text, Toast.LENGTH_LONG).show();
                 calendarView.setDate(randomCalendar);
             } catch (OutOfDateRangeException exception) {
+                //설정 범위가 넘을 경우.
                 exception.printStackTrace();
 
                 Toast.makeText(getApplicationContext(),
@@ -86,9 +90,10 @@ public class CalendarActivity extends AppCompatActivity {
         });
     }
 
+    //설정이 불가능한 날짜.
     private List<Calendar> getDisabledDays() {
         Calendar firstDisabled = DateUtils.getCalendar();
-        firstDisabled.add(Calendar.DAY_OF_MONTH, 2);
+        firstDisabled.add(Calendar.DAY_OF_MONTH, 3);
 
         Calendar secondDisabled = DateUtils.getCalendar();
         secondDisabled.add(Calendar.DAY_OF_MONTH, 1);
@@ -103,11 +108,12 @@ public class CalendarActivity extends AppCompatActivity {
         return calendars;
     }
 
+    //랜덤날짜 설정.
     private Calendar getRandomCalendar() {
         Random random = new Random();
 
         Calendar calendar = Calendar.getInstance();
-        calendar.add(Calendar.MONTH, random.nextInt(99));
+        calendar.add(Calendar.MONTH, random.nextInt(12));
 
         return calendar;
     }
