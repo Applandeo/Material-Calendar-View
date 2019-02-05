@@ -166,6 +166,9 @@ public class CalendarView extends LinearLayout {
                 mCalendarProperties.getCalendarType() == CLASSIC);
         mCalendarProperties.setEventsEnabled(eventsEnabled);
 
+        boolean swipeEnabled = typedArray.getBoolean(R.styleable.CalendarView_swipeEnabled, true);
+        mCalendarProperties.setSwipeEnabled(swipeEnabled);
+
         Drawable previousButtonSrc = typedArray.getDrawable(R.styleable.CalendarView_previousButtonSrc);
         mCalendarProperties.setPreviousButtonSrc(previousButtonSrc);
 
@@ -190,6 +193,8 @@ public class CalendarView extends LinearLayout {
         AppearanceUtils.setPreviousButtonImage(getRootView(), mCalendarProperties.getPreviousButtonSrc());
 
         AppearanceUtils.setForwardButtonImage(getRootView(), mCalendarProperties.getForwardButtonSrc());
+
+        mViewPager.setSwipeEnabled(mCalendarProperties.getSwipeEnabled());
 
         // Sets layout for date picker or normal calendar
         setCalendarRowLayout();
@@ -456,5 +461,10 @@ public class CalendarView extends LinearLayout {
 
     public void setDisabledDays(List<Calendar> disabledDays) {
         mCalendarProperties.setDisabledDays(disabledDays);
+    }
+
+    public void setSwipeEnabled(boolean swipeEnabled) {
+        mCalendarProperties.setSwipeEnabled(swipeEnabled);
+        mViewPager.setSwipeEnabled(mCalendarProperties.getSwipeEnabled());
     }
 }

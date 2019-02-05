@@ -182,6 +182,15 @@ calendarView.setHeaderLabelColor([color]);
 calendarView.setForwardButtonImage([drawable]);
 calendarView.setPreviousButtonImage([drawable]);
 ```
+#### Disable month swipe:
+If you want to disable the swipe gesture to change the month, you have to use the following tag: 
+* ```app:swipeEnabled="false"```
+
+...or in code:
+
+```java
+calendarView.setSwipeEnabled(false);
+```
 
 #### Translations:
 To translate months names, abbreviations of days, "TODAY", "OK" and "CANCEL" buttons, just add below tags to your `strings.xml` file:
