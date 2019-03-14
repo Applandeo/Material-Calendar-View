@@ -122,6 +122,12 @@ List<Calendar> calendars = new ArrayList<>();
 calendarView.setDisabledDays(calendars);
 ```
 
+### Setting highlighted dates:
+```java
+List<Calendar> calendars = new ArrayList<>();
+calendarView.setHighlightedDates(calendars);
+```
+
 ### Setting selected dates:
 ```java
 List<Calendar> calendars = new ArrayList<>();
@@ -171,6 +177,7 @@ If you want to display event icons in the picker mode, add:
 * Days labels color: ```app:daysLabelsColor="[color]"```
 * Color of visible days labels from previous and next month page: ```app:anotherMonthsDaysLabelsColor="[color]"```
 * Disabled days labels color: ```app:disabledDaysLabelsColor="[color]"```
+* Highlighted days labels color: ```app:highlightedDaysLabelsColor="[color]"```
 * Today label color: ```app:todayLabelColor="[color]"```
 
 ...or in code:
@@ -265,6 +272,7 @@ new DatePickerBuilder(this, listener)
         .daysLabelsColor(R.color.color) // Color of days numbers
         .anotherMonthsDaysLabelsColor(R.color.color) // Color of visible days numbers from previous and next month page
         .disabledDaysLabelsColor(R.color.color) // Color of disabled days numbers
+        .highlightedDaysLabelsColor(R.color.color) // Color of highlighted days numbers
         .todayLabelColor(R.color.color) // Color of the today number
         .dialogButtonsColor(R.color.color); // Color of "Cancel" and "OK" buttons
 ```

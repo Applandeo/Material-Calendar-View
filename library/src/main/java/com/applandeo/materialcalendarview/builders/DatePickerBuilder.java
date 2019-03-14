@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.annotation.ColorRes;
 import android.support.annotation.DrawableRes;
 import android.support.v4.content.ContextCompat;
+import android.widget.ListView;
 
 import com.applandeo.materialcalendarview.CalendarView;
 import com.applandeo.materialcalendarview.DatePicker;
@@ -77,6 +78,11 @@ public class DatePickerBuilder {
         return this;
     }
 
+    public DatePickerBuilder highlightedDaysLabelsColor(@ColorRes int color) {
+        mCalendarProperties.setHighlightedDaysLabelsColor(ContextCompat.getColor(mContext, color));
+        return this;
+    }
+
     public DatePickerBuilder dialogButtonsColor(@ColorRes int color) {
         mCalendarProperties.setDialogButtonsColor(color);
         return this;
@@ -94,6 +100,11 @@ public class DatePickerBuilder {
 
     public DatePickerBuilder disabledDays(List<Calendar> disabledDays) {
         mCalendarProperties.setDisabledDays(disabledDays);
+        return this;
+    }
+
+    public DatePickerBuilder highlightedDays(List<Calendar> highlightedDays) {
+        mCalendarProperties.setHighlightedDays(highlightedDays);
         return this;
     }
 

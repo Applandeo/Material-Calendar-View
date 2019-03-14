@@ -154,6 +154,9 @@ public class CalendarView extends LinearLayout {
         int disabledDaysLabelsColor = typedArray.getColor(R.styleable.CalendarView_disabledDaysLabelsColor, 0);
         mCalendarProperties.setDisabledDaysLabelsColor(disabledDaysLabelsColor);
 
+        int highlightedDaysLabelsColor = typedArray.getColor(R.styleable.CalendarView_highlightedDaysLabelsColor, 0);
+        mCalendarProperties.setHighlightedDaysLabelsColor(highlightedDaysLabelsColor);
+
         int calendarType = typedArray.getInt(R.styleable.CalendarView_type, CLASSIC);
         mCalendarProperties.setCalendarType(calendarType);
 
@@ -461,6 +464,10 @@ public class CalendarView extends LinearLayout {
 
     public void setDisabledDays(List<Calendar> disabledDays) {
         mCalendarProperties.setDisabledDays(disabledDays);
+    }
+
+    public void setHighlightedDays(List<Calendar> highlightedDays) {
+        mCalendarProperties.setHighlightedDays(highlightedDays);
     }
 
     public void setSwipeEnabled(boolean swipeEnabled) {

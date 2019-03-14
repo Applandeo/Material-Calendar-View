@@ -35,7 +35,7 @@ public class CalendarProperties {
     public static final int FIRST_VISIBLE_PAGE = CALENDAR_SIZE / 2;
 
     private int mCalendarType, mHeaderColor, mHeaderLabelColor, mSelectionColor, mTodayLabelColor,
-            mDialogButtonsColor, mItemLayoutResource, mDisabledDaysLabelsColor, mPagesColor,
+            mDialogButtonsColor, mItemLayoutResource, mDisabledDaysLabelsColor, mHighlightedDaysLabelsColor, mPagesColor,
             mAbbreviationsBarColor, mAbbreviationsLabelsColor, mDaysLabelsColor, mSelectionLabelColor,
             mAnotherMonthsDaysLabelsColor, mHeaderVisibility;
 
@@ -55,6 +55,7 @@ public class CalendarProperties {
 
     private List<EventDay> mEventDays = new ArrayList<>();
     private List<Calendar> mDisabledDays = new ArrayList<>();
+    private List<Calendar> mHighlightedDays = new ArrayList<>();
     private List<SelectedDay> mSelectedDays = new ArrayList<>();
 
     private Context mContext;
@@ -257,6 +258,18 @@ public class CalendarProperties {
                 }).toList();
     }
 
+    public List<Calendar> getHighlightedDays() {
+        return mHighlightedDays;
+    }
+
+    public void setHighlightedDays(List<Calendar> highlightedDays) {
+        mHighlightedDays = Stream.of(highlightedDays)
+                .map(calendar -> {
+                    DateUtils.setMidnight(calendar);
+                    return calendar;
+                }).toList();
+    }
+
     public List<SelectedDay> getSelectedDays() {
         return mSelectedDays;
     }
@@ -297,6 +310,18 @@ public class CalendarProperties {
 
     public void setDisabledDaysLabelsColor(int disabledDaysLabelsColor) {
         mDisabledDaysLabelsColor = disabledDaysLabelsColor;
+    }
+
+    public int getHighlightedDaysLabelsColor() {
+        if (mHighlightedDaysLabelsColor == 0) {
+            return ContextCompat.getColor(mContext, R.color.nextMonthDayColor);
+        }
+
+        return mHighlightedDaysLabelsColor;
+    }
+
+    public void setHighlightedDaysLabelsColor(int highlightedDaysLabelsColor) {
+        mHighlightedDaysLabelsColor = highlightedDaysLabelsColor;
     }
 
     public int getPagesColor() {
