@@ -1,9 +1,9 @@
 package com.applandeo.materialcalendarview;
 
 import android.content.Context;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.widget.AppCompatButton;
+import androidx.core.content.ContextCompat;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.widget.AppCompatButton;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;

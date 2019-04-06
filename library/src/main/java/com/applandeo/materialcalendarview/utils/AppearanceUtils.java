@@ -1,7 +1,7 @@
 package com.applandeo.materialcalendarview.utils;
 
 import android.graphics.drawable.Drawable;
-import android.support.constraint.ConstraintLayout;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
