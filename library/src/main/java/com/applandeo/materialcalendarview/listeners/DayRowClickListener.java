@@ -83,11 +83,11 @@ public class DayRowClickListener implements AdapterView.OnItemClickListener {
         if (isCurrentMonthDay(day) && isActiveDay(day)) {
             SelectedDay selectedDay = new SelectedDay(dayLabel, day);
 
-            if (!mCalendarPageAdapter.getSelectedDays().contains(selectedDay)) {
-                DayColorsUtils.setSelectedDayColors(dayLabel, mCalendarProperties);
-            } else {
-                reverseUnselectedColor(selectedDay);
-            }
+           // if (!mCalendarPageAdapter.getSelectedDays().contains(selectedDay)) {
+             //   DayColorsUtils.setSelectedDayColors(dayLabel, mCalendarProperties);
+        //    } else {
+         ///       reverseUnselectedColor(selectedDay);
+         //   }
 
             mCalendarPageAdapter.addSelectedDay(selectedDay);
         }
