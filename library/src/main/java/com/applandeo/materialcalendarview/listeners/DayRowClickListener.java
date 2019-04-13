@@ -89,7 +89,7 @@ public class DayRowClickListener implements AdapterView.OnItemClickListener {
          ///       reverseUnselectedColor(selectedDay);
          //   }
 
-            mCalendarPageAdapter.addSelectedDay(selectedDay);
+            //mCalendarPageAdapter.addSelectedDay(selectedDay);
         }
     }
 
