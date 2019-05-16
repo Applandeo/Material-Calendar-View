@@ -1,8 +1,8 @@
 package com.applandeo.materialcalendarview;
 
 import android.graphics.drawable.Drawable;
-import android.support.annotation.DrawableRes;
-import android.support.annotation.RestrictTo;
+import androidx.annotation.DrawableRes;
+import androidx.annotation.RestrictTo;
 
 import com.applandeo.materialcalendarview.utils.DateUtils;
 
