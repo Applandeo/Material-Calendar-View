@@ -181,6 +181,8 @@ public class CalendarView extends LinearLayout {
 
         AppearanceUtils.setHeaderVisibility(getRootView(), mCalendarProperties.getHeaderVisibility());
 
+        AppearanceUtils.setAbbreviationsBarVisibility(getRootView(), mCalendarProperties.getAbbreviationsBarVisibility());
+
         AppearanceUtils.setHeaderLabelColor(getRootView(), mCalendarProperties.getHeaderLabelColor());
 
         AppearanceUtils.setAbbreviationsBarColor(getRootView(), mCalendarProperties.getAbbreviationsBarColor());
@@ -208,6 +210,11 @@ public class CalendarView extends LinearLayout {
     public void setHeaderVisibility(int visibility) {
         mCalendarProperties.setHeaderVisibility(visibility);
         AppearanceUtils.setHeaderVisibility(getRootView(), mCalendarProperties.getHeaderVisibility());
+    }
+
+    public void setAbbreviationsBarVisibility(int visibility) {
+        mCalendarProperties.setAbbreviationsBarVisibility(visibility);
+        AppearanceUtils.setAbbreviationsBarVisibility(getRootView(), mCalendarProperties.getAbbreviationsBarVisibility());
     }
 
     public void setHeaderLabelColor(@ColorRes int color) {

@@ -1,6 +1,4 @@
 <resources>
-    <string name="app_name">간단 캘린더 뷰</string>
-
     <string name="material_calendar_monday">월</string>
     <string name="material_calendar_tuesday">화</string>
     <string name="material_calendar_wednesday">수</string>
