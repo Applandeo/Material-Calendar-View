@@ -1,6 +1,4 @@
 <resources>
-    <string name="app_name">Simple Calendar View</string>
-
     <string name="material_calendar_monday">L</string>
     <string name="material_calendar_tuesday">M</string>
     <string name="material_calendar_wednesday">M</string>
