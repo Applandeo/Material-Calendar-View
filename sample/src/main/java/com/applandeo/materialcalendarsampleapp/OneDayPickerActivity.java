@@ -2,6 +2,8 @@ package com.applandeo.materialcalendarsampleapp;
 
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -30,7 +32,7 @@ public class OneDayPickerActivity extends AppCompatActivity {
 
         calendarView.setMinimumDate(min);
         calendarView.setMaximumDate(max);
-
+        
         calendarView.setOnDayClickListener(eventDay ->
                 Toast.makeText(getApplicationContext(),
                         eventDay.getCalendar().getTime().toString() + " "
