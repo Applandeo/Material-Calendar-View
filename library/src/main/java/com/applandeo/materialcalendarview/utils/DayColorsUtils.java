@@ -66,6 +66,9 @@ public class DayColorsUtils {
         if (today.equals(day)) {
             setDayColors(dayLabel, calendarProperties.getTodayLabelColor(), Typeface.BOLD,
                     R.drawable.background_transparent);
+        } else if (calendarProperties.getHighlightedDays().contains(day)) {
+            setDayColors(dayLabel, calendarProperties.getHighlightedDaysLabelsColor(),
+                    Typeface.NORMAL, R.drawable.background_transparent);
         } else {
             setDayColors(dayLabel, calendarProperties.getDaysLabelsColor(), Typeface.NORMAL,
                     R.drawable.background_transparent);
