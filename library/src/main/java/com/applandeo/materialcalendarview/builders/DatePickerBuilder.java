@@ -52,6 +52,11 @@ public class DatePickerBuilder {
         return this;
     }
 
+    public DatePickerBuilder abbreviationsBarVisibility(int visibility) {
+        mCalendarProperties.setAbbreviationsBarVisibility(visibility);
+        return this;
+    }
+
     public DatePickerBuilder headerLabelColor(@ColorRes int color) {
         mCalendarProperties.setHeaderLabelColor(color);
         return this;

@@ -1,9 +1,12 @@
 package com.applandeo.materialcalendarview.utils;
 
 import android.graphics.drawable.Drawable;
+
 import androidx.constraintlayout.widget.ConstraintLayout;
+
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.applandeo.materialcalendarview.R;
@@ -90,8 +93,13 @@ public final class AppearanceUtils {
         ((ImageButton) view.findViewById(R.id.forwardButton)).setImageDrawable(drawable);
     }
 
-    public static void setHeaderVisibility(View view, int visibility){
-        ConstraintLayout calendarHeader = (ConstraintLayout) view.findViewById(R.id.calendarHeader);
+    public static void setHeaderVisibility(View view, int visibility) {
+        ConstraintLayout calendarHeader = view.findViewById(R.id.calendarHeader);
         calendarHeader.setVisibility(visibility);
+    }
+
+    public static void setAbbreviationsBarVisibility(View view, int visibility) {
+        LinearLayout calendarAbbreviationsBar = view.findViewById(R.id.abbreviationsBar);
+        calendarAbbreviationsBar.setVisibility(visibility);
     }
 }
