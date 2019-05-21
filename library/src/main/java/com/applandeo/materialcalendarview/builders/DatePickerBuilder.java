@@ -136,13 +136,17 @@ public class DatePickerBuilder {
         return this;
     }
 
-<<<<<<< HEAD
+    /**
+     * Sets whether the date picker dialog's abbreviations bar should be visible
+     *
+     * @param visibility The visibility
+     * @return The builder object to allow for chaining of methods
+     */
     public DatePickerBuilder abbreviationsBarVisibility(int visibility) {
         mCalendarProperties.setAbbreviationsBarVisibility(visibility);
         return this;
     }
 
-=======
     /**
      * Sets the date picker dialog header's label color
      *
@@ -151,7 +155,6 @@ public class DatePickerBuilder {
      * @deprecated Use {@link DatePickerBuilder#setHeaderLabelColor(int)}
      */
     @Deprecated
->>>>>>> upstream/refactor/add-javadoc
     public DatePickerBuilder headerLabelColor(@ColorRes int color) {
         return setHeaderLabelColor(color);
     }
@@ -259,13 +262,17 @@ public class DatePickerBuilder {
         return this;
     }
 
-<<<<<<< HEAD
+    /**
+     * Sets the color of the highlighted days in the date picker dialog
+     *
+     * @param color The color to use as a color resource
+     * @return The builder object to allow for chaining of methods
+     */
     public DatePickerBuilder highlightedDaysLabelsColor(@ColorRes int color) {
         mCalendarProperties.setHighlightedDaysLabelsColor(ContextCompat.getColor(mContext, color));
         return this;
     }
 
-=======
     /**
      * Sets the color of the dialog buttons in the date picker dialog
      *
@@ -274,7 +281,6 @@ public class DatePickerBuilder {
      * @deprecated Use {@link DatePickerBuilder#setDialogButtonsColor(int)}
      */
     @Deprecated
->>>>>>> upstream/refactor/add-javadoc
     public DatePickerBuilder dialogButtonsColor(@ColorRes int color) {
         return setDialogButtonsColor(color);
     }
@@ -359,13 +365,11 @@ public class DatePickerBuilder {
         return this;
     }
 
-<<<<<<< HEAD
     public DatePickerBuilder highlightedDays(List<Calendar> highlightedDays) {
         mCalendarProperties.setHighlightedDays(highlightedDays);
         return this;
     }
 
-=======
     /**
      * Sets the previous page change listener which is called when scrolling to the previous page
      *
@@ -374,7 +378,6 @@ public class DatePickerBuilder {
      * @deprecated Use {@link DatePickerBuilder#setPreviousPageChangeListener(OnCalendarPageChangeListener)}
      */
     @Deprecated
->>>>>>> upstream/refactor/add-javadoc
     public DatePickerBuilder previousPageChangeListener(OnCalendarPageChangeListener listener) {
         return setPreviousPageChangeListener(listener);
     }
