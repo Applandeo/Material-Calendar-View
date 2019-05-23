@@ -17,7 +17,7 @@ We described a simple usage of the component [in this article](http://applandeo.
 * Events icons
 * Fully colors customization
 
-## How to migrate from previous version to 1.5.1?
+## How to migrate from previous version to 1.6.0?
 We have renamed setOnPreviousButtonClickListener() and setOnForwardButtonClickListener() so please refer to [Previous and forward buttons listeners](https://github.com/Applandeo/Material-Calendar-View/blob/master/README.md#previous-and-forward-buttons-listeners).
 
 ## How to use?
@@ -45,7 +45,7 @@ allprojects {
 Add the dependency to module's **build.gradle** file:
 ```
 dependencies {
-    compile 'com.applandeo:material-calendar-view:1.5.1'
+    compile 'com.applandeo:material-calendar-view:1.6.0'
 }
 ```
 
@@ -266,6 +266,7 @@ new DatePickerBuilder(this, listener)
         .forwardPageChangeListener(new OnCalendarPageChangeListener(){}) // Listener called when scroll to the next page
         .abbreviationsBarColor(R.color.color) // Color of bar with day symbols
         .abbreviationsLabelsColor(R.color.color) // Color of symbol labels
+        .abbreviationsBarVisibility(int) // Visibility of abbreviations bar
         .pagesColor(R.color.sampleLighter) // Color of the calendar background
         .selectionColor(R.color.color) // Color of the selection circle
         .selectionLabelColor(R.color.color) // Color of the label in the circle
@@ -278,6 +279,12 @@ new DatePickerBuilder(this, listener)
 ```
 
 ## Changelog
+
+#### Version 1.6.0:
+* Migration to AndroidX
+* Added ability to set highlighted days (thanks [domyn](https://github.com/domyn)
+* Added Javadocs for DatePickerBuilder (many thanks [EdricChan03](https://github.com/EdricChan03)
+
 #### Version 1.5.0:
 * Added support for events (images) in picker calendars (many thanks [thavelka](https://github.com/thavelka) for your contribution)
 --> [Customization](https://github.com/Applandeo/Material-Calendar-View#customization)
