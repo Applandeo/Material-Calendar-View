@@ -232,8 +232,8 @@ To translate months names, abbreviations of days, "TODAY", "OK" and "CANCEL" but
 
 ## Date Picker Dialog
 ```java
-DatePickerBuilder builder = new DatePickerBuilder(this, listener)
-                .pickerType(CalendarView.ONE_DAY_PICKER);
+DatePickerBuilder builder = new DatePickerBuilder(this, listener);
+builder.setPickerType(CalendarView.ONE_DAY_PICKER);
 
 DatePicker datePicker = builder.build();
 datePicker.show();
