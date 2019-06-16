@@ -125,7 +125,7 @@ calendarView.setDisabledDays(calendars);
 ### Setting highlighted dates:
 ```java
 List<Calendar> calendars = new ArrayList<>();
-calendarView.setHighlightedDates(calendars);
+calendarView.setHighlightedDays(calendars);
 ```
 
 ### Setting selected dates:
