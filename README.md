@@ -122,10 +122,10 @@ List<Calendar> calendars = new ArrayList<>();
 calendarView.setDisabledDays(calendars);
 ```
 
-### Setting highlighted dates:
+### Setting highlighted days:
 ```java
 List<Calendar> calendars = new ArrayList<>();
-calendarView.setHighlightedDates(calendars);
+calendarView.setHighlightedDays(calendars);
 ```
 
 ### Setting selected dates:
