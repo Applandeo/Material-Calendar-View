@@ -58,7 +58,7 @@ public class DayColorsUtils {
      *
      * @param day                A calendar instance representing day date
      * @param today              A calendar instance representing today date
-     * @param dayLabel           TextView containing a day number
+     * @param dayLabel           TextView containing a day numberx
      * @param calendarProperties A resource of a color used to mark today day
      */
     public static void setCurrentMonthDayColors(Calendar day, Calendar today, TextView dayLabel,
@@ -66,6 +66,11 @@ public class DayColorsUtils {
         if (today.equals(day)) {
             setDayColors(dayLabel, calendarProperties.getTodayLabelColor(), Typeface.BOLD,
                     R.drawable.background_transparent);
+        } else if (EventDayUtils.isEventDayWithLabelColor(day, calendarProperties)) {
+            EventDayUtils.getEventDayWithLabelColor(day, calendarProperties).executeIfPresent(eventDay ->
+                DayColorsUtils.setDayColors(dayLabel, eventDay.getLabelColor(),
+                        Typeface.NORMAL, R.drawable.background_transparent));
+
         } else if (calendarProperties.getHighlightedDays().contains(day)) {
             setDayColors(dayLabel, calendarProperties.getHighlightedDaysLabelsColor(),
                     Typeface.NORMAL, R.drawable.background_transparent);

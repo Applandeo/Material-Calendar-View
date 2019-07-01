@@ -1,5 +1,6 @@
 package com.applandeo.materialcalendarsampleapp;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import android.widget.Button;
@@ -38,7 +39,7 @@ public class CalendarActivity extends AppCompatActivity {
 
         Calendar calendar2 = Calendar.getInstance();
         calendar2.add(Calendar.DAY_OF_MONTH, 5);
-        events.add(new EventDay(calendar2, R.drawable.sample_icon_3));
+        events.add(new EventDay(calendar2, R.drawable.sample_icon_3, Color.parseColor("#228B22")));
 
         Calendar calendar3 = Calendar.getInstance();
         calendar3.add(Calendar.DAY_OF_MONTH, 7);
