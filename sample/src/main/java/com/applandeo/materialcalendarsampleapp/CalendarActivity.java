@@ -34,11 +34,11 @@ public class CalendarActivity extends AppCompatActivity {
         events.add(new EventDay(calendar, DrawableUtils.getCircleDrawableWithText(this, "M")));
 
         Calendar calendar1 = Calendar.getInstance();
-        calendar1.add(Calendar.DAY_OF_MONTH, 2);
+        calendar1.add(Calendar.DAY_OF_MONTH, 10);
         events.add(new EventDay(calendar1, R.drawable.sample_icon_2));
 
         Calendar calendar2 = Calendar.getInstance();
-        calendar2.add(Calendar.DAY_OF_MONTH, 5);
+        calendar2.add(Calendar.DAY_OF_MONTH, 10);
         events.add(new EventDay(calendar2, R.drawable.sample_icon_3, Color.parseColor("#228B22")));
 
         Calendar calendar3 = Calendar.getInstance();

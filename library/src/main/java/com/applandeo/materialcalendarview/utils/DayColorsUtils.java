@@ -46,8 +46,7 @@ public class DayColorsUtils {
         setDayColors(dayLabel, calendarProperties.getSelectionLabelColor(), Typeface.NORMAL,
                 R.drawable.background_color_circle_selector);
 
-        dayLabel.getBackground().setColorFilter(calendarProperties.getSelectionColor(),
-                android.graphics.PorterDuff.Mode.MULTIPLY);
+        setDayBackgroundColor(dayLabel, calendarProperties.getSelectionColor());
     }
 
     /**
@@ -66,10 +65,16 @@ public class DayColorsUtils {
         if (today.equals(day)) {
             setDayColors(dayLabel, calendarProperties.getTodayLabelColor(), Typeface.BOLD,
                     R.drawable.background_transparent);
+
+            if (calendarProperties.getTodayColor() != 0) {
+                setDayColors(dayLabel, calendarProperties.getSelectionLabelColor(), Typeface.NORMAL,
+                        R.drawable.background_color_circle_selector);
+                setDayBackgroundColor(dayLabel, calendarProperties.getTodayColor());
+            }
         } else if (EventDayUtils.isEventDayWithLabelColor(day, calendarProperties)) {
             EventDayUtils.getEventDayWithLabelColor(day, calendarProperties).executeIfPresent(eventDay ->
-                DayColorsUtils.setDayColors(dayLabel, eventDay.getLabelColor(),
-                        Typeface.NORMAL, R.drawable.background_transparent));
+                    DayColorsUtils.setDayColors(dayLabel, eventDay.getLabelColor(),
+                            Typeface.NORMAL, R.drawable.background_transparent));
 
         } else if (calendarProperties.getHighlightedDays().contains(day)) {
             setDayColors(dayLabel, calendarProperties.getHighlightedDaysLabelsColor(),
@@ -78,5 +83,9 @@ public class DayColorsUtils {
             setDayColors(dayLabel, calendarProperties.getDaysLabelsColor(), Typeface.NORMAL,
                     R.drawable.background_transparent);
         }
+    }
+
+    private static void setDayBackgroundColor(TextView dayLabel, int color) {
+        dayLabel.getBackground().setColorFilter(color, android.graphics.PorterDuff.Mode.MULTIPLY);
     }
 }

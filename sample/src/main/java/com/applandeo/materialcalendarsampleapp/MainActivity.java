@@ -71,6 +71,7 @@ public class MainActivity extends AppCompatActivity implements OnSelectDateListe
                 .setForwardButtonSrc(R.drawable.ic_chevron_right_black_24dp)
                 .setMinimumDate(min)
                 .setMaximumDate(max)
+                .setTodayColor(R.color.sampleLighter)
                 .setDisabledDays(getDisabledDays());
 
         DatePicker oneDayPicker = oneDayBuilder.build();
