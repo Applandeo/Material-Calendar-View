@@ -256,28 +256,28 @@ private OnSelectDateListener listener = new OnSelectDateListener() {
 #### Customization:
 ```java
 new DatePickerBuilder(this, listener)
-        .date(Calendar.getInstance()) // Initial date as Calendar object
-        .minimumDate(Calendar.getInstance()) // Minimum available date
-        .maximumDate(Calendar.getInstance()) // Maximum available date
-        .disabledDays(List<Calendar>) /// List of disabled days
-        .headerColor(R.color.color) // Color of the dialog header
-        .headerLabelColor(R.color.color) // Color of the header label
-        .previousButtonSrc(R.drawable.drawable) // Custom drawable of the previous arrow
-        .forwardButtonSrc(R.drawable.drawable) // Custom drawable of the forward arrow
-        .previousPageChangeListener(new OnCalendarPageChangeListener(){}) // Listener called when scroll to the previous page
-        .forwardPageChangeListener(new OnCalendarPageChangeListener(){}) // Listener called when scroll to the next page
-        .abbreviationsBarColor(R.color.color) // Color of bar with day symbols
-        .abbreviationsLabelsColor(R.color.color) // Color of symbol labels
-        .abbreviationsBarVisibility(int) // Visibility of abbreviations bar
-        .pagesColor(R.color.sampleLighter) // Color of the calendar background
-        .selectionColor(R.color.color) // Color of the selection circle
-        .selectionLabelColor(R.color.color) // Color of the label in the circle
-        .daysLabelsColor(R.color.color) // Color of days numbers
-        .anotherMonthsDaysLabelsColor(R.color.color) // Color of visible days numbers from previous and next month page
-        .disabledDaysLabelsColor(R.color.color) // Color of disabled days numbers
-        .highlightedDaysLabelsColor(R.color.color) // Color of highlighted days numbers
-        .todayLabelColor(R.color.color) // Color of the today number
-        .dialogButtonsColor(R.color.color); // Color of "Cancel" and "OK" buttons
+        .setDate(Calendar.getInstance()) // Initial date as Calendar object
+        .setMinimumDate(Calendar.getInstance()) // Minimum available date
+        .setMaximumDate(Calendar.getInstance()) // Maximum available date
+        .setDisabledDays(List<Calendar>) /// List of disabled days
+        .setHeaderColor(R.color.color) // Color of the dialog header
+        .setHeaderLabelColor(R.color.color) // Color of the header label
+        .setPreviousButtonSrc(R.drawable.drawable) // Custom drawable of the previous arrow
+        .setForwardButtonSrc(R.drawable.drawable) // Custom drawable of the forward arrow
+        .setPreviousPageChangeListener(new OnCalendarPageChangeListener(){}) // Listener called when scroll to the previous page
+        .setForwardPageChangeListener(new OnCalendarPageChangeListener(){}) // Listener called when scroll to the next page
+        .setAbbreviationsBarColor(R.color.color) // Color of bar with day symbols
+        .setAbbreviationsLabelsColor(R.color.color) // Color of symbol labels
+        .setAbbreviationsBarVisibility(int) // Visibility of abbreviations bar
+        .setPagesColor(R.color.sampleLighter) // Color of the calendar background
+        .setSelectionColor(R.color.color) // Color of the selection circle
+        .setSelectionLabelColor(R.color.color) // Color of the label in the circle
+        .setDaysLabelsColor(R.color.color) // Color of days numbers
+        .setAnotherMonthsDaysLabelsColor(R.color.color) // Color of visible days numbers from previous and next month page
+        .setDisabledDaysLabelsColor(R.color.color) // Color of disabled days numbers
+        .setHighlightedDaysLabelsColor(R.color.color) // Color of highlighted days numbers
+        .setTodayLabelColor(R.color.color) // Color of the today number
+        .setDialogButtonsColor(R.color.color); // Color of "Cancel" and "OK" buttons
         .setMaxDaysRange(int) // Maximum number of selectable days in range mode
 ```
 
