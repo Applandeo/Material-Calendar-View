@@ -163,7 +163,7 @@ public class DayRowClickListener implements AdapterView.OnItemClickListener {
     private boolean isOutOfMaxRange(Calendar firstDay, Calendar lastDay) {
         // Number of selected days plus one last day
         int numberOfSelectedDays = CalendarUtils.getDatesRange(firstDay, lastDay).size() + 1;
-        int daysMaxRange = mCalendarProperties.getMaxDaysRange();
+        int daysMaxRange = mCalendarProperties.getMaximumDaysRange();
 
         return daysMaxRange != 0 && numberOfSelectedDays >= daysMaxRange;
     }

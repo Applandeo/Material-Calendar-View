@@ -160,8 +160,8 @@ public class CalendarView extends LinearLayout {
         int calendarType = typedArray.getInt(R.styleable.CalendarView_type, CLASSIC);
         mCalendarProperties.setCalendarType(calendarType);
 
-        int maxDaysRange = typedArray.getInt(R.styleable.CalendarView_maxDaysRange, 0);
-        mCalendarProperties.setMaxDaysRange(maxDaysRange);
+        int maximumDaysRange = typedArray.getInt(R.styleable.CalendarView_maximumDaysRange, 0);
+        mCalendarProperties.setMaximumDaysRange(maximumDaysRange);
 
         // Set picker mode !DEPRECATED!
         if (typedArray.getBoolean(R.styleable.CalendarView_datePicker, false)) {

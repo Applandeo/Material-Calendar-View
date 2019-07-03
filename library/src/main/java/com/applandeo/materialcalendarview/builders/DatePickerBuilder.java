@@ -4,7 +4,6 @@ import android.content.Context;
 import androidx.annotation.ColorRes;
 import androidx.annotation.DrawableRes;
 import androidx.core.content.ContextCompat;
-import android.widget.ListView;
 
 import com.applandeo.materialcalendarview.CalendarView;
 import com.applandeo.materialcalendarview.DatePicker;
@@ -604,11 +603,11 @@ public class DatePickerBuilder {
     /**
      * Sets the maximum number of selectable days in range
      *
-     * @param maxDaysRange The number of maximum selectable days in range
+     * @param maximumDaysRange The number of maximum selectable days in range
      * @return The builder object to allow for chaining of methods
      */
-    public DatePickerBuilder setMaxDaysRange(int maxDaysRange) {
-        mCalendarProperties.setMaxDaysRange(maxDaysRange);
+    public DatePickerBuilder setMaximumDaysRange(int maximumDaysRange) {
+        mCalendarProperties.setMaximumDaysRange(maximumDaysRange);
         return this;
     }
 

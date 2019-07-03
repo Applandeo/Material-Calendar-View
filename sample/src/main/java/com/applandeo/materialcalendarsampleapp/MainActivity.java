@@ -126,7 +126,7 @@ public class MainActivity extends AppCompatActivity implements OnSelectDateListe
                 .setDaysLabelsColor(android.R.color.white)
                 .setAnotherMonthsDaysLabelsColor(R.color.sampleLighter)
                 .setSelectedDays(selectedDays)
-                .setMaxDaysRange(10)
+                .setMaximumDaysRange(10)
                 .setDisabledDays(getDisabledDays());
 
         DatePicker rangePicker = rangeBuilder.build();

@@ -278,7 +278,7 @@ new DatePickerBuilder(this, listener)
         .setHighlightedDaysLabelsColor(R.color.color) // Color of highlighted days numbers
         .setTodayLabelColor(R.color.color) // Color of the today number
         .setDialogButtonsColor(R.color.color); // Color of "Cancel" and "OK" buttons
-        .setMaxDaysRange(int) // Maximum number of selectable days in range mode
+        .setMaximumDaysRange(int) // Maximum number of selectable days in range mode
 ```
 
 ## Changelog
