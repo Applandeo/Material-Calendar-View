@@ -602,6 +602,17 @@ public class DatePickerBuilder {
     }
 
     /**
+     * Sets the maximum number of selectable days in range
+     *
+     * @param maxDaysRange The number of maximum selectable days in range
+     * @return The builder object to allow for chaining of methods
+     */
+    public DatePickerBuilder setMaxDaysRange(int maxDaysRange) {
+        mCalendarProperties.setMaxDaysRange(maxDaysRange);
+        return this;
+    }
+
+    /**
      * This method is used to set a list of events displayed in calendar cells,
      * visible as images under the day number.
      *

@@ -65,6 +65,8 @@ Calendar calendar = Calendar.getInstance();
 events.add(new EventDay(calendar, R.drawable.sample_icon));
 //or
 events.add(new EventDay(calendar, new Drawable()));
+//or if you want to specify event label color
+events.add(new EventDay(calendar, R.drawable.sample_icon, Color.parseColor("#228B22")));
 
 CalendarView calendarView = (CalendarView) findViewById(R.id.calendarView);
 calendarView.setEvents(events);
@@ -276,6 +278,7 @@ new DatePickerBuilder(this, listener)
         .highlightedDaysLabelsColor(R.color.color) // Color of highlighted days numbers
         .todayLabelColor(R.color.color) // Color of the today number
         .dialogButtonsColor(R.color.color); // Color of "Cancel" and "OK" buttons
+        .setMaxDaysRange(int) // Maximum number of selectable days in range mode
 ```
 
 ## Changelog

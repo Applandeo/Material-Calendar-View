@@ -37,7 +37,7 @@ public class CalendarProperties {
     private int mCalendarType, mHeaderColor, mHeaderLabelColor, mSelectionColor, mTodayLabelColor,
             mDialogButtonsColor, mItemLayoutResource, mDisabledDaysLabelsColor, mHighlightedDaysLabelsColor, mPagesColor,
             mAbbreviationsBarColor, mAbbreviationsLabelsColor, mDaysLabelsColor, mSelectionLabelColor,
-            mAnotherMonthsDaysLabelsColor, mHeaderVisibility, mAbbreviationsBarVisibility;
+            mAnotherMonthsDaysLabelsColor, mHeaderVisibility, mAbbreviationsBarVisibility, mMaxDaysRange;
 
     private boolean mEventsEnabled;
     private boolean mSwipeEnabled;
@@ -399,5 +399,13 @@ public class CalendarProperties {
 
     public void setAbbreviationsBarVisibility(int abbreviationsBarVisbility) {
         mAbbreviationsBarVisibility = abbreviationsBarVisbility;
+    }
+
+    public int getMaxDaysRange() {
+        return mMaxDaysRange;
+    }
+
+    public void setMaxDaysRange(int maxDaysRange) {
+        mMaxDaysRange = maxDaysRange;
     }
 }
