@@ -276,6 +276,7 @@ new DatePickerBuilder(this, listener)
         .setAnotherMonthsDaysLabelsColor(R.color.color) // Color of visible days numbers from previous and next month page
         .setDisabledDaysLabelsColor(R.color.color) // Color of disabled days numbers
         .setHighlightedDaysLabelsColor(R.color.color) // Color of highlighted days numbers
+        .setTodayColor(R.color.color) // Color of the present day background
         .setTodayLabelColor(R.color.color) // Color of the today number
         .setDialogButtonsColor(R.color.color); // Color of "Cancel" and "OK" buttons
         .setMaximumDaysRange(int) // Maximum number of selectable days in range mode
@@ -283,10 +284,16 @@ new DatePickerBuilder(this, listener)
 
 ## Changelog
 
+#### Version 1.7.0:
+* Added possibility to set maximum selectable days range
+* Added more color customizations (Event label, today background)
+* Added selected/focused state to calendar days (thanks [victor-accarini](https://github.com/victor-accarini))
+* Added a setEvent option for the DatePickerBuilder (thanks [victor-accarini](https://github.com/victor-accarini))
+
 #### Version 1.6.0:
 * Migration to AndroidX
-* Added ability to set highlighted days (thanks [domyn](https://github.com/domyn)
-* Added Javadocs for DatePickerBuilder (many thanks [EdricChan03](https://github.com/EdricChan03)
+* Added ability to set highlighted days (thanks [domyn](https://github.com/domyn))
+* Added Javadocs for DatePickerBuilder (many thanks [EdricChan03](https://github.com/EdricChan03))
 
 #### Version 1.5.0:
 * Added support for events (images) in picker calendars (many thanks [thavelka](https://github.com/thavelka) for your contribution)

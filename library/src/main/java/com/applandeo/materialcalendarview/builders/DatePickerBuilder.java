@@ -240,7 +240,7 @@ public class DatePickerBuilder {
     }
 
     /**
-     * Sets the color of the today number in the date picker dialog
+     * Sets the color of the today background
      *
      * @param color The color to use as a color resource
      * @return The builder object to allow for chaining of methods
@@ -608,17 +608,6 @@ public class DatePickerBuilder {
      */
     public DatePickerBuilder setMaximumDaysRange(int maximumDaysRange) {
         mCalendarProperties.setMaximumDaysRange(maximumDaysRange);
-        return this;
-    }
-
-    /**
-     * Sets the maximum number of selectable days in range
-     *
-     * @param todayColor The number of maximum selectable days in range
-     * @return The builder object to allow for chaining of methods
-     */
-    public DatePickerBuilder setTodayColor(int todayColor) {
-        mCalendarProperties.setTodayColor(todayColor);
         return this;
     }
 
