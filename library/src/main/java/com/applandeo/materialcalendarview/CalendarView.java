@@ -61,6 +61,8 @@ public class CalendarView extends LinearLayout {
     private Context mContext;
     private CalendarPageAdapter mCalendarPageAdapter;
 
+    private ImageButton mForwardButton;
+    private ImageButton mPreviousButton;
     private TextView mCurrentMonthLabel;
     private int mCurrentPage;
     private CalendarViewPager mViewPager;
@@ -247,11 +249,11 @@ public class CalendarView extends LinearLayout {
     }
 
     private void initUiElements() {
-        ImageButton forwardButton = (ImageButton) findViewById(R.id.forwardButton);
-        forwardButton.setOnClickListener(onNextClickListener);
+        mForwardButton = (ImageButton) findViewById(R.id.forwardButton);
+        mForwardButton.setOnClickListener(onNextClickListener);
 
-        ImageButton previousButton = (ImageButton) findViewById(R.id.previousButton);
-        previousButton.setOnClickListener(onPreviousClickListener);
+        mPreviousButton = (ImageButton) findViewById(R.id.previousButton);
+        mPreviousButton.setOnClickListener(onPreviousClickListener);
 
         mCurrentMonthLabel = (TextView) findViewById(R.id.currentDateLabel);
 

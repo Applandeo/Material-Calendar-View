@@ -98,6 +98,14 @@ public final class AppearanceUtils {
         calendarHeader.setVisibility(visibility);
     }
 
+    public static void setNavigationVisibility(View view, int visibility) {
+        ImageButton previousButton = view.findViewById(R.id.previousButton);
+        ImageButton forwardButton = view.findViewById(R.id.forwardButton);
+
+        previousButton.setVisibility(visibility);
+        forwardButton.setVisibility(visibility);
+    }
+
     public static void setAbbreviationsBarVisibility(View view, int visibility) {
         LinearLayout calendarAbbreviationsBar = view.findViewById(R.id.abbreviationsBar);
         calendarAbbreviationsBar.setVisibility(visibility);
