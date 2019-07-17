@@ -191,6 +191,8 @@ public class CalendarView extends LinearLayout {
 
         AppearanceUtils.setAbbreviationsBarVisibility(getRootView(), mCalendarProperties.getAbbreviationsBarVisibility());
 
+        AppearanceUtils.setNavigationVisibility(getRootView(), mCalendarProperties.getNavigationVisibility());
+
         AppearanceUtils.setHeaderLabelColor(getRootView(), mCalendarProperties.getHeaderLabelColor());
 
         AppearanceUtils.setAbbreviationsBarColor(getRootView(), mCalendarProperties.getAbbreviationsBarColor());

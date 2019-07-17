@@ -280,13 +280,15 @@ new DatePickerBuilder(this, listener)
         .setTodayLabelColor(R.color.color) // Color of the today number
         .setDialogButtonsColor(R.color.color); // Color of "Cancel" and "OK" buttons
         .setMaximumDaysRange(int) // Maximum number of selectable days in range mode
+        .setNavigationVisibility(int) // Navigation buttons visibility
 ```
 
 ## Changelog
 
 #### Version 1.7.0:
-* Added possibility to set maximum selectable days range
+* Added ability to set maximum selectable days range
 * Added more color customizations (Event label, today background)
+* Added ability to hide date picker navigation buttons
 * Added selected/focused state to calendar days (thanks [victor-accarini](https://github.com/victor-accarini))
 * Added a setEvent option for the DatePickerBuilder (thanks [victor-accarini](https://github.com/victor-accarini))
 

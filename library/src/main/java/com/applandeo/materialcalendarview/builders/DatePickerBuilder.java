@@ -623,7 +623,7 @@ public class DatePickerBuilder {
     }
 
     /**
-     * Sets whether the date picker dialog's navigation buttons should be visible
+     * Sets whether the date picker navigation buttons should be visible
      *
      * @param visibility The visibility
      * @return The builder object to allow for chaining of methods

@@ -3,6 +3,8 @@ package com.applandeo.materialcalendarsampleapp;
 import android.content.Intent;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -72,6 +74,7 @@ public class MainActivity extends AppCompatActivity implements OnSelectDateListe
                 .setMinimumDate(min)
                 .setMaximumDate(max)
                 .setTodayColor(R.color.sampleLighter)
+                .setHeaderVisibility(View.VISIBLE)
                 .setDisabledDays(getDisabledDays());
 
         DatePicker oneDayPicker = oneDayBuilder.build();
@@ -96,6 +99,7 @@ public class MainActivity extends AppCompatActivity implements OnSelectDateListe
                 .setTodayLabelColor(android.R.color.holo_green_dark)
                 .setDialogButtonsColor(android.R.color.holo_green_dark)
                 .setSelectedDays(selectedDays)
+                .setNavigationVisibility(View.GONE)
                 .setDisabledDays(getDisabledDays());
 
         DatePicker manyDaysPicker = manyDaysBuilder.build();
