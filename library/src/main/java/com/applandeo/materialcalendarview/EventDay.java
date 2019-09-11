@@ -27,7 +27,7 @@ public class EventDay {
      * @param day Calendar object which represents a date of the event
      */
     public EventDay(Calendar day) {
-        mDay = day;
+        mDay = (Calendar)day.clone();
     }
 
     /**
@@ -36,7 +36,7 @@ public class EventDay {
      */
     public EventDay(Calendar day, @DrawableRes int drawable) {
         DateUtils.setMidnight(day);
-        mDay = day;
+        mDay = (Calendar)day.clone();
         mDrawable = drawable;
     }
 
@@ -46,7 +46,7 @@ public class EventDay {
      */
     public EventDay(Calendar day, Drawable drawable) {
         DateUtils.setMidnight(day);
-        mDay = day;
+        mDay = (Calendar)day.clone();
         mDrawable = drawable;
     }
 
@@ -57,7 +57,7 @@ public class EventDay {
      */
     public EventDay(Calendar day, @DrawableRes int drawable , int labelColor) {
         DateUtils.setMidnight(day);
-        mDay = day;
+        mDay = (Calendar)day.clone();
         mDrawable = drawable;
         mLabelColor = labelColor;
     }
@@ -70,7 +70,7 @@ public class EventDay {
      */
     public EventDay(Calendar day, Drawable drawable , int labelColor) {
         DateUtils.setMidnight(day);
-        mDay = day;
+        mDay = (Calendar)day.clone();
         mDrawable = drawable;
         mLabelColor = labelColor;
     }
