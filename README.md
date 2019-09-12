@@ -17,8 +17,6 @@ We described a simple usage of the component [in this article](http://applandeo.
 * Events icons
 * Fully colors customization
 
-## How to migrate from previous version to 1.6.0?
-We have renamed setOnPreviousButtonClickListener() and setOnForwardButtonClickListener() so please refer to [Previous and forward buttons listeners](https://github.com/Applandeo/Material-Calendar-View/blob/master/README.md#previous-and-forward-buttons-listeners).
 
 ## How to use?
 Make sure you are using the newest **com.android.support:appcompat-v7**.
@@ -45,7 +43,7 @@ allprojects {
 Add the dependency to module's **build.gradle** file:
 ```
 dependencies {
-    compile 'com.applandeo:material-calendar-view:1.6.0'
+    compile 'com.applandeo:material-calendar-view:1.7.0'
 }
 ```
 
@@ -276,17 +274,26 @@ new DatePickerBuilder(this, listener)
         .setAnotherMonthsDaysLabelsColor(R.color.color) // Color of visible days numbers from previous and next month page
         .setDisabledDaysLabelsColor(R.color.color) // Color of disabled days numbers
         .setHighlightedDaysLabelsColor(R.color.color) // Color of highlighted days numbers
+        .setTodayColor(R.color.color) // Color of the present day background
         .setTodayLabelColor(R.color.color) // Color of the today number
         .setDialogButtonsColor(R.color.color); // Color of "Cancel" and "OK" buttons
         .setMaximumDaysRange(int) // Maximum number of selectable days in range mode
+        .setNavigationVisibility(int) // Navigation buttons visibility
 ```
 
 ## Changelog
 
+#### Version 1.7.0:
+* Added ability to set maximum selectable days range
+* Added more color customizations (Event label, today background)
+* Added ability to hide date picker navigation buttons
+* Added selected/focused state to calendar days (thanks [victor-accarini](https://github.com/victor-accarini))
+* Added a setEvent option for the DatePickerBuilder (thanks [victor-accarini](https://github.com/victor-accarini))
+
 #### Version 1.6.0:
 * Migration to AndroidX
-* Added ability to set highlighted days (thanks [domyn](https://github.com/domyn)
-* Added Javadocs for DatePickerBuilder (many thanks [EdricChan03](https://github.com/EdricChan03)
+* Added ability to set highlighted days (thanks [domyn](https://github.com/domyn))
+* Added Javadocs for DatePickerBuilder (many thanks [EdricChan03](https://github.com/EdricChan03))
 
 #### Version 1.5.0:
 * Added support for events (images) in picker calendars (many thanks [thavelka](https://github.com/thavelka) for your contribution)

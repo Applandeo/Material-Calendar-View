@@ -34,10 +34,10 @@ public class CalendarProperties {
     public static final int CALENDAR_SIZE = 2401;
     public static final int FIRST_VISIBLE_PAGE = CALENDAR_SIZE / 2;
 
-    private int mCalendarType, mHeaderColor, mHeaderLabelColor, mSelectionColor, mTodayLabelColor,
+    private int mCalendarType, mHeaderColor, mHeaderLabelColor, mSelectionColor, mTodayLabelColor, mTodayColor,
             mDialogButtonsColor, mItemLayoutResource, mDisabledDaysLabelsColor, mHighlightedDaysLabelsColor, mPagesColor,
             mAbbreviationsBarColor, mAbbreviationsLabelsColor, mDaysLabelsColor, mSelectionLabelColor,
-            mAnotherMonthsDaysLabelsColor, mHeaderVisibility, mAbbreviationsBarVisibility, mMaximumDaysRange;
+            mAnotherMonthsDaysLabelsColor, mHeaderVisibility, mNavigationVisibility, mAbbreviationsBarVisibility, mMaximumDaysRange;
 
     private boolean mEventsEnabled;
     private boolean mSwipeEnabled;
@@ -392,6 +392,14 @@ public class CalendarProperties {
         mHeaderVisibility = headerVisibility;
     }
 
+    public int getNavigationVisibility() {
+        return mNavigationVisibility;
+    }
+
+    public void setNavigationVisibility(int navigationVisibility) {
+        mNavigationVisibility = navigationVisibility;
+    }
+
 
     public int getAbbreviationsBarVisibility() {
         return mAbbreviationsBarVisibility;
@@ -407,5 +415,13 @@ public class CalendarProperties {
 
     public void setMaximumDaysRange(int maximumDaysRange) {
         mMaximumDaysRange = maximumDaysRange;
+    }
+
+    public int getTodayColor() {
+        return mTodayColor;
+    }
+
+    public void setTodayColor(int todayColor) {
+        mTodayColor = todayColor;
     }
 }
