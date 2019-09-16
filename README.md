@@ -279,9 +279,13 @@ new DatePickerBuilder(this, listener)
         .setDialogButtonsColor(R.color.color); // Color of "Cancel" and "OK" buttons
         .setMaximumDaysRange(int) // Maximum number of selectable days in range mode
         .setNavigationVisibility(int) // Navigation buttons visibility
+        .setSelectionDisabled(boolean) // Disable day selection
 ```
 
 ## Changelog
+
+#### Version 1.7.1:
+* Added ability to disable day selection
 
 #### Version 1.7.0:
 * Added ability to set maximum selectable days range

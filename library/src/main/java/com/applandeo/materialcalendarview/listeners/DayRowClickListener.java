@@ -44,6 +44,10 @@ public class DayRowClickListener implements AdapterView.OnItemClickListener {
         Calendar day = new GregorianCalendar();
         day.setTime((Date) adapterView.getItemAtPosition(position));
 
+        if(mCalendarProperties.getSelectionDisabled()) {
+            return;
+        }
+
         if (mCalendarProperties.getOnDayClickListener() != null) {
             onClick(day);
         }

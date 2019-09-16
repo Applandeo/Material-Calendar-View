@@ -633,6 +633,17 @@ public class DatePickerBuilder {
         return this;
     }
 
+    /**
+     * Disables day selection
+     *
+     * @param isDisabled
+     * @return The builder object to allow for chaining of methods
+     */
+    public DatePickerBuilder setSelectionDisabled(boolean isDisabled) {
+        mCalendarProperties.setSelectionDisabled(isDisabled);
+        return this;
+    }
+
 
     /**
      * This method is used to set a list of events displayed in calendar cells,

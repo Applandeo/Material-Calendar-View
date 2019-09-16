@@ -41,6 +41,7 @@ public class CalendarProperties {
 
     private boolean mEventsEnabled;
     private boolean mSwipeEnabled;
+    private boolean mSelectionDisabled;
 
     private Drawable mPreviousButtonSrc, mForwardButtonSrc;
 
@@ -323,6 +324,12 @@ public class CalendarProperties {
     public void setHighlightedDaysLabelsColor(int highlightedDaysLabelsColor) {
         mHighlightedDaysLabelsColor = highlightedDaysLabelsColor;
     }
+
+    public void setSelectionDisabled(boolean isDisabled) {
+        mSelectionDisabled = isDisabled;
+    }
+
+    public boolean getSelectionDisabled() { return mSelectionDisabled; }
 
     public int getPagesColor() {
         return mPagesColor;
