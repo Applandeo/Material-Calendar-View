@@ -17,8 +17,6 @@ We described a simple usage of the component [in this article](http://applandeo.
 * Events icons
 * Fully colors customization
 
-## How to migrate from previous version to 1.5.1?
-We have renamed setOnPreviousButtonClickListener() and setOnForwardButtonClickListener() so please refer to [Previous and forward buttons listeners](https://github.com/Applandeo/Material-Calendar-View/blob/master/README.md#previous-and-forward-buttons-listeners).
 
 ## How to use?
 Make sure you are using the newest **com.android.support:appcompat-v7**.
@@ -45,7 +43,7 @@ allprojects {
 Add the dependency to module's **build.gradle** file:
 ```
 dependencies {
-    compile 'com.applandeo:material-calendar-view:1.5.1'
+    compile 'com.applandeo:material-calendar-view:1.7.0'
 }
 ```
 
@@ -65,6 +63,8 @@ Calendar calendar = Calendar.getInstance();
 events.add(new EventDay(calendar, R.drawable.sample_icon));
 //or
 events.add(new EventDay(calendar, new Drawable()));
+//or if you want to specify event label color
+events.add(new EventDay(calendar, R.drawable.sample_icon, Color.parseColor("#228B22")));
 
 CalendarView calendarView = (CalendarView) findViewById(R.id.calendarView);
 calendarView.setEvents(events);
@@ -122,10 +122,10 @@ List<Calendar> calendars = new ArrayList<>();
 calendarView.setDisabledDays(calendars);
 ```
 
-### Setting highlighted dates:
+### Setting highlighted days:
 ```java
 List<Calendar> calendars = new ArrayList<>();
-calendarView.setHighlightedDates(calendars);
+calendarView.setHighlightedDays(calendars);
 ```
 
 ### Setting selected dates:
@@ -254,30 +254,47 @@ private OnSelectDateListener listener = new OnSelectDateListener() {
 #### Customization:
 ```java
 new DatePickerBuilder(this, listener)
-        .date(Calendar.getInstance()) // Initial date as Calendar object
-        .minimumDate(Calendar.getInstance()) // Minimum available date
-        .maximumDate(Calendar.getInstance()) // Maximum available date
-        .disabledDays(List<Calendar>) /// List of disabled days
-        .headerColor(R.color.color) // Color of the dialog header
-        .headerLabelColor(R.color.color) // Color of the header label
-        .previousButtonSrc(R.drawable.drawable) // Custom drawable of the previous arrow
-        .forwardButtonSrc(R.drawable.drawable) // Custom drawable of the forward arrow
-        .previousPageChangeListener(new OnCalendarPageChangeListener(){}) // Listener called when scroll to the previous page
-        .forwardPageChangeListener(new OnCalendarPageChangeListener(){}) // Listener called when scroll to the next page
-        .abbreviationsBarColor(R.color.color) // Color of bar with day symbols
-        .abbreviationsLabelsColor(R.color.color) // Color of symbol labels
-        .pagesColor(R.color.sampleLighter) // Color of the calendar background
-        .selectionColor(R.color.color) // Color of the selection circle
-        .selectionLabelColor(R.color.color) // Color of the label in the circle
-        .daysLabelsColor(R.color.color) // Color of days numbers
-        .anotherMonthsDaysLabelsColor(R.color.color) // Color of visible days numbers from previous and next month page
-        .disabledDaysLabelsColor(R.color.color) // Color of disabled days numbers
-        .highlightedDaysLabelsColor(R.color.color) // Color of highlighted days numbers
-        .todayLabelColor(R.color.color) // Color of the today number
-        .dialogButtonsColor(R.color.color); // Color of "Cancel" and "OK" buttons
+        .setDate(Calendar.getInstance()) // Initial date as Calendar object
+        .setMinimumDate(Calendar.getInstance()) // Minimum available date
+        .setMaximumDate(Calendar.getInstance()) // Maximum available date
+        .setDisabledDays(List<Calendar>) /// List of disabled days
+        .setHeaderColor(R.color.color) // Color of the dialog header
+        .setHeaderLabelColor(R.color.color) // Color of the header label
+        .setPreviousButtonSrc(R.drawable.drawable) // Custom drawable of the previous arrow
+        .setForwardButtonSrc(R.drawable.drawable) // Custom drawable of the forward arrow
+        .setPreviousPageChangeListener(new OnCalendarPageChangeListener(){}) // Listener called when scroll to the previous page
+        .setForwardPageChangeListener(new OnCalendarPageChangeListener(){}) // Listener called when scroll to the next page
+        .setAbbreviationsBarColor(R.color.color) // Color of bar with day symbols
+        .setAbbreviationsLabelsColor(R.color.color) // Color of symbol labels
+        .setAbbreviationsBarVisibility(int) // Visibility of abbreviations bar
+        .setPagesColor(R.color.sampleLighter) // Color of the calendar background
+        .setSelectionColor(R.color.color) // Color of the selection circle
+        .setSelectionLabelColor(R.color.color) // Color of the label in the circle
+        .setDaysLabelsColor(R.color.color) // Color of days numbers
+        .setAnotherMonthsDaysLabelsColor(R.color.color) // Color of visible days numbers from previous and next month page
+        .setDisabledDaysLabelsColor(R.color.color) // Color of disabled days numbers
+        .setHighlightedDaysLabelsColor(R.color.color) // Color of highlighted days numbers
+        .setTodayColor(R.color.color) // Color of the present day background
+        .setTodayLabelColor(R.color.color) // Color of the today number
+        .setDialogButtonsColor(R.color.color); // Color of "Cancel" and "OK" buttons
+        .setMaximumDaysRange(int) // Maximum number of selectable days in range mode
+        .setNavigationVisibility(int) // Navigation buttons visibility
 ```
 
 ## Changelog
+
+#### Version 1.7.0:
+* Added ability to set maximum selectable days range
+* Added more color customizations (Event label, today background)
+* Added ability to hide date picker navigation buttons
+* Added selected/focused state to calendar days (thanks [victor-accarini](https://github.com/victor-accarini))
+* Added a setEvent option for the DatePickerBuilder (thanks [victor-accarini](https://github.com/victor-accarini))
+
+#### Version 1.6.0:
+* Migration to AndroidX
+* Added ability to set highlighted days (thanks [domyn](https://github.com/domyn))
+* Added Javadocs for DatePickerBuilder (many thanks [EdricChan03](https://github.com/EdricChan03))
+
 #### Version 1.5.0:
 * Added support for events (images) in picker calendars (many thanks [thavelka](https://github.com/thavelka) for your contribution)
 --> [Customization](https://github.com/Applandeo/Material-Calendar-View#customization)

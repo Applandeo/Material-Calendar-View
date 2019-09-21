@@ -61,6 +61,8 @@ public class CalendarView extends LinearLayout {
     private Context mContext;
     private CalendarPageAdapter mCalendarPageAdapter;
 
+    private ImageButton mForwardButton;
+    private ImageButton mPreviousButton;
     private TextView mCurrentMonthLabel;
     private int mCurrentPage;
     private CalendarViewPager mViewPager;
@@ -160,6 +162,9 @@ public class CalendarView extends LinearLayout {
         int calendarType = typedArray.getInt(R.styleable.CalendarView_type, CLASSIC);
         mCalendarProperties.setCalendarType(calendarType);
 
+        int maximumDaysRange = typedArray.getInt(R.styleable.CalendarView_maximumDaysRange, 0);
+        mCalendarProperties.setMaximumDaysRange(maximumDaysRange);
+
         // Set picker mode !DEPRECATED!
         if (typedArray.getBoolean(R.styleable.CalendarView_datePicker, false)) {
             mCalendarProperties.setCalendarType(ONE_DAY_PICKER);
@@ -185,6 +190,8 @@ public class CalendarView extends LinearLayout {
         AppearanceUtils.setHeaderVisibility(getRootView(), mCalendarProperties.getHeaderVisibility());
 
         AppearanceUtils.setAbbreviationsBarVisibility(getRootView(), mCalendarProperties.getAbbreviationsBarVisibility());
+
+        AppearanceUtils.setNavigationVisibility(getRootView(), mCalendarProperties.getNavigationVisibility());
 
         AppearanceUtils.setHeaderLabelColor(getRootView(), mCalendarProperties.getHeaderLabelColor());
 
@@ -244,11 +251,11 @@ public class CalendarView extends LinearLayout {
     }
 
     private void initUiElements() {
-        ImageButton forwardButton = (ImageButton) findViewById(R.id.forwardButton);
-        forwardButton.setOnClickListener(onNextClickListener);
+        mForwardButton = (ImageButton) findViewById(R.id.forwardButton);
+        mForwardButton.setOnClickListener(onNextClickListener);
 
-        ImageButton previousButton = (ImageButton) findViewById(R.id.previousButton);
-        previousButton.setOnClickListener(onPreviousClickListener);
+        mPreviousButton = (ImageButton) findViewById(R.id.previousButton);
+        mPreviousButton.setOnClickListener(onPreviousClickListener);
 
         mCurrentMonthLabel = (TextView) findViewById(R.id.currentDateLabel);
 

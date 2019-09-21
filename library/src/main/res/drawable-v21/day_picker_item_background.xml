@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+    android:color="@color/itemFocusedColor">
+    <item
+        android:width="@dimen/day_label_focus_size_events_disabled"
+        android:height="@dimen/day_label_focus_size_events_disabled"
+        android:gravity="center">
+        <shape android:shape="oval">
+            <solid android:color="@color/day_item_background_state_color" />
+        </shape>
+    </item>
+</ripple>

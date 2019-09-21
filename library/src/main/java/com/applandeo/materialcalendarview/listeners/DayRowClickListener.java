@@ -127,6 +127,10 @@ public class DayRowClickListener implements AdapterView.OnItemClickListener {
                 .filter(calendar -> !mCalendarProperties.getDisabledDays().contains(calendar))
                 .forEach(calendar -> mCalendarPageAdapter.addSelectedDay(new SelectedDay(calendar)));
 
+        if (isOutOfMaxRange(previousSelectedDay.getCalendar(), day)) {
+            return;
+        }
+
         DayColorsUtils.setSelectedDayColors(dayLabel, mCalendarProperties);
 
         mCalendarPageAdapter.addSelectedDay(new SelectedDay(dayLabel, day));
@@ -154,6 +158,14 @@ public class DayRowClickListener implements AdapterView.OnItemClickListener {
     private boolean isBetweenMinAndMax(Calendar day) {
         return !((mCalendarProperties.getMinimumDate() != null && day.before(mCalendarProperties.getMinimumDate()))
                 || (mCalendarProperties.getMaximumDate() != null && day.after(mCalendarProperties.getMaximumDate())));
+    }
+
+    private boolean isOutOfMaxRange(Calendar firstDay, Calendar lastDay) {
+        // Number of selected days plus one last day
+        int numberOfSelectedDays = CalendarUtils.getDatesRange(firstDay, lastDay).size() + 1;
+        int daysMaxRange = mCalendarProperties.getMaximumDaysRange();
+
+        return daysMaxRange != 0 && numberOfSelectedDays >= daysMaxRange;
     }
 
     private boolean isAnotherDaySelected(SelectedDay selectedDay, Calendar day) {
