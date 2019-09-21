@@ -123,7 +123,7 @@ public class DayRowClickListener implements AdapterView.OnItemClickListener {
     private void selectOneAndRange(TextView dayLabel, Calendar day) {
         SelectedDay previousSelectedDay = mCalendarPageAdapter.getSelectedDay();
 
-        Stream.of(CalendarUtils.getDatesRange(previousSelectedDay.getCalendar(), day))
+        Stream.of(CalendarUtils.INSTANCE.getDatesRange(previousSelectedDay.getCalendar(), day))
                 .filter(calendar -> !mCalendarProperties.getDisabledDays().contains(calendar))
                 .forEach(calendar -> mCalendarPageAdapter.addSelectedDay(new SelectedDay(calendar)));
 
