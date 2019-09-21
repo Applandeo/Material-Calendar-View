@@ -115,7 +115,7 @@ Calendar selectedDate = calendarView.getFirstSelectedDate();
 ```java
 Calendar calendar = Calendar.getInstance();
 calendar.set(2019, 7, 5);
-        
+
 calendarView.setDate(calendar);
 ```
 
@@ -202,7 +202,7 @@ calendarView.setForwardButtonImage([drawable]);
 calendarView.setPreviousButtonImage([drawable]);
 ```
 #### Disable month swipe:
-If you want to disable the swipe gesture to change the month, you have to use the following tag: 
+If you want to disable the swipe gesture to change the month, you have to use the following tag:
 * ```app:swipeEnabled="false"```
 
 ...or in code:
