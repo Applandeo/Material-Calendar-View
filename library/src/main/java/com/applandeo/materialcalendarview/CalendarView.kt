@@ -133,6 +133,8 @@ class CalendarView : LinearLayout {
     }
 
     private fun initControl(context: Context, attrs: AttributeSet) {
+        calendarProperties = CalendarProperties(context)
+
         val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         inflater.inflate(R.layout.calendar_view, this)
 

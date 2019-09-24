@@ -117,10 +117,8 @@ class CalendarProperties(private val mContext: Context) {
 
     var disabledDays: List<Calendar> = ArrayList()
         set(disabledDays) {
-            selectedDays = disabledDays.flatMap { disabledDay ->
-                selectedDays.filter {
-                    disabledDay == it.calendar
-                }
+            selectedDays = selectedDays.filter {
+                disabledDays.contains(it.calendar).not()
             }.toMutableList()
 
             field = disabledDays
@@ -129,6 +127,7 @@ class CalendarProperties(private val mContext: Context) {
                         calendar
                     }.toList()
         }
+
     var highlightedDays: List<Calendar> = ArrayList()
         set(highlightedDays) {
             field = highlightedDays
@@ -156,7 +155,7 @@ class CalendarProperties(private val mContext: Context) {
             throw UnsupportedMethodsException(ErrorsMessages.RANGE_PICKER_NOT_RANGE)
         }
 
-        val test = days
+        selectedDays = days
                 .map { day ->
                     DateUtils.setMidnight(day)
                     SelectedDay(day)
@@ -165,8 +164,6 @@ class CalendarProperties(private val mContext: Context) {
                     disabledDays.all { calendar -> calendar != it.calendar }
                 }
                 .toMutableList()
-
-        selectedDays = test
 
     }
 
