@@ -110,7 +110,7 @@ public class MainActivity extends AppCompatActivity implements OnSelectDateListe
 
         List<Calendar> selectedDays = new ArrayList<>();
         selectedDays.add(min);
-        selectedDays.addAll(CalendarUtils.getDatesRange(min, max));
+        selectedDays.addAll(CalendarUtils.INSTANCE.getDatesRange(min, max));
         selectedDays.add(max);
 
         DatePickerBuilder rangeBuilder = new DatePickerBuilder(this, this)
@@ -133,27 +133,27 @@ public class MainActivity extends AppCompatActivity implements OnSelectDateListe
     }
 
     private List<Calendar> getDisabledDays() {
-        Calendar firstDisabled = DateUtils.getCalendar();
+        /*Calendar firstDisabled = DateUtils.getCalendar();
         firstDisabled.add(Calendar.DAY_OF_MONTH, 2);
 
         Calendar secondDisabled = DateUtils.getCalendar();
         secondDisabled.add(Calendar.DAY_OF_MONTH, 1);
 
         Calendar thirdDisabled = DateUtils.getCalendar();
-        thirdDisabled.add(Calendar.DAY_OF_MONTH, 18);
+        thirdDisabled.add(Calendar.DAY_OF_MONTH, 18);*/
 
         List<Calendar> calendars = new ArrayList<>();
-        calendars.add(firstDisabled);
-        calendars.add(secondDisabled);
-        calendars.add(thirdDisabled);
+        //calendars.add(firstDisabled);
+        //calendars.add(secondDisabled);
+        //calendars.add(thirdDisabled);
         return calendars;
     }
 
     @Override
-    public void onSelect(List<Calendar> calendars) {
-        Stream.of(calendars).forEach(calendar ->
+    public void onSelect(List<Calendar> calendar) {
+        Stream.of(calendar).forEach(day ->
                 Toast.makeText(getApplicationContext(),
-                        calendar.getTime().toString(),
+                        day.getTime().toString(),
                         Toast.LENGTH_SHORT).show());
     }
 }

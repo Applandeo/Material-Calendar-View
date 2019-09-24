@@ -11,7 +11,6 @@ import android.widget.ImageButton
 import android.widget.LinearLayout
 import android.widget.TextView
 
-import com.annimon.stream.Stream
 import com.applandeo.materialcalendarview.adapters.CalendarPageAdapter
 import com.applandeo.materialcalendarview.exceptions.ErrorsMessages
 import com.applandeo.materialcalendarview.exceptions.OutOfDateRangeException
@@ -20,12 +19,11 @@ import com.applandeo.materialcalendarview.listeners.OnCalendarPageChangeListener
 import com.applandeo.materialcalendarview.listeners.OnDayClickListener
 import com.applandeo.materialcalendarview.utils.AppearanceUtils
 import com.applandeo.materialcalendarview.utils.CalendarProperties
+import com.applandeo.materialcalendarview.utils.CalendarProperties.Companion.FIRST_VISIBLE_PAGE
 import com.applandeo.materialcalendarview.utils.DateUtils
 
 import java.util.Calendar
 import java.util.Date
-
-import com.applandeo.materialcalendarview.utils.CalendarProperties.FIRST_VISIBLE_PAGE
 
 /**
  * This class represents a view, displays to user as calendar. It allows to work in date picker
@@ -71,7 +69,7 @@ class CalendarView : LinearLayout {
          * @see ViewPager.OnPageChangeListener
          */
         override fun onPageSelected(position: Int) {
-            val calendar = calendarProperties.firstPageCalendarDate.clone() as Calendar
+            val calendar = calendarProperties.firstPageCalendarDate?.clone() as Calendar
             calendar.add(Calendar.MONTH, position)
 
             if (!isScrollingLimited(calendar, position)) {
@@ -88,26 +86,24 @@ class CalendarView : LinearLayout {
      */
     var selectedDates: List<Calendar>
         get() = calendarPageAdapter!!.selectedDays
-                .map { it.calendar }
-                .sorted()
+                .mapNotNull { it.calendar }
         set(selectedDates) {
-            calendarProperties.setSelectedDays(selectedDates)
-            calendarPageAdapter!!.notifyDataSetChanged()
+            calendarProperties.selectDays(selectedDates)
+            calendarPageAdapter?.notifyDataSetChanged()
         }
 
     /**
      * @return Calendar object representing a selected date
      */
-    val selectedDate: Calendar
-        get() = calendarPageAdapter!!.selectedDays
-                .map { it.calendar }.first()
+    val selectedDate: Calendar?
+        get() = calendarPageAdapter?.selectedDays?.map { it.calendar }?.first()
 
     /**
      * @return Calendar object representing a date of current calendar page
      */
     private val currentPageDate: Calendar
         get() {
-            val calendar = calendarProperties.firstPageCalendarDate.clone() as Calendar
+            val calendar = calendarProperties.firstPageCalendarDate?.clone() as Calendar
             return calendar.apply {
                 set(Calendar.DAY_OF_MONTH, 1)
                 add(Calendar.MONTH, viewPager!!.currentItem)
@@ -216,16 +212,17 @@ class CalendarView : LinearLayout {
 
         AppearanceUtils.setAbbreviationsBarColor(rootView, calendarProperties.abbreviationsBarColor)
 
-        AppearanceUtils.setAbbreviationsLabels(rootView, calendarProperties.abbreviationsLabelsColor,
-                calendarProperties.firstPageCalendarDate.firstDayOfWeek)
-
         AppearanceUtils.setPagesColor(rootView, calendarProperties.pagesColor)
 
         AppearanceUtils.setPreviousButtonImage(rootView, calendarProperties.previousButtonSrc)
 
         AppearanceUtils.setForwardButtonImage(rootView, calendarProperties.forwardButtonSrc)
 
-        viewPager!!.setSwipeEnabled(calendarProperties.swipeEnabled)
+        viewPager?.setSwipeEnabled(calendarProperties.swipeEnabled)
+
+        calendarProperties.firstPageCalendarDate?.firstDayOfWeek?.let {
+            AppearanceUtils.setAbbreviationsLabels(rootView, calendarProperties.abbreviationsLabelsColor, it)
+        }
 
         // Sets layout for date picker or normal calendar
         setCalendarRowLayout()
@@ -287,8 +284,8 @@ class CalendarView : LinearLayout {
     private fun initCalendar() {
         calendarPageAdapter = CalendarPageAdapter(context, calendarProperties)
 
-        viewPager!!.adapter = calendarPageAdapter
-        viewPager!!.addOnPageChangeListener(onPageChangeListener)
+        viewPager?.adapter = calendarPageAdapter
+        viewPager?.addOnPageChangeListener(onPageChangeListener)
 
         setUpCalendarPosition(Calendar.getInstance())
     }
@@ -300,8 +297,8 @@ class CalendarView : LinearLayout {
             calendarProperties.setSelectedDay(calendar)
         }
 
-        calendarProperties.firstPageCalendarDate.time = calendar.time
-        calendarProperties.firstPageCalendarDate.add(Calendar.MONTH, -FIRST_VISIBLE_PAGE)
+        calendarProperties.firstPageCalendarDate?.time = calendar.time
+        calendarProperties.firstPageCalendarDate?.add(Calendar.MONTH, -FIRST_VISIBLE_PAGE)
 
         viewPager!!.currentItem = FIRST_VISIBLE_PAGE
     }
@@ -336,11 +333,11 @@ class CalendarView : LinearLayout {
     // This method calls page change listeners after swipe calendar or click arrow buttons
     private fun callOnPageChangeListeners(position: Int) {
         if (position > currentPage && calendarProperties.onForwardPageChangeListener != null) {
-            calendarProperties.onForwardPageChangeListener.onChange()
+            calendarProperties.onForwardPageChangeListener?.onChange()
         }
 
         if (position < currentPage && calendarProperties.onPreviousPageChangeListener != null) {
-            calendarProperties.onPreviousPageChangeListener.onChange()
+            calendarProperties.onPreviousPageChangeListener?.onChange()
         }
 
         currentPage = position
@@ -424,7 +421,7 @@ class CalendarView : LinearLayout {
      * This method is used to return to current month page
      */
     fun showCurrentMonthPage() {
-        viewPager!!.setCurrentItem(viewPager!!.currentItem - DateUtils.getMonthsBetweenDates(DateUtils.getCalendar(), currentPageDate), true)
+        viewPager!!.setCurrentItem(viewPager!!.currentItem - DateUtils.getMonthsBetweenDates(DateUtils.calendar, currentPageDate), true)
     }
 
     fun setDisabledDays(disabledDays: List<Calendar>) {
