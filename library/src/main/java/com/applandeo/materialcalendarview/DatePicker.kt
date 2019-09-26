@@ -58,14 +58,14 @@ class DatePicker(private val mContext: Context, private val mCalendarProperties:
             setView(view)
         }
 
-        mCancelButton!!.setOnClickListener { v -> alertDialog.cancel() }
+        mCancelButton?.setOnClickListener { _ -> alertDialog.cancel() }
 
-        mOkButton!!.setOnClickListener { v ->
+        mOkButton?.setOnClickListener { _ ->
             alertDialog.cancel()
             mCalendarProperties.onSelectDateListener!!.onSelect(calendarView.selectedDates)
         }
 
-        mTodayButton?.setOnClickListener { v -> calendarView.showCurrentMonthPage() }
+        mTodayButton?.setOnClickListener { _ -> calendarView.showCurrentMonthPage() }
 
         alertDialog.show()
 

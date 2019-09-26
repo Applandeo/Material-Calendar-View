@@ -53,13 +53,12 @@ import java.util.Date
 
 class CalendarView : LinearLayout {
 
-    private var calendarPageAdapter: CalendarPageAdapter? = null
-
     private var currentMonthLabel: TextView? = null
     private var currentPage: Int = 0
     private var viewPager: CalendarViewPager? = null
 
     private var calendarProperties: CalendarProperties = CalendarProperties(context)
+    private var calendarPageAdapter: CalendarPageAdapter = CalendarPageAdapter(context, calendarProperties)
 
     private val onPageChangeListener = object : ViewPager.OnPageChangeListener {
         /**
@@ -85,18 +84,18 @@ class CalendarView : LinearLayout {
      * @return List of Calendar object representing a selected dates
      */
     var selectedDates: List<Calendar>
-        get() = calendarPageAdapter!!.selectedDays
+        get() = calendarPageAdapter.selectedDays
                 .mapNotNull { it.calendar }
         set(selectedDates) {
             calendarProperties.selectDays(selectedDates)
-            calendarPageAdapter?.notifyDataSetChanged()
+            calendarPageAdapter.notifyDataSetChanged()
         }
 
     /**
      * @return Calendar object representing a selected date
      */
     val selectedDate: Calendar?
-        get() = calendarPageAdapter?.selectedDays?.map { it.calendar }?.first()
+        get() = calendarPageAdapter.selectedDays.map { it.calendar }.first()
 
     /**
      * @return Calendar object representing a date of current calendar page
@@ -302,7 +301,7 @@ class CalendarView : LinearLayout {
         calendarProperties.firstPageCalendarDate?.time = calendar.time
         calendarProperties.firstPageCalendarDate?.add(Calendar.MONTH, -FIRST_VISIBLE_PAGE)
 
-        viewPager!!.currentItem = FIRST_VISIBLE_PAGE
+        viewPager?.currentItem = FIRST_VISIBLE_PAGE
     }
 
     fun setOnPreviousPageChangeListener(listener: OnCalendarPageChangeListener) {
@@ -315,12 +314,12 @@ class CalendarView : LinearLayout {
 
     private fun isScrollingLimited(calendar: Calendar, position: Int): Boolean {
         if (DateUtils.isMonthBefore(calendarProperties.minimumDate, calendar)) {
-            viewPager!!.currentItem = position + 1
+            viewPager?.currentItem = position + 1
             return true
         }
 
         if (DateUtils.isMonthAfter(calendarProperties.maximumDate, calendar)) {
-            viewPager!!.currentItem = position - 1
+            viewPager?.currentItem = position - 1
             return true
         }
 
@@ -328,7 +327,7 @@ class CalendarView : LinearLayout {
     }
 
     private fun setHeaderName(calendar: Calendar, position: Int) {
-        currentMonthLabel!!.text = DateUtils.getMonthAndYearDate(context, calendar)
+        currentMonthLabel?.text = DateUtils.getMonthAndYearDate(context, calendar)
         callOnPageChangeListeners(position)
     }
 
@@ -370,8 +369,8 @@ class CalendarView : LinearLayout {
 
         setUpCalendarPosition(date)
 
-        currentMonthLabel!!.text = DateUtils.getMonthAndYearDate(context, date)
-        calendarPageAdapter!!.notifyDataSetChanged()
+        currentMonthLabel?.text = DateUtils.getMonthAndYearDate(context, date)
+        calendarPageAdapter.notifyDataSetChanged()
     }
 
     /**
@@ -397,7 +396,7 @@ class CalendarView : LinearLayout {
     fun setEvents(eventDays: List<EventDay>) {
         if (calendarProperties.eventsEnabled) {
             calendarProperties.eventDays = eventDays
-            calendarPageAdapter!!.notifyDataSetChanged()
+            calendarPageAdapter.notifyDataSetChanged()
         }
     }
 
@@ -423,7 +422,9 @@ class CalendarView : LinearLayout {
      * This method is used to return to current month page
      */
     fun showCurrentMonthPage() {
-        viewPager!!.setCurrentItem(viewPager!!.currentItem - DateUtils.getMonthsBetweenDates(DateUtils.calendar, currentPageDate), true)
+        viewPager?.let {
+            it.setCurrentItem(it.currentItem - DateUtils.getMonthsBetweenDates(DateUtils.calendar, currentPageDate), true)
+        }
     }
 
     fun setDisabledDays(disabledDays: List<Calendar>) {
@@ -436,7 +437,7 @@ class CalendarView : LinearLayout {
 
     fun setSwipeEnabled(swipeEnabled: Boolean) {
         calendarProperties.swipeEnabled = swipeEnabled
-        viewPager!!.setSwipeEnabled(calendarProperties.swipeEnabled)
+        viewPager?.setSwipeEnabled(calendarProperties.swipeEnabled)
     }
 
     companion object {

@@ -17,10 +17,9 @@ import java.util.Calendar
  * Created by Mateusz Kornakiewicz on 12.10.2017.
  */
 class DatePickerBuilder(private val mContext: Context, onSelectDateListener: OnSelectDateListener) {
-    private val mCalendarProperties: CalendarProperties
+    private val mCalendarProperties: CalendarProperties = CalendarProperties(mContext)
 
     init {
-        mCalendarProperties = CalendarProperties(mContext)
         mCalendarProperties.calendarType = CalendarView.ONE_DAY_PICKER
         mCalendarProperties.onSelectDateListener = onSelectDateListener
     }

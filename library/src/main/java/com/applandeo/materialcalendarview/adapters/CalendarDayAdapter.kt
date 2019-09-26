@@ -32,14 +32,10 @@ import java.util.GregorianCalendar
 
 internal class CalendarDayAdapter(private val mCalendarPageAdapter: CalendarPageAdapter, context: Context, private val mCalendarProperties: CalendarProperties,
                                   dates: ArrayList<Date>, pageMonth: Int) : ArrayAdapter<Date>(context, mCalendarProperties.itemLayoutResource, dates) {
-    private val mLayoutInflater: LayoutInflater
-    private val mPageMonth: Int
-    private val mToday = DateUtils.calendar
 
-    init {
-        mPageMonth = if (pageMonth < 0) 11 else pageMonth
-        mLayoutInflater = LayoutInflater.from(context)
-    }
+    private val mLayoutInflater: LayoutInflater = LayoutInflater.from(context)
+    private val mPageMonth: Int = if (pageMonth < 0) 11 else pageMonth
+    private val mToday = DateUtils.calendar
 
     override fun getView(position: Int, view: View?, parent: ViewGroup): View {
         var view = view
@@ -47,8 +43,8 @@ internal class CalendarDayAdapter(private val mCalendarPageAdapter: CalendarPage
             view = mLayoutInflater.inflate(mCalendarProperties.itemLayoutResource, parent, false)
         }
 
-        val dayLabel = view!!.findViewById<TextView>(R.id.dayLabel)
-        val dayIcon = view.findViewById<ImageView>(R.id.dayIcon)
+        val dayLabel = view?.findViewById<TextView>(R.id.dayLabel)
+        val dayIcon = view?.findViewById<ImageView>(R.id.dayIcon)
 
         val day = GregorianCalendar()
         day.time = getItem(position)
@@ -58,10 +54,12 @@ internal class CalendarDayAdapter(private val mCalendarPageAdapter: CalendarPage
             loadIcon(dayIcon, day)
         }
 
-        setLabelColors(dayLabel, day)
+        if(dayLabel != null) {
+            setLabelColors(dayLabel, day)
+        }
 
-        dayLabel.text = day.get(Calendar.DAY_OF_MONTH).toString()
-        return view
+        dayLabel?.text = day.get(Calendar.DAY_OF_MONTH).toString()
+        return view!!
     }
 
     private fun setLabelColors(dayLabel: TextView, day: Calendar) {
@@ -98,13 +96,15 @@ internal class CalendarDayAdapter(private val mCalendarPageAdapter: CalendarPage
                 && mCalendarPageAdapter.selectedDays.contains(SelectedDay(day)))
     }
 
-    private fun isCurrentMonthDay(day: Calendar): Boolean {
-        return day.get(Calendar.MONTH) == mPageMonth && !(mCalendarProperties.minimumDate != null && day.before(mCalendarProperties.minimumDate) || mCalendarProperties.maximumDate != null && day.after(mCalendarProperties.maximumDate))
-    }
+    private fun isCurrentMonthDay(day: Calendar): Boolean =
+            day.get(Calendar.MONTH) == mPageMonth
+                    && !(mCalendarProperties.minimumDate != null
+                    && day.before(mCalendarProperties.minimumDate)
+                    || mCalendarProperties.maximumDate != null
+                    && day.after(mCalendarProperties.maximumDate))
 
-    private fun isActiveDay(day: Calendar): Boolean {
-        return !mCalendarProperties.disabledDays.contains(day)
-    }
+    private fun isActiveDay(day: Calendar): Boolean =
+            !mCalendarProperties.disabledDays.contains(day)
 
     private fun loadIcon(dayIcon: ImageView, day: Calendar) {
         if (!mCalendarProperties.eventsEnabled) {

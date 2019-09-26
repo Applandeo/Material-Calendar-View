@@ -46,9 +46,7 @@ object DateUtils {
      * @return Boolean value if second calendar is before the first one
      */
     fun isMonthBefore(firstCalendar: Calendar?, secondCalendar: Calendar): Boolean {
-        if (firstCalendar == null) {
-            return false
-        }
+        if (firstCalendar == null) return false
 
         val firstDay = firstCalendar.clone() as Calendar
         setMidnight(firstDay)
@@ -68,9 +66,7 @@ object DateUtils {
      * @return Boolean value if second calendar is after the first one
      */
     fun isMonthAfter(firstCalendar: Calendar?, secondCalendar: Calendar): Boolean {
-        if (firstCalendar == null) {
-            return false
-        }
+        if (firstCalendar == null) return false
 
         val firstDay = firstCalendar.clone() as Calendar
         setMidnight(firstDay)

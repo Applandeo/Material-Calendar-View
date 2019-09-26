@@ -41,50 +41,38 @@ object AppearanceUtils {
     }
 
     fun setHeaderColor(view: View, color: Int) {
-        if (color == 0) {
-            return
-        }
+        if (color == 0) return
 
         val calendarHeader = view.findViewById<View>(R.id.calendarHeader) as ConstraintLayout
         calendarHeader.setBackgroundColor(color)
     }
 
     fun setHeaderLabelColor(view: View, color: Int) {
-        if (color == 0) {
-            return
-        }
+        if (color == 0) return
 
         (view.findViewById<View>(R.id.currentDateLabel) as TextView).setTextColor(color)
     }
 
     fun setAbbreviationsBarColor(view: View, color: Int) {
-        if (color == 0) {
-            return
-        }
+        if (color == 0) return
 
         view.findViewById<View>(R.id.abbreviationsBar).setBackgroundColor(color)
     }
 
     fun setPagesColor(view: View, color: Int) {
-        if (color == 0) {
-            return
-        }
+        if (color == 0) return
 
         view.findViewById<View>(R.id.calendarViewPager).setBackgroundColor(color)
     }
 
     fun setPreviousButtonImage(view: View, drawable: Drawable?) {
-        if (drawable == null) {
-            return
-        }
+        if (drawable == null) return
 
         (view.findViewById<View>(R.id.previousButton) as ImageButton).setImageDrawable(drawable)
     }
 
     fun setForwardButtonImage(view: View, drawable: Drawable?) {
-        if (drawable == null) {
-            return
-        }
+        if (drawable == null) return
 
         (view.findViewById<View>(R.id.forwardButton) as ImageButton).setImageDrawable(drawable)
     }

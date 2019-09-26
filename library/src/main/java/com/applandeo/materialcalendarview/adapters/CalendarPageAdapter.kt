@@ -49,9 +49,7 @@ class CalendarPageAdapter(private val mContext: Context, private val mCalendarPr
 
     override fun getItemPosition(`object`: Any): Int = POSITION_NONE
 
-    override fun isViewFromObject(view: View, `object`: Any): Boolean {
-        return view === `object`
-    }
+    override fun isViewFromObject(view: View, `object`: Any): Boolean = view === `object`
 
     override fun instantiateItem(container: ViewGroup, position: Int): Any {
         val inflater = mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
@@ -80,11 +78,8 @@ class CalendarPageAdapter(private val mContext: Context, private val mCalendarPr
     /**
      * This method inform DatePicker about ability to return selected days
      */
-    private fun informDatePicker() {
-        if (mCalendarProperties.onSelectionAbilityListener != null) {
-            mCalendarProperties.onSelectionAbilityListener!!.onChange(mCalendarProperties.selectedDays.size > 0)
-        }
-    }
+    private fun informDatePicker() =
+            mCalendarProperties.onSelectionAbilityListener?.onChange(mCalendarProperties.selectedDays.size > 0)
 
     /**
      * This method fill calendar GridView with days
@@ -95,7 +90,7 @@ class CalendarPageAdapter(private val mContext: Context, private val mCalendarPr
         val days = ArrayList<Date>()
 
         // Get Calendar object instance
-        val calendar = mCalendarProperties.firstPageCalendarDate!!.clone() as Calendar
+        val calendar = mCalendarProperties.firstPageCalendarDate?.clone() as Calendar
 
         // Add months to Calendar (a number of months depends on ViewPager position)
         calendar.add(Calendar.MONTH, position)
@@ -126,7 +121,7 @@ class CalendarPageAdapter(private val mContext: Context, private val mCalendarPr
         val calendarDayAdapter = CalendarDayAdapter(this, mContext,
                 mCalendarProperties, days, mPageMonth)
 
-        mCalendarGridView!!.adapter = calendarDayAdapter
+        mCalendarGridView?.adapter = calendarDayAdapter
     }
 
     override fun destroyItem(container: ViewGroup, position: Int, `object`: Any) {
