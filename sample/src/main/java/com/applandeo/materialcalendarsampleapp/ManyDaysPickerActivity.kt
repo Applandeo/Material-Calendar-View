@@ -39,12 +39,16 @@ class ManyDaysPickerActivity : AppCompatActivity() {
 
         val calendarView = findViewById<View>(R.id.calendarView) as CalendarView
 
-        calendarView.setOnForwardPageChangeListener(OnCalendarPageChangeListener {
-            Toast.makeText(applicationContext, "Forward", Toast.LENGTH_SHORT).show()
+        calendarView.setOnForwardPageChangeListener(object : OnCalendarPageChangeListener {
+            override fun onChange() {
+                Toast.makeText(applicationContext, "Forward", Toast.LENGTH_SHORT).show()
+            }
         })
 
-        calendarView.setOnPreviousPageChangeListener(OnCalendarPageChangeListener {
-            Toast.makeText(applicationContext, "Previous", Toast.LENGTH_SHORT).show()
+        calendarView.setOnPreviousPageChangeListener(object : OnCalendarPageChangeListener {
+            override fun onChange() {
+                Toast.makeText(applicationContext, "Previous", Toast.LENGTH_SHORT).show()
+            }
         })
         calendarView.selectedDates = selectedDays
 
@@ -57,7 +61,7 @@ class ManyDaysPickerActivity : AppCompatActivity() {
         calendarView.setEvents(events)
 
         val getDateButton = findViewById<View>(R.id.getDateButton) as Button
-        getDateButton.setOnClickListener { v ->
+        getDateButton.setOnClickListener {
             for (calendar in calendarView.selectedDates) {
                 println(calendar.time.toString())
 

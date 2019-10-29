@@ -67,14 +67,12 @@ object DayColorsUtils {
     @JvmStatic
     fun setCurrentMonthDayColors(day: Calendar, today: Calendar, dayLabel: TextView,
                                  calendarProperties: CalendarProperties) {
-        if (today == day) {
-            setDayColors(dayLabel, calendarProperties.todayLabelColor, Typeface.BOLD,
+        when {
+            today == day -> setDayColors(dayLabel, calendarProperties.todayLabelColor, Typeface.BOLD,
                     R.drawable.background_transparent)
-        } else if (calendarProperties.highlightedDays.contains(day)) {
-            setDayColors(dayLabel, calendarProperties.highlightedDaysLabelsColor,
+            calendarProperties.highlightedDays.contains(day) -> setDayColors(dayLabel, calendarProperties.highlightedDaysLabelsColor,
                     Typeface.NORMAL, R.drawable.background_transparent)
-        } else {
-            setDayColors(dayLabel, calendarProperties.daysLabelsColor, Typeface.NORMAL,
+            else -> setDayColors(dayLabel, calendarProperties.daysLabelsColor, Typeface.NORMAL,
                     R.drawable.background_transparent)
         }
     }

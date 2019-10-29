@@ -36,14 +36,14 @@ class SelectedDay {
         this.calendar = calendar
     }
 
-    override fun equals(obj: Any?): Boolean {
-        if (obj is SelectedDay) {
-            return calendar == obj.calendar
+    override fun equals(other: Any?): Boolean {
+        if (other is SelectedDay) {
+            return calendar == other.calendar
         }
 
-        return if (obj is Calendar) {
-            calendar == obj
-        } else super.equals(obj)
+        return if (other is Calendar) {
+            calendar == other
+        } else super.equals(other)
 
     }
 }

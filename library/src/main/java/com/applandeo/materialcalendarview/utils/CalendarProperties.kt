@@ -50,7 +50,7 @@ class CalendarProperties(private val mContext: Context) {
 
     var dialogButtonsColor: Int = 0
 
-    var itemLayoutResource: Int = 0
+    var itemLayoutResource: Int = R.layout.calendar_view_day
 
     var disabledDaysLabelsColor: Int = 0
         get() = if (field == 0) {
@@ -172,7 +172,7 @@ class CalendarProperties(private val mContext: Context) {
          * A number of months (pages) in the calendar
          * 2401 months means 1200 months (100 years) before and 1200 months after the current month
          */
-        val CALENDAR_SIZE = 2401
-        val FIRST_VISIBLE_PAGE = CALENDAR_SIZE / 2
+        const val CALENDAR_SIZE = 2401
+        const val FIRST_VISIBLE_PAGE = CALENDAR_SIZE / 2
     }
 }

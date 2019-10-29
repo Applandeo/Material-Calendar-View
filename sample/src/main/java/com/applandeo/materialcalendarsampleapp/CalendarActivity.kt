@@ -2,20 +2,16 @@ package com.applandeo.materialcalendarsampleapp
 
 import android.os.Bundle
 import android.view.View
-import androidx.appcompat.app.AppCompatActivity
 import android.widget.Button
 import android.widget.Toast
-
+import androidx.appcompat.app.AppCompatActivity
 import com.applandeo.materialcalendarsampleapp.utils.DrawableUtils
 import com.applandeo.materialcalendarview.CalendarView
 import com.applandeo.materialcalendarview.EventDay
 import com.applandeo.materialcalendarview.exceptions.OutOfDateRangeException
 import com.applandeo.materialcalendarview.listeners.OnDayClickListener
 import com.applandeo.materialcalendarview.utils.DateUtils
-
-import java.util.ArrayList
-import java.util.Calendar
-import java.util.Random
+import java.util.*
 
 /**
  * Created by Mateusz Kornakiewicz on 26.05.2017.
@@ -41,15 +37,14 @@ class CalendarActivity : AppCompatActivity() {
             return calendars
         }
 
-    private val randomCalendar: Calendar
-        get() {
-            val random = Random()
+    private fun getRandomCalendar(): Calendar {
+        val random = Random()
 
-            val calendar = Calendar.getInstance()
-            calendar.add(Calendar.MONTH, random.nextInt(99))
+        val calendar = Calendar.getInstance()
+        calendar.add(Calendar.MONTH, random.nextInt(99))
 
-            return calendar
-        }
+        return calendar
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -61,20 +56,22 @@ class CalendarActivity : AppCompatActivity() {
         events.add(EventDay(calendar, DrawableUtils.getCircleDrawableWithText(this, "M")))
 
         val calendar1 = Calendar.getInstance()
-        calendar1.add(Calendar.DAY_OF_MONTH, 2)
-        events.add(EventDay(calendar1, R.drawable.sample_icon_2))
-
         val calendar2 = Calendar.getInstance()
-        calendar2.add(Calendar.DAY_OF_MONTH, 5)
-        events.add(EventDay(calendar2, R.drawable.sample_icon_3))
-
         val calendar3 = Calendar.getInstance()
-        calendar3.add(Calendar.DAY_OF_MONTH, 7)
-        events.add(EventDay(calendar3, R.drawable.sample_four_icons))
-
         val calendar4 = Calendar.getInstance()
+
+        calendar1.add(Calendar.DAY_OF_MONTH, 2)
+        calendar2.add(Calendar.DAY_OF_MONTH, 5)
+        calendar3.add(Calendar.DAY_OF_MONTH, 7)
         calendar4.add(Calendar.DAY_OF_MONTH, 13)
-        events.add(EventDay(calendar4, DrawableUtils.getThreeDots(this)))
+
+        with(events) {
+            add(EventDay(calendar1, R.drawable.sample_icon_2))
+            add(EventDay(calendar2, R.drawable.sample_icon_3))
+            add(EventDay(calendar3, R.drawable.sample_four_icons))
+            add(EventDay(calendar4, DrawableUtils.getThreeDots(this@CalendarActivity)))
+        }
+
 
         val calendarView = findViewById<View>(R.id.calendarView) as CalendarView
 
@@ -84,24 +81,23 @@ class CalendarActivity : AppCompatActivity() {
         val max = Calendar.getInstance()
         max.add(Calendar.MONTH, 2)
 
-        calendarView.setMinimumDate(min)
-        calendarView.setMaximumDate(max)
-
-        calendarView.setEvents(events)
-
-        calendarView.setDisabledDays(disabledDays)
-
-        calendarView.setOnDayClickListener(OnDayClickListener {
-            Toast.makeText(applicationContext,
-                    it.calendar?.time.toString() + " "
-                            + it.isEnabled,
-                    Toast.LENGTH_SHORT).show()
-        })
+        with(calendarView) {
+            setMinimumDate(min)
+            setMaximumDate(max)
+            setEvents(events)
+            setDisabledDays(disabledDays)
+            setOnDayClickListener(object : OnDayClickListener {
+                override fun onDayClick(eventDay: EventDay) {
+                    Toast.makeText(applicationContext, getTitle(eventDay),
+                            Toast.LENGTH_SHORT).show()
+                }
+            })
+        }
 
         val setDateButton = findViewById<View>(R.id.setDateButton) as Button
-        setDateButton.setOnClickListener { v ->
+        setDateButton.setOnClickListener {
             try {
-                val randomCalendar = randomCalendar
+                val randomCalendar = getRandomCalendar()
                 val text = randomCalendar.time.toString()
                 Toast.makeText(applicationContext, text, Toast.LENGTH_LONG).show()
                 calendarView.setDate(randomCalendar)
@@ -114,4 +110,7 @@ class CalendarActivity : AppCompatActivity() {
             }
         }
     }
+
+    private fun getTitle(eventDay: EventDay) =
+            "${eventDay.calendar?.time.toString()} ${eventDay.isEnabled}"
 }

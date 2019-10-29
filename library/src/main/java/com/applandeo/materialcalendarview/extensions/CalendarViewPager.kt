@@ -4,7 +4,6 @@ import android.content.Context
 import androidx.viewpager.widget.ViewPager
 import android.util.AttributeSet
 import android.view.MotionEvent
-import android.view.View
 
 /**
  * Created by Mateusz Kornakiewicz on 21.11.2017.
@@ -12,11 +11,11 @@ import android.view.View
 
 class CalendarViewPager : ViewPager {
 
-    private var mSwipeEnabled = true
+    private var swipeEnabled = true
 
-    constructor(context: Context) : super(context) {}
+    constructor(context: Context) : super(context)
 
-    constructor(context: Context, attrs: AttributeSet) : super(context, attrs) {}
+    constructor(context: Context, attrs: AttributeSet) : super(context, attrs)
 
     //This method is needed to get wrap_content height for ViewPager
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
@@ -42,15 +41,15 @@ class CalendarViewPager : ViewPager {
     }
 
     fun setSwipeEnabled(swipeEnabled: Boolean) {
-        this.mSwipeEnabled = swipeEnabled
+        this.swipeEnabled = swipeEnabled
     }
 
     override fun onTouchEvent(event: MotionEvent): Boolean {
-        return mSwipeEnabled && super.onTouchEvent(event)
+        return swipeEnabled && super.onTouchEvent(event)
     }
 
     override fun onInterceptTouchEvent(event: MotionEvent): Boolean {
-        return mSwipeEnabled && super.onInterceptTouchEvent(event)
+        return swipeEnabled && super.onInterceptTouchEvent(event)
     }
 
 }

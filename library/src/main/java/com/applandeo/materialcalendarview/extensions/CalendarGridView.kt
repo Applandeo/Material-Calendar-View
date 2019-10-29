@@ -11,11 +11,11 @@ import android.widget.GridView
 
 class CalendarGridView : GridView {
 
-    constructor(context: Context, attrs: AttributeSet) : super(context, attrs) {}
+    constructor(context: Context, attrs: AttributeSet) : super(context, attrs)
 
-    constructor(context: Context) : super(context) {}
+    constructor(context: Context) : super(context)
 
-    constructor(context: Context, attrs: AttributeSet, defStyle: Int) : super(context, attrs, defStyle) {}
+    constructor(context: Context, attrs: AttributeSet, defStyle: Int) : super(context, attrs, defStyle)
 
     //This method is needed to get wrap_content height for GridView
     public override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {

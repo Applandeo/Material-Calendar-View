@@ -3,8 +3,6 @@ package com.applandeo.materialcalendarview.listeners
 import android.view.View
 import android.widget.AdapterView
 import android.widget.TextView
-
-import com.annimon.stream.Stream
 import com.applandeo.materialcalendarview.CalendarUtils
 import com.applandeo.materialcalendarview.CalendarView
 import com.applandeo.materialcalendarview.EventDay
@@ -14,11 +12,7 @@ import com.applandeo.materialcalendarview.utils.CalendarProperties
 import com.applandeo.materialcalendarview.utils.DateUtils
 import com.applandeo.materialcalendarview.utils.DayColorsUtils
 import com.applandeo.materialcalendarview.utils.SelectedDay
-
-import java.util.Calendar
-import java.util.Date
-import java.util.GregorianCalendar
-import java.util.Locale.filter
+import java.util.*
 
 /**
  * This class is responsible for handle click events
@@ -27,27 +21,31 @@ import java.util.Locale.filter
  * Created by Mateusz Kornakiewicz on 24.05.2017.
  */
 
-class DayRowClickListener(private val mCalendarPageAdapter: CalendarPageAdapter, private val mCalendarProperties: CalendarProperties, pageMonth: Int) : AdapterView.OnItemClickListener {
+class DayRowClickListener(
+        private val calendarPageAdapter: CalendarPageAdapter,
+        private val calendarProperties: CalendarProperties,
+        pageMonth: Int
+) : AdapterView.OnItemClickListener {
     private val mPageMonth: Int = if (pageMonth < 0) 11 else pageMonth
 
     override fun onItemClick(adapterView: AdapterView<*>, view: View, position: Int, id: Long) {
         val day = GregorianCalendar()
         day.time = adapterView.getItemAtPosition(position) as Date
 
-        if (mCalendarProperties.onDayClickListener != null) {
+        if (calendarProperties.onDayClickListener != null) {
             onClick(day)
         }
 
-        when (mCalendarProperties.calendarType) {
+        when (calendarProperties.calendarType) {
             CalendarView.ONE_DAY_PICKER -> selectOneDay(view, day)
             CalendarView.MANY_DAYS_PICKER -> selectManyDays(view, day)
             CalendarView.RANGE_PICKER -> selectRange(view, day)
-            CalendarView.CLASSIC -> mCalendarPageAdapter.selectedDay = SelectedDay(view, day)
+            CalendarView.CLASSIC -> calendarPageAdapter.selectedDay = SelectedDay(view, day)
         }
     }
 
     private fun selectOneDay(view: View, day: Calendar) {
-        val previousSelectedDay = mCalendarPageAdapter.selectedDay
+        val previousSelectedDay = calendarPageAdapter.selectedDay
 
         val dayLabel = view.findViewById<View>(R.id.dayLabel) as TextView
 
@@ -63,13 +61,13 @@ class DayRowClickListener(private val mCalendarPageAdapter: CalendarPageAdapter,
         if (isCurrentMonthDay(day) && isActiveDay(day)) {
             val selectedDay = SelectedDay(dayLabel, day)
 
-            if (!mCalendarPageAdapter.selectedDays.contains(selectedDay)) {
-                DayColorsUtils.setSelectedDayColors(dayLabel, mCalendarProperties)
+            if (!calendarPageAdapter.selectedDays.contains(selectedDay)) {
+                DayColorsUtils.setSelectedDayColors(dayLabel, calendarProperties)
             } else {
                 reverseUnselectedColor(selectedDay)
             }
 
-            mCalendarPageAdapter.addSelectedDay(selectedDay)
+            calendarPageAdapter.addSelectedDay(selectedDay)
         }
     }
 
@@ -80,7 +78,7 @@ class DayRowClickListener(private val mCalendarPageAdapter: CalendarPageAdapter,
             return
         }
 
-        val selectedDays = mCalendarPageAdapter.selectedDays
+        val selectedDays = calendarPageAdapter.selectedDays
 
         if (selectedDays.size > 1) {
             clearAndSelectOne(dayLabel, day)
@@ -96,43 +94,44 @@ class DayRowClickListener(private val mCalendarPageAdapter: CalendarPageAdapter,
     }
 
     private fun clearAndSelectOne(dayLabel: TextView, day: Calendar) {
-        Stream.of(mCalendarPageAdapter.selectedDays).forEach { this.reverseUnselectedColor(it) }
+        calendarPageAdapter.selectedDays.forEach { this.reverseUnselectedColor(it) }
         selectDay(dayLabel, day)
     }
 
     private fun selectOneAndRange(dayLabel: TextView, day: Calendar) {
-        val previousSelectedDay = mCalendarPageAdapter.selectedDay
+        val previousSelectedDay = calendarPageAdapter.selectedDay
 
-        Stream.of(CalendarUtils.getDatesRange(previousSelectedDay.calendar!!, day))
-                .filter { calendar -> !mCalendarProperties.disabledDays.contains(calendar) }
-                .forEach { calendar -> mCalendarPageAdapter.addSelectedDay(SelectedDay(calendar)) }
+        previousSelectedDay.calendar?.let {
+            CalendarUtils.getDatesRange(it, day)
+                    .filter { calendar -> !calendarProperties.disabledDays.contains(calendar) }
+                    .forEach { calendar -> calendarPageAdapter.addSelectedDay(SelectedDay(calendar)) }
+        }
 
-        DayColorsUtils.setSelectedDayColors(dayLabel, mCalendarProperties)
+        DayColorsUtils.setSelectedDayColors(dayLabel, calendarProperties)
 
-        mCalendarPageAdapter.addSelectedDay(SelectedDay(dayLabel, day))
-        mCalendarPageAdapter.notifyDataSetChanged()
+        calendarPageAdapter.addSelectedDay(SelectedDay(dayLabel, day))
+        calendarPageAdapter.notifyDataSetChanged()
     }
 
     private fun selectDay(dayLabel: TextView, day: Calendar) {
-        DayColorsUtils.setSelectedDayColors(dayLabel, mCalendarProperties)
-        mCalendarPageAdapter.selectedDay = SelectedDay(dayLabel, day)
+        DayColorsUtils.setSelectedDayColors(dayLabel, calendarProperties)
+        calendarPageAdapter.selectedDay = SelectedDay(dayLabel, day)
     }
 
     private fun reverseUnselectedColor(selectedDay: SelectedDay) {
         DayColorsUtils.setCurrentMonthDayColors(selectedDay.calendar!!,
-                DateUtils.calendar, selectedDay.view as TextView, mCalendarProperties)
+                DateUtils.calendar, selectedDay.view as TextView, calendarProperties)
     }
 
-    private fun isCurrentMonthDay(day: Calendar): Boolean {
-        return day.get(Calendar.MONTH) == mPageMonth && isBetweenMinAndMax(day)
-    }
+    private fun isCurrentMonthDay(day: Calendar) = day.get(Calendar.MONTH) == mPageMonth && isBetweenMinAndMax(day)
 
-    private fun isActiveDay(day: Calendar): Boolean {
-        return !mCalendarProperties.disabledDays.contains(day)
-    }
+    private fun isActiveDay(day: Calendar) = !calendarProperties.disabledDays.contains(day)
 
     private fun isBetweenMinAndMax(day: Calendar?): Boolean {
-        return !(mCalendarProperties.minimumDate != null && day!!.before(mCalendarProperties.minimumDate) || mCalendarProperties.maximumDate != null && day!!.after(mCalendarProperties.maximumDate))
+        if (day == null) {
+            return false
+        }
+        return !(calendarProperties.minimumDate != null && day.before(calendarProperties.minimumDate) || calendarProperties.maximumDate != null && day.after(calendarProperties.maximumDate))
     }
 
     private fun isAnotherDaySelected(selectedDay: SelectedDay?, day: Calendar): Boolean {
@@ -141,12 +140,12 @@ class DayRowClickListener(private val mCalendarPageAdapter: CalendarPageAdapter,
     }
 
     private fun onClick(day: Calendar) {
-        if (mCalendarProperties.eventDays.isEmpty()) {
+        if (calendarProperties.eventDays.isEmpty()) {
             createEmptyEventDay(day)
             return
         }
 
-        mCalendarProperties.eventDays.first { eventDate -> eventDate.calendar != day }.let {
+        calendarProperties.eventDays.first { eventDate -> eventDate.calendar != day }.let {
             this.callOnClickListener(it)
         }
     }
@@ -158,9 +157,9 @@ class DayRowClickListener(private val mCalendarPageAdapter: CalendarPageAdapter,
     }
 
     private fun callOnClickListener(eventDay: EventDay) {
-        mCalendarProperties.disabledDays.contains(eventDay.calendar) || !isBetweenMinAndMax(eventDay.calendar).apply {
+        calendarProperties.disabledDays.contains(eventDay.calendar) || !isBetweenMinAndMax(eventDay.calendar).apply {
             eventDay.isEnabled = this
-            mCalendarProperties.onDayClickListener?.onDayClick(eventDay)
+            calendarProperties.onDayClickListener?.onDayClick(eventDay)
         }
     }
 }

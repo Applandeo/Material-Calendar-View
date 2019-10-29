@@ -21,13 +21,15 @@ object AppearanceUtils {
 
     fun setAbbreviationsLabels(view: View, color: Int, firstDayOfWeek: Int) {
         val labels = ArrayList<TextView>()
-        labels.add(view.findViewById<View>(R.id.mondayLabel) as TextView)
-        labels.add(view.findViewById<View>(R.id.tuesdayLabel) as TextView)
-        labels.add(view.findViewById<View>(R.id.wednesdayLabel) as TextView)
-        labels.add(view.findViewById<View>(R.id.thursdayLabel) as TextView)
-        labels.add(view.findViewById<View>(R.id.fridayLabel) as TextView)
-        labels.add(view.findViewById<View>(R.id.saturdayLabel) as TextView)
-        labels.add(view.findViewById<View>(R.id.sundayLabel) as TextView)
+        with(labels) {
+            add(view.findViewById<View>(R.id.mondayLabel) as TextView)
+            add(view.findViewById<View>(R.id.tuesdayLabel) as TextView)
+            add(view.findViewById<View>(R.id.wednesdayLabel) as TextView)
+            add(view.findViewById<View>(R.id.thursdayLabel) as TextView)
+            add(view.findViewById<View>(R.id.fridayLabel) as TextView)
+            add(view.findViewById<View>(R.id.saturdayLabel) as TextView)
+            add(view.findViewById<View>(R.id.sundayLabel) as TextView)
+        }
 
         val abbreviations = view.context.resources.getStringArray(R.array.material_calendar_day_abbreviations_array)
         for (i in 0..6) {
@@ -43,8 +45,7 @@ object AppearanceUtils {
     fun setHeaderColor(view: View, color: Int) {
         if (color == 0) return
 
-        val calendarHeader = view.findViewById<View>(R.id.calendarHeader) as ConstraintLayout
-        calendarHeader.setBackgroundColor(color)
+        (view.findViewById<View>(R.id.calendarHeader) as ConstraintLayout).setBackgroundColor(color)
     }
 
     fun setHeaderLabelColor(view: View, color: Int) {
@@ -78,12 +79,10 @@ object AppearanceUtils {
     }
 
     fun setHeaderVisibility(view: View, visibility: Int) {
-        val calendarHeader = view.findViewById<ConstraintLayout>(R.id.calendarHeader)
-        calendarHeader.visibility = visibility
+        view.findViewById<ConstraintLayout>(R.id.calendarHeader).visibility = visibility
     }
 
     fun setAbbreviationsBarVisibility(view: View, visibility: Int) {
-        val calendarAbbreviationsBar = view.findViewById<LinearLayout>(R.id.abbreviationsBar)
-        calendarAbbreviationsBar.visibility = visibility
+        view.findViewById<LinearLayout>(R.id.abbreviationsBar).visibility = visibility
     }
 }

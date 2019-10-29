@@ -105,7 +105,7 @@ class CalendarView : LinearLayout {
             val calendar = calendarProperties.firstPageCalendarDate?.clone() as Calendar
             return calendar.apply {
                 set(Calendar.DAY_OF_MONTH, 1)
-                add(Calendar.MONTH, viewPager!!.currentItem)
+                viewPager?.currentItem?.let { add(Calendar.MONTH, it) }
             }
         }
 
@@ -159,66 +159,42 @@ class CalendarView : LinearLayout {
 
     private fun initCalendarProperties(typedArray: TypedArray) {
         with(calendarProperties) {
-            this.headerColor = typedArray.getColor(R.styleable.CalendarView_headerColor, 0)
-
-            this.headerLabelColor = typedArray.getColor(R.styleable.CalendarView_headerLabelColor, 0)
-
-            this.abbreviationsBarColor = typedArray.getColor(R.styleable.CalendarView_abbreviationsBarColor, 0)
-
-            this.abbreviationsLabelsColor = typedArray.getColor(R.styleable.CalendarView_abbreviationsLabelsColor, 0)
-
-            this.pagesColor = typedArray.getColor(R.styleable.CalendarView_pagesColor, 0)
-
-            this.daysLabelsColor = typedArray.getColor(R.styleable.CalendarView_daysLabelsColor, 0)
-
-            this.anotherMonthsDaysLabelsColor = typedArray.getColor(R.styleable.CalendarView_anotherMonthsDaysLabelsColor, 0)
-
-            this.todayLabelColor = typedArray.getColor(R.styleable.CalendarView_todayLabelColor, 0)
-
-            this.selectionColor = typedArray.getColor(R.styleable.CalendarView_selectionColor, 0)
-
-            this.selectionLabelColor = typedArray.getColor(R.styleable.CalendarView_selectionLabelColor, 0)
-
-            this.disabledDaysLabelsColor = typedArray.getColor(R.styleable.CalendarView_disabledDaysLabelsColor, 0)
-
-            this.highlightedDaysLabelsColor = typedArray.getColor(R.styleable.CalendarView_highlightedDaysLabelsColor, 0)
-
-            this.calendarType = typedArray.getInt(R.styleable.CalendarView_type, CLASSIC)
-
+            headerColor = typedArray.getColor(R.styleable.CalendarView_headerColor, 0)
+            headerLabelColor = typedArray.getColor(R.styleable.CalendarView_headerLabelColor, 0)
+            abbreviationsBarColor = typedArray.getColor(R.styleable.CalendarView_abbreviationsBarColor, 0)
+            abbreviationsLabelsColor = typedArray.getColor(R.styleable.CalendarView_abbreviationsLabelsColor, 0)
+            pagesColor = typedArray.getColor(R.styleable.CalendarView_pagesColor, 0)
+            daysLabelsColor = typedArray.getColor(R.styleable.CalendarView_daysLabelsColor, 0)
+            anotherMonthsDaysLabelsColor = typedArray.getColor(R.styleable.CalendarView_anotherMonthsDaysLabelsColor, 0)
+            todayLabelColor = typedArray.getColor(R.styleable.CalendarView_todayLabelColor, 0)
+            selectionColor = typedArray.getColor(R.styleable.CalendarView_selectionColor, 0)
+            selectionLabelColor = typedArray.getColor(R.styleable.CalendarView_selectionLabelColor, 0)
+            disabledDaysLabelsColor = typedArray.getColor(R.styleable.CalendarView_disabledDaysLabelsColor, 0)
+            highlightedDaysLabelsColor = typedArray.getColor(R.styleable.CalendarView_highlightedDaysLabelsColor, 0)
+            calendarType = typedArray.getInt(R.styleable.CalendarView_type, CLASSIC)
             // Set picker mode !DEPRECATED!
             if (typedArray.getBoolean(R.styleable.CalendarView_datePicker, false)) {
-                this.calendarType = ONE_DAY_PICKER
+                calendarType = ONE_DAY_PICKER
             }
 
-            this.eventsEnabled = typedArray.getBoolean(R.styleable.CalendarView_eventsEnabled,
-                    calendarProperties.calendarType == CLASSIC)
-
-            this.swipeEnabled = typedArray.getBoolean(R.styleable.CalendarView_swipeEnabled, true)
-
-            this.previousButtonSrc = typedArray.getDrawable(R.styleable.CalendarView_previousButtonSrc)
-
-            this.forwardButtonSrc = typedArray.getDrawable(R.styleable.CalendarView_forwardButtonSrc)
+            eventsEnabled = typedArray.getBoolean(R.styleable.CalendarView_eventsEnabled,
+               calendarProperties.calendarType == CLASSIC)
+            swipeEnabled = typedArray.getBoolean(R.styleable.CalendarView_swipeEnabled, true)
+            previousButtonSrc = typedArray.getDrawable(R.styleable.CalendarView_previousButtonSrc)
+            forwardButtonSrc = typedArray.getDrawable(R.styleable.CalendarView_forwardButtonSrc)
         }
 
     }
 
     private fun initAttributes() {
         AppearanceUtils.setHeaderColor(rootView, calendarProperties.headerColor)
-
         AppearanceUtils.setHeaderVisibility(rootView, calendarProperties.headerVisibility)
-
         AppearanceUtils.setAbbreviationsBarVisibility(rootView, calendarProperties.abbreviationsBarVisibility)
-
         AppearanceUtils.setHeaderLabelColor(rootView, calendarProperties.headerLabelColor)
-
         AppearanceUtils.setAbbreviationsBarColor(rootView, calendarProperties.abbreviationsBarColor)
-
         AppearanceUtils.setPagesColor(rootView, calendarProperties.pagesColor)
-
         AppearanceUtils.setPreviousButtonImage(rootView, calendarProperties.previousButtonSrc)
-
         AppearanceUtils.setForwardButtonImage(rootView, calendarProperties.forwardButtonSrc)
-
         viewPager?.setSwipeEnabled(calendarProperties.swipeEnabled)
 
         calendarProperties.firstPageCalendarDate?.firstDayOfWeek?.let {

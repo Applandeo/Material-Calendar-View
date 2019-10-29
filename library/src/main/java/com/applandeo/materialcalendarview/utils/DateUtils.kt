@@ -1,11 +1,8 @@
 package com.applandeo.materialcalendarview.utils
 
 import android.content.Context
-
-import com.annimon.stream.Stream
 import com.applandeo.materialcalendarview.R
-
-import java.util.Calendar
+import java.util.*
 import java.util.concurrent.TimeUnit
 
 /**

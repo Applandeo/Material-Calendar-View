@@ -40,8 +40,10 @@ class DatePicker(private val mContext: Context, private val mCalendarProperties:
         setDialogButtonsColors()
         setOkButtonState(mCalendarProperties.calendarType == CalendarView.ONE_DAY_PICKER)
 
-        mCalendarProperties.onSelectionAbilityListener = OnSelectionAbilityListener {
-            setOkButtonState(it)
+        mCalendarProperties.onSelectionAbilityListener = object : OnSelectionAbilityListener {
+            override fun onChange(enabled: Boolean) {
+                setOkButtonState(enabled)
+            }
         }
 
         val calendarView = CalendarView(mContext, mCalendarProperties)

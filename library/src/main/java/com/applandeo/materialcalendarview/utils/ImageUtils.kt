@@ -22,7 +22,7 @@ object ImageUtils {
         if (image is Drawable) {
             drawable = image
         } else if (image is Int) {
-            drawable = ContextCompat.getDrawable(imageView.context, (image as Int?)!!)
+            drawable = ContextCompat.getDrawable(imageView.context, image)
         }
 
         if (drawable == null) {
