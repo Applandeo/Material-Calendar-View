@@ -26,7 +26,7 @@ class DayRowClickListener(
         private val calendarProperties: CalendarProperties,
         pageMonth: Int
 ) : AdapterView.OnItemClickListener {
-    private val mPageMonth: Int = if (pageMonth < 0) 11 else pageMonth
+    private val mPageMonth = if (pageMonth < 0) 11 else pageMonth
 
     override fun onItemClick(adapterView: AdapterView<*>, view: View, position: Int, id: Long) {
         val day = GregorianCalendar()
@@ -119,25 +119,25 @@ class DayRowClickListener(
     }
 
     private fun reverseUnselectedColor(selectedDay: SelectedDay) {
-        DayColorsUtils.setCurrentMonthDayColors(selectedDay.calendar!!,
-                DateUtils.calendar, selectedDay.view as TextView, calendarProperties)
+        selectedDay.calendar?.let {
+            DayColorsUtils.setCurrentMonthDayColors(it,
+                    DateUtils.calendar, selectedDay.view as TextView, calendarProperties)
+        }
     }
 
     private fun isCurrentMonthDay(day: Calendar) = day.get(Calendar.MONTH) == mPageMonth && isBetweenMinAndMax(day)
 
-    private fun isActiveDay(day: Calendar) = !calendarProperties.disabledDays.contains(day)
+    private fun isActiveDay(day: Calendar) = calendarProperties.disabledDays.contains(day).not()
 
     private fun isBetweenMinAndMax(day: Calendar?): Boolean {
-        if (day == null) {
-            return false
-        }
+        if (day == null) return false
+
         return !(calendarProperties.minimumDate != null && day.before(calendarProperties.minimumDate) || calendarProperties.maximumDate != null && day.after(calendarProperties.maximumDate))
     }
 
-    private fun isAnotherDaySelected(selectedDay: SelectedDay?, day: Calendar): Boolean {
-        return (selectedDay != null && day != selectedDay.calendar
+    private fun isAnotherDaySelected(selectedDay: SelectedDay?, day: Calendar) =
+        (selectedDay != null && day != selectedDay.calendar
                 && isCurrentMonthDay(day) && isActiveDay(day))
-    }
 
     private fun onClick(day: Calendar) {
         if (calendarProperties.eventDays.isEmpty()) {

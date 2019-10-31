@@ -67,7 +67,7 @@ class CalendarPageAdapter(
     }
 
     fun addSelectedDay(selectedDay: SelectedDay) {
-        if (!calendarProperties.selectedDays.contains(selectedDay)) {
+        if (calendarProperties.selectedDays.contains(selectedDay).not()) {
             calendarProperties.selectedDays.add(selectedDay)
             informDatePicker()
             return

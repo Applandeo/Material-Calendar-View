@@ -25,7 +25,8 @@ internal class CalendarDayAdapter(
         private val calendarPageAdapter: CalendarPageAdapter,
         context: Context,
         private val calendarProperties: CalendarProperties,
-        dates: ArrayList<Date>, pageMonth: Int
+        dates: ArrayList<Date>,
+        pageMonth: Int
 ) : ArrayAdapter<Date>(context, calendarProperties.itemLayoutResource, dates) {
 
     private val layoutInflater: LayoutInflater = LayoutInflater.from(context)
@@ -39,12 +40,12 @@ internal class CalendarDayAdapter(
                     val day = GregorianCalendar()
                     day.time = getItem(position)
 
-                    this.findViewById<TextView>(R.id.dayLabel)?.let { textView ->
+                    findViewById<TextView>(R.id.dayLabel)?.let { textView ->
                         setLabelColors(textView, day)
                         textView.text = day.get(Calendar.DAY_OF_MONTH).toString()
                     }
 
-                    this.findViewById<ImageView>(R.id.dayIcon)?.let { imageView ->
+                    findViewById<ImageView>(R.id.dayIcon)?.let { imageView ->
                         // Loading an image of the event
                         loadIcon(imageView, day)
                     }
@@ -53,7 +54,7 @@ internal class CalendarDayAdapter(
 
     private fun setLabelColors(dayLabel: TextView, day: Calendar) {
         // Setting not current month day color
-        if (!isCurrentMonthDay(day)) {
+        if (isCurrentMonthDay(day).not()) {
             DayColorsUtils.setDayColors(dayLabel, calendarProperties.anotherMonthsDaysLabelsColor,
                     Typeface.NORMAL, R.drawable.background_transparent)
             return
@@ -70,7 +71,7 @@ internal class CalendarDayAdapter(
         }
 
         // Setting disabled days color
-        if (!isActiveDay(day)) {
+        if (isActiveDay(day).not()) {
             DayColorsUtils.setDayColors(dayLabel, calendarProperties.disabledDaysLabelsColor,
                     Typeface.NORMAL, R.drawable.background_transparent)
             return

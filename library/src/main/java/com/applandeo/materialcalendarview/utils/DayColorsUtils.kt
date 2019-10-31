@@ -27,13 +27,11 @@ object DayColorsUtils {
      */
     @JvmStatic
     fun setDayColors(textView: TextView?, textColor: Int, typeface: Int, background: Int) {
-        if (textView == null) {
-            return
+        textView?.run {
+            setTypeface(null, typeface)
+            setTextColor(textColor)
+            setBackgroundResource(background)
         }
-
-        textView.setTypeface(null, typeface)
-        textView.setTextColor(textColor)
-        textView.setBackgroundResource(background)
     }
 
     /**

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
     <declare-styleable name="CalendarView">
-        <attr name="headerColor" format="color" />
+        <attr name="headerColor" format="color|reference" />
         <attr name="headerLabelColor" format="color" />
         <attr name="previousButtonSrc" format="integer" />
         <attr name="forwardButtonSrc" format="integer" />

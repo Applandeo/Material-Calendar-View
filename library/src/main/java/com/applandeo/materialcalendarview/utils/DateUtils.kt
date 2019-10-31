@@ -15,10 +15,8 @@ object DateUtils {
      * @return An instance of the Calendar object with hour set to 00:00:00:00
      */
     val calendar: Calendar
-        get() {
-            return Calendar.getInstance().also {
-                setMidnight(it)
-            }
+        get() = Calendar.getInstance().also {
+            setMidnight(it)
         }
 
     /**
@@ -84,11 +82,9 @@ object DateUtils {
      * @param calendar A Calendar object containing date which will be formatted
      * @return A string of the formatted date containing a month's name and a year (in number)
      */
-    fun getMonthAndYearDate(context: Context, calendar: Calendar): String {
-        return String.format("%s  %s",
-                context.resources.getStringArray(R.array.material_calendar_months_array)[calendar.get(Calendar.MONTH)],
-                calendar.get(Calendar.YEAR))
-    }
+    fun getMonthAndYearDate(context: Context, calendar: Calendar) = String.format("%s  %s",
+            context.resources.getStringArray(R.array.material_calendar_months_array)[calendar.get(Calendar.MONTH)],
+            calendar.get(Calendar.YEAR))
 
     /**
      * This method is used to count a number of months between two dates

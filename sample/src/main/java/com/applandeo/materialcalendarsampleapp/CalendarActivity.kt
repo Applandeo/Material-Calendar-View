@@ -65,7 +65,7 @@ class CalendarActivity : AppCompatActivity() {
         calendar3.add(Calendar.DAY_OF_MONTH, 7)
         calendar4.add(Calendar.DAY_OF_MONTH, 13)
 
-        with(events) {
+        events.apply {
             add(EventDay(calendar1, R.drawable.sample_icon_2))
             add(EventDay(calendar2, R.drawable.sample_icon_3))
             add(EventDay(calendar3, R.drawable.sample_four_icons))
@@ -81,7 +81,7 @@ class CalendarActivity : AppCompatActivity() {
         val max = Calendar.getInstance()
         max.add(Calendar.MONTH, 2)
 
-        with(calendarView) {
+        calendarView.apply {
             setMinimumDate(min)
             setMaximumDate(max)
             setEvents(events)

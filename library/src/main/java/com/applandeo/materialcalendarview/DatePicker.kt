@@ -19,7 +19,10 @@ import com.applandeo.materialcalendarview.utils.DateUtils
  * Created by Mateusz Kornakiewicz on 27.07.2017.
  */
 
-class DatePicker(private val mContext: Context, private val mCalendarProperties: CalendarProperties) {
+class DatePicker(
+        private val mContext: Context,
+        private val mCalendarProperties: CalendarProperties
+) {
     private var mCancelButton: AppCompatButton? = null
     private var mOkButton: AppCompatButton? = null
     private var mTodayButton: AppCompatButton? = null
@@ -64,7 +67,7 @@ class DatePicker(private val mContext: Context, private val mCalendarProperties:
 
         mOkButton?.setOnClickListener { _ ->
             alertDialog.cancel()
-            mCalendarProperties.onSelectDateListener!!.onSelect(calendarView.selectedDates)
+            mCalendarProperties.onSelectDateListener?.onSelect(calendarView.selectedDates)
         }
 
         mTodayButton?.setOnClickListener { _ -> calendarView.showCurrentMonthPage() }
@@ -85,7 +88,7 @@ class DatePicker(private val mContext: Context, private val mCalendarProperties:
         mOkButton?.isEnabled = enabled
 
         if (mCalendarProperties.dialogButtonsColor != 0) {
-            mOkButton!!.setTextColor(ContextCompat.getColor(mContext, if (enabled)
+            mOkButton?.setTextColor(ContextCompat.getColor(mContext, if (enabled)
                 mCalendarProperties.dialogButtonsColor
             else
                 R.color.disabledDialogButtonColor))
@@ -94,7 +97,7 @@ class DatePicker(private val mContext: Context, private val mCalendarProperties:
 
     private fun setTodayButtonVisibility() {
         if (DateUtils.isMonthAfter(mCalendarProperties.maximumDate, DateUtils.calendar) || DateUtils.isMonthBefore(mCalendarProperties.minimumDate, DateUtils.calendar)) {
-            mTodayButton!!.visibility = View.GONE
+            mTodayButton?.visibility = View.GONE
         }
     }
 }

@@ -26,10 +26,10 @@ class CalendarViewPager : ViewPager {
             val child = getChildAt(i)
             child.measure(widthMeasureSpec, MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED))
 
-            val h = child.measuredHeight
+            val measuredHeight = child.measuredHeight
 
-            if (h > height) {
-                height = h
+            if (measuredHeight > height) {
+                height = measuredHeight
             }
         }
 
@@ -44,12 +44,10 @@ class CalendarViewPager : ViewPager {
         this.swipeEnabled = swipeEnabled
     }
 
-    override fun onTouchEvent(event: MotionEvent): Boolean {
-        return swipeEnabled && super.onTouchEvent(event)
-    }
+    override fun onTouchEvent(event: MotionEvent)
+            = swipeEnabled && super.onTouchEvent(event)
 
-    override fun onInterceptTouchEvent(event: MotionEvent): Boolean {
-        return swipeEnabled && super.onInterceptTouchEvent(event)
-    }
+    override fun onInterceptTouchEvent(event: MotionEvent)
+            = swipeEnabled && super.onInterceptTouchEvent(event)
 
 }

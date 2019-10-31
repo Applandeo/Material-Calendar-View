@@ -16,7 +16,8 @@ import java.util.*
  */
 class DatePickerBuilder(
         private val context: Context,
-        onSelectDateListener: OnSelectDateListener) {
+        onSelectDateListener: OnSelectDateListener
+) {
     private val calendarProperties: CalendarProperties = CalendarProperties(context)
 
     init {

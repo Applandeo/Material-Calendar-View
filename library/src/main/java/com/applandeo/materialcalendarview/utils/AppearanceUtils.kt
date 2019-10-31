@@ -21,7 +21,7 @@ object AppearanceUtils {
 
     fun setAbbreviationsLabels(view: View, color: Int, firstDayOfWeek: Int) {
         val labels = ArrayList<TextView>()
-        with(labels) {
+        labels.apply {
             add(view.findViewById<View>(R.id.mondayLabel) as TextView)
             add(view.findViewById<View>(R.id.tuesdayLabel) as TextView)
             add(view.findViewById<View>(R.id.wednesdayLabel) as TextView)

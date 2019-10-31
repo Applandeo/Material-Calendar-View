@@ -51,9 +51,7 @@ class MainActivity : AppCompatActivity(), OnSelectDateListener {
         val max = Calendar.getInstance()
         max.add(Calendar.DAY_OF_MONTH, 3)
 
-        val oneDayBuilder = DatePickerBuilder(this, this)
-
-        with(oneDayBuilder) {
+        DatePickerBuilder(this, this).apply {
             pickerType(CalendarView.ONE_DAY_PICKER)
             date(max)
             headerColor(R.color.colorPrimaryDark)
@@ -67,10 +65,7 @@ class MainActivity : AppCompatActivity(), OnSelectDateListener {
             minimumDate(min)
             maximumDate(max)
             disabledDays(disabledDays())
-        }
-
-        val oneDayPicker = oneDayBuilder.build()
-        oneDayPicker.show()
+        }.build().show()
     }
 
     private fun openManyDaysPicker() {
@@ -84,8 +79,7 @@ class MainActivity : AppCompatActivity(), OnSelectDateListener {
         selectedDays.add(min)
         selectedDays.add(max)
 
-        val manyDaysBuilder = DatePickerBuilder(this, this)
-        with(manyDaysBuilder) {
+        DatePickerBuilder(this, this).apply {
             pickerType(CalendarView.MANY_DAYS_PICKER)
             headerColor(android.R.color.holo_green_dark)
             selectionColor(android.R.color.holo_green_dark)
@@ -93,10 +87,7 @@ class MainActivity : AppCompatActivity(), OnSelectDateListener {
             dialogButtonsColor(android.R.color.holo_green_dark)
             selectedDays(selectedDays)
             disabledDays(disabledDays())
-        }
-
-        val manyDaysPicker = manyDaysBuilder.build()
-        manyDaysPicker.show()
+        }.build().show()
     }
 
     private fun openRangePicker() {
@@ -111,8 +102,7 @@ class MainActivity : AppCompatActivity(), OnSelectDateListener {
         selectedDays.addAll(CalendarUtils.getDatesRange(min, max))
         selectedDays.add(max)
 
-        val rangeBuilder = DatePickerBuilder(this, this)
-        with(rangeBuilder) {
+        DatePickerBuilder(this, this).apply {
             pickerType(CalendarView.RANGE_PICKER)
             headerColor(R.color.sampleDark)
             abbreviationsBarColor(R.color.sampleLight)
@@ -126,10 +116,7 @@ class MainActivity : AppCompatActivity(), OnSelectDateListener {
             anotherMonthsDaysLabelsColor(R.color.sampleLighter)
             selectedDays(selectedDays)
             disabledDays(disabledDays())
-        }
-
-        val rangePicker = rangeBuilder.build()
-        rangePicker.show()
+        }.build().show()
     }
 
 

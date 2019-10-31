@@ -1,8 +1,8 @@
 package com.applandeo.materialcalendarview.utils
 
 import android.graphics.drawable.Drawable
-import androidx.core.content.ContextCompat
 import android.widget.ImageView
+import androidx.core.content.ContextCompat
 
 /**
  * This class is used to load event image in a day cell
@@ -25,10 +25,6 @@ object ImageUtils {
             drawable = ContextCompat.getDrawable(imageView.context, image)
         }
 
-        if (drawable == null) {
-            return
-        }
-
-        imageView.setImageDrawable(drawable)
+        drawable?.let { imageView.setImageDrawable(it) }
     }
 }

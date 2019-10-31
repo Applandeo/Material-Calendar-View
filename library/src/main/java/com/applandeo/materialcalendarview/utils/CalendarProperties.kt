@@ -50,7 +50,7 @@ class CalendarProperties(private val mContext: Context) {
 
     var dialogButtonsColor: Int = 0
 
-    var itemLayoutResource: Int = R.layout.calendar_view_day
+    var itemLayoutResource: Int = 0
 
     var disabledDaysLabelsColor: Int = 0
         get() = if (field == 0) {
