@@ -1,88 +1,78 @@
+@file:JvmName("AppearanceUtils")
+
 package com.applandeo.materialcalendarview.utils
 
 import android.graphics.drawable.Drawable
-
-import androidx.constraintlayout.widget.ConstraintLayout
-
 import android.view.View
 import android.widget.ImageButton
 import android.widget.LinearLayout
 import android.widget.TextView
-
+import androidx.constraintlayout.widget.ConstraintLayout
 import com.applandeo.materialcalendarview.R
-
-import java.util.ArrayList
+import kotlinx.android.synthetic.main.calendar_view.view.*
+import java.util.*
 
 /**
  * Created by Mateusz Kornakiewicz on 04.01.2018.
  */
 
-object AppearanceUtils {
+fun View.setAbbreviationsLabels(color: Int, firstDayOfWeek: Int) {
+    val labels = ArrayList<TextView>()
+    labels.apply {
+        mondayLabel
+        tuesdayLabel
+        wednesdayLabel
+        thursdayLabel
+        fridayLabel
+        saturdayLabel
+        sundayLabel
+    }
 
-    fun setAbbreviationsLabels(view: View, color: Int, firstDayOfWeek: Int) {
-        val labels = ArrayList<TextView>()
-        labels.apply {
-            add(view.findViewById<View>(R.id.mondayLabel) as TextView)
-            add(view.findViewById<View>(R.id.tuesdayLabel) as TextView)
-            add(view.findViewById<View>(R.id.wednesdayLabel) as TextView)
-            add(view.findViewById<View>(R.id.thursdayLabel) as TextView)
-            add(view.findViewById<View>(R.id.fridayLabel) as TextView)
-            add(view.findViewById<View>(R.id.saturdayLabel) as TextView)
-            add(view.findViewById<View>(R.id.sundayLabel) as TextView)
-        }
+    val abbreviations = this.context.resources.getStringArray(R.array.material_calendar_day_abbreviations_array)
+    for (i in 0..6) {
+        val label = labels[i]
+        label.text = abbreviations[(i + firstDayOfWeek - 1) % 7]
 
-        val abbreviations = view.context.resources.getStringArray(R.array.material_calendar_day_abbreviations_array)
-        for (i in 0..6) {
-            val label = labels[i]
-            label.text = abbreviations[(i + firstDayOfWeek - 1) % 7]
-
-            if (color != 0) {
-                label.setTextColor(color)
-            }
+        if (color != 0) {
+            label.setTextColor(color)
         }
     }
+}
 
-    fun setHeaderColor(view: View, color: Int) {
-        if (color == 0) return
+fun View.setHeaderColor(color: Int) {
+    if (color == 0) return
+    (this.findViewById<View>(R.id.calendarHeader) as ConstraintLayout).setBackgroundColor(color)
+}
 
-        (view.findViewById<View>(R.id.calendarHeader) as ConstraintLayout).setBackgroundColor(color)
-    }
+fun View.setHeaderLabelColor(color: Int) {
+    if (color == 0) return
+    (this.findViewById<View>(R.id.currentDateLabel) as TextView).setTextColor(color)
+}
 
-    fun setHeaderLabelColor(view: View, color: Int) {
-        if (color == 0) return
+fun View.setAbbreviationsBarColor(color: Int) {
+    if (color == 0) return
+    this.findViewById<View>(R.id.abbreviationsBar).setBackgroundColor(color)
+}
 
-        (view.findViewById<View>(R.id.currentDateLabel) as TextView).setTextColor(color)
-    }
+fun View.setPagesColor(color: Int) {
+    if (color == 0) return
+    this.findViewById<View>(R.id.calendarViewPager).setBackgroundColor(color)
+}
 
-    fun setAbbreviationsBarColor(view: View, color: Int) {
-        if (color == 0) return
+fun View.setPreviousButtonImage(drawable: Drawable?) {
+    if (drawable == null) return
+    (this.findViewById<View>(R.id.previousButton) as ImageButton).setImageDrawable(drawable)
+}
 
-        view.findViewById<View>(R.id.abbreviationsBar).setBackgroundColor(color)
-    }
+fun View.setForwardButtonImage(drawable: Drawable?) {
+    if (drawable == null) return
+    (this.findViewById<View>(R.id.forwardButton) as ImageButton).setImageDrawable(drawable)
+}
 
-    fun setPagesColor(view: View, color: Int) {
-        if (color == 0) return
+fun View.setHeaderVisibility(visibility: Int) {
+    this.findViewById<ConstraintLayout>(R.id.calendarHeader).visibility = visibility
+}
 
-        view.findViewById<View>(R.id.calendarViewPager).setBackgroundColor(color)
-    }
-
-    fun setPreviousButtonImage(view: View, drawable: Drawable?) {
-        if (drawable == null) return
-
-        (view.findViewById<View>(R.id.previousButton) as ImageButton).setImageDrawable(drawable)
-    }
-
-    fun setForwardButtonImage(view: View, drawable: Drawable?) {
-        if (drawable == null) return
-
-        (view.findViewById<View>(R.id.forwardButton) as ImageButton).setImageDrawable(drawable)
-    }
-
-    fun setHeaderVisibility(view: View, visibility: Int) {
-        view.findViewById<ConstraintLayout>(R.id.calendarHeader).visibility = visibility
-    }
-
-    fun setAbbreviationsBarVisibility(view: View, visibility: Int) {
-        view.findViewById<LinearLayout>(R.id.abbreviationsBar).visibility = visibility
-    }
+fun View.setAbbreviationsBarVisibility(visibility: Int) {
+    this.findViewById<LinearLayout>(R.id.abbreviationsBar).visibility = visibility
 }

@@ -2,6 +2,7 @@ package com.applandeo.materialcalendarview.utils
 
 import android.content.Context
 import android.graphics.drawable.Drawable
+import android.text.format.DateUtils
 import androidx.core.content.ContextCompat
 
 import com.applandeo.materialcalendarview.CalendarView
@@ -95,7 +96,7 @@ class CalendarProperties(private val mContext: Context) {
 
     var forwardButtonSrc: Drawable? = null
 
-    val firstPageCalendarDate: Calendar? = DateUtils.calendar
+    val firstPageCalendarDate: Calendar? = getMidnightCalendar
 
     var calendar: Calendar? = null
 
@@ -123,7 +124,7 @@ class CalendarProperties(private val mContext: Context) {
 
             field = disabledDays
                     .map { calendar ->
-                        DateUtils.setMidnight(calendar)
+                        calendar.setMidnight()
                         calendar
                     }.toList()
         }
@@ -132,7 +133,7 @@ class CalendarProperties(private val mContext: Context) {
         set(highlightedDays) {
             field = highlightedDays
                     .map { calendar ->
-                        DateUtils.setMidnight(calendar)
+                        calendar.setMidnight()
                         calendar
                     }.toList()
         }
@@ -151,13 +152,13 @@ class CalendarProperties(private val mContext: Context) {
             throw UnsupportedMethodsException(ErrorsMessages.ONE_DAY_PICKER_MULTIPLE_SELECTION)
         }
 
-        if (calendarType == CalendarView.RANGE_PICKER && !DateUtils.isFullDatesRange(days)) {
+        if (calendarType == CalendarView.RANGE_PICKER && !days.isFullDatesRange()) {
             throw UnsupportedMethodsException(ErrorsMessages.RANGE_PICKER_NOT_RANGE)
         }
 
         selectedDays = days
                 .map { day ->
-                    DateUtils.setMidnight(day)
+                    day.setMidnight()
                     SelectedDay(day)
                 }
                 .filterNot {

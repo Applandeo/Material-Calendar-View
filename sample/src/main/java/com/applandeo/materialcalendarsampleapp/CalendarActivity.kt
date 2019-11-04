@@ -11,7 +11,7 @@ import com.applandeo.materialcalendarsampleapp.utils.getThreeDots
 import com.applandeo.materialcalendarview.EventDay
 import com.applandeo.materialcalendarview.exceptions.OutOfDateRangeException
 import com.applandeo.materialcalendarview.listeners.OnDayClickListener
-import com.applandeo.materialcalendarview.utils.DateUtils
+import com.applandeo.materialcalendarview.utils.getMidnightCalendar
 import kotlinx.android.synthetic.main.calendar_activity.*
 import java.util.*
 
@@ -23,9 +23,9 @@ class CalendarActivity : AppCompatActivity() {
 
     private val disabledDays: List<Calendar>
         get() {
-            val firstDisabled = DateUtils.calendar.apply { add(Calendar.DAY_OF_MONTH, 2) }
-            val secondDisabled = DateUtils.calendar.apply { add(Calendar.DAY_OF_MONTH, 1) }
-            val thirdDisabled = DateUtils.calendar.apply { add(Calendar.DAY_OF_MONTH, 18) }
+            val firstDisabled = getMidnightCalendar.apply { add(Calendar.DAY_OF_MONTH, 2) }
+            val secondDisabled = getMidnightCalendar.apply { add(Calendar.DAY_OF_MONTH, 1) }
+            val thirdDisabled = getMidnightCalendar.apply { add(Calendar.DAY_OF_MONTH, 18) }
 
             return ArrayList<Calendar>().apply {
                 add(firstDisabled)

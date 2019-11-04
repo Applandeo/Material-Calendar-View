@@ -9,7 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.applandeo.materialcalendarview.CalendarView
 import com.applandeo.materialcalendarview.EventDay
 import com.applandeo.materialcalendarview.listeners.OnCalendarPageChangeListener
-import com.applandeo.materialcalendarview.utils.DateUtils
+import com.applandeo.materialcalendarview.utils.getMidnightCalendar
 import java.util.*
 
 /**
@@ -23,7 +23,7 @@ class ManyDaysPickerActivity : AppCompatActivity() {
             val calendars = ArrayList<Calendar>()
 
             for (i in 0..9) {
-                val calendar = DateUtils.calendar
+                val calendar = getMidnightCalendar
                 calendar.add(Calendar.DAY_OF_MONTH, i)
                 calendars.add(calendar)
             }

@@ -3,10 +3,8 @@ package com.applandeo.materialcalendarview
 import android.graphics.drawable.Drawable
 import androidx.annotation.DrawableRes
 import androidx.annotation.RestrictTo
-
-import com.applandeo.materialcalendarview.utils.DateUtils
-
-import java.util.Calendar
+import com.applandeo.materialcalendarview.utils.setMidnight
+import java.util.*
 
 /**
  * This class represents an event of a day. An instance of this class is returned when user click
@@ -53,7 +51,7 @@ class EventDay {
      * @param drawable Drawable resource which will be displayed in a day cell
      */
     constructor(day: Calendar, @DrawableRes drawable: Int, labelColor: Int) {
-        DateUtils.setMidnight(day)
+        day.setMidnight()
         calendar = day
         imageDrawable = drawable
     }
@@ -63,7 +61,7 @@ class EventDay {
      * @param drawable Drawable which will be displayed in a day cell
      */
     constructor(day: Calendar, drawable: Drawable, labelColor: Int) {
-        DateUtils.setMidnight(day)
+        day.setMidnight()
         calendar = day
         imageDrawable = drawable
     }

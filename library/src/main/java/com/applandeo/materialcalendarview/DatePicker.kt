@@ -9,7 +9,9 @@ import androidx.appcompat.widget.AppCompatButton
 import androidx.core.content.ContextCompat
 import com.applandeo.materialcalendarview.listeners.OnSelectionAbilityListener
 import com.applandeo.materialcalendarview.utils.CalendarProperties
-import com.applandeo.materialcalendarview.utils.DateUtils
+import com.applandeo.materialcalendarview.utils.getMidnightCalendar
+import com.applandeo.materialcalendarview.utils.isMonthAfter
+import com.applandeo.materialcalendarview.utils.isMonthBefore
 import kotlinx.android.synthetic.main.date_picker_dialog.view.*
 
 /**
@@ -90,7 +92,8 @@ class DatePicker(
     }
 
     private fun setTodayButtonVisibility(todayButton: AppCompatButton?) {
-        if (DateUtils.isMonthAfter(calendarProperties.maximumDate, DateUtils.calendar) || DateUtils.isMonthBefore(calendarProperties.minimumDate, DateUtils.calendar)) {
+        if (calendarProperties.maximumDate.isMonthAfter(getMidnightCalendar)
+                || calendarProperties.minimumDate.isMonthBefore(getMidnightCalendar)) {
             todayButton?.visibility = View.GONE
         }
     }

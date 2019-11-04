@@ -31,7 +31,7 @@ internal class CalendarDayAdapter(
 
     private val layoutInflater: LayoutInflater = LayoutInflater.from(context)
     private val pageMonth: Int = if (pageMonth < 0) 11 else pageMonth
-    private val today = DateUtils.calendar
+    private val today = getMidnightCalendar
 
     @SuppressLint("ViewHolder")
     override fun getView(position: Int, view: View?, parent: ViewGroup): View {
@@ -55,7 +55,7 @@ internal class CalendarDayAdapter(
     private fun setLabelColors(dayLabel: TextView, day: Calendar) {
         // Setting not current month day color
         if (isCurrentMonthDay(day).not()) {
-            DayColorsUtils.setDayColors(dayLabel, calendarProperties.anotherMonthsDaysLabelsColor,
+            dayLabel.setDayColors(calendarProperties.anotherMonthsDaysLabelsColor,
                     Typeface.NORMAL, R.drawable.background_transparent)
             return
         }
@@ -66,19 +66,19 @@ internal class CalendarDayAdapter(
                     .first { selectedDay -> selectedDay.calendar == day }
                     .run { this.view = dayLabel }
 
-            DayColorsUtils.setSelectedDayColors(dayLabel, calendarProperties)
+            dayLabel.setSelectedDayColors(calendarProperties)
             return
         }
 
         // Setting disabled days color
         if (isActiveDay(day).not()) {
-            DayColorsUtils.setDayColors(dayLabel, calendarProperties.disabledDaysLabelsColor,
+            dayLabel.setDayColors(calendarProperties.disabledDaysLabelsColor,
                     Typeface.NORMAL, R.drawable.background_transparent)
             return
         }
 
         // Setting current month day color
-        DayColorsUtils.setCurrentMonthDayColors(day, today, dayLabel, calendarProperties)
+        day.setCurrentMonthDayColors(today, dayLabel, calendarProperties)
     }
 
     private fun isSelectedDay(day: Calendar) =
@@ -105,7 +105,7 @@ internal class CalendarDayAdapter(
         calendarProperties.eventDays
                 .find { eventDate -> eventDate.calendar == day }
                 ?.let {
-                    ImageUtils.loadImage(dayIcon, it.imageDrawable)
+                    dayIcon.loadImage(it.imageDrawable)
 
                     // If a day doesn't belong to current month then image is transparent
                     if (!isCurrentMonthDay(day) || !isActiveDay(day)) {

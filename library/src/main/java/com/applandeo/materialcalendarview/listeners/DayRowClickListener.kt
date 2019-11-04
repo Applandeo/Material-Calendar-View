@@ -5,10 +5,7 @@ import android.widget.AdapterView
 import android.widget.TextView
 import com.applandeo.materialcalendarview.*
 import com.applandeo.materialcalendarview.adapters.CalendarPageAdapter
-import com.applandeo.materialcalendarview.utils.CalendarProperties
-import com.applandeo.materialcalendarview.utils.DateUtils
-import com.applandeo.materialcalendarview.utils.DayColorsUtils
-import com.applandeo.materialcalendarview.utils.SelectedDay
+import com.applandeo.materialcalendarview.utils.*
 import java.util.*
 
 /**
@@ -111,14 +108,13 @@ class DayRowClickListener(
     }
 
     private fun selectDay(dayLabel: TextView, day: Calendar) {
-        DayColorsUtils.setSelectedDayColors(dayLabel, calendarProperties)
+        dayLabel.setSelectedDayColors(calendarProperties)
         calendarPageAdapter.selectedDay = SelectedDay(dayLabel, day)
     }
 
     private fun reverseUnselectedColor(selectedDay: SelectedDay) {
         selectedDay.calendar?.let {
-            DayColorsUtils.setCurrentMonthDayColors(it,
-                    DateUtils.calendar, selectedDay.view as TextView, calendarProperties)
+            it.setCurrentMonthDayColors(getMidnightCalendar, selectedDay.view as TextView, calendarProperties)
         }
     }
 
