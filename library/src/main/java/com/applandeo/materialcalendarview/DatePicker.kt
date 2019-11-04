@@ -1,16 +1,16 @@
 package com.applandeo.materialcalendarview
 
 import android.content.Context
-import androidx.core.content.ContextCompat
-import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.widget.AppCompatButton
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.FrameLayout
+import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.widget.AppCompatButton
+import androidx.core.content.ContextCompat
 import com.applandeo.materialcalendarview.listeners.OnSelectionAbilityListener
-
 import com.applandeo.materialcalendarview.utils.CalendarProperties
 import com.applandeo.materialcalendarview.utils.DateUtils
+import kotlinx.android.synthetic.main.date_picker_dialog.view.*
 
 /**
  * This class is responsible for creating DatePicker dialog.
@@ -20,85 +20,78 @@ import com.applandeo.materialcalendarview.utils.DateUtils
  */
 
 class DatePicker(
-        private val mContext: Context,
-        private val mCalendarProperties: CalendarProperties
+        private val context: Context,
+        private val calendarProperties: CalendarProperties
 ) {
-    private var mCancelButton: AppCompatButton? = null
-    private var mOkButton: AppCompatButton? = null
-    private var mTodayButton: AppCompatButton? = null
 
     fun show(): DatePicker {
-        val layoutInflater = LayoutInflater.from(mContext)
+        val layoutInflater = LayoutInflater.from(context)
         val view = layoutInflater.inflate(R.layout.date_picker_dialog, null)
 
-        if (mCalendarProperties.pagesColor != 0) {
-            view.setBackgroundColor(mCalendarProperties.pagesColor)
+        if (calendarProperties.pagesColor != 0) {
+            view.setBackgroundColor(calendarProperties.pagesColor)
         }
 
-        mCancelButton = view.findViewById(R.id.negative_button)
-        mOkButton = view.findViewById(R.id.positive_button)
-        mTodayButton = view.findViewById(R.id.today_button)
+        setTodayButtonVisibility(view.todayButton)
+        setDialogButtonsColors(view.negativeButton, view.todayButton)
+        setOkButtonState(calendarProperties.calendarType == CalendarView.ONE_DAY_PICKER, view.positiveButton)
 
-        setTodayButtonVisibility()
-        setDialogButtonsColors()
-        setOkButtonState(mCalendarProperties.calendarType == CalendarView.ONE_DAY_PICKER)
-
-        mCalendarProperties.onSelectionAbilityListener = object : OnSelectionAbilityListener {
+        calendarProperties.onSelectionAbilityListener = object : OnSelectionAbilityListener {
             override fun onChange(enabled: Boolean) {
-                setOkButtonState(enabled)
+                setOkButtonState(enabled, view.todayButton)
             }
         }
 
-        val calendarView = CalendarView(mContext, mCalendarProperties)
+        val calendarView = CalendarView(context, calendarProperties)
 
         val calendarContainer = view.findViewById(R.id.calendarContainer) as FrameLayout
         calendarContainer.addView(calendarView)
 
-        mCalendarProperties.calendar?.apply {
+        calendarProperties.calendar?.apply {
             calendarView.setDate(this)
         }
 
-        val alertBuilder = AlertDialog.Builder(mContext)
+        val alertBuilder = AlertDialog.Builder(context)
         val alertDialog = alertBuilder.create().apply {
             setView(view)
         }
 
-        mCancelButton?.setOnClickListener { _ -> alertDialog.cancel() }
+        view.negativeButton?.setOnClickListener { _ -> alertDialog.cancel() }
 
-        mOkButton?.setOnClickListener { _ ->
+        view.positiveButton?.setOnClickListener { _ ->
             alertDialog.cancel()
-            mCalendarProperties.onSelectDateListener?.onSelect(calendarView.selectedDates)
+            calendarProperties.onSelectDateListener?.onSelect(calendarView.selectedDates)
         }
 
-        mTodayButton?.setOnClickListener { _ -> calendarView.showCurrentMonthPage() }
+        view.todayButton?.setOnClickListener { _ -> calendarView.showCurrentMonthPage() }
 
         alertDialog.show()
 
         return this
     }
 
-    private fun setDialogButtonsColors() {
-        if (mCalendarProperties.dialogButtonsColor != 0) {
-            mCancelButton?.setTextColor(ContextCompat.getColor(mContext, mCalendarProperties.dialogButtonsColor))
-            mTodayButton?.setTextColor(ContextCompat.getColor(mContext, mCalendarProperties.dialogButtonsColor))
+    private fun setDialogButtonsColors(negativeButton: AppCompatButton?, todayButton: AppCompatButton?) {
+        if (calendarProperties.dialogButtonsColor != 0) {
+            negativeButton?.setTextColor(ContextCompat.getColor(context, calendarProperties.dialogButtonsColor))
+            todayButton?.setTextColor(ContextCompat.getColor(context, calendarProperties.dialogButtonsColor))
         }
     }
 
-    private fun setOkButtonState(enabled: Boolean) {
-        mOkButton?.isEnabled = enabled
+    private fun setOkButtonState(enabled: Boolean, okButton: AppCompatButton?) {
+        okButton?.isEnabled = enabled
 
-        if (mCalendarProperties.dialogButtonsColor != 0) {
+        if (calendarProperties.dialogButtonsColor != 0) {
             val stateResource = if (enabled)
-                mCalendarProperties.dialogButtonsColor
+                calendarProperties.dialogButtonsColor
             else
                 R.color.disabledDialogButtonColor
-            mOkButton?.setTextColor(ContextCompat.getColor(mContext, stateResource))
+            okButton?.setTextColor(ContextCompat.getColor(context, stateResource))
         }
     }
 
-    private fun setTodayButtonVisibility() {
-        if (DateUtils.isMonthAfter(mCalendarProperties.maximumDate, DateUtils.calendar) || DateUtils.isMonthBefore(mCalendarProperties.minimumDate, DateUtils.calendar)) {
-            mTodayButton?.visibility = View.GONE
+    private fun setTodayButtonVisibility(todayButton: AppCompatButton?) {
+        if (DateUtils.isMonthAfter(calendarProperties.maximumDate, DateUtils.calendar) || DateUtils.isMonthBefore(calendarProperties.minimumDate, DateUtils.calendar)) {
+            todayButton?.visibility = View.GONE
         }
     }
 }

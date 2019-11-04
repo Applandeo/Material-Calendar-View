@@ -3,10 +3,7 @@ package com.applandeo.materialcalendarview.listeners
 import android.view.View
 import android.widget.AdapterView
 import android.widget.TextView
-import com.applandeo.materialcalendarview.CalendarUtils
-import com.applandeo.materialcalendarview.CalendarView
-import com.applandeo.materialcalendarview.EventDay
-import com.applandeo.materialcalendarview.R
+import com.applandeo.materialcalendarview.*
 import com.applandeo.materialcalendarview.adapters.CalendarPageAdapter
 import com.applandeo.materialcalendarview.utils.CalendarProperties
 import com.applandeo.materialcalendarview.utils.DateUtils
@@ -102,7 +99,7 @@ class DayRowClickListener(
         val previousSelectedDay = calendarPageAdapter.selectedDay
 
         previousSelectedDay.calendar?.let {
-            CalendarUtils.getDatesRange(it, day)
+            it.getDatesRange(day)
                     .filter { calendar -> !calendarProperties.disabledDays.contains(calendar) }
                     .forEach { calendar -> calendarPageAdapter.addSelectedDay(SelectedDay(calendar)) }
         }

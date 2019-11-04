@@ -3,17 +3,14 @@ package com.applandeo.materialcalendarsampleapp
 import android.graphics.Color
 import android.os.Bundle
 import android.view.View
-import androidx.appcompat.app.AppCompatActivity
 import android.widget.Button
 import android.widget.Toast
-
+import androidx.appcompat.app.AppCompatActivity
 import com.applandeo.materialcalendarview.CalendarView
 import com.applandeo.materialcalendarview.EventDay
 import com.applandeo.materialcalendarview.listeners.OnCalendarPageChangeListener
 import com.applandeo.materialcalendarview.utils.DateUtils
-
-import java.util.ArrayList
-import java.util.Calendar
+import java.util.*
 
 /**
  * Created by Mateusz Kornakiewicz on 23.10.2017.
@@ -55,8 +52,7 @@ class ManyDaysPickerActivity : AppCompatActivity() {
 
         val events = ArrayList<EventDay>()
 
-        val cal = Calendar.getInstance()
-        cal.add(Calendar.DAY_OF_MONTH, 7)
+        val cal = Calendar.getInstance().apply { add(Calendar.DAY_OF_MONTH, 7) }
         events.add(EventDay(cal, R.drawable.sample_four_icons, Color.parseColor("#228B22")))
 
         calendarView.setEvents(events)
@@ -66,9 +62,7 @@ class ManyDaysPickerActivity : AppCompatActivity() {
             for (calendar in calendarView.selectedDates) {
                 println(calendar.time.toString())
 
-                Toast.makeText(applicationContext,
-                        calendar.time.toString(),
-                        Toast.LENGTH_SHORT).show()
+                Toast.makeText(applicationContext, calendar.time.toString(), Toast.LENGTH_SHORT).show()
             }
         }
     }
