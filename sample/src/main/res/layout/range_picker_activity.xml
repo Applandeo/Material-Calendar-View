@@ -16,7 +16,8 @@
         app:layout_constraintTop_toTopOf="parent"
         app:selectionColor="@color/colorAccent"
         app:todayLabelColor="#cc0000"
-        app:type="range_picker" />
+        app:type="range_picker"
+        app:maximumDaysRange="3"/>
 
     <Button
         android:id="@+id/getDateButton"

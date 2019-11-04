@@ -2,5 +2,7 @@
 <resources>
     <dimen name="row_height">44dp</dimen>
     <dimen name="day_label_size_events_enabled">30dp</dimen>
+    <dimen name="day_label_focus_size_events_enabled">34dp</dimen>
     <dimen name="day_label_size_events_disabled">38dp</dimen>
+    <dimen name="day_label_focus_size_events_disabled">42dp</dimen>
 </resources>

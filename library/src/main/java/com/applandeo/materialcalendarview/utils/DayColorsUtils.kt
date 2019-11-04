@@ -47,8 +47,12 @@ object DayColorsUtils {
         setDayColors(dayLabel, calendarProperties.selectionLabelColor, Typeface.NORMAL,
                 R.drawable.background_color_circle_selector)
 
-        dayLabel.background.setColorFilter(calendarProperties.selectionColor,
-                android.graphics.PorterDuff.Mode.MULTIPLY)
+//<<<<<<< HEAD:library/src/main/java/com/applandeo/materialcalendarview/utils/DayColorsUtils.kt
+//        dayLabel.background.setColorFilter(calendarProperties.selectionColor,
+//                android.graphics.PorterDuff.Mode.MULTIPLY)
+//=======
+//        setDayBackgroundColor(dayLabel, calendarProperties.getSelectionColor());
+//>>>>>>> master:library/src/main/java/com/applandeo/materialcalendarview/utils/DayColorsUtils.java
     }
 
     /**
@@ -59,7 +63,7 @@ object DayColorsUtils {
      *
      * @param day                A calendar instance representing day date
      * @param today              A calendar instance representing today date
-     * @param dayLabel           TextView containing a day number
+     * @param dayLabel           TextView containing a day numberx
      * @param calendarProperties A resource of a color used to mark today day
      */
     @JvmStatic
@@ -71,7 +75,40 @@ object DayColorsUtils {
             calendarProperties.highlightedDays.contains(day) -> setDayColors(dayLabel, calendarProperties.highlightedDaysLabelsColor,
                     Typeface.NORMAL, R.drawable.background_transparent)
             else -> setDayColors(dayLabel, calendarProperties.daysLabelsColor, Typeface.NORMAL,
-                    R.drawable.background_transparent)
-        }
+                    R.drawable.background_transparent) }
     }
+
+
+//    private static void setTodayColors(TextView dayLabel, CalendarProperties calendarProperties) {
+//        setDayColors(dayLabel, calendarProperties.getTodayLabelColor(), Typeface.BOLD,
+//                R.drawable.background_transparent);
+//
+//        // Sets custom background color for present
+//        if (calendarProperties.getTodayColor() != 0) {
+//            setDayColors(dayLabel, calendarProperties.getSelectionLabelColor(), Typeface.NORMAL,
+//                    R.drawable.background_color_circle_selector);
+//            setDayBackgroundColor(dayLabel, calendarProperties.getTodayColor());
+//        }
+//    }
+//
+//    private static void setEventDayColors(Calendar day, TextView dayLabel, CalendarProperties calendarProperties) {
+//        EventDayUtils.getEventDayWithLabelColor(day, calendarProperties).executeIfPresent(eventDay ->
+//        DayColorsUtils.setDayColors(dayLabel, eventDay.getLabelColor(),
+//                Typeface.NORMAL, R.drawable.background_transparent));
+//    }
+//
+//    private static void setHighlightedDayColors(TextView dayLabel, CalendarProperties calendarProperties) {
+//        setDayColors(dayLabel, calendarProperties.getHighlightedDaysLabelsColor(),
+//                Typeface.NORMAL, R.drawable.background_transparent);
+//    }
+//
+//    private static void setNormalDayColors(TextView dayLabel, CalendarProperties calendarProperties) {
+//        setDayColors(dayLabel, calendarProperties.getDaysLabelsColor(), Typeface.NORMAL,
+//                R.drawable.background_transparent);
+//    }
+//
+//    private static void setDayBackgroundColor(TextView dayLabel, int color) {
+//        dayLabel.getBackground().setColorFilter(color, android.graphics.PorterDuff.Mode.MULTIPLY);
+//    }
+
 }
