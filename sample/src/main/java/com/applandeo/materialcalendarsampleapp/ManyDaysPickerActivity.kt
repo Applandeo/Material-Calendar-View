@@ -1,5 +1,6 @@
 package com.applandeo.materialcalendarsampleapp
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
@@ -56,7 +57,7 @@ class ManyDaysPickerActivity : AppCompatActivity() {
 
         val cal = Calendar.getInstance()
         cal.add(Calendar.DAY_OF_MONTH, 7)
-        events.add(EventDay(cal, R.drawable.sample_four_icons))
+        events.add(EventDay(cal, R.drawable.sample_four_icons, Color.parseColor("#228B22")))
 
         calendarView.setEvents(events)
 

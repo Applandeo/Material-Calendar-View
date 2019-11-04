@@ -1,5 +1,6 @@
 package com.applandeo.materialcalendarsampleapp
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
@@ -53,7 +54,7 @@ class CalendarActivity : AppCompatActivity() {
         val events = ArrayList<EventDay>()
 
         val calendar = Calendar.getInstance()
-        events.add(EventDay(calendar, DrawableUtils.getCircleDrawableWithText(this, "M")))
+        events.add(EventDay(calendar, DrawableUtils.getCircleDrawableWithText(this, "M"), Color.parseColor("#228B22")))
 
         val calendar1 = Calendar.getInstance()
         val calendar2 = Calendar.getInstance()
@@ -66,10 +67,10 @@ class CalendarActivity : AppCompatActivity() {
         calendar4.add(Calendar.DAY_OF_MONTH, 13)
 
         events.apply {
-            add(EventDay(calendar1, R.drawable.sample_icon_2))
-            add(EventDay(calendar2, R.drawable.sample_icon_3))
-            add(EventDay(calendar3, R.drawable.sample_four_icons))
-            add(EventDay(calendar4, DrawableUtils.getThreeDots(this@CalendarActivity)))
+            add(EventDay(calendar1, R.drawable.sample_icon_2, Color.parseColor("#228B22")))
+            add(EventDay(calendar2, R.drawable.sample_icon_3, Color.parseColor("#228B22")))
+            add(EventDay(calendar3, R.drawable.sample_four_icons, Color.parseColor("#228B22")))
+            add(EventDay(calendar4, DrawableUtils.getThreeDots(this@CalendarActivity), Color.parseColor("#228B22")))
         }
 
 
