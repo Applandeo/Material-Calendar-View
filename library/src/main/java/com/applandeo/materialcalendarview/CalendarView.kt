@@ -119,7 +119,6 @@ class CalendarView : LinearLayout {
         initCalendar()
     }
 
-    //protected constructor to create CalendarView for the dialog date picker
     constructor(context: Context, properties: CalendarProperties) : super(context) {
         this.calendarProperties = properties
 

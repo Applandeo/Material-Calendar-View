@@ -88,10 +88,11 @@ class DatePicker(
         mOkButton?.isEnabled = enabled
 
         if (mCalendarProperties.dialogButtonsColor != 0) {
-            mOkButton?.setTextColor(ContextCompat.getColor(mContext, if (enabled)
+            val stateResource = if (enabled)
                 mCalendarProperties.dialogButtonsColor
             else
-                R.color.disabledDialogButtonColor))
+                R.color.disabledDialogButtonColor
+            mOkButton?.setTextColor(ContextCompat.getColor(mContext, stateResource))
         }
     }
 
