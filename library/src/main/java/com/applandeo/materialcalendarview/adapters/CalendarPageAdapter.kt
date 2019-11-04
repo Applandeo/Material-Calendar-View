@@ -1,22 +1,17 @@
 package com.applandeo.materialcalendarview.adapters
 
 import android.content.Context
-import androidx.viewpager.widget.PagerAdapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-
+import androidx.viewpager.widget.PagerAdapter
 import com.applandeo.materialcalendarview.R
 import com.applandeo.materialcalendarview.extensions.CalendarGridView
 import com.applandeo.materialcalendarview.listeners.DayRowClickListener
 import com.applandeo.materialcalendarview.utils.CalendarProperties
-import com.applandeo.materialcalendarview.utils.SelectedDay
-
-import java.util.ArrayList
-import java.util.Calendar
-import java.util.Date
-
 import com.applandeo.materialcalendarview.utils.CalendarProperties.Companion.CALENDAR_SIZE
+import com.applandeo.materialcalendarview.utils.SelectedDay
+import java.util.*
 
 /**
  * This class is responsible for loading a calendar page content.

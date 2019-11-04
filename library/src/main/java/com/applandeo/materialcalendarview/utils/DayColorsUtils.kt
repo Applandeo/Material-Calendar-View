@@ -47,12 +47,7 @@ object DayColorsUtils {
         setDayColors(dayLabel, calendarProperties.selectionLabelColor, Typeface.NORMAL,
                 R.drawable.background_color_circle_selector)
 
-//<<<<<<< HEAD:library/src/main/java/com/applandeo/materialcalendarview/utils/DayColorsUtils.kt
-//        dayLabel.background.setColorFilter(calendarProperties.selectionColor,
-//                android.graphics.PorterDuff.Mode.MULTIPLY)
-//=======
-//        setDayBackgroundColor(dayLabel, calendarProperties.getSelectionColor());
-//>>>>>>> master:library/src/main/java/com/applandeo/materialcalendarview/utils/DayColorsUtils.java
+        setDayBackgroundColor(dayLabel, calendarProperties.selectionColor)
     }
 
     /**
@@ -79,36 +74,36 @@ object DayColorsUtils {
     }
 
 
-//    private static void setTodayColors(TextView dayLabel, CalendarProperties calendarProperties) {
-//        setDayColors(dayLabel, calendarProperties.getTodayLabelColor(), Typeface.BOLD,
-//                R.drawable.background_transparent);
-//
-//        // Sets custom background color for present
-//        if (calendarProperties.getTodayColor() != 0) {
-//            setDayColors(dayLabel, calendarProperties.getSelectionLabelColor(), Typeface.NORMAL,
-//                    R.drawable.background_color_circle_selector);
-//            setDayBackgroundColor(dayLabel, calendarProperties.getTodayColor());
-//        }
-//    }
-//
-//    private static void setEventDayColors(Calendar day, TextView dayLabel, CalendarProperties calendarProperties) {
-//        EventDayUtils.getEventDayWithLabelColor(day, calendarProperties).executeIfPresent(eventDay ->
-//        DayColorsUtils.setDayColors(dayLabel, eventDay.getLabelColor(),
-//                Typeface.NORMAL, R.drawable.background_transparent));
-//    }
-//
-//    private static void setHighlightedDayColors(TextView dayLabel, CalendarProperties calendarProperties) {
-//        setDayColors(dayLabel, calendarProperties.getHighlightedDaysLabelsColor(),
-//                Typeface.NORMAL, R.drawable.background_transparent);
-//    }
-//
-//    private static void setNormalDayColors(TextView dayLabel, CalendarProperties calendarProperties) {
-//        setDayColors(dayLabel, calendarProperties.getDaysLabelsColor(), Typeface.NORMAL,
-//                R.drawable.background_transparent);
-//    }
-//
-//    private static void setDayBackgroundColor(TextView dayLabel, int color) {
-//        dayLabel.getBackground().setColorFilter(color, android.graphics.PorterDuff.Mode.MULTIPLY);
-//    }
+    private fun setTodayColors(dayLabel: TextView, calendarProperties: CalendarProperties) {
+        setDayColors(dayLabel, calendarProperties.todayLabelColor, Typeface.BOLD,
+                R.drawable.background_transparent)
+
+        // Sets custom background color for present
+        if (calendarProperties.todayLabelColor != 0) {
+            setDayColors(dayLabel, calendarProperties.selectionLabelColor, Typeface.NORMAL,
+                    R.drawable.background_color_circle_selector)
+            setDayBackgroundColor(dayLabel, calendarProperties.todayLabelColor)
+        }
+    }
+
+    private fun setEventDayColors(day: Calendar, dayLabel: TextView, calendarProperties: CalendarProperties ) {
+        EventDayUtils.getEventDayWithLabelColor(day, calendarProperties)?.let{eventDay ->
+        setDayColors(dayLabel, eventDay.labelColor,
+                Typeface.NORMAL, R.drawable.background_transparent)}
+    }
+
+    private fun setHighlightedDayColors(dayLabel: TextView, calendarProperties: CalendarProperties) {
+        setDayColors(dayLabel, calendarProperties.highlightedDaysLabelsColor,
+                Typeface.NORMAL, R.drawable.background_transparent)
+    }
+
+    private fun setNormalDayColors(dayLabel: TextView, calendarProperties: CalendarProperties) {
+        setDayColors(dayLabel, calendarProperties.daysLabelsColor, Typeface.NORMAL,
+                R.drawable.background_transparent)
+    }
+
+    private fun setDayBackgroundColor(dayLabel: TextView, color: Int ) {
+        dayLabel.background.setColorFilter(color, android.graphics.PorterDuff.Mode.MULTIPLY)
+    }
 
 }

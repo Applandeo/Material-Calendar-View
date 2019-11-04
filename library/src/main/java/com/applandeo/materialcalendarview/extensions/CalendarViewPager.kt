@@ -19,7 +19,7 @@ class CalendarViewPager : ViewPager {
 
     //This method is needed to get wrap_content height for ViewPager
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
-        var heightMeasureSpec = heightMeasureSpec
+        var heightMeasure = heightMeasureSpec
         var height = 0
 
         for (i in 0 until childCount) {
@@ -34,10 +34,10 @@ class CalendarViewPager : ViewPager {
         }
 
         if (height != 0) {
-            heightMeasureSpec = MeasureSpec.makeMeasureSpec(height, MeasureSpec.EXACTLY)
+            heightMeasure = MeasureSpec.makeMeasureSpec(height, MeasureSpec.EXACTLY)
         }
 
-        super.onMeasure(widthMeasureSpec, heightMeasureSpec)
+        super.onMeasure(widthMeasureSpec, heightMeasure)
     }
 
     fun setSwipeEnabled(swipeEnabled: Boolean) {
