@@ -50,7 +50,7 @@ class CalendarActivity : AppCompatActivity() {
         val calendar = Calendar.getInstance()
         events.add(EventDay(calendar,
                 this.getCircleDrawableWithText("M"),
-                Color.parseColor("#228B22")))
+                labelColor = Color.parseColor("#228B22")))
 
         val calendar1 = Calendar.getInstance().apply { add(Calendar.DAY_OF_MONTH, 2) }
         val calendar2 = Calendar.getInstance().apply { add(Calendar.DAY_OF_MONTH, 5) }
@@ -58,10 +58,10 @@ class CalendarActivity : AppCompatActivity() {
         val calendar4 = Calendar.getInstance().apply { add(Calendar.DAY_OF_MONTH, 13) }
 
         events.apply {
-            add(EventDay(calendar1, R.drawable.sample_icon_2, Color.parseColor("#228B22")))
-            add(EventDay(calendar2, R.drawable.sample_icon_3, Color.parseColor("#228B22")))
-            add(EventDay(calendar3, R.drawable.sample_four_icons, Color.parseColor("#228B22")))
-            add(EventDay(calendar4, (this@CalendarActivity).getThreeDots(), Color.parseColor("#228B22")))
+            add(EventDay(calendar1, drawableRes = R.drawable.sample_icon_2, labelColor = Color.parseColor("#228B22")))
+            add(EventDay(calendar2, drawableRes = R.drawable.sample_icon_3, labelColor = Color.parseColor("#228B22")))
+            add(EventDay(calendar3, drawableRes = R.drawable.sample_four_icons, labelColor = Color.parseColor("#228B22")))
+            add(EventDay(calendar4, (this@CalendarActivity).getThreeDots(), labelColor = Color.parseColor("#228B22")))
         }
 
         val min = Calendar.getInstance().apply { add(Calendar.MONTH, -2) }

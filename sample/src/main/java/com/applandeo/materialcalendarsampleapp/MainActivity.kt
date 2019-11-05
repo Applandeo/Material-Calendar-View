@@ -8,7 +8,6 @@ import com.applandeo.materialcalendarview.CalendarView
 import com.applandeo.materialcalendarview.builders.DatePickerBuilder
 import com.applandeo.materialcalendarview.getDatesRange
 import com.applandeo.materialcalendarview.listeners.OnSelectDateListener
-import com.applandeo.materialcalendarview.utils.DateUtils
 import com.applandeo.materialcalendarview.utils.getMidnightCalendar
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*

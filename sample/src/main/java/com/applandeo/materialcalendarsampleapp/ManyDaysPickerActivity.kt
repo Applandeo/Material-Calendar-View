@@ -53,7 +53,7 @@ class ManyDaysPickerActivity : AppCompatActivity() {
         val events = ArrayList<EventDay>()
 
         val cal = Calendar.getInstance().apply { add(Calendar.DAY_OF_MONTH, 7) }
-        events.add(EventDay(cal, R.drawable.sample_four_icons, Color.parseColor("#228B22")))
+        events.add(EventDay(cal, drawableRes = R.drawable.sample_four_icons, labelColor = Color.parseColor("#228B22")))
 
         calendarView.setEvents(events)
 

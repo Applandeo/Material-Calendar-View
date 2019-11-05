@@ -1,8 +1,7 @@
 package com.applandeo.materialcalendarview.utils
 
 import android.view.View
-
-import java.util.Calendar
+import java.util.*
 
 /**
  * This helper class represent a selected day when calendar is in a picker date mode.
@@ -12,29 +11,21 @@ import java.util.Calendar
  * Created by Mateusz Kornakiewicz on 23.05.2017.
  */
 
-class SelectedDay {
-    /**
-     * @return View representing selected calendar cell
-     */
-    var view: View? = null
+class SelectedDay
+/**
+ * @param view     View representing selected calendar cell
+ * @param calendar Calendar instance representing selected cell date
+ */
+@JvmOverloads constructor(
+        /**
+         * @return View representing selected calendar cell
+         */
+        calendar: Calendar, var view: View? = null) {
     /**
      * @return Calendar instance representing selected cell date
      */
-    var calendar: Calendar? = null
+    var calendar: Calendar? = calendar
         private set
-
-    constructor(calendar: Calendar) {
-        this.calendar = calendar
-    }
-
-    /**
-     * @param view     View representing selected calendar cell
-     * @param calendar Calendar instance representing selected cell date
-     */
-    constructor(view: View, calendar: Calendar) {
-        this.view = view
-        this.calendar = calendar
-    }
 
     override fun equals(other: Any?): Boolean {
         if (other is SelectedDay) {

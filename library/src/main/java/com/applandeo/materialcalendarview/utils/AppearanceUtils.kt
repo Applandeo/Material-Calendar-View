@@ -17,15 +17,15 @@ import java.util.*
  */
 
 fun View.setAbbreviationsLabels(color: Int, firstDayOfWeek: Int) {
-    val labels = ArrayList<TextView>()
+    val labels = mutableListOf<TextView>()
     labels.apply {
-        mondayLabel
-        tuesdayLabel
-        wednesdayLabel
-        thursdayLabel
-        fridayLabel
-        saturdayLabel
-        sundayLabel
+        add(mondayLabel)
+        add(tuesdayLabel)
+        add(wednesdayLabel)
+        add(thursdayLabel)
+        add(fridayLabel)
+        add(saturdayLabel)
+        add(sundayLabel)
     }
 
     val abbreviations = this.context.resources.getStringArray(R.array.material_calendar_day_abbreviations_array)

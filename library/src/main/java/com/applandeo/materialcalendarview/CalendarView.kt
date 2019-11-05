@@ -3,15 +3,13 @@ package com.applandeo.materialcalendarview
 import android.content.Context
 import android.content.res.TypedArray
 import android.graphics.drawable.Drawable
-import android.text.format.DateUtils
-import androidx.annotation.ColorRes
-import androidx.viewpager.widget.ViewPager
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.ImageButton
 import android.widget.LinearLayout
 import android.widget.TextView
-
+import androidx.annotation.ColorRes
+import androidx.viewpager.widget.ViewPager
 import com.applandeo.materialcalendarview.adapters.CalendarPageAdapter
 import com.applandeo.materialcalendarview.exceptions.ErrorsMessages
 import com.applandeo.materialcalendarview.exceptions.OutOfDateRangeException
@@ -20,9 +18,7 @@ import com.applandeo.materialcalendarview.listeners.OnCalendarPageChangeListener
 import com.applandeo.materialcalendarview.listeners.OnDayClickListener
 import com.applandeo.materialcalendarview.utils.*
 import com.applandeo.materialcalendarview.utils.CalendarProperties.Companion.FIRST_VISIBLE_PAGE
-
-import java.util.Calendar
-import java.util.Date
+import java.util.*
 
 /**
  * This class represents a view, displays to user as calendar. It allows to work in date picker
@@ -50,7 +46,12 @@ import java.util.Date
  * Created by Mateusz Kornakiewicz on 23.05.2017.
  */
 
-class CalendarView : LinearLayout {
+class CalendarView @JvmOverloads constructor(
+        context: Context,
+        attrs: AttributeSet? = null,
+        defStyleAttr: Int = 0,
+        properties: CalendarProperties? = null
+) : LinearLayout(context, attrs, defStyleAttr) {
 
     private var currentMonthLabel: TextView? = null
     private var currentPage: Int = 0
@@ -108,35 +109,23 @@ class CalendarView : LinearLayout {
             }
         }
 
-    constructor(context: Context, attrs: AttributeSet) : super(context, attrs) {
-        initControl(context, attrs)
-        initCalendar()
-    }
-
-    constructor(context: Context, attrs: AttributeSet, defStyleAttr: Int) : super(context, attrs, defStyleAttr) {
-        initControl(context, attrs)
-        initCalendar()
-    }
-
-    constructor(context: Context, properties: CalendarProperties) : super(context) {
-        this.calendarProperties = properties
-
+    init {
+        properties?.let { this.calendarProperties = properties }
         val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         inflater.inflate(R.layout.calendar_view, this)
-
-        initUiElements()
+        initControl(context, attrs)
         initAttributes()
         initCalendar()
     }
 
-    private fun initControl(context: Context, attrs: AttributeSet) {
+    private fun initControl(context: Context, attrs: AttributeSet?) {
         calendarProperties = CalendarProperties(context)
 
         val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         inflater.inflate(R.layout.calendar_view, this)
 
         initUiElements()
-        setAttributes(attrs)
+        attrs?.let { setAttributes(attrs) }
     }
 
     /**
@@ -176,7 +165,7 @@ class CalendarView : LinearLayout {
             }
 
             eventsEnabled = typedArray.getBoolean(R.styleable.CalendarView_eventsEnabled,
-               calendarProperties.calendarType == CLASSIC)
+                    calendarProperties.calendarType == CLASSIC)
             swipeEnabled = typedArray.getBoolean(R.styleable.CalendarView_swipeEnabled, true)
             previousButtonSrc = typedArray.getDrawable(R.styleable.CalendarView_previousButtonSrc)
             forwardButtonSrc = typedArray.getDrawable(R.styleable.CalendarView_forwardButtonSrc)

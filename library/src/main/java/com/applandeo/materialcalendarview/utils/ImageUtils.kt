@@ -14,16 +14,12 @@ import androidx.core.content.ContextCompat
  */
 
 fun ImageView.loadImage(image: Any?) {
-    if (image == null) {
-        return
-    }
-
     var drawable: Drawable? = null
-    if (image is Drawable) {
-        drawable = image
-    } else if (image is Int) {
-        drawable = ContextCompat.getDrawable(this.context, image)
+    when(image) {
+        null-> return
+        is Drawable -> drawable = image
+        is Int -> drawable = ContextCompat.getDrawable(this.context, image)
     }
 
-    drawable?.let { this.setImageDrawable(it) }
+    drawable?.apply { this@loadImage.setImageDrawable(this) }
 }

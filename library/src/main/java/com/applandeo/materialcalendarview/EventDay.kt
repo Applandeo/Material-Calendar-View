@@ -15,11 +15,22 @@ import java.util.*
  * Created by Mateusz Kornakiewicz on 23.05.2017.
  */
 
-class EventDay {
+class EventDay
+/**
+ * @param day      Calendar object which represents a date of the event
+ * @param drawable Drawable which will be displayed in a day cell
+ * @param drawableRes Drawable resource which will be displayed in a day cell
+ * @param labelColor Color which will be displayed as row label text color
+ */
+    @JvmOverloads constructor(day: Calendar,
+                              drawable: Drawable? = null,
+                              @DrawableRes drawableRes: Int = 0,
+                              val labelColor: Int = 0) {
+
     /**
      * @return Calendar object which represents a date of current event
      */
-    var calendar: Calendar? = null
+    var calendar: Calendar? = day
 
     /**
      * @return An image resource which will be displayed in the day row
@@ -33,36 +44,11 @@ class EventDay {
     @set:RestrictTo(RestrictTo.Scope.LIBRARY)
     var isEnabled: Boolean = false
 
-    /**
-     * @return Color which will be displayed as row label text color
-     */
-    @RestrictTo(RestrictTo.Scope.LIBRARY)
-    var labelColor: Int = 0
-
-    /**
-     * @param day Calendar object which represents a date of the event
-     */
-    constructor(day: Calendar) {
-        calendar = day
-    }
-
-    /**
-     * @param day      Calendar object which represents a date of the event
-     * @param drawable Drawable resource which will be displayed in a day cell
-     */
-    constructor(day: Calendar, @DrawableRes drawable: Int, labelColor: Int) {
+    init {
         day.setMidnight()
-        calendar = day
-        imageDrawable = drawable
-    }
-
-    /**
-     * @param day      Calendar object which represents a date of the event
-     * @param drawable Drawable which will be displayed in a day cell
-     */
-    constructor(day: Calendar, drawable: Drawable, labelColor: Int) {
-        day.setMidnight()
-        calendar = day
-        imageDrawable = drawable
+        drawable?.let { imageDrawable = drawable }
+        if (drawableRes != 0) {
+            imageDrawable = drawableRes
+        }
     }
 }

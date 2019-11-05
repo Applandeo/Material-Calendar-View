@@ -34,7 +34,7 @@ class DayRowClickListener(
             CalendarView.ONE_DAY_PICKER -> selectOneDay(view, day)
             CalendarView.MANY_DAYS_PICKER -> selectManyDays(view, day)
             CalendarView.RANGE_PICKER -> selectRange(view, day)
-            CalendarView.CLASSIC -> calendarPageAdapter.selectedDay = SelectedDay(view, day)
+            CalendarView.CLASSIC -> calendarPageAdapter.selectedDay = SelectedDay(day, view)
         }
     }
 
@@ -53,10 +53,10 @@ class DayRowClickListener(
         val dayLabel = view.findViewById<View>(R.id.dayLabel) as TextView
 
         if (isCurrentMonthDay(day) && isActiveDay(day)) {
-            val selectedDay = SelectedDay(dayLabel, day)
+            val selectedDay = SelectedDay(day, dayLabel)
 
             if (!calendarPageAdapter.selectedDays.contains(selectedDay)) {
-                DayColorsUtils.setSelectedDayColors(dayLabel, calendarProperties)
+                dayLabel.setSelectedDayColors(calendarProperties)
             } else {
                 reverseUnselectedColor(selectedDay)
             }
@@ -101,21 +101,19 @@ class DayRowClickListener(
                     .forEach { calendar -> calendarPageAdapter.addSelectedDay(SelectedDay(calendar)) }
         }
 
-        DayColorsUtils.setSelectedDayColors(dayLabel, calendarProperties)
+        dayLabel.setSelectedDayColors(calendarProperties)
 
-        calendarPageAdapter.addSelectedDay(SelectedDay(dayLabel, day))
+        calendarPageAdapter.addSelectedDay(SelectedDay(day, dayLabel))
         calendarPageAdapter.notifyDataSetChanged()
     }
 
     private fun selectDay(dayLabel: TextView, day: Calendar) {
         dayLabel.setSelectedDayColors(calendarProperties)
-        calendarPageAdapter.selectedDay = SelectedDay(dayLabel, day)
+        calendarPageAdapter.selectedDay = SelectedDay(day,dayLabel)
     }
 
     private fun reverseUnselectedColor(selectedDay: SelectedDay) {
-        selectedDay.calendar?.let {
-            it.setCurrentMonthDayColors(getMidnightCalendar, selectedDay.view as TextView, calendarProperties)
-        }
+        selectedDay.calendar?.setCurrentMonthDayColors(getMidnightCalendar, selectedDay.view as TextView, calendarProperties)
     }
 
     private fun isCurrentMonthDay(day: Calendar) = day.get(Calendar.MONTH) == mPageMonth && isBetweenMinAndMax(day)
@@ -123,9 +121,10 @@ class DayRowClickListener(
     private fun isActiveDay(day: Calendar) = calendarProperties.disabledDays.contains(day).not()
 
     private fun isBetweenMinAndMax(day: Calendar?): Boolean {
-        if (day == null) return false
+        if (day == null) { return false }
 
-        return !(calendarProperties.minimumDate != null && day.before(calendarProperties.minimumDate) || calendarProperties.maximumDate != null && day.after(calendarProperties.maximumDate))
+        return !(calendarProperties.minimumDate != null && day.before(calendarProperties.minimumDate)
+                || calendarProperties.maximumDate != null && day.after(calendarProperties.maximumDate))
     }
 
     private fun isAnotherDaySelected(selectedDay: SelectedDay?, day: Calendar) =

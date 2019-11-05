@@ -9,13 +9,12 @@ import android.view.MotionEvent
  * Created by Mateusz Kornakiewicz on 21.11.2017.
  */
 
-class CalendarViewPager : ViewPager {
+class CalendarViewPager @JvmOverloads constructor(
+        context: Context,
+        attrs: AttributeSet? = null
+) : ViewPager(context, attrs) {
 
     private var swipeEnabled = true
-
-    constructor(context: Context) : super(context)
-
-    constructor(context: Context, attrs: AttributeSet) : super(context, attrs)
 
     //This method is needed to get wrap_content height for ViewPager
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {

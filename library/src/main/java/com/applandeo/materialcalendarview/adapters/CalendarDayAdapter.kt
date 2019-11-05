@@ -40,14 +40,14 @@ internal class CalendarDayAdapter(
                     val day = GregorianCalendar()
                     day.time = getItem(position)
 
-                    findViewById<TextView>(R.id.dayLabel)?.let { textView ->
-                        setLabelColors(textView, day)
-                        textView.text = day.get(Calendar.DAY_OF_MONTH).toString()
+                    findViewById<TextView>(R.id.dayLabel)?.run {
+                        setLabelColors(this, day)
+                        this.text = day.get(Calendar.DAY_OF_MONTH).toString()
                     }
 
-                    findViewById<ImageView>(R.id.dayIcon)?.let { imageView ->
+                    findViewById<ImageView>(R.id.dayIcon)?.run {
                         // Loading an image of the event
-                        loadIcon(imageView, day)
+                        loadIcon(this, day)
                     }
                 }
     }
@@ -104,8 +104,8 @@ internal class CalendarDayAdapter(
 
         calendarProperties.eventDays
                 .find { eventDate -> eventDate.calendar == day }
-                ?.let {
-                    dayIcon.loadImage(it.imageDrawable)
+                ?.run {
+                    dayIcon.loadImage(this.imageDrawable)
 
                     // If a day doesn't belong to current month then image is transparent
                     if (!isCurrentMonthDay(day) || !isActiveDay(day)) {

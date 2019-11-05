@@ -44,7 +44,7 @@ class DatePicker(
             }
         }
 
-        val calendarView = CalendarView(context, calendarProperties)
+        val calendarView = CalendarView(context = context, properties = calendarProperties)
 
         val calendarContainer = view.findViewById(R.id.calendarContainer) as FrameLayout
         calendarContainer.addView(calendarView)
@@ -58,14 +58,14 @@ class DatePicker(
             setView(view)
         }
 
-        view.negativeButton?.setOnClickListener { _ -> alertDialog.cancel() }
+        view.negativeButton?.setOnClickListener {  alertDialog.cancel() }
 
-        view.positiveButton?.setOnClickListener { _ ->
+        view.positiveButton?.setOnClickListener {
             alertDialog.cancel()
             calendarProperties.onSelectDateListener?.onSelect(calendarView.selectedDates)
         }
 
-        view.todayButton?.setOnClickListener { _ -> calendarView.showCurrentMonthPage() }
+        view.todayButton?.setOnClickListener { calendarView.showCurrentMonthPage() }
 
         alertDialog.show()
 
