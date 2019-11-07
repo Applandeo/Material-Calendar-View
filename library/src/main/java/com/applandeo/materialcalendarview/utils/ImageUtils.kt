@@ -13,13 +13,9 @@ import androidx.core.content.ContextCompat
  * Created by Mateusz Kornakiewicz on 23.05.2017.
  */
 
-fun ImageView.loadImage(image: Any?) {
-    var drawable: Drawable? = null
-    when(image) {
-        null-> return
-        is Drawable -> drawable = image
-        is Int -> drawable = ContextCompat.getDrawable(this.context, image)
-    }
-
-    drawable?.apply { this@loadImage.setImageDrawable(this) }
-}
+fun ImageView.loadImage(image: Any?) =
+        when (image) {
+            is Drawable -> image
+            is Int -> ContextCompat.getDrawable(this.context, image)
+            else -> null
+        }?.run { this@loadImage.setImageDrawable(this) } ?: Unit

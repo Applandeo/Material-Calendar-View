@@ -23,10 +23,10 @@ fun Context.getDrawableText(text: String, typeface: Typeface?, color: Int, size:
     val canvas = Canvas(bitmap)
     val scale = this.resources.displayMetrics.density
 
-    val paint = Paint(Paint.ANTI_ALIAS_FLAG).also {
-        it.typeface = typeface ?: Typeface.create(Typeface.DEFAULT, Typeface.BOLD)
-        it.color = ContextCompat.getColor(this, color)
-        it.textSize = (size * scale).toInt().toFloat()
+    val paint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
+        this.typeface = typeface ?: Typeface.create(Typeface.DEFAULT, Typeface.BOLD)
+        this.color = ContextCompat.getColor(this@getDrawableText, color)
+        this.textSize = (size * scale).toInt().toFloat()
     }
 
     val bounds = Rect()
@@ -44,15 +44,15 @@ fun Context.getDrawableText(text: String, typeface: Typeface?, color: Int, size:
  * @param lastDay Calendar representing a last selected date
  * @return List of selected dates between two dates
  * */
-fun Calendar.getDatesRange(lastDay: Calendar): ArrayList<Calendar> =
+fun Calendar.getDatesRange(lastDay: Calendar): List<Calendar> =
         if (lastDay.before(this)) {
             getCalendarsBetweenDates(lastDay.time, this.time)
         } else {
             getCalendarsBetweenDates(this.time, lastDay.time)
         }
 
-private fun getCalendarsBetweenDates(dateFrom: Date, dateTo: Date): ArrayList<Calendar> {
-    val calendars = ArrayList<Calendar>()
+private fun getCalendarsBetweenDates(dateFrom: Date, dateTo: Date): List<Calendar> {
+    val calendars = mutableListOf<Calendar>()
 
     val calendarFrom = Calendar.getInstance()
     calendarFrom.time = dateFrom

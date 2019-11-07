@@ -12,6 +12,7 @@ import android.widget.TextView
 import com.applandeo.materialcalendarview.CalendarView
 import com.applandeo.materialcalendarview.R
 import com.applandeo.materialcalendarview.utils.*
+import kotlinx.android.synthetic.main.calendar_view_day.view.*
 import java.util.*
 
 /**
@@ -25,7 +26,7 @@ internal class CalendarDayAdapter(
         private val calendarPageAdapter: CalendarPageAdapter,
         context: Context,
         private val calendarProperties: CalendarProperties,
-        dates: ArrayList<Date>,
+        dates: List<Date>,
         pageMonth: Int
 ) : ArrayAdapter<Date>(context, calendarProperties.itemLayoutResource, dates) {
 
@@ -34,23 +35,23 @@ internal class CalendarDayAdapter(
     private val today = getMidnightCalendar
 
     @SuppressLint("ViewHolder")
-    override fun getView(position: Int, view: View?, parent: ViewGroup): View {
-        return layoutInflater.inflate(calendarProperties.itemLayoutResource, parent, false)
-                .apply {
-                    val day = GregorianCalendar()
-                    day.time = getItem(position)
+    override fun getView(position: Int, view: View?, parent: ViewGroup) =
+            layoutInflater.inflate(calendarProperties.itemLayoutResource, parent, false)
+                    .apply {
+                        val day = GregorianCalendar().apply {
+                            time = getItem(position)
+                        }
 
-                    findViewById<TextView>(R.id.dayLabel)?.run {
-                        setLabelColors(this, day)
-                        this.text = day.get(Calendar.DAY_OF_MONTH).toString()
-                    }
+                        dayLabel.run {
+                            setLabelColors(this, day)
+                            this.text = day.get(Calendar.DAY_OF_MONTH).toString()
+                        }
 
-                    findViewById<ImageView>(R.id.dayIcon)?.run {
-                        // Loading an image of the event
-                        loadIcon(this, day)
-                    }
-                }
-    }
+                        dayIcon.run {
+                            // Loading an image of the event
+                            loadIcon(this, day)
+                        }
+                    }?: View(context)
 
     private fun setLabelColors(dayLabel: TextView, day: Calendar) {
         // Setting not current month day color

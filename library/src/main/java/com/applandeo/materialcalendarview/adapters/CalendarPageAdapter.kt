@@ -84,16 +84,16 @@ class CalendarPageAdapter(
      * @param position Position of current page in ViewPager
      */
     private fun loadMonth(position: Int) {
-        val days = ArrayList<Date>()
+        val days = mutableListOf<Date>()
 
         // Get Calendar object instance
-        val calendar = calendarProperties.firstPageCalendarDate?.clone() as Calendar
+        val calendar = (calendarProperties.firstPageCalendarDate?.clone() as Calendar).apply {
+            // Add months to Calendar (a number of months depends on ViewPager position)
+            add(Calendar.MONTH, position)
 
-        // Add months to Calendar (a number of months depends on ViewPager position)
-        calendar.add(Calendar.MONTH, position)
-
-        // Set day of month as 1
-        calendar.set(Calendar.DAY_OF_MONTH, 1)
+            // Set day of month as 1
+            set(Calendar.DAY_OF_MONTH, 1)
+        }
 
         // Get a number of the first day of the week
         val dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK)

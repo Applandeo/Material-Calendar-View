@@ -3,7 +3,6 @@ package com.applandeo.materialcalendarview
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
-import android.widget.FrameLayout
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.AppCompatButton
 import androidx.core.content.ContextCompat
@@ -46,49 +45,49 @@ class DatePicker(
 
         val calendarView = CalendarView(context = context, properties = calendarProperties)
 
-        val calendarContainer = view.findViewById(R.id.calendarContainer) as FrameLayout
-        calendarContainer.addView(calendarView)
+        view.calendarContainer.addView(calendarView)
 
         calendarProperties.calendar?.apply {
             calendarView.setDate(this)
         }
 
-        val alertBuilder = AlertDialog.Builder(context)
-        val alertDialog = alertBuilder.create().apply {
+        val alertDialog = AlertDialog.Builder(context).create().apply {
             setView(view)
         }
 
-        view.negativeButton?.setOnClickListener {  alertDialog.cancel() }
+        view.negativeButton.setOnClickListener { alertDialog.cancel() }
 
-        view.positiveButton?.setOnClickListener {
+        view.positiveButton.setOnClickListener {
             alertDialog.cancel()
             calendarProperties.onSelectDateListener?.onSelect(calendarView.selectedDates)
         }
 
-        view.todayButton?.setOnClickListener { calendarView.showCurrentMonthPage() }
+        view.todayButton.setOnClickListener { calendarView.showCurrentMonthPage() }
 
         alertDialog.show()
 
         return this
     }
 
-    private fun setDialogButtonsColors(negativeButton: AppCompatButton?, todayButton: AppCompatButton?) {
+    private fun setDialogButtonsColors(negativeButton: AppCompatButton, todayButton: AppCompatButton) {
         if (calendarProperties.dialogButtonsColor != 0) {
-            negativeButton?.setTextColor(ContextCompat.getColor(context, calendarProperties.dialogButtonsColor))
-            todayButton?.setTextColor(ContextCompat.getColor(context, calendarProperties.dialogButtonsColor))
+            negativeButton.setTextColor(ContextCompat.getColor(context, calendarProperties.dialogButtonsColor))
+            todayButton.setTextColor(ContextCompat.getColor(context, calendarProperties.dialogButtonsColor))
         }
     }
 
-    private fun setOkButtonState(enabled: Boolean, okButton: AppCompatButton?) {
-        okButton?.isEnabled = enabled
+    private fun setOkButtonState(enabled: Boolean, okButton: AppCompatButton) {
+        okButton.isEnabled = enabled
 
-        if (calendarProperties.dialogButtonsColor != 0) {
-            val stateResource = if (enabled)
-                calendarProperties.dialogButtonsColor
-            else
-                R.color.disabledDialogButtonColor
-            okButton?.setTextColor(ContextCompat.getColor(context, stateResource))
+        if (calendarProperties.dialogButtonsColor == 0) {
+            return
         }
+        val stateResource = if (enabled)
+            calendarProperties.dialogButtonsColor
+        else
+            R.color.disabledDialogButtonColor
+
+        okButton.setTextColor(ContextCompat.getColor(context, stateResource))
     }
 
     private fun setTodayButtonVisibility(todayButton: AppCompatButton?) {

@@ -2,9 +2,7 @@ package com.applandeo.materialcalendarview.utils
 
 import android.content.Context
 import android.graphics.drawable.Drawable
-import android.text.format.DateUtils
 import androidx.core.content.ContextCompat
-
 import com.applandeo.materialcalendarview.CalendarView
 import com.applandeo.materialcalendarview.EventDay
 import com.applandeo.materialcalendarview.R
@@ -14,9 +12,7 @@ import com.applandeo.materialcalendarview.listeners.OnCalendarPageChangeListener
 import com.applandeo.materialcalendarview.listeners.OnDayClickListener
 import com.applandeo.materialcalendarview.listeners.OnSelectDateListener
 import com.applandeo.materialcalendarview.listeners.OnSelectionAbilityListener
-
-import java.util.ArrayList
-import java.util.Calendar
+import java.util.*
 
 /**
  * This class contains all properties of the calendar
@@ -114,9 +110,9 @@ class CalendarProperties(private val mContext: Context) {
 
     var onForwardPageChangeListener: OnCalendarPageChangeListener? = null
 
-    var eventDays: List<EventDay> = ArrayList()
+    var eventDays: List<EventDay> = mutableListOf()
 
-    var disabledDays: List<Calendar> = ArrayList()
+    var disabledDays: List<Calendar> = mutableListOf()
         set(disabledDays) {
             selectedDays = selectedDays.filter {
                 disabledDays.contains(it.calendar).not()
@@ -129,7 +125,7 @@ class CalendarProperties(private val mContext: Context) {
                     }.toList()
         }
 
-    var highlightedDays: List<Calendar> = ArrayList()
+    var highlightedDays: List<Calendar> = mutableListOf()
         set(highlightedDays) {
             field = highlightedDays
                     .map { calendar ->

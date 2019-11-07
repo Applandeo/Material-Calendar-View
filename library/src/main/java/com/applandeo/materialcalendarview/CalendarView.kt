@@ -5,19 +5,17 @@ import android.content.res.TypedArray
 import android.graphics.drawable.Drawable
 import android.util.AttributeSet
 import android.view.LayoutInflater
-import android.widget.ImageButton
 import android.widget.LinearLayout
-import android.widget.TextView
 import androidx.annotation.ColorRes
 import androidx.viewpager.widget.ViewPager
 import com.applandeo.materialcalendarview.adapters.CalendarPageAdapter
 import com.applandeo.materialcalendarview.exceptions.ErrorsMessages
 import com.applandeo.materialcalendarview.exceptions.OutOfDateRangeException
-import com.applandeo.materialcalendarview.extensions.CalendarViewPager
 import com.applandeo.materialcalendarview.listeners.OnCalendarPageChangeListener
 import com.applandeo.materialcalendarview.listeners.OnDayClickListener
 import com.applandeo.materialcalendarview.utils.*
 import com.applandeo.materialcalendarview.utils.CalendarProperties.Companion.FIRST_VISIBLE_PAGE
+import kotlinx.android.synthetic.main.calendar_view.view.*
 import java.util.*
 
 /**
@@ -53,9 +51,7 @@ class CalendarView @JvmOverloads constructor(
         properties: CalendarProperties? = null
 ) : LinearLayout(context, attrs, defStyleAttr) {
 
-    private var currentMonthLabel: TextView? = null
     private var currentPage: Int = 0
-    private var viewPager: CalendarViewPager? = null
 
     private var calendarProperties: CalendarProperties = CalendarProperties(context)
     private var calendarPageAdapter: CalendarPageAdapter = CalendarPageAdapter(context, calendarProperties)
@@ -105,7 +101,7 @@ class CalendarView @JvmOverloads constructor(
             val calendar = calendarProperties.firstPageCalendarDate?.clone() as Calendar
             return calendar.apply {
                 set(Calendar.DAY_OF_MONTH, 1)
-                viewPager?.currentItem?.let { add(Calendar.MONTH, it) }
+                add(Calendar.MONTH, calendarViewPager.currentItem)
             }
         }
 
@@ -182,7 +178,7 @@ class CalendarView @JvmOverloads constructor(
         rootView.setPagesColor(calendarProperties.pagesColor)
         rootView.setPreviousButtonImage(calendarProperties.previousButtonSrc)
         rootView.setForwardButtonImage(calendarProperties.forwardButtonSrc)
-        viewPager?.setSwipeEnabled(calendarProperties.swipeEnabled)
+        calendarViewPager.swipeEnabled = calendarProperties.swipeEnabled
 
         calendarProperties.firstPageCalendarDate?.firstDayOfWeek?.let {
             rootView.setAbbreviationsLabels(calendarProperties.abbreviationsLabelsColor, it)
@@ -231,25 +227,21 @@ class CalendarView @JvmOverloads constructor(
     }
 
     private fun initUiElements() {
-        val forwardButton = findViewById<ImageButton>(R.id.forwardButton)
         forwardButton.setOnClickListener {
-            viewPager?.currentItem = viewPager?.currentItem?.plus(1) ?: return@setOnClickListener
+            calendarViewPager.currentItem = calendarViewPager.currentItem.plus(1)
         }
 
-        val previousButton = findViewById<ImageButton>(R.id.previousButton)
         previousButton.setOnClickListener {
-            viewPager?.currentItem = viewPager?.currentItem?.minus(1) ?: return@setOnClickListener
+            calendarViewPager.currentItem = calendarViewPager.currentItem.minus(1)
         }
 
-        currentMonthLabel = findViewById(R.id.currentDateLabel)
-        viewPager = findViewById(R.id.calendarViewPager)
     }
 
     private fun initCalendar() {
         calendarPageAdapter = CalendarPageAdapter(context, calendarProperties)
 
-        viewPager?.adapter = calendarPageAdapter
-        viewPager?.addOnPageChangeListener(onPageChangeListener)
+        calendarViewPager.adapter = calendarPageAdapter
+        calendarViewPager.addOnPageChangeListener(onPageChangeListener)
 
         setUpCalendarPosition(Calendar.getInstance())
     }
@@ -264,7 +256,7 @@ class CalendarView @JvmOverloads constructor(
         calendarProperties.firstPageCalendarDate?.time = calendar.time
         calendarProperties.firstPageCalendarDate?.add(Calendar.MONTH, -FIRST_VISIBLE_PAGE)
 
-        viewPager?.currentItem = FIRST_VISIBLE_PAGE
+        calendarViewPager.currentItem = FIRST_VISIBLE_PAGE
     }
 
     fun setOnPreviousPageChangeListener(listener: OnCalendarPageChangeListener) {
@@ -277,12 +269,12 @@ class CalendarView @JvmOverloads constructor(
 
     private fun isScrollingLimited(calendar: Calendar, position: Int): Boolean {
         if (calendarProperties.minimumDate.isMonthBefore(calendar)) {
-            viewPager?.currentItem = position + 1
+            calendarViewPager.currentItem = position + 1
             return true
         }
 
         if (calendarProperties.maximumDate.isMonthAfter(calendar)) {
-            viewPager?.currentItem = position - 1
+            calendarViewPager.currentItem = position - 1
             return true
         }
 
@@ -290,7 +282,7 @@ class CalendarView @JvmOverloads constructor(
     }
 
     private fun setHeaderName(calendar: Calendar, position: Int) {
-        currentMonthLabel?.text = calendar.getMonthAndYearDate(context)
+        currentDateLabel.text = calendar.getMonthAndYearDate(context)
         callOnPageChangeListeners(position)
     }
 
@@ -332,7 +324,7 @@ class CalendarView @JvmOverloads constructor(
 
         setUpCalendarPosition(date)
 
-        currentMonthLabel?.text = date.getMonthAndYearDate(context)
+        currentDateLabel.text = date.getMonthAndYearDate(context)
         calendarPageAdapter.notifyDataSetChanged()
     }
 
@@ -385,7 +377,7 @@ class CalendarView @JvmOverloads constructor(
      * This method is used to return to current month page
      */
     fun showCurrentMonthPage() {
-        viewPager?.let {
+        calendarViewPager.let {
             it.setCurrentItem(it.currentItem - getMidnightCalendar.getMonthsBetweenDates(currentPageDate), true)
         }
     }
@@ -400,7 +392,7 @@ class CalendarView @JvmOverloads constructor(
 
     fun setSwipeEnabled(swipeEnabled: Boolean) {
         calendarProperties.swipeEnabled = swipeEnabled
-        viewPager?.setSwipeEnabled(calendarProperties.swipeEnabled)
+        calendarViewPager.swipeEnabled = calendarProperties.swipeEnabled
     }
 
     companion object {

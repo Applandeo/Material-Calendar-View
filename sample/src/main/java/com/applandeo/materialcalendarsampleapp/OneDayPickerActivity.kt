@@ -1,11 +1,8 @@
 package com.applandeo.materialcalendarsampleapp
 
 import android.os.Bundle
-import android.view.View
-import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.applandeo.materialcalendarview.CalendarView
 import com.applandeo.materialcalendarview.EventDay
 import com.applandeo.materialcalendarview.listeners.OnDayClickListener
 import kotlinx.android.synthetic.main.one_day_picker_activity.*
@@ -33,7 +30,6 @@ class OneDayPickerActivity : AppCompatActivity() {
             }
         })
 
-        val getDateButton = findViewById<View>(R.id.getDateButton) as Button
         getDateButton.setOnClickListener {
             for (calendar in calendarView.selectedDates) {
                 println(calendar.time.toString())

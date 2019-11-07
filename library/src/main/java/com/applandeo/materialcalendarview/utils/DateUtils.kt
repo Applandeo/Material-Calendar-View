@@ -23,14 +23,12 @@ val getMidnightCalendar: Calendar = Calendar.getInstance().also {
  *
  * @param this Calendar object which hour should be set to 00:00:00:00
  */
-fun Calendar?.setMidnight() {
-    this?.apply {
+fun Calendar?.setMidnight() = this?.apply {
         set(Calendar.HOUR_OF_DAY, 0)
         set(Calendar.MINUTE, 0)
         set(Calendar.SECOND, 0)
         set(Calendar.MILLISECOND, 0)
     }
-}
 
 /**
  * This method compares calendars using month and year
@@ -40,7 +38,9 @@ fun Calendar?.setMidnight() {
  * @return Boolean value if second calendar is before the first one
  */
 fun Calendar?.isMonthBefore(secondCalendar: Calendar): Boolean {
-    if (this == null) return false
+    if (this == null) {
+        return false
+    }
 
     val firstDay = this.clone() as Calendar
     firstDay.setMidnight()
@@ -105,10 +105,8 @@ fun Calendar.getMonthsBetweenDates(endCalendar: Calendar): Int {
  * @param endCalendar   Calendar representing a last date
  * @return Number of days
  */
-private fun Calendar.getDaysBetweenDates(endCalendar: Calendar): Long {
-    val milliseconds = endCalendar.timeInMillis - this.timeInMillis
-    return TimeUnit.MILLISECONDS.toDays(milliseconds)
-}
+private fun Calendar.getDaysBetweenDates(endCalendar: Calendar) =
+        TimeUnit.MILLISECONDS.toDays(endCalendar.timeInMillis - this.timeInMillis)
 
 fun List<Calendar>.isFullDatesRange(): Boolean {
     val listSize = this.size

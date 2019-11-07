@@ -16,7 +16,6 @@ class CalendarGridView @JvmOverloads constructor(
 
     //This method is needed to get wrap_content height for GridView
     public override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
-        val expandSpec = MeasureSpec.makeMeasureSpec(Integer.MAX_VALUE shr 2, MeasureSpec.AT_MOST)
-        super.onMeasure(widthMeasureSpec, expandSpec)
+        super.onMeasure(widthMeasureSpec, MeasureSpec.makeMeasureSpec(Integer.MAX_VALUE shr 2, MeasureSpec.AT_MOST))
     }
 }

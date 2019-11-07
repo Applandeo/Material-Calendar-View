@@ -12,20 +12,18 @@ import java.util.*
  * this class can be passed to CalendarView object using setEvents() method.
  *
  *
- * Created by Mateusz Kornakiewicz on 23.05.2017.
- */
-
-class EventDay
-/**
  * @param day      Calendar object which represents a date of the event
  * @param drawable Drawable which will be displayed in a day cell
  * @param drawableRes Drawable resource which will be displayed in a day cell
  * @param labelColor Color which will be displayed as row label text color
+ *
+ * Created by Mateusz Kornakiewicz on 23.05.2017.
  */
-    @JvmOverloads constructor(day: Calendar,
-                              drawable: Drawable? = null,
-                              @DrawableRes drawableRes: Int = 0,
-                              val labelColor: Int = 0) {
+
+class EventDay @JvmOverloads constructor(day: Calendar,
+                                         drawable: Drawable? = null,
+                                         @DrawableRes drawableRes: Int = 0,
+                                         val labelColor: Int = 0) {
 
     /**
      * @return Calendar object which represents a date of current event

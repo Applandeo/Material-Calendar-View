@@ -50,7 +50,7 @@ class MainActivity : AppCompatActivity(), OnSelectDateListener {
     }
 
     private fun openManyDaysPicker() {
-        val selectedDays = ArrayList(disabledDays())
+        val selectedDays = mutableListOf<Calendar>().apply{addAll(disabledDays())}
         selectedDays.add(Calendar.getInstance().apply { add(Calendar.DAY_OF_MONTH, -5) })
         selectedDays.add(Calendar.getInstance().apply { add(Calendar.DAY_OF_MONTH, 3) })
 
@@ -69,7 +69,7 @@ class MainActivity : AppCompatActivity(), OnSelectDateListener {
         val min = Calendar.getInstance().apply { add(Calendar.DAY_OF_MONTH, -5) }
         val max = Calendar.getInstance().apply { add(Calendar.DAY_OF_MONTH, 3) }
 
-        val selectedDays = ArrayList<Calendar>()
+        val selectedDays = mutableListOf<Calendar>()
         selectedDays.add(min)
         selectedDays.addAll(min.getDatesRange(max))
         selectedDays.add(max)

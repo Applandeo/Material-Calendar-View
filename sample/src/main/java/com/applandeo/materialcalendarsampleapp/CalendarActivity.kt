@@ -2,8 +2,6 @@ package com.applandeo.materialcalendarsampleapp
 
 import android.graphics.Color
 import android.os.Bundle
-import android.view.View
-import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.applandeo.materialcalendarsampleapp.utils.getCircleDrawableWithText
@@ -27,7 +25,7 @@ class CalendarActivity : AppCompatActivity() {
             val secondDisabled = getMidnightCalendar.apply { add(Calendar.DAY_OF_MONTH, 1) }
             val thirdDisabled = getMidnightCalendar.apply { add(Calendar.DAY_OF_MONTH, 18) }
 
-            return ArrayList<Calendar>().apply {
+            return mutableListOf<Calendar>().apply {
                 add(firstDisabled)
                 add(secondDisabled)
                 add(thirdDisabled)
@@ -45,7 +43,7 @@ class CalendarActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.calendar_activity)
 
-        val events = ArrayList<EventDay>()
+        val events = mutableListOf<EventDay>()
 
         val calendar = Calendar.getInstance()
         events.add(EventDay(calendar,
@@ -79,7 +77,6 @@ class CalendarActivity : AppCompatActivity() {
             })
         }
 
-        val setDateButton = findViewById<View>(R.id.setDateButton) as Button
         setDateButton.setOnClickListener {
             try {
                 val randomCalendar = getRandomCalendar()

@@ -6,6 +6,7 @@ import android.widget.TextView
 import com.applandeo.materialcalendarview.*
 import com.applandeo.materialcalendarview.adapters.CalendarPageAdapter
 import com.applandeo.materialcalendarview.utils.*
+import kotlinx.android.synthetic.main.calendar_view_day.view.*
 import java.util.*
 
 /**
@@ -41,22 +42,19 @@ class DayRowClickListener(
     private fun selectOneDay(view: View, day: Calendar) {
         val previousSelectedDay = calendarPageAdapter.selectedDay
 
-        val dayLabel = view.findViewById<View>(R.id.dayLabel) as TextView
-
         if (isAnotherDaySelected(previousSelectedDay, day)) {
-            selectDay(dayLabel, day)
+            selectDay(view.dayLabel, day)
             reverseUnselectedColor(previousSelectedDay)
         }
     }
 
     private fun selectManyDays(view: View, day: Calendar) {
-        val dayLabel = view.findViewById<View>(R.id.dayLabel) as TextView
 
         if (isCurrentMonthDay(day) && isActiveDay(day)) {
-            val selectedDay = SelectedDay(day, dayLabel)
+            val selectedDay = SelectedDay(day, view.dayLabel)
 
             if (!calendarPageAdapter.selectedDays.contains(selectedDay)) {
-                dayLabel.setSelectedDayColors(calendarProperties)
+                view.dayLabel.setSelectedDayColors(calendarProperties)
             } else {
                 reverseUnselectedColor(selectedDay)
             }
@@ -66,8 +64,6 @@ class DayRowClickListener(
     }
 
     private fun selectRange(view: View, day: Calendar) {
-        val dayLabel = view.findViewById<View>(R.id.dayLabel) as TextView
-
         if (!isCurrentMonthDay(day) || !isActiveDay(day)) {
             return
         }
@@ -75,15 +71,15 @@ class DayRowClickListener(
         val selectedDays = calendarPageAdapter.selectedDays
 
         if (selectedDays.size > 1) {
-            clearAndSelectOne(dayLabel, day)
+            clearAndSelectOne(view.dayLabel, day)
         }
 
         if (selectedDays.size == 1) {
-            selectOneAndRange(dayLabel, day)
+            selectOneAndRange(view.dayLabel, day)
         }
 
         if (selectedDays.isEmpty()) {
-            selectDay(dayLabel, day)
+            selectDay(view.dayLabel, day)
         }
     }
 

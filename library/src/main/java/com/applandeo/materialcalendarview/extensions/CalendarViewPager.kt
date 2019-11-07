@@ -1,9 +1,9 @@
 package com.applandeo.materialcalendarview.extensions
 
 import android.content.Context
-import androidx.viewpager.widget.ViewPager
 import android.util.AttributeSet
 import android.view.MotionEvent
+import androidx.viewpager.widget.ViewPager
 
 /**
  * Created by Mateusz Kornakiewicz on 21.11.2017.
@@ -14,7 +14,7 @@ class CalendarViewPager @JvmOverloads constructor(
         attrs: AttributeSet? = null
 ) : ViewPager(context, attrs) {
 
-    private var swipeEnabled = true
+    var swipeEnabled = true
 
     //This method is needed to get wrap_content height for ViewPager
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
@@ -39,14 +39,8 @@ class CalendarViewPager @JvmOverloads constructor(
         super.onMeasure(widthMeasureSpec, heightMeasure)
     }
 
-    fun setSwipeEnabled(swipeEnabled: Boolean) {
-        this.swipeEnabled = swipeEnabled
-    }
+    override fun onTouchEvent(event: MotionEvent) = swipeEnabled && super.onTouchEvent(event)
 
-    override fun onTouchEvent(event: MotionEvent)
-            = swipeEnabled && super.onTouchEvent(event)
-
-    override fun onInterceptTouchEvent(event: MotionEvent)
-            = swipeEnabled && super.onInterceptTouchEvent(event)
+    override fun onInterceptTouchEvent(event: MotionEvent) = swipeEnabled && super.onInterceptTouchEvent(event)
 
 }
