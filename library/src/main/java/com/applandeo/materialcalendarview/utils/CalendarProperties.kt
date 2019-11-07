@@ -17,7 +17,6 @@ import java.util.*
 /**
  * This class contains all properties of the calendar
  *
- *
  * Created by Mateusz Kornakiewicz on 30.10.2017.
  */
 

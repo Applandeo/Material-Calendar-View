@@ -50,7 +50,7 @@ class MainActivity : AppCompatActivity(), OnSelectDateListener {
     }
 
     private fun openManyDaysPicker() {
-        val selectedDays = mutableListOf<Calendar>().apply{addAll(disabledDays())}
+        val selectedDays = mutableListOf<Calendar>().apply { addAll(disabledDays()) }
         selectedDays.add(Calendar.getInstance().apply { add(Calendar.DAY_OF_MONTH, -5) })
         selectedDays.add(Calendar.getInstance().apply { add(Calendar.DAY_OF_MONTH, 3) })
 

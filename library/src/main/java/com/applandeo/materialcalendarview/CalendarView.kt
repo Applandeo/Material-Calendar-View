@@ -28,9 +28,6 @@ import java.util.*
  *
  * @see OnDayClickListener
  *
- *
- *
- *
  * XML attributes:
  * - Set calendar type: type="classic or one_day_picker or many_days_picker or range_picker"
  * - Set calendar header color: headerColor="@color/[color]"
@@ -39,7 +36,6 @@ import java.util.*
  * - Ser forward button resource: forwardButtonSrc="@drawable/[drawable]"
  * - Set today label color: todayLabelColor="@color/[color]"
  * - Set selection color: selectionColor="@color/[color]"
- *
  *
  * Created by Mateusz Kornakiewicz on 23.05.2017.
  */

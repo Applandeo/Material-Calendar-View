@@ -18,7 +18,6 @@ import java.util.*
 /**
  * This class is responsible for loading a one day cell.
  *
- *
  * Created by Mateusz Kornakiewicz on 24.05.2017.
  */
 
@@ -51,7 +50,7 @@ internal class CalendarDayAdapter(
                             // Loading an image of the event
                             loadIcon(this, day)
                         }
-                    }?: View(context)
+                    } ?: View(context)
 
     private fun setLabelColors(dayLabel: TextView, day: Calendar) {
         // Setting not current month day color

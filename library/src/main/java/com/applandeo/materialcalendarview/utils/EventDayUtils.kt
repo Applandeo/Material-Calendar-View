@@ -12,10 +12,10 @@ import java.util.*
  */
 fun Calendar.isEventDayWithLabelColor(calendarProperties: CalendarProperties) =
         if (calendarProperties.eventsEnabled) {
-        calendarProperties.eventDays.none { eventDate ->
-            eventDate.calendar == this && eventDate.labelColor != 0
-        }
-    } else false
+            calendarProperties.eventDays.none { eventDate ->
+                eventDate.calendar == this && eventDate.labelColor != 0
+            }
+        } else false
 
 /**
  * This method is used to get event day which contains custom label color.

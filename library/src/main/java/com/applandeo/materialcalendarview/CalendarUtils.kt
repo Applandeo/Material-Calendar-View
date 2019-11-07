@@ -14,8 +14,8 @@ import java.util.concurrent.TimeUnit
  * Created by Mateusz Kornakiewicz on 03.08.2018.
  */
 
-/*
-Utils method to create drawable containing text
+/**
+ *Utils method to create drawable containing text
  */
 fun Context.getDrawableText(text: String, typeface: Typeface?, color: Int, size: Int): Drawable {
     val bitmap = Bitmap.createBitmap(48, 48, Bitmap.Config.ARGB_8888)
@@ -43,7 +43,7 @@ fun Context.getDrawableText(text: String, typeface: Typeface?, color: Int, size:
  * @param firstDay Calendar representing a first selected date
  * @param lastDay Calendar representing a last selected date
  * @return List of selected dates between two dates
- * */
+ */
 fun Calendar.getDatesRange(lastDay: Calendar): List<Calendar> =
         if (lastDay.before(this)) {
             getCalendarsBetweenDates(lastDay.time, this.time)

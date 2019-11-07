@@ -13,16 +13,14 @@ import kotlinx.android.synthetic.main.calendar_view.view.*
  */
 
 fun View.setAbbreviationsLabels(color: Int, firstDayOfWeek: Int) {
-    val labels = mutableListOf<TextView>()
-    labels.apply {
-        add(mondayLabel)
-        add(tuesdayLabel)
-        add(wednesdayLabel)
-        add(thursdayLabel)
-        add(fridayLabel)
-        add(saturdayLabel)
-        add(sundayLabel)
-    }
+    val labels = mutableListOf<TextView>(
+            mondayLabel,
+            tuesdayLabel,
+            wednesdayLabel,
+            thursdayLabel,
+            fridayLabel,
+            saturdayLabel,
+            sundayLabel)
 
     val abbreviations = this.context.resources.getStringArray(R.array.material_calendar_day_abbreviations_array)
 

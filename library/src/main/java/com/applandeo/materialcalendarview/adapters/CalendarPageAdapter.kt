@@ -16,7 +16,6 @@ import java.util.*
 /**
  * This class is responsible for loading a calendar page content.
  *
- *
  * Created by Mateusz Kornakiewicz on 24.05.2017.
  */
 

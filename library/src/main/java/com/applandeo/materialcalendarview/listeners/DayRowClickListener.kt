@@ -3,15 +3,16 @@ package com.applandeo.materialcalendarview.listeners
 import android.view.View
 import android.widget.AdapterView
 import android.widget.TextView
-import com.applandeo.materialcalendarview.*
+import com.applandeo.materialcalendarview.CalendarView
+import com.applandeo.materialcalendarview.EventDay
 import com.applandeo.materialcalendarview.adapters.CalendarPageAdapter
+import com.applandeo.materialcalendarview.getDatesRange
 import com.applandeo.materialcalendarview.utils.*
 import kotlinx.android.synthetic.main.calendar_view_day.view.*
 import java.util.*
 
 /**
  * This class is responsible for handle click events
- *
  *
  * Created by Mateusz Kornakiewicz on 24.05.2017.
  */
@@ -105,7 +106,7 @@ class DayRowClickListener(
 
     private fun selectDay(dayLabel: TextView, day: Calendar) {
         dayLabel.setSelectedDayColors(calendarProperties)
-        calendarPageAdapter.selectedDay = SelectedDay(day,dayLabel)
+        calendarPageAdapter.selectedDay = SelectedDay(day, dayLabel)
     }
 
     private fun reverseUnselectedColor(selectedDay: SelectedDay) {
@@ -117,15 +118,17 @@ class DayRowClickListener(
     private fun isActiveDay(day: Calendar) = calendarProperties.disabledDays.contains(day).not()
 
     private fun isBetweenMinAndMax(day: Calendar?): Boolean {
-        if (day == null) { return false }
+        if (day == null) {
+            return false
+        }
 
         return !(calendarProperties.minimumDate != null && day.before(calendarProperties.minimumDate)
                 || calendarProperties.maximumDate != null && day.after(calendarProperties.maximumDate))
     }
 
     private fun isAnotherDaySelected(selectedDay: SelectedDay?, day: Calendar) =
-        (selectedDay != null && day != selectedDay.calendar
-                && isCurrentMonthDay(day) && isActiveDay(day))
+            (selectedDay != null && day != selectedDay.calendar
+                    && isCurrentMonthDay(day) && isActiveDay(day))
 
     private fun onClick(day: Calendar) {
         if (calendarProperties.eventDays.isEmpty()) {

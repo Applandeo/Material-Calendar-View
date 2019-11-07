@@ -16,7 +16,6 @@ import kotlinx.android.synthetic.main.date_picker_dialog.view.*
 /**
  * This class is responsible for creating DatePicker dialog.
  *
- *
  * Created by Mateusz Kornakiewicz on 27.07.2017.
  */
 

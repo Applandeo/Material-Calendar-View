@@ -14,9 +14,9 @@ import java.util.concurrent.TimeUnit
 /**
  * @return An instance of the Calendar object with hour set to 00:00:00:00
  */
-val getMidnightCalendar: Calendar = Calendar.getInstance().also {
-        it.setMidnight()
-    }
+val getMidnightCalendar: Calendar = Calendar.getInstance().apply {
+    this.setMidnight()
+}
 
 /**
  * This method sets an hour in the calendar object to 00:00:00:00
@@ -24,11 +24,11 @@ val getMidnightCalendar: Calendar = Calendar.getInstance().also {
  * @param this Calendar object which hour should be set to 00:00:00:00
  */
 fun Calendar?.setMidnight() = this?.apply {
-        set(Calendar.HOUR_OF_DAY, 0)
-        set(Calendar.MINUTE, 0)
-        set(Calendar.SECOND, 0)
-        set(Calendar.MILLISECOND, 0)
-    }
+    set(Calendar.HOUR_OF_DAY, 0)
+    set(Calendar.MINUTE, 0)
+    set(Calendar.SECOND, 0)
+    set(Calendar.MILLISECOND, 0)
+}
 
 /**
  * This method compares calendars using month and year
