@@ -6,7 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.range_picker_activity.*
 
 /**
- * Created by Mateusz Kornakiewicz on 23.10.2017.
+ * Created by Applandeo Team.
  */
 
 class RangePickerActivity : AppCompatActivity() {

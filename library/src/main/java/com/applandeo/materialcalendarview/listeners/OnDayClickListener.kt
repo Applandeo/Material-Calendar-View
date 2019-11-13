@@ -5,7 +5,7 @@ import com.applandeo.materialcalendarview.EventDay
 /**
  * This interface is used to handle clicks on calendar cells
  *
- * Created by Mateusz Kornakiewicz on 23.05.2017.
+ * Created by Applandeo Team.
  */
 
 interface OnDayClickListener {

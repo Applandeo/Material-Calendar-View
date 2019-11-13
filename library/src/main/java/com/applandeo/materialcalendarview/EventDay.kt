@@ -17,13 +17,15 @@ import java.util.*
  * @param drawableRes Drawable resource which will be displayed in a day cell
  * @param labelColor Color which will be displayed as row label text color
  *
- * Created by Mateusz Kornakiewicz on 23.05.2017.
+ * Created by Applandeo Team.
  */
 
-class EventDay @JvmOverloads constructor(day: Calendar,
-                                         drawable: Drawable? = null,
-                                         @DrawableRes drawableRes: Int = 0,
-                                         val labelColor: Int = 0) {
+data class EventDay @JvmOverloads constructor(
+        private val day: Calendar,
+        private val drawable: Drawable? = null,
+        @DrawableRes private val drawableRes: Int = 0,
+        val labelColor: Int = 0
+) {
 
     /**
      * @return Calendar object which represents a date of current event

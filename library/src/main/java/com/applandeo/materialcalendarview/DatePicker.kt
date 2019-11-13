@@ -8,15 +8,15 @@ import androidx.appcompat.widget.AppCompatButton
 import androidx.core.content.ContextCompat
 import com.applandeo.materialcalendarview.listeners.OnSelectionAbilityListener
 import com.applandeo.materialcalendarview.utils.CalendarProperties
-import com.applandeo.materialcalendarview.utils.getMidnightCalendar
 import com.applandeo.materialcalendarview.utils.isMonthAfter
 import com.applandeo.materialcalendarview.utils.isMonthBefore
+import com.applandeo.materialcalendarview.utils.midnightCalendar
 import kotlinx.android.synthetic.main.date_picker_dialog.view.*
 
 /**
  * This class is responsible for creating DatePicker dialog.
  *
- * Created by Mateusz Kornakiewicz on 27.07.2017.
+ * Created by Applandeo Team.
  */
 
 class DatePicker(
@@ -25,8 +25,7 @@ class DatePicker(
 ) {
 
     fun show(): DatePicker {
-        val layoutInflater = LayoutInflater.from(context)
-        val view = layoutInflater.inflate(R.layout.date_picker_dialog, null)
+        val view = LayoutInflater.from(context).inflate(R.layout.date_picker_dialog, null)
 
         if (calendarProperties.pagesColor != 0) {
             view.setBackgroundColor(calendarProperties.pagesColor)
@@ -81,18 +80,19 @@ class DatePicker(
         if (calendarProperties.dialogButtonsColor == 0) {
             return
         }
-        val stateResource = if (enabled)
+        val stateResource = if (enabled) {
             calendarProperties.dialogButtonsColor
-        else
+        } else {
             R.color.disabledDialogButtonColor
+        }
 
         okButton.setTextColor(ContextCompat.getColor(context, stateResource))
     }
 
-    private fun setTodayButtonVisibility(todayButton: AppCompatButton?) {
-        if (calendarProperties.maximumDate.isMonthAfter(getMidnightCalendar)
-                || calendarProperties.minimumDate.isMonthBefore(getMidnightCalendar)) {
-            todayButton?.visibility = View.GONE
-        }
-    }
+    private fun setTodayButtonVisibility(todayButton: AppCompatButton?) =
+            calendarProperties.maximumDate?.run {
+                if (isMonthBefore(midnightCalendar) || isMonthAfter(midnightCalendar)) {
+                    todayButton?.visibility = View.GONE
+                }
+            }
 }

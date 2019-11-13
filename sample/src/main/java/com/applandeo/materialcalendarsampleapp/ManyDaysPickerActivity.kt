@@ -6,12 +6,12 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.applandeo.materialcalendarview.EventDay
 import com.applandeo.materialcalendarview.listeners.OnCalendarPageChangeListener
-import com.applandeo.materialcalendarview.utils.getMidnightCalendar
+import com.applandeo.materialcalendarview.utils.midnightCalendar
 import kotlinx.android.synthetic.main.many_days_picker_activity.*
 import java.util.*
 
 /**
- * Created by Mateusz Kornakiewicz on 23.10.2017.
+ * Created by Applandeo Team.
  */
 
 class ManyDaysPickerActivity : AppCompatActivity() {
@@ -21,7 +21,7 @@ class ManyDaysPickerActivity : AppCompatActivity() {
             val calendars = mutableListOf<Calendar>()
 
             for (i in 0..9) {
-                val calendar = getMidnightCalendar
+                val calendar = midnightCalendar
                 calendar.add(Calendar.DAY_OF_MONTH, i)
                 calendars.add(calendar)
             }

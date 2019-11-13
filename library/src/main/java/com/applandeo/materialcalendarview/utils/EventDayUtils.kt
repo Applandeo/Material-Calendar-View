@@ -15,7 +15,9 @@ fun Calendar.isEventDayWithLabelColor(calendarProperties: CalendarProperties) =
             calendarProperties.eventDays.none { eventDate ->
                 eventDate.calendar == this && eventDate.labelColor != 0
             }
-        } else false
+        } else {
+            false
+        }
 
 /**
  * This method is used to get event day which contains custom label color.

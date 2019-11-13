@@ -6,7 +6,7 @@ import android.view.MotionEvent
 import androidx.viewpager.widget.ViewPager
 
 /**
- * Created by Mateusz Kornakiewicz on 21.11.2017.
+ * Created by Applandeo Team.
  */
 
 class CalendarViewPager @JvmOverloads constructor(
@@ -21,8 +21,8 @@ class CalendarViewPager @JvmOverloads constructor(
         var heightMeasure = heightMeasureSpec
         var height = 0
 
-        for (i in 0 until childCount) {
-            val child = getChildAt(i)
+        (0..childCount).forEachIndexed { index, _ ->
+            val child = getChildAt(index)
             child.measure(widthMeasureSpec, MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED))
 
             val measuredHeight = child.measuredHeight

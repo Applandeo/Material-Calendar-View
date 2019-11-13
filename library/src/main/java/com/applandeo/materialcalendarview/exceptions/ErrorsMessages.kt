@@ -1,7 +1,7 @@
 package com.applandeo.materialcalendarview.exceptions
 
 /**
- * Created by Mateusz Kornakiewicz on 09.08.2018.
+ * Created by Applandeo Team.
  */
 
 object ErrorsMessages {

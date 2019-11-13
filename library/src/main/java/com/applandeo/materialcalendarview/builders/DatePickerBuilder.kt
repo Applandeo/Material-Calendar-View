@@ -12,7 +12,7 @@ import com.applandeo.materialcalendarview.utils.CalendarProperties
 import java.util.*
 
 /**
- * Created by Mateusz Kornakiewicz on 12.10.2017.
+ * Created by Applandeo Team.
  */
 class DatePickerBuilder(
         private val context: Context,

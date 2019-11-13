@@ -18,7 +18,7 @@ import java.util.*
 /**
  * This class is responsible for loading a one day cell.
  *
- * Created by Mateusz Kornakiewicz on 24.05.2017.
+ * Created by Applandeo Team.
  */
 
 internal class CalendarDayAdapter(
@@ -29,32 +29,33 @@ internal class CalendarDayAdapter(
         pageMonth: Int
 ) : ArrayAdapter<Date>(context, calendarProperties.itemLayoutResource, dates) {
 
-    private val layoutInflater: LayoutInflater = LayoutInflater.from(context)
     private val pageMonth: Int = if (pageMonth < 0) 11 else pageMonth
-    private val today = getMidnightCalendar
+    private val today = midnightCalendar
 
-    @SuppressLint("ViewHolder")
-    override fun getView(position: Int, view: View?, parent: ViewGroup) =
-            layoutInflater.inflate(calendarProperties.itemLayoutResource, parent, false)
-                    .apply {
-                        val day = GregorianCalendar().apply {
-                            time = getItem(position)
-                        }
+    override fun getView(position: Int, view: View?, parent: ViewGroup): View {
+        val dayView = view
+                ?: LayoutInflater.from(context).inflate(calendarProperties.itemLayoutResource, parent, false)
 
-                        dayLabel.run {
-                            setLabelColors(this, day)
-                            this.text = day.get(Calendar.DAY_OF_MONTH).toString()
-                        }
+        val day = GregorianCalendar().apply {
+            time = getItem(position)
+        }
 
-                        dayIcon.run {
-                            // Loading an image of the event
-                            loadIcon(this, day)
-                        }
-                    } ?: View(context)
+        dayView.dayLabel.run {
+            setLabelColors(this, day)
+            this.text = day.get(Calendar.DAY_OF_MONTH).toString()
+        }
+
+        dayView.dayIcon.run {
+            // Loading an image of the event
+            loadIcon(this, day)
+        }
+
+        return dayView
+    }
 
     private fun setLabelColors(dayLabel: TextView, day: Calendar) {
         // Setting not current month day color
-        if (isCurrentMonthDay(day).not()) {
+        if (!isCurrentMonthDay(day)) {
             dayLabel.setDayColors(calendarProperties.anotherMonthsDaysLabelsColor,
                     Typeface.NORMAL, R.drawable.background_transparent)
             return
@@ -71,7 +72,7 @@ internal class CalendarDayAdapter(
         }
 
         // Setting disabled days color
-        if (isActiveDay(day).not()) {
+        if (!isActiveDay(day)) {
             dayLabel.setDayColors(calendarProperties.disabledDaysLabelsColor,
                     Typeface.NORMAL, R.drawable.background_transparent)
             return
@@ -88,16 +89,16 @@ internal class CalendarDayAdapter(
 
     private fun isCurrentMonthDay(day: Calendar) =
             day.get(Calendar.MONTH) == pageMonth
-                    && (calendarProperties.minimumDate != null
+                    && !(calendarProperties.minimumDate != null
                     && day.before(calendarProperties.minimumDate)
                     || calendarProperties.maximumDate != null
-                    && day.after(calendarProperties.maximumDate)).not()
+                    && day.after(calendarProperties.maximumDate))
 
     private fun isActiveDay(day: Calendar) =
-            calendarProperties.disabledDays.contains(day).not()
+            !calendarProperties.disabledDays.contains(day)
 
     private fun loadIcon(dayIcon: ImageView, day: Calendar) {
-        if (calendarProperties.eventsEnabled.not()) {
+        if (!calendarProperties.eventsEnabled) {
             dayIcon.visibility = View.GONE
             return
         }

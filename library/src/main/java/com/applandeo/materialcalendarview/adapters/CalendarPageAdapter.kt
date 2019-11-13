@@ -11,19 +11,19 @@ import com.applandeo.materialcalendarview.listeners.DayRowClickListener
 import com.applandeo.materialcalendarview.utils.CalendarProperties
 import com.applandeo.materialcalendarview.utils.CalendarProperties.Companion.CALENDAR_SIZE
 import com.applandeo.materialcalendarview.utils.SelectedDay
+import kotlinx.android.synthetic.main.calendar_view_grid.view.*
 import java.util.*
 
 /**
  * This class is responsible for loading a calendar page content.
  *
- * Created by Mateusz Kornakiewicz on 24.05.2017.
+ * Created by Applandeo Team.
  */
 
 class CalendarPageAdapter(
         private val context: Context,
         private val calendarProperties: CalendarProperties
 ) : PagerAdapter() {
-    private var calendarGridView: CalendarGridView? = null
 
     private var pageMonth: Int = 0
 
@@ -48,20 +48,15 @@ class CalendarPageAdapter(
     override fun isViewFromObject(view: View, any: Any) = view === any
 
     override fun instantiateItem(container: ViewGroup, position: Int): Any {
-        val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-        calendarGridView = inflater.inflate(R.layout.calendar_view_grid, null) as CalendarGridView
+        loadMonth(position, container.calendarGridView)
 
-        loadMonth(position)
-
-        calendarGridView?.onItemClickListener = DayRowClickListener(this,
+        container.calendarGridView.onItemClickListener = DayRowClickListener(this,
                 calendarProperties, pageMonth)
-
-        container.addView(calendarGridView)
-        return calendarGridView as CalendarGridView
+        return container.calendarGridView
     }
 
     fun addSelectedDay(selectedDay: SelectedDay) {
-        if (calendarProperties.selectedDays.contains(selectedDay).not()) {
+        if (!calendarProperties.selectedDays.contains(selectedDay)) {
             calendarProperties.selectedDays.add(selectedDay)
             informDatePicker()
             return
@@ -82,7 +77,7 @@ class CalendarPageAdapter(
      *
      * @param position Position of current page in ViewPager
      */
-    private fun loadMonth(position: Int) {
+    private fun loadMonth(position: Int, calendarGridView: CalendarGridView) {
         val days = mutableListOf<Date>()
 
         // Get Calendar object instance
@@ -117,7 +112,7 @@ class CalendarPageAdapter(
         val calendarDayAdapter = CalendarDayAdapter(this, context,
                 calendarProperties, days, pageMonth)
 
-        calendarGridView?.adapter = calendarDayAdapter
+        calendarGridView.adapter = calendarDayAdapter
     }
 
     override fun destroyItem(container: ViewGroup, position: Int, any: Any) {

@@ -8,13 +8,13 @@ import java.util.*
 import java.util.concurrent.TimeUnit
 
 /**
- * Created by Mateusz Kornakiewicz on 23.05.2017.
+ * Created by Applandeo Team.
  */
 
 /**
  * @return An instance of the Calendar object with hour set to 00:00:00:00
  */
-val getMidnightCalendar: Calendar = Calendar.getInstance().apply {
+val midnightCalendar: Calendar = Calendar.getInstance().apply {
     this.setMidnight()
 }
 
@@ -23,7 +23,7 @@ val getMidnightCalendar: Calendar = Calendar.getInstance().apply {
  *
  * @param this Calendar object which hour should be set to 00:00:00:00
  */
-fun Calendar?.setMidnight() = this?.apply {
+fun Calendar.setMidnight() = this.apply {
     set(Calendar.HOUR_OF_DAY, 0)
     set(Calendar.MINUTE, 0)
     set(Calendar.SECOND, 0)
@@ -37,20 +37,8 @@ fun Calendar?.setMidnight() = this?.apply {
  * @param secondCalendar Second calendar object to compare
  * @return Boolean value if second calendar is before the first one
  */
-fun Calendar?.isMonthBefore(secondCalendar: Calendar): Boolean {
-    if (this == null) {
-        return false
-    }
-
-    val firstDay = this.clone() as Calendar
-    firstDay.setMidnight()
-    firstDay.set(Calendar.DAY_OF_MONTH, 1)
-    val secondDay = secondCalendar.clone() as Calendar
-    secondDay.setMidnight()
-    secondDay.set(Calendar.DAY_OF_MONTH, 1)
-
-    return secondDay.before(firstDay)
-}
+fun Calendar.isMonthBefore(secondCalendar: Calendar) =
+    this.isMonthBeforeOrAfter(secondCalendar, true)
 
 /**
  * This method compares calendars using month and year
@@ -59,19 +47,21 @@ fun Calendar?.isMonthBefore(secondCalendar: Calendar): Boolean {
  * @param secondCalendar Second calendar object to compare
  * @return Boolean value if second calendar is after the first one
  */
-fun Calendar?.isMonthAfter(secondCalendar: Calendar): Boolean {
-    if (this == null) return false
+fun Calendar.isMonthAfter(secondCalendar: Calendar) =
+    this.isMonthBeforeOrAfter(secondCalendar, false)
 
-    val firstDay = this.clone() as Calendar
-    firstDay.setMidnight()
-    firstDay.set(Calendar.DAY_OF_MONTH, 1)
-    val secondDay = secondCalendar.clone() as Calendar
-    secondDay.setMidnight()
-    secondDay.set(Calendar.DAY_OF_MONTH, 1)
+private fun Calendar.isMonthBeforeOrAfter(secondCalendar: Calendar, isBefore: Boolean): Boolean {
+    val firstDay = (this.clone() as Calendar).apply {
+        setMidnight()
+        set(Calendar.DAY_OF_MONTH, 1)
+    }
+    val secondDay = (secondCalendar.clone() as Calendar).apply {
+        setMidnight()
+        set(Calendar.DAY_OF_MONTH, 1)
+    }
 
-    return secondDay.after(firstDay)
+    return if (isBefore) secondDay.before(firstDay) else secondDay.after(firstDay)
 }
-
 /**
  * This method returns a string containing a month's name and a year (in number).
  * It's used instead of new SimpleDateFormat("MMMM yyyy", Locale.getDefault()).format([Date]);
@@ -117,5 +107,5 @@ fun List<Calendar>.isFullDatesRange(): Boolean {
 
     val sortedCalendars = this.sortedBy { it.timeInMillis }.toList()
 
-    return listSize.toLong() == sortedCalendars[0].getDaysBetweenDates(sortedCalendars[listSize - 1]) + 1
+    return listSize.toLong() == sortedCalendars.first().getDaysBetweenDates(sortedCalendars[listSize - 1]) + 1
 }

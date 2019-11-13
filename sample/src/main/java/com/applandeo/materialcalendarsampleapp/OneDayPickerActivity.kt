@@ -9,7 +9,7 @@ import kotlinx.android.synthetic.main.one_day_picker_activity.*
 import java.util.*
 
 /**
- * Created by Mateusz Kornakiewicz on 26.05.2017.
+ * Created by Applandeo Team.
  */
 
 class OneDayPickerActivity : AppCompatActivity() {

@@ -9,35 +9,26 @@ import com.applandeo.materialcalendarsampleapp.utils.getThreeDots
 import com.applandeo.materialcalendarview.EventDay
 import com.applandeo.materialcalendarview.exceptions.OutOfDateRangeException
 import com.applandeo.materialcalendarview.listeners.OnDayClickListener
-import com.applandeo.materialcalendarview.utils.getMidnightCalendar
+import com.applandeo.materialcalendarview.utils.midnightCalendar
 import kotlinx.android.synthetic.main.calendar_activity.*
 import java.util.*
 
 /**
- * Created by Mateusz Kornakiewicz on 26.05.2017.
+ * Created by Applandeo Team.
  */
 
 class CalendarActivity : AppCompatActivity() {
 
     private val disabledDays: List<Calendar>
-        get() {
-            val firstDisabled = getMidnightCalendar.apply { add(Calendar.DAY_OF_MONTH, 2) }
-            val secondDisabled = getMidnightCalendar.apply { add(Calendar.DAY_OF_MONTH, 1) }
-            val thirdDisabled = getMidnightCalendar.apply { add(Calendar.DAY_OF_MONTH, 18) }
+        get() = listOf(
+                midnightCalendar.apply { add(Calendar.DAY_OF_MONTH, 2) },
+                midnightCalendar.apply { add(Calendar.DAY_OF_MONTH, 1) },
+                midnightCalendar.apply { add(Calendar.DAY_OF_MONTH, 18) })
 
-            return mutableListOf<Calendar>().apply {
-                add(firstDisabled)
-                add(secondDisabled)
-                add(thirdDisabled)
+    private fun getRandomCalendar() =
+            Calendar.getInstance().apply {
+                add(Calendar.MONTH, Random().nextInt(99))
             }
-        }
-
-    private fun getRandomCalendar(): Calendar {
-        val calendar = Calendar.getInstance()
-        calendar.add(Calendar.MONTH, Random().nextInt(99))
-
-        return calendar
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

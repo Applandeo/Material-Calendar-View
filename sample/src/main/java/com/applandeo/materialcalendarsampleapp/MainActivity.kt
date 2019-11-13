@@ -8,7 +8,7 @@ import com.applandeo.materialcalendarview.CalendarView
 import com.applandeo.materialcalendarview.builders.DatePickerBuilder
 import com.applandeo.materialcalendarview.getDatesRange
 import com.applandeo.materialcalendarview.listeners.OnSelectDateListener
-import com.applandeo.materialcalendarview.utils.getMidnightCalendar
+import com.applandeo.materialcalendarview.utils.midnightCalendar
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
 
@@ -95,9 +95,9 @@ class MainActivity : AppCompatActivity(), OnSelectDateListener {
     private fun disabledDays(): List<Calendar> {
         val disabledDays = mutableListOf<Calendar>()
 
-        disabledDays.add(getMidnightCalendar.apply { add(Calendar.DAY_OF_MONTH, 2) })
-        disabledDays.add(getMidnightCalendar.apply { add(Calendar.DAY_OF_MONTH, 1) })
-        disabledDays.add(getMidnightCalendar.apply { add(Calendar.DAY_OF_MONTH, 18) })
+        disabledDays.add(midnightCalendar.apply { add(Calendar.DAY_OF_MONTH, 2) })
+        disabledDays.add(midnightCalendar.apply { add(Calendar.DAY_OF_MONTH, 1) })
+        disabledDays.add(midnightCalendar.apply { add(Calendar.DAY_OF_MONTH, 18) })
         return disabledDays
     }
 

@@ -9,7 +9,7 @@ import com.applandeo.materialcalendarview.R
 import kotlinx.android.synthetic.main.calendar_view.view.*
 
 /**
- * Created by Mateusz Kornakiewicz on 04.01.2018.
+ * Created by Applandeo Team.
  */
 
 fun View.setAbbreviationsLabels(color: Int, firstDayOfWeek: Int) {
@@ -24,9 +24,9 @@ fun View.setAbbreviationsLabels(color: Int, firstDayOfWeek: Int) {
 
     val abbreviations = this.context.resources.getStringArray(R.array.material_calendar_day_abbreviations_array)
 
-    (0..6).forEach {
-        val label = labels[it]
-        label.text = abbreviations[(it + firstDayOfWeek - 1) % 7]
+    (0..6).forEachIndexed { index, _ ->
+        val label = labels[index]
+        label.text = abbreviations[(index + firstDayOfWeek - 1) % 7]
         label.setTextColor(color)
     }
 }
@@ -47,7 +47,9 @@ fun View.setAbbreviationsBarColor(color: Int) {
 }
 
 fun View.setPagesColor(color: Int) {
-    if (color == 0) return
+    if (color == 0) {
+        return
+    }
     this.calendarViewPager.setBackgroundColor(color)
 }
 

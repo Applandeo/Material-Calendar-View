@@ -17,46 +17,34 @@ import java.util.*
 /**
  * This class contains all properties of the calendar
  *
- * Created by Mateusz Kornakiewicz on 30.10.2017.
+ * Created by Applandeo Team.
  */
 
-class CalendarProperties(private val mContext: Context) {
+class CalendarProperties(private val context: Context) {
 
     var calendarType: Int = 0
 
     var headerColor: Int = 0
-        get() = if (field <= 0) {
-            field
-        } else ContextCompat.getColor(mContext, field)
+        get() = if (field <= 0) field else ContextCompat.getColor(context, field)
 
     var headerLabelColor: Int = 0
-        get() = if (field <= 0) {
-            field
-        } else ContextCompat.getColor(mContext, field)
+        get() = if (field <= 0) field else ContextCompat.getColor(context, field)
 
     var selectionColor: Int = 0
-        get() = if (field == 0) {
-            ContextCompat.getColor(mContext, R.color.defaultColor)
-        } else field
+        get() = if (field == 0) ContextCompat.getColor(context, R.color.defaultColor) else field
 
     var todayLabelColor: Int = 0
-        get() = if (field == 0) {
-            ContextCompat.getColor(mContext, R.color.defaultColor)
-        } else field
+        get() = if (field == 0) ContextCompat.getColor(context, R.color.defaultColor) else field
 
     var dialogButtonsColor: Int = 0
 
     var itemLayoutResource: Int = 0
 
     var disabledDaysLabelsColor: Int = 0
-        get() = if (field == 0) {
-            ContextCompat.getColor(mContext, R.color.nextMonthDayColor)
-        } else field
+        get() = if (field == 0) ContextCompat.getColor(context, R.color.nextMonthDayColor) else field
 
     var highlightedDaysLabelsColor: Int = 0
-        get() = if (field == 0) {
-            ContextCompat.getColor(mContext, R.color.nextMonthDayColor)
-        } else field
+        get() = if (field == 0) ContextCompat.getColor(context, R.color.nextMonthDayColor) else field
 
     var pagesColor: Int = 0
 
@@ -65,19 +53,13 @@ class CalendarProperties(private val mContext: Context) {
     var abbreviationsLabelsColor: Int = 0
 
     var daysLabelsColor: Int = 0
-        get() = if (field == 0) {
-            ContextCompat.getColor(mContext, R.color.currentMonthDayColor)
-        } else field
+        get() = if (field == 0) ContextCompat.getColor(context, R.color.currentMonthDayColor) else field
 
     var selectionLabelColor: Int = 0
-        get() = if (field == 0) {
-            ContextCompat.getColor(mContext, android.R.color.white)
-        } else field
+        get() = if (field == 0) ContextCompat.getColor(context, android.R.color.white) else field
 
     var anotherMonthsDaysLabelsColor: Int = 0
-        get() = if (field == 0) {
-            ContextCompat.getColor(mContext, R.color.nextMonthDayColor)
-        } else field
+        get() = if (field == 0) ContextCompat.getColor(context, R.color.nextMonthDayColor) else field
 
     var headerVisibility: Int = 0
 
@@ -91,7 +73,7 @@ class CalendarProperties(private val mContext: Context) {
 
     var forwardButtonSrc: Drawable? = null
 
-    val firstPageCalendarDate: Calendar? = getMidnightCalendar
+    val firstPageCalendarDate: Calendar? = midnightCalendar
 
     var calendar: Calendar? = null
 
@@ -114,7 +96,7 @@ class CalendarProperties(private val mContext: Context) {
     var disabledDays: List<Calendar> = mutableListOf()
         set(disabledDays) {
             selectedDays = selectedDays.filter {
-                disabledDays.contains(it.calendar).not()
+                !disabledDays.contains(it.calendar)
             }.toMutableList()
 
             field = disabledDays

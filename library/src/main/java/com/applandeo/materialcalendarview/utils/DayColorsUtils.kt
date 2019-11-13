@@ -10,7 +10,7 @@ import java.util.*
 /**
  * This class is used to set a style of calendar cells.
  *
- * Created by Mateusz Kornakiewicz on 24.05.2017.
+ * Created by Applandeo Team.
  */
 
 /**
@@ -22,8 +22,8 @@ import java.util.*
  * @param typeface   A type of text style, can be set as NORMAL or BOLD
  * @param background A resource of a background drawable
  */
-fun TextView?.setDayColors(textColor: Int, typeface: Int, background: Int) =
-        this?.run {
+fun TextView.setDayColors(textColor: Int, typeface: Int, background: Int) =
+        this.apply {
             setTypeface(null, typeface)
             setTextColor(textColor)
             setBackgroundResource(background)
@@ -55,15 +55,26 @@ fun TextView.setSelectedDayColors(calendarProperties: CalendarProperties) {
  * @param dayLabel           TextView containing a day numberx
  * @param calendarProperties A resource of a color used to mark today day
  */
-fun Calendar.setCurrentMonthDayColors(today: Calendar, dayLabel: TextView,
+fun Calendar.setCurrentMonthDayColors(today: Calendar, dayLabel: TextView?,
                                       calendarProperties: CalendarProperties) =
-        when {
-            today == this -> dayLabel.setDayColors(calendarProperties.todayLabelColor, Typeface.BOLD,
-                    R.drawable.background_transparent)
-            calendarProperties.highlightedDays.contains(this) -> dayLabel.setDayColors(calendarProperties.highlightedDaysLabelsColor,
-                    Typeface.NORMAL, R.drawable.background_transparent)
-            else -> dayLabel.setDayColors(calendarProperties.daysLabelsColor, Typeface.NORMAL,
-                    R.drawable.background_transparent)
+        dayLabel?.let {
+            when {
+                today == this -> dayLabel.setDayColors(
+                        calendarProperties.todayLabelColor,
+                        Typeface.BOLD,
+                        R.drawable.background_transparent
+                )
+                calendarProperties.highlightedDays.contains(this) -> dayLabel.setDayColors(
+                        calendarProperties.highlightedDaysLabelsColor,
+                        Typeface.NORMAL,
+                        R.drawable.background_transparent
+                )
+                else -> dayLabel.setDayColors(
+                        calendarProperties.daysLabelsColor,
+                        Typeface.NORMAL,
+                        R.drawable.background_transparent
+                )
+            }
         }
 
 private fun setTodayColors(dayLabel: TextView, calendarProperties: CalendarProperties) {

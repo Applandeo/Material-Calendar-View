@@ -11,7 +11,7 @@ import java.util.*
 import java.util.concurrent.TimeUnit
 
 /**
- * Created by Mateusz Kornakiewicz on 03.08.2018.
+ * Created by Applandeo Team.
  */
 
 /**
@@ -63,10 +63,10 @@ private fun getCalendarsBetweenDates(dateFrom: Date, dateTo: Date): List<Calenda
     val daysBetweenDates = TimeUnit.MILLISECONDS.toDays(
             calendarTo.timeInMillis - calendarFrom.timeInMillis)
 
-    for (i in 1 until daysBetweenDates) {
+    (1..daysBetweenDates).forEachIndexed { index, _ ->
         val calendar = calendarFrom.clone() as Calendar
         calendars.add(calendar)
-        calendar.add(Calendar.DATE, i.toInt())
+        calendar.add(Calendar.DATE, index)
     }
 
     return calendars

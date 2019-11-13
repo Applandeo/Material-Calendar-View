@@ -37,7 +37,7 @@ import java.util.*
  * - Set today label color: todayLabelColor="@color/[color]"
  * - Set selection color: selectionColor="@color/[color]"
  *
- * Created by Mateusz Kornakiewicz on 23.05.2017.
+ * Created by Applandeo Team.
  */
 
 class CalendarView @JvmOverloads constructor(
@@ -68,16 +68,15 @@ class CalendarView @JvmOverloads constructor(
             }
         }
 
-        override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {}
-        override fun onPageScrollStateChanged(state: Int) {}
+        override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) = Unit
+        override fun onPageScrollStateChanged(state: Int) = Unit
     }
 
     /**
      * @return List of Calendar object representing a selected dates
      */
     var selectedDates: List<Calendar>
-        get() = calendarPageAdapter.selectedDays
-                .mapNotNull { it.calendar }
+        get() = calendarPageAdapter.selectedDays.mapNotNull { it.calendar }
         set(selectedDates) {
             calendarProperties.selectDays(selectedDates)
             calendarPageAdapter.notifyDataSetChanged()
@@ -103,8 +102,7 @@ class CalendarView @JvmOverloads constructor(
 
     init {
         properties?.let { this.calendarProperties = properties }
-        val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-        inflater.inflate(R.layout.calendar_view, this)
+        LayoutInflater.from(context).inflate(R.layout.calendar_view, this)
         initControl(context, attrs)
         initAttributes()
         initCalendar()
@@ -112,9 +110,6 @@ class CalendarView @JvmOverloads constructor(
 
     private fun initControl(context: Context, attrs: AttributeSet?) {
         calendarProperties = CalendarProperties(context)
-
-        val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-        inflater.inflate(R.layout.calendar_view, this)
 
         initUiElements()
         attrs?.let { setAttributes(attrs) }
@@ -126,13 +121,10 @@ class CalendarView @JvmOverloads constructor(
      * @param attrs A set of xml attributes
      */
     private fun setAttributes(attrs: AttributeSet) {
-        val typedArray = context.obtainStyledAttributes(attrs, R.styleable.CalendarView)
-
-        try {
-            initCalendarProperties(typedArray)
+        context.obtainStyledAttributes(attrs, R.styleable.CalendarView).run {
+            initCalendarProperties(this)
             initAttributes()
-        } finally {
-            typedArray.recycle()
+            recycle()
         }
     }
 
@@ -166,18 +158,20 @@ class CalendarView @JvmOverloads constructor(
     }
 
     private fun initAttributes() {
-        rootView.setHeaderColor(calendarProperties.headerColor)
-        rootView.setHeaderVisibility(calendarProperties.headerVisibility)
-        rootView.setAbbreviationsBarVisibility(calendarProperties.abbreviationsBarVisibility)
-        rootView.setHeaderLabelColor(calendarProperties.headerLabelColor)
-        rootView.setAbbreviationsBarColor(calendarProperties.abbreviationsBarColor)
-        rootView.setPagesColor(calendarProperties.pagesColor)
-        rootView.setPreviousButtonImage(calendarProperties.previousButtonSrc)
-        rootView.setForwardButtonImage(calendarProperties.forwardButtonSrc)
-        calendarViewPager.swipeEnabled = calendarProperties.swipeEnabled
+        with(rootView) {
+            setHeaderColor(calendarProperties.headerColor)
+            setHeaderVisibility(calendarProperties.headerVisibility)
+            setAbbreviationsBarVisibility(calendarProperties.abbreviationsBarVisibility)
+            setHeaderLabelColor(calendarProperties.headerLabelColor)
+            setAbbreviationsBarColor(calendarProperties.abbreviationsBarColor)
+            setPagesColor(calendarProperties.pagesColor)
+            setPreviousButtonImage(calendarProperties.previousButtonSrc)
+            setForwardButtonImage(calendarProperties.forwardButtonSrc)
+            calendarViewPager.swipeEnabled = calendarProperties.swipeEnabled
 
-        calendarProperties.firstPageCalendarDate?.firstDayOfWeek?.let {
-            rootView.setAbbreviationsLabels(calendarProperties.abbreviationsLabelsColor, it)
+            calendarProperties.firstPageCalendarDate?.firstDayOfWeek?.let {
+                setAbbreviationsLabels(calendarProperties.abbreviationsLabelsColor, it)
+            }
         }
 
         // Sets layout for date picker or normal calendar
@@ -230,7 +224,6 @@ class CalendarView @JvmOverloads constructor(
         previousButton.setOnClickListener {
             calendarViewPager.currentItem = calendarViewPager.currentItem.minus(1)
         }
-
     }
 
     private fun initCalendar() {
@@ -263,19 +256,20 @@ class CalendarView @JvmOverloads constructor(
         calendarProperties.onForwardPageChangeListener = listener
     }
 
-    private fun isScrollingLimited(calendar: Calendar, position: Int): Boolean {
-        if (calendarProperties.minimumDate.isMonthBefore(calendar)) {
-            calendarViewPager.currentItem = position + 1
-            return true
-        }
-
-        if (calendarProperties.maximumDate.isMonthAfter(calendar)) {
-            calendarViewPager.currentItem = position - 1
-            return true
-        }
-
-        return false
-    }
+    private fun isScrollingLimited(calendar: Calendar, position: Int) =
+            calendarProperties.minimumDate?.let {
+                when {
+                    it.isMonthBefore(calendar) -> {
+                        calendarViewPager.currentItem = position + 1
+                        true
+                    }
+                    it.isMonthAfter(calendar) -> {
+                        calendarViewPager.currentItem = position - 1
+                        true
+                    }
+                    else -> false
+                }
+            } ?: false
 
     private fun setHeaderName(calendar: Calendar, position: Int) {
         currentDateLabel.text = calendar.getMonthAndYearDate(context)
@@ -308,7 +302,6 @@ class CalendarView @JvmOverloads constructor(
      *
      * @param date A Calendar object representing a date to which the calendar will be set
      */
-    @Throws(OutOfDateRangeException::class)
     fun setDate(date: Calendar) {
         if (calendarProperties.minimumDate != null && date.before(calendarProperties.minimumDate)) {
             throw OutOfDateRangeException(ErrorsMessages.OUT_OF_RANGE_MIN)
@@ -329,7 +322,6 @@ class CalendarView @JvmOverloads constructor(
      *
      * @param currentDate A date to which the calendar will be set
      */
-    @Throws(OutOfDateRangeException::class)
     fun setDate(currentDate: Date) {
         val calendar = Calendar.getInstance()
         calendar.time = currentDate
@@ -373,8 +365,8 @@ class CalendarView @JvmOverloads constructor(
      * This method is used to return to current month page
      */
     fun showCurrentMonthPage() {
-        calendarViewPager.let {
-            it.setCurrentItem(it.currentItem - getMidnightCalendar.getMonthsBetweenDates(currentPageDate), true)
+        calendarViewPager.let { viewPager ->
+            viewPager.setCurrentItem(viewPager.currentItem - midnightCalendar.getMonthsBetweenDates(currentPageDate), true)
         }
     }
 

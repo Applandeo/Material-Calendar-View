@@ -5,7 +5,7 @@ import android.util.AttributeSet
 import android.widget.GridView
 
 /**
- * Created by Mateusz Kornakiewicz on 15.11.2017.
+ * Created by Applandeo Team.
  */
 
 class CalendarGridView @JvmOverloads constructor(

@@ -9,7 +9,7 @@ import androidx.core.content.ContextCompat
 /**
  * This class is used to load event image in a day cell
  *
- * Created by Mateusz Kornakiewicz on 23.05.2017.
+ * Created by Applandeo Team.
  */
 
 fun ImageView.loadImage(image: Any?) =

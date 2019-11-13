@@ -12,15 +12,14 @@ import com.applandeo.materialcalendarsampleapp.R
 import com.applandeo.materialcalendarview.getDrawableText
 
 /**
- * Created by Mateusz Kornakiewicz on 02.08.2018.
+ * Created by Applandeo Team.
  */
 
 fun Context.getCircleDrawableWithText(string: String): Drawable {
     val background = ContextCompat.getDrawable(this, R.drawable.sample_circle)
     val text = this.getDrawableText(string, null, android.R.color.white, 12)
 
-    val layers = arrayOf(background, text)
-    return LayerDrawable(layers)
+    return LayerDrawable(arrayOf(background, text))
 }
 
 fun Context.getThreeDots(): Drawable {
