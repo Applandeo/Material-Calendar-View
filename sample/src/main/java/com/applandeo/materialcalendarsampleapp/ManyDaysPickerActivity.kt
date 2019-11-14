@@ -20,9 +20,9 @@ class ManyDaysPickerActivity : AppCompatActivity() {
         get() {
             val calendars = mutableListOf<Calendar>()
 
-            (0..9).forEachIndexed { index, _ ->
+            (0..9).forEach {
                 val calendar = midnightCalendar
-                calendar.add(Calendar.DAY_OF_MONTH, index)
+                calendar.add(Calendar.DAY_OF_MONTH, it)
                 calendars.add(calendar)
             }
 

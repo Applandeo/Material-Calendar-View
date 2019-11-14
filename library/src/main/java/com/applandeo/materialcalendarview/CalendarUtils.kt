@@ -63,10 +63,10 @@ private fun getCalendarsBetweenDates(dateFrom: Date, dateTo: Date): List<Calenda
     val daysBetweenDates = TimeUnit.MILLISECONDS.toDays(
             calendarTo.timeInMillis - calendarFrom.timeInMillis)
 
-    (1..daysBetweenDates).forEachIndexed { index, _ ->
+    (1..daysBetweenDates).forEach {
         val calendar = calendarFrom.clone() as Calendar
         calendars.add(calendar)
-        calendar.add(Calendar.DATE, index)
+        calendar.add(Calendar.DATE, it.toInt())
     }
 
     return calendars
