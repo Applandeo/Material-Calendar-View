@@ -3,6 +3,7 @@ package com.applandeo.materialcalendarview.extensions
 import android.content.Context
 import android.util.AttributeSet
 import android.view.MotionEvent
+import androidx.core.view.children
 import androidx.viewpager.widget.ViewPager
 
 /**
@@ -21,12 +22,9 @@ class CalendarViewPager @JvmOverloads constructor(
         var heightMeasure = heightMeasureSpec
         var height = 0
 
-        (0..childCount).forEachIndexed { index, _ ->
-            val child = getChildAt(index)
+        children.forEachIndexed { _, child ->
             child.measure(widthMeasureSpec, MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED))
-
             val measuredHeight = child.measuredHeight
-
             if (measuredHeight > height) {
                 height = measuredHeight
             }
