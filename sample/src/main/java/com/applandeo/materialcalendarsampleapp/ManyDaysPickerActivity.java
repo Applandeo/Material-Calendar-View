@@ -1,6 +1,7 @@
 package com.applandeo.materialcalendarsampleapp;
 
 import android.os.Bundle;
+import android.util.Log;
 import androidx.appcompat.app.AppCompatActivity;
 import android.widget.Button;
 import android.widget.Toast;
@@ -25,6 +26,16 @@ public class ManyDaysPickerActivity extends AppCompatActivity {
         setContentView(R.layout.many_days_picker_activity);
 
         CalendarView calendarView = (CalendarView) findViewById(R.id.calendarView);
+
+        calendarView.setEventsSelectableByUser(false);
+
+        calendarView.setOnDayClickListener(eventDay -> {
+            Toast.makeText(
+                this,
+                "Clicked on " + eventDay.getCalendar().get(Calendar.DAY_OF_MONTH),
+                Toast.LENGTH_SHORT
+            ).show();
+        });
 
         calendarView.setOnForwardPageChangeListener(() ->
                 Toast.makeText(getApplicationContext(), "Forward", Toast.LENGTH_SHORT).show());

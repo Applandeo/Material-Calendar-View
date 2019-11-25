@@ -292,6 +292,10 @@ public class CalendarView extends LinearLayout {
         mCalendarProperties.setOnForwardPageChangeListener(listener);
     }
 
+    public void setEventsSelectableByUser(Boolean isSelectable) {
+        mCalendarProperties.setEventsSelectableByUser(isSelectable);
+    }
+
     private final OnClickListener onNextClickListener =
             v -> mViewPager.setCurrentItem(mViewPager.getCurrentItem() + 1);
 

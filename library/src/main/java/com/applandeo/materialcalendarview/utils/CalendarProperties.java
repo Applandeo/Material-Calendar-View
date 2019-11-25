@@ -41,6 +41,7 @@ public class CalendarProperties {
 
     private boolean mEventsEnabled;
     private boolean mSwipeEnabled;
+    private boolean mEventsSelectableByUser;
 
     private Drawable mPreviousButtonSrc, mForwardButtonSrc;
 
@@ -82,6 +83,14 @@ public class CalendarProperties {
 
     public boolean getSwipeEnabled() {
         return mSwipeEnabled;
+    }
+
+    public boolean getEventsSelectableByUser() {
+        return  mEventsSelectableByUser;
+    }
+
+    public void setEventsSelectableByUser(Boolean is) {
+        mEventsSelectableByUser = is;
     }
 
     public void setSwipeEnabled(boolean swipeEnabled) {

@@ -54,7 +54,8 @@ public class DayRowClickListener implements AdapterView.OnItemClickListener {
                 break;
 
             case CalendarView.MANY_DAYS_PICKER:
-                selectManyDays(view, day);
+                if (mCalendarProperties.getEventsSelectableByUser())
+                    selectManyDays(view, day);
                 break;
 
             case CalendarView.RANGE_PICKER:
