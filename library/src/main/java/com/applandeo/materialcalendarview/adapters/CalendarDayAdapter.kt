@@ -1,6 +1,5 @@
 package com.applandeo.materialcalendarview.adapters
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Typeface
 import android.view.LayoutInflater
@@ -40,12 +39,12 @@ internal class CalendarDayAdapter(
             time = getItem(position)
         }
 
-        dayView.dayLabel.run {
+        dayView.dayLabel?.run {
             setLabelColors(this, day)
             this.text = day.get(Calendar.DAY_OF_MONTH).toString()
         }
 
-        dayView.dayIcon.run {
+        dayView.dayIcon?.run {
             // Loading an image of the event
             loadIcon(this, day)
         }

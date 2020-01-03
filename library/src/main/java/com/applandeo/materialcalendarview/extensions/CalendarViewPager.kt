@@ -22,7 +22,7 @@ class CalendarViewPager @JvmOverloads constructor(
         var heightMeasure = heightMeasureSpec
         var height = 0
 
-        children.forEachIndexed { _, child ->
+        children.forEach { child ->
             child.measure(widthMeasureSpec, MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED))
             val measuredHeight = child.measuredHeight
             if (measuredHeight > height) {

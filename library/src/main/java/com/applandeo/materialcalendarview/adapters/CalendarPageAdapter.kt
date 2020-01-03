@@ -14,6 +14,7 @@ import com.applandeo.materialcalendarview.utils.SelectedDay
 import kotlinx.android.synthetic.main.calendar_view_grid.view.*
 import java.util.*
 
+
 /**
  * This class is responsible for loading a calendar page content.
  *
@@ -24,6 +25,8 @@ class CalendarPageAdapter(
         private val context: Context,
         private val calendarProperties: CalendarProperties
 ) : PagerAdapter() {
+
+    private lateinit var calendarGridView: CalendarGridView
 
     private var pageMonth: Int = 0
 
@@ -48,10 +51,16 @@ class CalendarPageAdapter(
     override fun isViewFromObject(view: View, any: Any) = view === any
 
     override fun instantiateItem(container: ViewGroup, position: Int): Any {
-        loadMonth(position, container.calendarGridView)
+        val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+        calendarGridView = inflater.inflate(R.layout.calendar_view_grid, container, false) as CalendarGridView
+
+        container.addView(calendarGridView)
+
+        loadMonth(position)
 
         container.calendarGridView.onItemClickListener = DayRowClickListener(this,
                 calendarProperties, pageMonth)
+
         return container.calendarGridView
     }
 
@@ -77,7 +86,7 @@ class CalendarPageAdapter(
      *
      * @param position Position of current page in ViewPager
      */
-    private fun loadMonth(position: Int, calendarGridView: CalendarGridView) {
+    private fun loadMonth(position: Int) {
         val days = mutableListOf<Date>()
 
         // Get Calendar object instance
