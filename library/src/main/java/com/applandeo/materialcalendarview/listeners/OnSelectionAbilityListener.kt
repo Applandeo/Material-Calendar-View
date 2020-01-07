@@ -6,6 +6,4 @@ package com.applandeo.materialcalendarview.listeners
  * Created by Applandeo Team.
  */
 
-interface OnSelectionAbilityListener {
-    fun onChange(enabled: Boolean)
-}
+typealias OnSelectionAbilityListener = (Boolean) -> Unit

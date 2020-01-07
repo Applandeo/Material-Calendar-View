@@ -1,0 +1,28 @@
+<resources>
+    <string name="material_calendar_monday">Pn</string>-->
+        <string name="material_calendar_tuesday">Wt</string>
+        <string name="material_calendar_wednesday">Śr</string>
+        <string name="material_calendar_thursday">Cz</string>
+        <string name="material_calendar_friday">Pt</string>
+        <string name="material_calendar_saturday">Sb</string>
+        <string name="material_calendar_sunday">Nd</string>
+
+    <array name="material_calendar_months_array">
+        <item>Styczeń</item>
+        <item>Luty</item>
+        <item>Marzec</item>
+        <item>Kwiecień</item>
+        <item>Maj</item>
+        <item>Czerwiec</item>
+        <item>Lipiec</item>
+        <item>Sierpień</item>
+        <item>Wrzesień</item>
+        <item>Październik</item>
+        <item>Listopad</item>
+        <item>Grudzień</item>
+    </array>
+
+    <string name="material_calendar_today_button">Dzisiaj</string>
+    <string name="material_calendar_positive_button">Wybierz</string>
+    <string name="material_calendar_negative_button">Anuluj</string>
+</resources>

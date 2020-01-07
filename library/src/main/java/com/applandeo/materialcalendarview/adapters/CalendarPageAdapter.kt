@@ -1,26 +1,23 @@
 package com.applandeo.materialcalendarview.adapters
 
 import android.content.Context
-import android.view.LayoutInflater
 import android.view.View
+import android.view.View.inflate
 import android.view.ViewGroup
 import androidx.viewpager.widget.PagerAdapter
 import com.applandeo.materialcalendarview.R
 import com.applandeo.materialcalendarview.extensions.CalendarGridView
 import com.applandeo.materialcalendarview.listeners.DayRowClickListener
 import com.applandeo.materialcalendarview.utils.CalendarProperties
-import com.applandeo.materialcalendarview.utils.CalendarProperties.Companion.CALENDAR_SIZE
 import com.applandeo.materialcalendarview.utils.SelectedDay
-import kotlinx.android.synthetic.main.calendar_view_grid.view.*
 import java.util.*
-
 
 /**
  * This class is responsible for loading a calendar page content.
  *
- * Created by Applandeo Team.
+ *
+ * Created by Applandeo team
  */
-
 class CalendarPageAdapter(
         private val context: Context,
         private val calendarProperties: CalendarProperties
@@ -28,13 +25,13 @@ class CalendarPageAdapter(
 
     private lateinit var calendarGridView: CalendarGridView
 
-    private var pageMonth: Int = 0
+    private var pageMonth = 0
 
     val selectedDays: List<SelectedDay>
         get() = calendarProperties.selectedDays
 
     var selectedDay: SelectedDay
-        get() = selectedDays.first()
+        get() = calendarProperties.selectedDays.first()
         set(selectedDay) {
             calendarProperties.setSelectedDay(selectedDay)
             informDatePicker()
@@ -44,28 +41,26 @@ class CalendarPageAdapter(
         informDatePicker()
     }
 
-    override fun getCount() = CALENDAR_SIZE
+    override fun getCount() = CalendarProperties.CALENDAR_SIZE
 
     override fun getItemPosition(any: Any) = POSITION_NONE
 
     override fun isViewFromObject(view: View, any: Any) = view === any
 
     override fun instantiateItem(container: ViewGroup, position: Int): Any {
-        val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-        calendarGridView = inflater.inflate(R.layout.calendar_view_grid, container, false) as CalendarGridView
-
-        container.addView(calendarGridView)
+        calendarGridView = inflate(context, R.layout.calendar_view_grid, null) as CalendarGridView
 
         loadMonth(position)
 
-        container.calendarGridView.onItemClickListener = DayRowClickListener(this,
-                calendarProperties, pageMonth)
+        calendarGridView.onItemClickListener = DayRowClickListener(this, calendarProperties, pageMonth)
 
-        return container.calendarGridView
+        container.addView(calendarGridView)
+
+        return calendarGridView
     }
 
     fun addSelectedDay(selectedDay: SelectedDay) {
-        if (!calendarProperties.selectedDays.contains(selectedDay)) {
+        if (selectedDay !in calendarProperties.selectedDays) {
             calendarProperties.selectedDays.add(selectedDay)
             informDatePicker()
             return
@@ -78,8 +73,9 @@ class CalendarPageAdapter(
     /**
      * This method inform DatePicker about ability to return selected days
      */
-    private fun informDatePicker() =
-            calendarProperties.onSelectionAbilityListener?.onChange(calendarProperties.selectedDays.size > 0)
+    private fun informDatePicker() {
+        calendarProperties.onSelectionAbilityListener?.invoke(calendarProperties.selectedDays.size > 0)
+    }
 
     /**
      * This method fill calendar GridView with days
@@ -90,7 +86,7 @@ class CalendarPageAdapter(
         val days = mutableListOf<Date>()
 
         // Get Calendar object instance
-        val calendar = (calendarProperties.firstPageCalendarDate?.clone() as Calendar).apply {
+        val calendar = (calendarProperties.firstPageCalendarDate.clone() as Calendar).apply {
             // Add months to Calendar (a number of months depends on ViewPager position)
             add(Calendar.MONTH, position)
 
@@ -118,8 +114,7 @@ class CalendarPageAdapter(
         }
 
         pageMonth = calendar.get(Calendar.MONTH) - 1
-        val calendarDayAdapter = CalendarDayAdapter(this, context,
-                calendarProperties, days, pageMonth)
+        val calendarDayAdapter = CalendarDayAdapter(context, this, calendarProperties, days, pageMonth)
 
         calendarGridView.adapter = calendarDayAdapter
     }
