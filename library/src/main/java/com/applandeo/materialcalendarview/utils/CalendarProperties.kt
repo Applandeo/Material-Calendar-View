@@ -2,8 +2,10 @@ package com.applandeo.materialcalendarview.utils
 
 import android.content.Context
 import android.graphics.drawable.Drawable
+import android.view.View
 import androidx.core.content.ContextCompat
 import com.applandeo.materialcalendarview.CalendarView
+import com.applandeo.materialcalendarview.CalendarView.Companion.CLASSIC
 import com.applandeo.materialcalendarview.EventDay
 import com.applandeo.materialcalendarview.R
 import com.applandeo.materialcalendarview.exceptions.ErrorsMessages
@@ -22,7 +24,7 @@ import java.util.*
 
 class CalendarProperties(private val context: Context) {
 
-    var calendarType: Int = 0
+    var calendarType: Int = CLASSIC
 
     var headerColor: Int = 0
         get() = if (field <= 0) field else ContextCompat.getColor(context, field)
@@ -36,9 +38,12 @@ class CalendarProperties(private val context: Context) {
     var todayLabelColor: Int = 0
         get() = if (field == 0) ContextCompat.getColor(context, R.color.defaultColor) else field
 
+    var todayColor: Int = 0
+        get() = if (field <= 0) field else ContextCompat.getColor(context, field)
+
     var dialogButtonsColor: Int = 0
 
-    var itemLayoutResource: Int = 0
+    var itemLayoutResource: Int = R.layout.calendar_view_day
 
     var disabledDaysLabelsColor: Int = 0
         get() = if (field == 0) ContextCompat.getColor(context, R.color.nextMonthDayColor) else field
@@ -61,25 +66,31 @@ class CalendarProperties(private val context: Context) {
     var anotherMonthsDaysLabelsColor: Int = 0
         get() = if (field == 0) ContextCompat.getColor(context, R.color.nextMonthDayColor) else field
 
-    var headerVisibility: Int = 0
+    var headerVisibility: Int = View.VISIBLE
 
-    var abbreviationsBarVisibility: Int = 0
+    var abbreviationsBarVisibility: Int = View.VISIBLE
+
+    var navigationVisibility: Int = View.VISIBLE
 
     var eventsEnabled: Boolean = false
 
-    var swipeEnabled: Boolean = false
+    var swipeEnabled: Boolean = true
+
+    var selectionDisabled: Boolean = false
 
     var previousButtonSrc: Drawable? = null
 
     var forwardButtonSrc: Drawable? = null
 
-    val firstPageCalendarDate: Calendar? = midnightCalendar
+    val firstPageCalendarDate: Calendar = midnightCalendar
 
     var calendar: Calendar? = null
 
     var minimumDate: Calendar? = null
 
     var maximumDate: Calendar? = null
+
+    var maximumDaysRange: Int = 0
 
     var onDayClickListener: OnDayClickListener? = null
 
@@ -99,23 +110,16 @@ class CalendarProperties(private val context: Context) {
                 !disabledDays.contains(it.calendar)
             }.toMutableList()
 
-            field = disabledDays
-                    .map { calendar ->
-                        calendar.setMidnight()
-                        calendar
-                    }.toList()
+            field = disabledDays.map { it.setMidnight() }.toList()
         }
 
     var highlightedDays: List<Calendar> = mutableListOf()
         set(highlightedDays) {
-            field = highlightedDays
-                    .map { calendar ->
-                        calendar.setMidnight()
-                        calendar
-                    }.toList()
+            field = highlightedDays.map { it.setMidnight() }.toList()
         }
 
     var selectedDays = mutableListOf<SelectedDay>()
+        private set
 
     fun setSelectedDay(calendar: Calendar) = setSelectedDay(SelectedDay(calendar))
 
@@ -124,7 +128,8 @@ class CalendarProperties(private val context: Context) {
         selectedDays.add(selectedDay)
     }
 
-    fun selectDays(days: List<Calendar>) {
+    @Throws(UnsupportedMethodsException::class)
+    fun setSelectDays(days: List<Calendar>) {
         if (calendarType == CalendarView.ONE_DAY_PICKER) {
             throw UnsupportedMethodsException(ErrorsMessages.ONE_DAY_PICKER_MULTIPLE_SELECTION)
         }
@@ -134,15 +139,9 @@ class CalendarProperties(private val context: Context) {
         }
 
         selectedDays = days
-                .map { day ->
-                    day.setMidnight()
-                    SelectedDay(day)
-                }
-                .filterNot {
-                    disabledDays.all { calendar -> calendar != it.calendar }
-                }
+                .map { SelectedDay(it.setMidnight()) }
+                .filterNot { it.calendar in disabledDays }
                 .toMutableList()
-
     }
 
     companion object {

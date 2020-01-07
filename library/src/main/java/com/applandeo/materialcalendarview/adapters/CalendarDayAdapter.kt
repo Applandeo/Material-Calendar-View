@@ -1,5 +1,6 @@
 package com.applandeo.materialcalendarview.adapters
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Typeface
 import android.view.LayoutInflater
@@ -14,103 +15,98 @@ import com.applandeo.materialcalendarview.utils.*
 import kotlinx.android.synthetic.main.calendar_view_day.view.*
 import java.util.*
 
+private const val INVISIBLE_IMAGE_ALPHA = 0.12f
+
 /**
  * This class is responsible for loading a one day cell.
  *
- * Created by Applandeo Team.
+ *
+ * Created by Applandeo team
  */
-
-internal class CalendarDayAdapter(
-        private val calendarPageAdapter: CalendarPageAdapter,
+class CalendarDayAdapter(
         context: Context,
+        private val calendarPageAdapter: CalendarPageAdapter,
         private val calendarProperties: CalendarProperties,
-        dates: List<Date>,
+        dates: MutableList<Date>,
         pageMonth: Int
 ) : ArrayAdapter<Date>(context, calendarProperties.itemLayoutResource, dates) {
 
-    private val pageMonth: Int = if (pageMonth < 0) 11 else pageMonth
+    private val pageMonth = if (pageMonth < 0) 11 else pageMonth
     private val today = midnightCalendar
 
+    @SuppressLint("ViewHolder")
     override fun getView(position: Int, view: View?, parent: ViewGroup): View {
         val dayView = view
                 ?: LayoutInflater.from(context).inflate(calendarProperties.itemLayoutResource, parent, false)
 
-        val day = GregorianCalendar().apply {
-            time = getItem(position)
-        }
+        val day = GregorianCalendar().apply { time = getItem(position) }
 
-        dayView.dayLabel?.run {
-            setLabelColors(this, day)
-            this.text = day.get(Calendar.DAY_OF_MONTH).toString()
-        }
+        dayView.dayIcon?.loadIcon(day)
 
-        dayView.dayIcon?.run {
-            // Loading an image of the event
-            loadIcon(this, day)
-        }
+        setLabelColors(dayView.dayLabel, day)
 
+        dayView.dayLabel.text = day[Calendar.DAY_OF_MONTH].toString()
         return dayView
     }
 
     private fun setLabelColors(dayLabel: TextView, day: Calendar) {
-        // Setting not current month day color
-        if (!isCurrentMonthDay(day)) {
-            dayLabel.setDayColors(calendarProperties.anotherMonthsDaysLabelsColor,
-                    Typeface.NORMAL, R.drawable.background_transparent)
-            return
+        when {
+            // Setting not current month day color
+            !day.isCurrentMonthDay() -> dayLabel.setDayColors(
+                    textColor = calendarProperties.anotherMonthsDaysLabelsColor,
+                    typeface = Typeface.NORMAL,
+                    background = R.drawable.background_transparent
+            )
+
+            // Setting view for all SelectedDays
+            day.isSelectedDay() -> {
+                calendarPageAdapter.selectedDays
+                        .firstOrNull { selectedDay -> selectedDay.calendar == day }
+                        ?.let { selectedDay -> selectedDay.view = dayLabel }
+                dayLabel.setSelectedDayColors(calendarProperties)
+            }
+
+            // Setting disabled days color
+            !day.isActiveDay() -> dayLabel.setDayColors(
+                    textColor = calendarProperties.disabledDaysLabelsColor,
+                    typeface = Typeface.NORMAL,
+                    background = R.drawable.background_transparent
+            )
+
+            // Setting custom label color for event day
+            day.isEventDayWithLabelColor() -> day.setCurrentMonthDayColors(today, dayLabel, calendarProperties)
+
+            // Setting current month day color
+            else -> day.setCurrentMonthDayColors(today, dayLabel, calendarProperties)
         }
-
-        // Set view for all SelectedDays
-        if (isSelectedDay(day)) {
-            calendarPageAdapter.selectedDays
-                    .first { selectedDay -> selectedDay.calendar == day }
-                    .run { this.view = dayLabel }
-
-            dayLabel.setSelectedDayColors(calendarProperties)
-            return
-        }
-
-        // Setting disabled days color
-        if (!isActiveDay(day)) {
-            dayLabel.setDayColors(calendarProperties.disabledDaysLabelsColor,
-                    Typeface.NORMAL, R.drawable.background_transparent)
-            return
-        }
-
-        // Setting current month day color
-        day.setCurrentMonthDayColors(today, dayLabel, calendarProperties)
     }
 
-    private fun isSelectedDay(day: Calendar) =
-            (calendarProperties.calendarType != CalendarView.CLASSIC
-                    && day.get(Calendar.MONTH) == pageMonth
-                    && calendarPageAdapter.selectedDays.contains(SelectedDay(day)))
+    private fun Calendar.isSelectedDay() = calendarProperties.calendarType != CalendarView.CLASSIC
+            && this[Calendar.MONTH] == pageMonth
+            && SelectedDay(this) in calendarPageAdapter.selectedDays
 
-    private fun isCurrentMonthDay(day: Calendar) =
-            day.get(Calendar.MONTH) == pageMonth
-                    && !(calendarProperties.minimumDate != null
-                    && day.before(calendarProperties.minimumDate)
-                    || calendarProperties.maximumDate != null
-                    && day.after(calendarProperties.maximumDate))
+    private fun Calendar.isEventDayWithLabelColor() = this.isEventDayWithLabelColor(calendarProperties)
 
-    private fun isActiveDay(day: Calendar) =
-            !calendarProperties.disabledDays.contains(day)
+    private fun Calendar.isCurrentMonthDay() = this[Calendar.MONTH] == pageMonth
+            && !(calendarProperties.minimumDate != null
+            && this.before(calendarProperties.minimumDate)
+            || calendarProperties.maximumDate != null
+            && this.after(calendarProperties.maximumDate))
 
-    private fun loadIcon(dayIcon: ImageView, day: Calendar) {
+    private fun Calendar.isActiveDay() = this !in calendarProperties.disabledDays
+
+    private fun ImageView.loadIcon(day: Calendar) {
         if (!calendarProperties.eventsEnabled) {
-            dayIcon.visibility = View.GONE
+            visibility = View.GONE
             return
         }
 
-        calendarProperties.eventDays
-                .find { eventDate -> eventDate.calendar == day }
-                ?.run {
-                    dayIcon.loadImage(this.imageDrawable)
-
-                    // If a day doesn't belong to current month then image is transparent
-                    if (!isCurrentMonthDay(day) || !isActiveDay(day)) {
-                        dayIcon.alpha = 0.12f
-                    }
-                }
+        calendarProperties.eventDays.firstOrNull { it.calendar == day }?.let { eventDay ->
+            loadImage(eventDay.imageDrawable)
+            // If a day doesn't belong to current month then image is transparent
+            if (!day.isCurrentMonthDay() || !day.isActiveDay()) {
+                alpha = INVISIBLE_IMAGE_ALPHA
+            }
+        }
     }
 }

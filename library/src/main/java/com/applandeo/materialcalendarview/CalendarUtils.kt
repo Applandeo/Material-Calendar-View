@@ -40,34 +40,30 @@ fun Context.getDrawableText(text: String, typeface: Typeface?, color: Int, size:
 
 /**
  * This method returns a list of calendar objects between two dates
- * @param firstDay Calendar representing a first selected date
- * @param lastDay Calendar representing a last selected date
+ * @param this representing a first selected date
+ * @param toCalendar Calendar representing a last selected date
  * @return List of selected dates between two dates
  */
-fun Calendar.getDatesRange(lastDay: Calendar): List<Calendar> =
-        if (lastDay.before(this)) {
-            getCalendarsBetweenDates(lastDay.time, this.time)
+fun Calendar.getDatesRange(toCalendar: Calendar): List<Calendar> =
+        if (toCalendar.before(this)) {
+            getCalendarsBetweenDates(toCalendar.time, this.time)
         } else {
-            getCalendarsBetweenDates(this.time, lastDay.time)
+            getCalendarsBetweenDates(this.time, toCalendar.time)
         }
 
 private fun getCalendarsBetweenDates(dateFrom: Date, dateTo: Date): List<Calendar> {
     val calendars = mutableListOf<Calendar>()
 
-    val calendarFrom = Calendar.getInstance()
-    calendarFrom.time = dateFrom
-
-    val calendarTo = Calendar.getInstance()
-    calendarTo.time = dateTo
+    val calendarFrom = Calendar.getInstance().apply { time = dateFrom }
+    val calendarTo = Calendar.getInstance().apply { time = dateTo }
 
     val daysBetweenDates = TimeUnit.MILLISECONDS.toDays(
             calendarTo.timeInMillis - calendarFrom.timeInMillis)
 
-    (1..daysBetweenDates).forEach {
+    (1 until daysBetweenDates).forEach {
         val calendar = calendarFrom.clone() as Calendar
         calendars.add(calendar)
         calendar.add(Calendar.DATE, it.toInt())
     }
-
     return calendars
 }

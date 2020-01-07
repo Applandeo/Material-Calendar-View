@@ -9,5 +9,7 @@ import java.util.*
  */
 
 interface OnSelectDateListener {
+
+    @JvmSuppressWildcards
     fun onSelect(calendar: List<Calendar>)
 }
