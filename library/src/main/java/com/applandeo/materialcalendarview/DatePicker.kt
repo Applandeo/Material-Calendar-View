@@ -6,7 +6,6 @@ import android.view.View
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.AppCompatButton
 import androidx.core.content.ContextCompat
-import com.applandeo.materialcalendarview.listeners.OnSelectionAbilityListener
 import com.applandeo.materialcalendarview.utils.CalendarProperties
 import com.applandeo.materialcalendarview.utils.isMonthAfter
 import com.applandeo.materialcalendarview.utils.isMonthBefore
@@ -35,18 +34,16 @@ class DatePicker(
         setDialogButtonsColors(view.negativeButton, view.todayButton)
         setOkButtonState(calendarProperties.calendarType == CalendarView.ONE_DAY_PICKER, view.positiveButton)
 
-        calendarProperties.onSelectionAbilityListener = object : OnSelectionAbilityListener {
-            override fun onChange(enabled: Boolean) {
-                setOkButtonState(enabled, view.todayButton)
-            }
+        calendarProperties.onSelectionAbilityListener = { enabled ->
+            setOkButtonState(enabled, view.positiveButton)
         }
 
         val calendarView = CalendarView(context = context, properties = calendarProperties)
 
         view.calendarContainer.addView(calendarView)
 
-        calendarProperties.calendar?.apply {
-            calendarView.setDate(this)
+        calendarProperties.calendar?.let {
+            runCatching { calendarView.setDate(it) }
         }
 
         val alertDialog = AlertDialog.Builder(context).create().apply {
@@ -77,9 +74,8 @@ class DatePicker(
     private fun setOkButtonState(enabled: Boolean, okButton: AppCompatButton) {
         okButton.isEnabled = enabled
 
-        if (calendarProperties.dialogButtonsColor == 0) {
-            return
-        }
+        if (calendarProperties.dialogButtonsColor == 0) return
+
         val stateResource = if (enabled) {
             calendarProperties.dialogButtonsColor
         } else {
@@ -89,10 +85,10 @@ class DatePicker(
         okButton.setTextColor(ContextCompat.getColor(context, stateResource))
     }
 
-    private fun setTodayButtonVisibility(todayButton: AppCompatButton?) =
-            calendarProperties.maximumDate?.run {
-                if (isMonthBefore(midnightCalendar) || isMonthAfter(midnightCalendar)) {
-                    todayButton?.visibility = View.GONE
+    private fun setTodayButtonVisibility(todayButton: AppCompatButton) =
+            calendarProperties.maximumDate?.let {
+                if (it.isMonthBefore(midnightCalendar) || it.isMonthAfter(midnightCalendar)) {
+                    todayButton.visibility = View.GONE
                 }
             }
 }

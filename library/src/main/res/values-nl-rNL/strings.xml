@@ -7,16 +7,6 @@
     <string name="material_calendar_saturday">Z</string>
     <string name="material_calendar_sunday">Z</string>
 
-    <array name="material_calendar_day_abbreviations_array">
-        <item>@string/material_calendar_sunday</item>
-        <item>@string/material_calendar_monday</item>
-        <item>@string/material_calendar_tuesday</item>
-        <item>@string/material_calendar_wednesday</item>
-        <item>@string/material_calendar_thursday</item>
-        <item>@string/material_calendar_friday</item>
-        <item>@string/material_calendar_saturday</item>
-    </array>
-
     <array name="material_calendar_months_array">
         <item>Januari</item>
         <item>Februari</item>

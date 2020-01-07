@@ -54,20 +54,16 @@ fun Calendar.getDatesRange(lastDay: Calendar): List<Calendar> =
 private fun getCalendarsBetweenDates(dateFrom: Date, dateTo: Date): List<Calendar> {
     val calendars = mutableListOf<Calendar>()
 
-    val calendarFrom = Calendar.getInstance()
-    calendarFrom.time = dateFrom
-
-    val calendarTo = Calendar.getInstance()
-    calendarTo.time = dateTo
+    val calendarFrom = Calendar.getInstance().apply { time = dateFrom }
+    val calendarTo = Calendar.getInstance().apply { time = dateTo }
 
     val daysBetweenDates = TimeUnit.MILLISECONDS.toDays(
             calendarTo.timeInMillis - calendarFrom.timeInMillis)
 
-    (1..daysBetweenDates).forEach {
+    (1 until daysBetweenDates).forEach {
         val calendar = calendarFrom.clone() as Calendar
         calendars.add(calendar)
         calendar.add(Calendar.DATE, it.toInt())
     }
-
     return calendars
 }

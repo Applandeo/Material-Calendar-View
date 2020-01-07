@@ -3,6 +3,7 @@ package com.applandeo.materialcalendarview
 import android.graphics.drawable.Drawable
 import androidx.annotation.DrawableRes
 import androidx.annotation.RestrictTo
+import com.applandeo.materialcalendarview.utils.EventImage
 import com.applandeo.materialcalendarview.utils.setMidnight
 import java.util.*
 
@@ -20,12 +21,24 @@ import java.util.*
  * Created by Applandeo Team.
  */
 
-data class EventDay @JvmOverloads constructor(
-        private val day: Calendar,
-        private val drawable: Drawable? = null,
-        @DrawableRes private val drawableRes: Int = 0,
-        val labelColor: Int = 0
-) {
+data class EventDay(private val day: Calendar) {
+
+    init {
+        day.setMidnight()
+    }
+
+    constructor(day: Calendar, drawable: Drawable) : this(day) {
+        imageDrawable = EventImage.EventImageDrawable(drawable)
+    }
+
+    constructor(day: Calendar, @DrawableRes drawableRes: Int) : this(day) {
+        imageDrawable = EventImage.EventImageResource(drawableRes)
+    }
+
+    constructor(day: Calendar, @DrawableRes drawableRes: Int, labelColor: Int) : this(day) {
+        imageDrawable = EventImage.EventImageResource(drawableRes)
+        this.labelColor = labelColor
+    }
 
     /**
      * @return Calendar object which represents a date of current event
@@ -36,7 +49,7 @@ data class EventDay @JvmOverloads constructor(
      * @return An image resource which will be displayed in the day row
      */
     @get:RestrictTo(RestrictTo.Scope.LIBRARY)
-    var imageDrawable: Any? = null
+    var imageDrawable: EventImage = EventImage.EmptyEventImage
 
     /**
      * @return Boolean value if day is not disabled
@@ -44,11 +57,6 @@ data class EventDay @JvmOverloads constructor(
     @set:RestrictTo(RestrictTo.Scope.LIBRARY)
     var isEnabled: Boolean = false
 
-    init {
-        day.setMidnight()
-        drawable?.let { imageDrawable = drawable }
-        if (drawableRes != 0) {
-            imageDrawable = drawableRes
-        }
-    }
+    @set:RestrictTo(RestrictTo.Scope.LIBRARY)
+    var labelColor: Int = 0
 }

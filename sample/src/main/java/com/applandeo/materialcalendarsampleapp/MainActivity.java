@@ -2,11 +2,11 @@ package com.applandeo.materialcalendarsampleapp;
 
 import android.content.Intent;
 import android.os.Bundle;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.annimon.stream.Stream;
 import com.applandeo.materialcalendarview.CalendarUtils;
@@ -15,6 +15,8 @@ import com.applandeo.materialcalendarview.DatePicker;
 import com.applandeo.materialcalendarview.builders.DatePickerBuilder;
 import com.applandeo.materialcalendarview.listeners.OnSelectDateListener;
 import com.applandeo.materialcalendarview.utils.DateUtils;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -156,10 +158,11 @@ public class MainActivity extends AppCompatActivity implements OnSelectDateListe
     }
 
     @Override
-    public void onSelect(List<Calendar> calendars) {
-        Stream.of(calendars).forEach(calendar ->
-                Toast.makeText(getApplicationContext(),
-                        calendar.getTime().toString(),
-                        Toast.LENGTH_SHORT).show());
+    public void onSelect(@NotNull List<Calendar> calendars) {
+        Stream.of(calendars).forEach(calendar -> {
+            Toast.makeText(getApplicationContext(),
+                    calendar.getTime().toString(),
+                    Toast.LENGTH_SHORT).show();
+        });
     }
 }

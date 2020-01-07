@@ -4,16 +4,16 @@ package com.applandeo.materialcalendarview.utils
 
 import android.graphics.drawable.Drawable
 import android.view.View
-import android.widget.TextView
 import com.applandeo.materialcalendarview.R
 import kotlinx.android.synthetic.main.calendar_view.view.*
+
 
 /**
  * Created by Applandeo Team.
  */
 
 fun View.setAbbreviationsLabels(color: Int, firstDayOfWeek: Int) {
-    val labels = listOf<TextView>(
+    val labels = listOf(
             mondayLabel,
             tuesdayLabel,
             wednesdayLabel,
@@ -22,11 +22,14 @@ fun View.setAbbreviationsLabels(color: Int, firstDayOfWeek: Int) {
             saturdayLabel,
             sundayLabel)
 
-    val abbreviations = this.context.resources.getStringArray(R.array.material_calendar_day_abbreviations_array)
+    val abbreviations = context.resources.getStringArray(R.array.material_calendar_day_abbreviations_array)
 
     labels.forEachIndexed { index, label ->
         label.text = abbreviations[(index + firstDayOfWeek - 1) % 7]
-        label.setTextColor(color)
+
+        if (color != 0) {
+            label.setTextColor(color)
+        }
     }
 }
 
@@ -46,9 +49,7 @@ fun View.setAbbreviationsBarColor(color: Int) {
 }
 
 fun View.setPagesColor(color: Int) {
-    if (color == 0) {
-        return
-    }
+    if (color == 0) return
     this.calendarViewPager.setBackgroundColor(color)
 }
 
@@ -64,6 +65,11 @@ fun View.setForwardButtonImage(drawable: Drawable?) {
 
 fun View.setHeaderVisibility(visibility: Int) {
     this.calendarHeader.visibility = visibility
+}
+
+fun View.setNavigationVisibility(visibility: Int) {
+    this.previousButton.visibility = visibility
+    this.forwardButton.visibility = visibility
 }
 
 fun View.setAbbreviationsBarVisibility(visibility: Int) {

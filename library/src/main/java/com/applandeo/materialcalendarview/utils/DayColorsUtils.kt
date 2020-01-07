@@ -55,37 +55,34 @@ fun TextView.setSelectedDayColors(calendarProperties: CalendarProperties) {
  * @param dayLabel           TextView containing a day numberx
  * @param calendarProperties A resource of a color used to mark today day
  */
-fun Calendar.setCurrentMonthDayColors(today: Calendar, dayLabel: TextView?,
-                                      calendarProperties: CalendarProperties) =
-        dayLabel?.let {
-            when {
-                today == this -> dayLabel.setDayColors(
-                        calendarProperties.todayLabelColor,
-                        Typeface.BOLD,
-                        R.drawable.background_transparent
-                )
-                calendarProperties.highlightedDays.contains(this) -> dayLabel.setDayColors(
-                        calendarProperties.highlightedDaysLabelsColor,
-                        Typeface.NORMAL,
-                        R.drawable.background_transparent
-                )
-                else -> dayLabel.setDayColors(
-                        calendarProperties.daysLabelsColor,
-                        Typeface.NORMAL,
-                        R.drawable.background_transparent
-                )
-            }
-        }
+fun Calendar.setCurrentMonthDayColors(
+        today: Calendar,
+        dayLabel: TextView?,
+        calendarProperties: CalendarProperties
+) {
+    if (dayLabel == null) return
+
+    when {
+        today == this -> setTodayColors(dayLabel, calendarProperties)
+        this.isEventDayWithLabelColor(calendarProperties) -> setEventDayColors(this, dayLabel, calendarProperties)
+        calendarProperties.highlightedDays.contains(this) -> setHighlightedDayColors(dayLabel, calendarProperties)
+        else -> setNormalDayColors(dayLabel, calendarProperties)
+    }
+}
 
 private fun setTodayColors(dayLabel: TextView, calendarProperties: CalendarProperties) {
-    dayLabel.setDayColors(calendarProperties.todayLabelColor, Typeface.BOLD,
+    dayLabel.setDayColors(
+            calendarProperties.todayLabelColor,
+            Typeface.BOLD,
             R.drawable.background_transparent)
 
     // Sets custom background color for present
-    if (calendarProperties.todayLabelColor != 0) {
-        dayLabel.setDayColors(calendarProperties.selectionLabelColor, Typeface.NORMAL,
+    if (calendarProperties.todayColor != 0) {
+        dayLabel.setDayColors(
+                calendarProperties.selectionLabelColor,
+                Typeface.NORMAL,
                 R.drawable.background_color_circle_selector)
-        setDayBackgroundColor(dayLabel, calendarProperties.todayLabelColor)
+        setDayBackgroundColor(dayLabel, calendarProperties.todayColor)
     }
 }
 

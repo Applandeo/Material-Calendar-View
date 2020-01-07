@@ -1,6 +1,6 @@
 package com.applandeo.materialcalendarview.utils
 
-import android.widget.TextView
+import android.view.View
 import java.util.*
 
 /**
@@ -17,14 +17,15 @@ import java.util.*
 
 data class SelectedDay @JvmOverloads constructor(
         val calendar: Calendar,
-        var view: TextView? = null
+        var view: View? = null
 ) {
 
-    override fun equals(other: Any?) =
-            when (other) {
-                is SelectedDay -> calendar == other.calendar
-                is Calendar -> calendar == other
-                else -> super.equals(other)
-            }
+    override fun equals(other: Any?): Boolean {
+        return when (other) {
+            is SelectedDay -> calendar == other.calendar
+            is Calendar -> calendar == other
+            else -> super.equals(other)
+        }
+    }
 }
 
