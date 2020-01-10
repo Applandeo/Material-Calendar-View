@@ -16,9 +16,7 @@ fun Calendar.isEventDayWithLabelColor(calendarProperties: CalendarProperties): B
         calendarProperties.eventDays.none { eventDate ->
             eventDate.calendar == this && eventDate.labelColor != 0
         }
-    } else {
-        false
-    }
+    } else false
 }
 
 /**

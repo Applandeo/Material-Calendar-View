@@ -85,10 +85,11 @@ class DatePicker(
         okButton.setTextColor(ContextCompat.getColor(context, stateResource))
     }
 
-    private fun setTodayButtonVisibility(todayButton: AppCompatButton) =
-            calendarProperties.maximumDate?.let {
-                if (it.isMonthBefore(midnightCalendar) || it.isMonthAfter(midnightCalendar)) {
-                    todayButton.visibility = View.GONE
-                }
+    private fun setTodayButtonVisibility(todayButton: AppCompatButton) {
+        calendarProperties.maximumDate?.let {
+            if (it.isMonthBefore(midnightCalendar) || it.isMonthAfter(midnightCalendar)) {
+                todayButton.visibility = View.GONE
             }
+        }
+    }
 }

@@ -22,12 +22,11 @@ import java.util.*
  * @param typeface   A type of text style, can be set as NORMAL or BOLD
  * @param background A resource of a background drawable
  */
-fun TextView.setDayColors(textColor: Int, typeface: Int, background: Int) =
-        this.apply {
-            setTypeface(null, typeface)
-            setTextColor(textColor)
-            setBackgroundResource(background)
-        }
+fun TextView.setDayColors(textColor: Int, typeface: Int, background: Int) {
+    setTypeface(null, typeface)
+    setTextColor(textColor)
+    setBackgroundResource(background)
+}
 
 /**
  * This method sets a color of the text, font type and a background of a TextView object.
@@ -79,26 +78,39 @@ private fun setTodayColors(dayLabel: TextView, calendarProperties: CalendarPrope
     // Sets custom background color for present
     if (calendarProperties.todayColor != 0) {
         dayLabel.setDayColors(
-                calendarProperties.selectionLabelColor,
-                Typeface.NORMAL,
-                R.drawable.background_color_circle_selector)
+                textColor = calendarProperties.selectionLabelColor,
+                typeface = Typeface.NORMAL,
+                background = R.drawable.background_color_circle_selector)
         setDayBackgroundColor(dayLabel, calendarProperties.todayColor)
     }
 }
 
-private fun setEventDayColors(day: Calendar, dayLabel: TextView, calendarProperties: CalendarProperties) =
-        day.getEventDayWithLabelColor(calendarProperties)?.let { eventDay ->
-            dayLabel.setDayColors(eventDay.labelColor,
-                    Typeface.NORMAL, R.drawable.background_transparent)
-        }
+private fun setEventDayColors(day: Calendar, dayLabel: TextView, calendarProperties: CalendarProperties) {
+    day.getEventDayWithLabelColor(calendarProperties)?.let { eventDay ->
+        dayLabel.setDayColors(
+                textColor = eventDay.labelColor,
+                typeface = Typeface.NORMAL,
+                background = R.drawable.background_transparent
+        )
+    }
+}
 
-private fun setHighlightedDayColors(dayLabel: TextView, calendarProperties: CalendarProperties) =
-        dayLabel.setDayColors(calendarProperties.highlightedDaysLabelsColor,
-                Typeface.NORMAL, R.drawable.background_transparent)
+private fun setHighlightedDayColors(dayLabel: TextView, calendarProperties: CalendarProperties) {
+    dayLabel.setDayColors(
+            textColor = calendarProperties.highlightedDaysLabelsColor,
+            typeface = Typeface.NORMAL,
+            background = R.drawable.background_transparent
+    )
+}
 
-private fun setNormalDayColors(dayLabel: TextView, calendarProperties: CalendarProperties) =
-        dayLabel.setDayColors(calendarProperties.daysLabelsColor, Typeface.NORMAL,
-                R.drawable.background_transparent)
+private fun setNormalDayColors(dayLabel: TextView, calendarProperties: CalendarProperties) {
+    dayLabel.setDayColors(
+            textColor = calendarProperties.daysLabelsColor,
+            typeface = Typeface.NORMAL,
+            background = R.drawable.background_transparent
+    )
+}
 
-private fun setDayBackgroundColor(dayLabel: TextView, color: Int) =
-        dayLabel.background.setColorFilter(color, android.graphics.PorterDuff.Mode.MULTIPLY)
+private fun setDayBackgroundColor(dayLabel: TextView, color: Int) {
+    dayLabel.background.setColorFilter(color, android.graphics.PorterDuff.Mode.MULTIPLY)
+}

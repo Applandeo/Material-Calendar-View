@@ -82,21 +82,17 @@ class CalendarDayAdapter(
         day.setCurrentMonthDayColors(today, dayLabel, calendarProperties)
     }
 
-    private fun Calendar.isSelectedDay(): Boolean {
-        return calendarProperties.calendarType != CalendarView.CLASSIC
-                && this[Calendar.MONTH] == pageMonth
-                && SelectedDay(this) in calendarPageAdapter.selectedDays
-    }
+    private fun Calendar.isSelectedDay() = calendarProperties.calendarType != CalendarView.CLASSIC
+            && this[Calendar.MONTH] == pageMonth
+            && SelectedDay(this) in calendarPageAdapter.selectedDays
 
     private fun Calendar.isEventDayWithLabelColor() = this.isEventDayWithLabelColor(calendarProperties)
 
-    private fun Calendar.isCurrentMonthDay(): Boolean {
-        return this[Calendar.MONTH] == pageMonth
-                && !(calendarProperties.minimumDate != null
-                && this.before(calendarProperties.minimumDate)
-                || calendarProperties.maximumDate != null
-                && this.after(calendarProperties.maximumDate))
-    }
+    private fun Calendar.isCurrentMonthDay() = this[Calendar.MONTH] == pageMonth
+            && !(calendarProperties.minimumDate != null
+            && this.before(calendarProperties.minimumDate)
+            || calendarProperties.maximumDate != null
+            && this.after(calendarProperties.maximumDate))
 
     private fun Calendar.isActiveDay() = this !in calendarProperties.disabledDays
 

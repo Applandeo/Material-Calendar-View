@@ -64,8 +64,7 @@ fun Calendar.isMonthBefore(secondCalendar: Calendar): Boolean {
  * @param secondCalendar Second calendar object to compare
  * @return Boolean value if second calendar is after the first one
  */
-fun Calendar.isMonthAfter(secondCalendar: Calendar) =
-        secondCalendar.isMonthBefore(this)
+fun Calendar.isMonthAfter(secondCalendar: Calendar) = secondCalendar.isMonthBefore(this)
 
 /**
  * This method returns a string containing a month's name and a year (in number).
@@ -76,9 +75,11 @@ fun Calendar.isMonthAfter(secondCalendar: Calendar) =
  * @param context  An array of months names
  * @return A string of the formatted date containing a month's name and a year (in number)
  */
-fun Calendar.getMonthAndYearDate(context: Context) = String.format("%s  %s",
+fun Calendar.getMonthAndYearDate(context: Context) = String.format(
+        "%s  %s",
         context.resources.getStringArray(R.array.material_calendar_months_array)[this.get(Calendar.MONTH)],
-        this.get(Calendar.YEAR))
+        this.get(Calendar.YEAR)
+)
 
 /**
  * This method is used to count a number of months between two dates

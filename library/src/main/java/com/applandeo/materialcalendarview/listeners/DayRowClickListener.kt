@@ -117,18 +117,13 @@ class DayRowClickListener(
         )
     }
 
-    private fun Calendar.isCurrentMonthDay(): Boolean {
-        return this[Calendar.MONTH] == pageMonth && this.isBetweenMinAndMax()
-    }
+    private fun Calendar.isCurrentMonthDay() = this[Calendar.MONTH] == pageMonth && this.isBetweenMinAndMax()
 
-    private fun Calendar.isActiveDay(): Boolean {
-        return !calendarProperties.disabledDays.contains(this)
-    }
+    private fun Calendar.isActiveDay() = !calendarProperties.disabledDays.contains(this)
 
-    private fun Calendar.isBetweenMinAndMax(): Boolean {
-        return !(calendarProperties.minimumDate != null && this.before(calendarProperties.minimumDate)
-                || calendarProperties.maximumDate != null && this.after(calendarProperties.maximumDate))
-    }
+    private fun Calendar.isBetweenMinAndMax() =
+            !(calendarProperties.minimumDate != null && this.before(calendarProperties.minimumDate)
+                    || calendarProperties.maximumDate != null && this.after(calendarProperties.maximumDate))
 
     private fun isOutOfMaxRange(firstDay: Calendar, lastDay: Calendar): Boolean {
         // Number of selected days plus one last day
@@ -138,9 +133,8 @@ class DayRowClickListener(
         return daysMaxRange != 0 && numberOfSelectedDays >= daysMaxRange
     }
 
-    private fun isAnotherDaySelected(selectedDay: SelectedDay, day: Calendar): Boolean {
-        return day != selectedDay.calendar && day.isCurrentMonthDay() && day.isActiveDay()
-    }
+    private fun isAnotherDaySelected(selectedDay: SelectedDay, day: Calendar) =
+            day != selectedDay.calendar && day.isCurrentMonthDay() && day.isActiveDay()
 
     private fun onClick(day: Calendar) {
         if (calendarProperties.eventDays.isEmpty()) {
@@ -165,5 +159,4 @@ class DayRowClickListener(
         eventDay.isEnabled = enabledDay
         calendarProperties.onDayClickListener?.onDayClick(eventDay)
     }
-
 }
