@@ -16,7 +16,7 @@ import java.util.*
  * This class is responsible for handle click events
  *
  *
- * Created by Mateusz Kornakiewicz on 24.05.2017.
+ * Created by Applandeo Team.
  */
 class DayRowClickListener(
         private val calendarPageAdapter: CalendarPageAdapter,

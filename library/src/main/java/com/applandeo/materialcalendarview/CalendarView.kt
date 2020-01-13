@@ -233,18 +233,16 @@ class CalendarView @JvmOverloads constructor(
         calendarProperties.onForwardPageChangeListener = listener
     }
 
-    private fun isScrollingLimited(calendar: Calendar, position: Int): Boolean {
-        if (calendarProperties.minimumDate?.isMonthBefore(calendar) == true) {
+    private fun isScrollingLimited(calendar: Calendar, position: Int) = when {
+        calendarProperties.minimumDate?.isMonthBefore(calendar) == true -> {
             calendarViewPager.currentItem = position + 1
-            return true
+            true
         }
-
-        if (calendarProperties.maximumDate?.isMonthAfter(calendar) == true) {
+        calendarProperties.maximumDate?.isMonthAfter(calendar) == true -> {
             calendarViewPager.currentItem = position - 1
-            return true
+            true
         }
-
-        return false
+        else -> false
     }
 
     private fun setHeaderName(calendar: Calendar, position: Int) {
@@ -273,6 +271,8 @@ class CalendarView @JvmOverloads constructor(
      * This method set a current and selected date of the calendar using Calendar object.
      *
      * @param date A Calendar object representing a date to which the calendar will be set
+     *
+     * Throws exception when set date is not between minimum and maximum date
      */
     @Throws(OutOfDateRangeException::class)
     fun setDate(date: Calendar) {
@@ -336,19 +336,16 @@ class CalendarView @JvmOverloads constructor(
      * @return Calendar object representing a selected date
      */
     val firstSelectedDate: Calendar
-        get() {
-            return calendarPageAdapter.selectedDays.map { it.calendar }.first()
-        }
+        get() = calendarPageAdapter.selectedDays.map { it.calendar }.first()
+
 
     /**
      * @return Calendar object representing a date of current calendar page
      */
     val currentPageDate: Calendar
-        get() {
-            return (calendarProperties.firstPageCalendarDate.clone() as Calendar).apply {
-                set(Calendar.DAY_OF_MONTH, 1)
-                add(Calendar.MONTH, calendarViewPager.currentItem)
-            }
+        get() = (calendarProperties.firstPageCalendarDate.clone() as Calendar).apply {
+            set(Calendar.DAY_OF_MONTH, 1)
+            add(Calendar.MONTH, calendarViewPager.currentItem)
         }
 
     /**

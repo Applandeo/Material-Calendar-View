@@ -26,8 +26,7 @@ fun Calendar.isEventDayWithLabelColor(calendarProperties: CalendarProperties): B
  * @param calendarProperties A calendar properties
  */
 fun Calendar.getEventDayWithLabelColor(calendarProperties: CalendarProperties): EventDay? {
-    return calendarProperties.eventDays
-            .firstOrNull { eventDate ->
-                eventDate.calendar != null && eventDate.calendar == this && eventDate.labelColor != 0
-            }
+    return calendarProperties.eventDays.firstOrNull { eventDate ->
+        eventDate.calendar != null && eventDate.calendar == this && eventDate.labelColor != 0
+    }
 }

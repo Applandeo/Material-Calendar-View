@@ -1,6 +1,7 @@
 package com.applandeo.materialcalendarview
 
 import android.graphics.drawable.Drawable
+import androidx.annotation.ColorInt
 import androidx.annotation.DrawableRes
 import androidx.annotation.RestrictTo
 import com.applandeo.materialcalendarview.utils.EventImage
@@ -35,7 +36,7 @@ data class EventDay(private val day: Calendar) {
         imageDrawable = EventImage.EventImageResource(drawableRes)
     }
 
-    constructor(day: Calendar, @DrawableRes drawableRes: Int, labelColor: Int) : this(day) {
+    constructor(day: Calendar, @DrawableRes drawableRes: Int, @ColorInt labelColor: Int) : this(day) {
         imageDrawable = EventImage.EventImageResource(drawableRes)
         this.labelColor = labelColor
     }

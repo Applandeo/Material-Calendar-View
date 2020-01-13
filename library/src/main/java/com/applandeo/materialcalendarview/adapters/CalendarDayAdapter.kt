@@ -15,6 +15,8 @@ import com.applandeo.materialcalendarview.utils.*
 import kotlinx.android.synthetic.main.calendar_view_day.view.*
 import java.util.*
 
+private const val INVISIBLE_IMAGE_ALPHA = 0.12f
+
 /**
  * This class is responsible for loading a one day cell.
  *
@@ -49,37 +51,35 @@ class CalendarDayAdapter(
     }
 
     private fun setLabelColors(dayLabel: TextView, day: Calendar) {
-        // Setting not current month day color
-        if (!day.isCurrentMonthDay()) {
-            dayLabel.setDayColors(calendarProperties.anotherMonthsDaysLabelsColor,
-                    Typeface.NORMAL, R.drawable.background_transparent)
-            return
-        }
+        when {
+            // Setting not current month day color
+            !day.isCurrentMonthDay() -> dayLabel.setDayColors(
+                    textColor = calendarProperties.anotherMonthsDaysLabelsColor,
+                    typeface = Typeface.NORMAL,
+                    background = R.drawable.background_transparent
+            )
 
-        // Setting view for all SelectedDays
-        if (day.isSelectedDay()) {
-            calendarPageAdapter.selectedDays
-                    .firstOrNull { selectedDay -> selectedDay.calendar == day }
-                    ?.let { selectedDay -> selectedDay.view = dayLabel }
-            dayLabel.setSelectedDayColors(calendarProperties)
-            return
-        }
+            // Setting view for all SelectedDays
+            day.isSelectedDay() -> {
+                calendarPageAdapter.selectedDays
+                        .firstOrNull { selectedDay -> selectedDay.calendar == day }
+                        ?.let { selectedDay -> selectedDay.view = dayLabel }
+                dayLabel.setSelectedDayColors(calendarProperties)
+            }
 
-        // Setting disabled days color
-        if (!day.isActiveDay()) {
-            dayLabel.setDayColors(calendarProperties.disabledDaysLabelsColor,
-                    Typeface.NORMAL, R.drawable.background_transparent)
-            return
-        }
+            // Setting disabled days color
+            !day.isActiveDay() -> dayLabel.setDayColors(
+                    textColor = calendarProperties.disabledDaysLabelsColor,
+                    typeface = Typeface.NORMAL,
+                    background = R.drawable.background_transparent
+            )
 
-        // Setting custom label color for event day
-        if (day.isEventDayWithLabelColor()) {
-            day.setCurrentMonthDayColors(today, dayLabel, calendarProperties)
-            return
-        }
+            // Setting custom label color for event day
+            day.isEventDayWithLabelColor() -> day.setCurrentMonthDayColors(today, dayLabel, calendarProperties)
 
-        // Setting current month day color
-        day.setCurrentMonthDayColors(today, dayLabel, calendarProperties)
+            // Setting current month day color
+            else -> day.setCurrentMonthDayColors(today, dayLabel, calendarProperties)
+        }
     }
 
     private fun Calendar.isSelectedDay() = calendarProperties.calendarType != CalendarView.CLASSIC
@@ -106,7 +106,7 @@ class CalendarDayAdapter(
             loadImage(eventDay.imageDrawable)
             // If a day doesn't belong to current month then image is transparent
             if (!day.isCurrentMonthDay() || !day.isActiveDay()) {
-                alpha = 0.12f
+                alpha = INVISIBLE_IMAGE_ALPHA
             }
         }
     }

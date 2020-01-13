@@ -20,7 +20,7 @@ class DatePickerBuilder(
         private val context: Context,
         onSelectDateListener: OnSelectDateListener
 ) {
-    private val calendarProperties: CalendarProperties = CalendarProperties(context)
+    private val calendarProperties = CalendarProperties(context)
 
     init {
         calendarProperties.calendarType = CalendarView.ONE_DAY_PICKER
@@ -35,338 +35,276 @@ class DatePickerBuilder(
      * @param calendarType The calendar type to use
      */
 
-    @Deprecated("Use setPickerType", ReplaceWith("setPickerType(calendarType)"))
-    fun pickerType(calendarType: Int) = setPickerType(calendarType)
+    fun pickerType(calendarType: Int) = also { calendarProperties.calendarType = calendarType }
 
-    fun setPickerType(calendarType: Int): DatePickerBuilder {
-        calendarProperties.calendarType = calendarType
-        return this
-    }
+    @Deprecated("Use pickerType(calendarType)", ReplaceWith("pickerType(calendarType)"))
+    fun setPickerType(calendarType: Int) = pickerType(calendarType)
 
     /**
      * Sets the initially selected date of the date picker
      *
      * @param calendar The initially selected date as a {@link Calendar} object
      */
-    @Deprecated("Use setDate", ReplaceWith("setDate(calendar)"))
-    fun date(calendar: Calendar) = setDate(calendar)
+    fun date(calendar: Calendar) = also { calendarProperties.calendar = calendar }
 
-    fun setDate(calendar: Calendar): DatePickerBuilder {
-        calendarProperties.calendar = calendar
-        return this
-    }
+    @Deprecated("Use date(calendar)", ReplaceWith("date(calendar)"))
+    fun setDate(calendar: Calendar) = date(calendar)
 
     /**
      * Sets the header color of the date picker dialog's header
      *
      * @param color The header color as a color resource
      */
-    @Deprecated("Use setHeaderColor", ReplaceWith("setHeaderColor(color)"))
-    fun headerColor(@ColorRes color: Int) = setHeaderColor(color)
+    fun headerColor(@ColorRes color: Int) = also { calendarProperties.headerColor = color }
 
-    fun setHeaderColor(@ColorRes color: Int): DatePickerBuilder {
-        calendarProperties.headerColor = color
-        return this
-    }
+    @Deprecated("Use headerColor(color)", ReplaceWith("headerColor(color)"))
+    fun setHeaderColor(@ColorRes color: Int) = headerColor(color)
 
     /**
      * Sets whether the date picker dialog's header should be visible
      *
      * @param visibility The visibility
      */
-    @Deprecated("Use setHeaderVisibility", ReplaceWith("setHeaderVisibility(visibility)"))
-    fun headerVisibility(visibility: Int) = setHeaderVisibility(visibility)
+    fun headerVisibility(visibility: Int) = also { calendarProperties.headerVisibility = visibility }
 
-    fun setHeaderVisibility(visibility: Int): DatePickerBuilder {
-        calendarProperties.headerVisibility = visibility
-        return this
-    }
+    @Deprecated("Use headerVisibility(visibility)", ReplaceWith("headerVisibility(visibility)"))
+    fun setHeaderVisibility(visibility: Int) = headerVisibility(visibility)
 
     /**
      * Sets whether the date picker abbreviations bar should be visible
      *
      * @param visibility The visibility
      */
-    @Deprecated("Use setAbbreviationsBarVisibility", ReplaceWith("setAbbreviationsBarVisibility(visibility)"))
-    fun abbreviationsBarVisibility(visibility: Int) = setAbbreviationsBarVisibility(visibility)
+    fun abbreviationsBarVisibility(visibility: Int) =
+            also { calendarProperties.abbreviationsBarVisibility = visibility }
 
-    fun setAbbreviationsBarVisibility(visibility: Int): DatePickerBuilder {
-        calendarProperties.abbreviationsBarVisibility = visibility
-        return this
-    }
+    @Deprecated("Use abbreviationsBarVisibility(visibility)", ReplaceWith("abbreviationsBarVisibility(visibility)"))
+    fun setAbbreviationsBarVisibility(visibility: Int) = abbreviationsBarVisibility(visibility)
 
     /**
      * Sets the date picker dialog header's label color
      *
      * @param color The header label color as a color resource
      */
-    @Deprecated("Use setHeaderLabelColor", ReplaceWith("setHeaderLabelColor(color)"))
-    fun headerLabelColor(@ColorRes color: Int) = setHeaderLabelColor(color)
+    fun headerLabelColor(@ColorRes color: Int) = also { calendarProperties.headerLabelColor = color }
 
-    fun setHeaderLabelColor(@ColorRes color: Int): DatePickerBuilder {
-        calendarProperties.headerLabelColor = color
-        return this
-    }
+    @Deprecated("Use headerLabelColor(color)", ReplaceWith("headerLabelColor(color)"))
+    fun setHeaderLabelColor(@ColorRes color: Int) = headerLabelColor(color)
 
     /**
      * Sets the drawable to use for the previous button in the date picker dialog
      *
      * @param drawable The drawable to use as a drawable resource
      */
-    @Deprecated("Use setPreviousButtonSrc", ReplaceWith("setPreviousButtonSrc(drawable)"))
-    fun previousButtonSrc(@DrawableRes drawable: Int) = setPreviousButtonSrc(drawable)
+    fun previousButtonSrc(@DrawableRes drawable: Int) =
+            also { calendarProperties.previousButtonSrc = ContextCompat.getDrawable(context, drawable) }
 
-    fun setPreviousButtonSrc(@DrawableRes drawable: Int): DatePickerBuilder {
-        calendarProperties.previousButtonSrc = ContextCompat.getDrawable(context, drawable)
-        return this
-    }
+    @Deprecated("Use previousButtonSrc(drawable)", ReplaceWith("previousButtonSrc(drawable)"))
+    fun setPreviousButtonSrc(@DrawableRes drawable: Int) = previousButtonSrc(drawable)
 
     /**
      * Sets the drawable to use for the forward button in the date picker dialog
      *
      * @param drawable The drawable to use as a drawable resource
      */
-    @Deprecated("Use setForwardButtonSrc", ReplaceWith("setForwardButtonSrc(drawable)"))
-    fun forwardButtonSrc(@DrawableRes drawable: Int) = setForwardButtonSrc(drawable)
+    fun forwardButtonSrc(@DrawableRes drawable: Int) =
+            also { calendarProperties.forwardButtonSrc = ContextCompat.getDrawable(context, drawable) }
 
-    fun setForwardButtonSrc(@DrawableRes drawable: Int): DatePickerBuilder {
-        calendarProperties.forwardButtonSrc = ContextCompat.getDrawable(context, drawable)
-        return this
-    }
+    @Deprecated("Use forwardButtonSrc(drawable)", ReplaceWith("forwardButtonSrc(drawable)"))
+    fun setForwardButtonSrc(@DrawableRes drawable: Int) = forwardButtonSrc(drawable)
 
     /**
      * Sets the color of the selection circle in the date picker dialog
      *
      * @param color The color to use as a color resource
      */
-    @Deprecated("Use setSelectionColor", ReplaceWith("setSelectionColor(color)"))
-    fun selectionColor(@ColorRes color: Int) = setSelectionColor(color)
+    fun selectionColor(@ColorRes color: Int) =
+            also { calendarProperties.selectionColor = ContextCompat.getColor(context, color) }
 
-    fun setSelectionColor(@ColorRes color: Int): DatePickerBuilder {
-        calendarProperties.selectionColor = ContextCompat.getColor(context, color)
-        return this
-    }
+    @Deprecated("Use selectionColor(color)", ReplaceWith("selectionColor(color)"))
+    fun setSelectionColor(@ColorRes color: Int) = selectionColor(color)
 
     /**
      * Sets the color of the today number in the date picker dialog
      *
      * @param color The color to use as a color resource
      */
-    @Deprecated("Use setTodayLabelColor", ReplaceWith("setTodayLabelColor(color)"))
-    fun todayLabelColor(@ColorRes color: Int) = setTodayLabelColor(color)
+    fun todayLabelColor(@ColorRes color: Int) =
+            also { calendarProperties.todayLabelColor = ContextCompat.getColor(context, color) }
 
-    fun setTodayLabelColor(@ColorRes color: Int): DatePickerBuilder {
-        calendarProperties.todayLabelColor = ContextCompat.getColor(context, color)
-        return this
-    }
+    @Deprecated("Use todayLabelColor(color)", ReplaceWith("todayLabelColor(color)"))
+    fun setTodayLabelColor(@ColorRes color: Int) = todayLabelColor(color)
 
     /**
      * Sets the color of the highlighted days label
      *
      * @param color The color to use as a color resource
      */
-    @Deprecated("Use setHighlightedDaysLabelsColor", ReplaceWith("setHighlightedDaysLabelsColor(color)"))
-    fun highlightedDaysLabelsColor(@ColorRes color: Int) = setHighlightedDaysLabelsColor(color)
+    fun highlightedDaysLabelsColor(@ColorRes color: Int) =
+            also { calendarProperties.highlightedDaysLabelsColor = ContextCompat.getColor(context, color) }
 
-    fun setHighlightedDaysLabelsColor(@ColorRes color: Int): DatePickerBuilder {
-        calendarProperties.highlightedDaysLabelsColor = ContextCompat.getColor(context, color)
-        return this
-    }
+    @Deprecated("Use highlightedDaysLabelsColor(color)", ReplaceWith("highlightedDaysLabelsColor(color)"))
+    fun setHighlightedDaysLabelsColor(@ColorRes color: Int) = highlightedDaysLabelsColor(color)
 
     /**
      * Sets the color of the dialog buttons in the date picker dialog
      *
      * @param color The color to use as a color resource
      */
-    @Deprecated("Use setDialogButtonsColor", ReplaceWith("setDialogButtonsColor(color)"))
-    fun dialogButtonsColor(@ColorRes color: Int) = setDialogButtonsColor(color)
+    fun dialogButtonsColor(@ColorRes color: Int) = also { calendarProperties.dialogButtonsColor = color }
 
-    fun setDialogButtonsColor(@ColorRes color: Int): DatePickerBuilder {
-        calendarProperties.dialogButtonsColor = color
-        return this
-    }
+    @Deprecated("Use dialogButtonsColor(color)", ReplaceWith("dialogButtonsColor(color)"))
+    fun setDialogButtonsColor(@ColorRes color: Int) = dialogButtonsColor(color)
 
     /**
      * Sets the minimum available date of the date picker dialog
      *
      * @param calendar The minimum available date as a {@link Calendar} object
      */
-    @Deprecated("Use setMinimumDate", ReplaceWith("setMinimumDate(calendar)"))
-    fun minimumDate(calendar: Calendar) = setMinimumDate(calendar)
+    fun minimumDate(calendar: Calendar) = also { calendarProperties.minimumDate = calendar }
 
-    fun setMinimumDate(calendar: Calendar): DatePickerBuilder {
-        calendarProperties.minimumDate = calendar
-        return this
-    }
+    @Deprecated("Use minimumDate(calendar)", ReplaceWith("minimumDate(calendar)"))
+    fun setMinimumDate(calendar: Calendar) = minimumDate(calendar)
 
     /**
      * Sets the maximum available date of the date picker dialog
      *
      * @param calendar The maximum available date as a {@link Calendar} object
      */
-    @Deprecated("Use setMaximumDate", ReplaceWith("setMaximumDate(calendar)"))
-    fun maximumDate(calendar: Calendar) = setMaximumDate(calendar)
+    fun maximumDate(calendar: Calendar) = also { calendarProperties.maximumDate = calendar }
 
-    fun setMaximumDate(calendar: Calendar): DatePickerBuilder {
-        calendarProperties.maximumDate = calendar
-        return this
-    }
+    @Deprecated("Use maximumDate(calendar)", ReplaceWith("maximumDate(calendar)"))
+    fun setMaximumDate(calendar: Calendar) = maximumDate(calendar)
 
     /**
      * Sets the list of disabled days in the date picker dialog
      *
      * @param disabledDays The list of disabled days as a {@link List<Calendar>}
      */
-    @Deprecated("Use setDisabledDays", ReplaceWith("setDisabledDays(disabledDays)"))
-    fun disabledDays(disabledDays: List<Calendar>) = setDisabledDays(disabledDays)
+    fun disabledDays(disabledDays: List<Calendar>) = also { calendarProperties.disabledDays = disabledDays }
 
-    fun setDisabledDays(disabledDays: List<Calendar>): DatePickerBuilder {
-        calendarProperties.disabledDays = disabledDays
-        return this
-    }
+    @Deprecated("Use disabledDays(disabledDays)", ReplaceWith("disabledDays(disabledDays)"))
+    fun setDisabledDays(disabledDays: List<Calendar>) = disabledDays(disabledDays)
 
     /**
      * Sets the list of highlighted days in the date picker dialog
      *
      * @param disabledDays The list of disabled days as a {@link List<Calendar>}
      */
-    @Deprecated("Use setHighlightedDays", ReplaceWith("setHighlightedDays(highlightedDays)"))
-    fun highlightedDays(highlightedDays: List<Calendar>) = setHighlightedDays(highlightedDays)
+    fun highlightedDays(highlightedDays: List<Calendar>) =
+            also { calendarProperties.highlightedDays = highlightedDays }
 
-    fun setHighlightedDays(highlightedDays: List<Calendar>): DatePickerBuilder {
-        calendarProperties.highlightedDays = highlightedDays
-        return this
-    }
+    @Deprecated("Use highlightedDays(highlightedDays)", ReplaceWith("highlightedDays(highlightedDays)"))
+    fun setHighlightedDays(highlightedDays: List<Calendar>) = highlightedDays(highlightedDays)
 
     /**
      * Sets the previous page change listener which is called when scrolling to the previous page
      *
      * @param listener The previous page change listener to use
      */
-    @Deprecated("Use setPreviousPageChangeListener", ReplaceWith("setPreviousPageChangeListener(listener)"))
-    fun previousPageChangeListener(listener: OnCalendarPageChangeListener) = setPreviousPageChangeListener(listener)
+    fun previousPageChangeListener(listener: OnCalendarPageChangeListener) =
+            also { calendarProperties.onPreviousPageChangeListener = listener }
 
-    fun setPreviousPageChangeListener(listener: OnCalendarPageChangeListener): DatePickerBuilder {
-        calendarProperties.onPreviousPageChangeListener = listener
-        return this
-    }
+    @Deprecated("Use previousPageChangeListener(listener)", ReplaceWith("previousPageChangeListener(listener)"))
+    fun setPreviousPageChangeListener(listener: OnCalendarPageChangeListener) = previousPageChangeListener(listener)
 
     /**
      * Sets the forward page change listener which is called when scrolling to the next page
      *
      * @param listener The forward page change listener to use
      */
-    @Deprecated("Use setForwardPageChangeListener", ReplaceWith("setForwardPageChangeListener(listener)"))
-    fun forwardPageChangeListener(listener: OnCalendarPageChangeListener) = setForwardPageChangeListener(listener)
+    fun forwardPageChangeListener(listener: OnCalendarPageChangeListener) =
+            also { calendarProperties.onForwardPageChangeListener = listener }
 
-    fun setForwardPageChangeListener(listener: OnCalendarPageChangeListener): DatePickerBuilder {
-        calendarProperties.onForwardPageChangeListener = listener
-        return this
-    }
+    @Deprecated("Use forwardPageChangeListener(listener)", ReplaceWith("forwardPageChangeListener(listener)"))
+    fun setForwardPageChangeListener(listener: OnCalendarPageChangeListener) = forwardPageChangeListener(listener)
 
     /**
      * Sets the color of the disabled days numbers
      *
      * @param color The color to use as a color resource
      */
-    @Deprecated("Use setDisabledDaysLabelsColor", ReplaceWith("setDisabledDaysLabelsColor(color)"))
-    fun disabledDaysLabelsColor(@ColorRes color: Int) = setDisabledDaysLabelsColor(color)
+    fun disabledDaysLabelsColor(@ColorRes color: Int) =
+            also { calendarProperties.disabledDaysLabelsColor = ContextCompat.getColor(context, color) }
 
-    fun setDisabledDaysLabelsColor(@ColorRes color: Int): DatePickerBuilder {
-        calendarProperties.disabledDaysLabelsColor = ContextCompat.getColor(context, color)
-        return this
-    }
+    @Deprecated("Use disabledDaysLabelsColor(color)", ReplaceWith("disabledDaysLabelsColor(color)"))
+    fun setDisabledDaysLabelsColor(@ColorRes color: Int) = disabledDaysLabelsColor(color)
 
     /**
      * Sets the color of the bar with the day symbols
      *
      * @param color The color to use as a color resource
      */
-    @Deprecated("Use setAbbreviationsBarColor", ReplaceWith("setAbbreviationsBarColor(color)"))
-    fun abbreviationsBarColor(@ColorRes color: Int) = setAbbreviationsBarColor(color)
+    fun abbreviationsBarColor(@ColorRes color: Int) =
+            also { calendarProperties.abbreviationsBarColor = ContextCompat.getColor(context, color) }
 
-    fun setAbbreviationsBarColor(@ColorRes color: Int): DatePickerBuilder {
-        calendarProperties.abbreviationsBarColor = ContextCompat.getColor(context, color)
-        return this
-    }
+    @Deprecated("Use abbreviationsBarColor(color)", ReplaceWith("abbreviationsBarColor(color)"))
+    fun setAbbreviationsBarColor(@ColorRes color: Int) = abbreviationsBarColor(color)
 
     /**
      * Sets the color of the calendar background
      *
      * @param color The color to use as a color resource
      */
-    @Deprecated("Use setPagesColor", ReplaceWith("setPagesColor(color)"))
-    fun pagesColor(@ColorRes color: Int) = setPagesColor(color)
+    fun pagesColor(@ColorRes color: Int) =
+            also { calendarProperties.pagesColor = ContextCompat.getColor(context, color) }
 
-    fun setPagesColor(@ColorRes color: Int): DatePickerBuilder {
-        calendarProperties.pagesColor = ContextCompat.getColor(context, color)
-        return this
-    }
+    @Deprecated("Use pagesColor(color)", ReplaceWith("pagesColor(color)"))
+    fun setPagesColor(@ColorRes color: Int) = pagesColor(color)
 
     /**
      * Sets the color of the symbol labels
      *
      * @param color The color to use as a color resource
      */
-    @Deprecated("Use setAbbreviationsLabelsColor", ReplaceWith("setAbbreviationsLabelsColor(color)"))
-    fun abbreviationsLabelsColor(@ColorRes color: Int) = setAbbreviationsLabelsColor(color)
+    fun abbreviationsLabelsColor(@ColorRes color: Int) =
+            also { calendarProperties.abbreviationsLabelsColor = ContextCompat.getColor(context, color) }
 
-    fun setAbbreviationsLabelsColor(@ColorRes color: Int): DatePickerBuilder {
-        calendarProperties.abbreviationsLabelsColor = ContextCompat.getColor(context, color)
-        return this
-    }
+    @Deprecated("Use abbreviationsLabelsColor(color)", ReplaceWith("abbreviationsLabelsColor(color)"))
+    fun setAbbreviationsLabelsColor(@ColorRes color: Int) = abbreviationsLabelsColor(color)
 
     /**
      * Sets the color of the day numbers
      *
      * @param color The color to use as a color resource
      */
-    @Deprecated("Use setDaysLabelsColor", ReplaceWith("setDaysLabelsColor(color)"))
-    fun daysLabelsColor(color: Int) = setDaysLabelsColor(color)
+    fun daysLabelsColor(color: Int) =
+            also { calendarProperties.daysLabelsColor = ContextCompat.getColor(context, color) }
 
-    fun setDaysLabelsColor(color: Int): DatePickerBuilder {
-        calendarProperties.daysLabelsColor = ContextCompat.getColor(context, color)
-        return this
-    }
+    @Deprecated("Use daysLabelsColor(color)", ReplaceWith("daysLabelsColor(color)"))
+    fun setDaysLabelsColor(color: Int) = daysLabelsColor(color)
 
     /**
      * Sets the color of the label in the selection circle
      *
      * @param color The color to use as a color resource
      */
-    @Deprecated("Use setSelectionLabelColor", ReplaceWith("setSelectionLabelColor(color)"))
-    fun selectionLabelColor(color: Int) = setSelectionLabelColor(color)
+    fun selectionLabelColor(color: Int) =
+            also { calendarProperties.selectionLabelColor = ContextCompat.getColor(context, color) }
 
-    fun setSelectionLabelColor(color: Int): DatePickerBuilder {
-        calendarProperties.selectionLabelColor = ContextCompat.getColor(context, color)
-        return this
-    }
+    @Deprecated("Use selectionLabelColor(color)", ReplaceWith("selectionLabelColor(color)"))
+    fun setSelectionLabelColor(color: Int) = selectionLabelColor(color)
 
     /**
      * Sets the color of visible day numbers from the previous to the next month pages
      *
      * @param color The color to use as a color resource
      */
-    @Deprecated("Use setAnotherMonthsDaysLabelsColor", ReplaceWith("setAnotherMonthsDaysLabelsColor(color)"))
-    fun anotherMonthsDaysLabelsColor(color: Int) = setAnotherMonthsDaysLabelsColor(color)
+    fun anotherMonthsDaysLabelsColor(color: Int) =
+            also { calendarProperties.anotherMonthsDaysLabelsColor = ContextCompat.getColor(context, color) }
 
-    fun setAnotherMonthsDaysLabelsColor(color: Int): DatePickerBuilder {
-        calendarProperties.anotherMonthsDaysLabelsColor = ContextCompat.getColor(context, color)
-        return this
-    }
+    @Deprecated("Use anotherMonthsDaysLabelsColor(color)", ReplaceWith("anotherMonthsDaysLabelsColor(color)"))
+    fun setAnotherMonthsDaysLabelsColor(color: Int) = anotherMonthsDaysLabelsColor(color)
 
     /**
      * Sets the list of selected days in the calendar
      *
      * @param selectedDays The list of selected days as a {@link List<Calendar>}
      */
-    @Deprecated("Use setSelectedDays", ReplaceWith("setSelectedDays(selectedDays)"))
-    fun selectedDays(selectedDays: List<Calendar>) = setSelectedDays(selectedDays)
+    fun selectedDays(selectedDays: List<Calendar>) = also { calendarProperties.setSelectDays(selectedDays) }
 
-    fun setSelectedDays(selectedDays: List<Calendar>): DatePickerBuilder {
-        calendarProperties.setSelectDays(selectedDays)
-        return this
-    }
+    @Deprecated("Use selectedDays(selectedDays)", ReplaceWith("selectedDays(selectedDays)"))
+    fun setSelectedDays(selectedDays: List<Calendar>) = selectedDays(selectedDays)
 
     /**
      * Sets the maximum number of selectable days in range
@@ -374,10 +312,10 @@ class DatePickerBuilder(
      * @param maximumDaysRange The number of maximum selectable days in range
      * @return The builder object to allow for chaining of methods
      */
-    fun setMaximumDaysRange(maximumDaysRange: Int): DatePickerBuilder {
-        calendarProperties.maximumDaysRange = maximumDaysRange
-        return this
-    }
+    fun maximumDaysRange(maximumDaysRange: Int) = also { calendarProperties.maximumDaysRange = maximumDaysRange }
+
+    @Deprecated("Use maximumDaysRange(maximumDaysRange)", ReplaceWith("maximumDaysRange(maximumDaysRange)"))
+    fun setMaximumDaysRange(maximumDaysRange: Int) = maximumDaysRange(maximumDaysRange)
 
     /**
      * Sets the maximum number of selectable days in range
@@ -385,10 +323,10 @@ class DatePickerBuilder(
      * @param todayColor The number of maximum selectable days in range
      * @return The builder object to allow for chaining of methods
      */
-    fun setTodayColor(todayColor: Int): DatePickerBuilder {
-        calendarProperties.todayColor = todayColor
-        return this
-    }
+    fun todayColor(todayColor: Int) = also { calendarProperties.todayColor = todayColor }
+
+    @Deprecated("Use todayColor(todayColor)", ReplaceWith("todayColor(todayColor)"))
+    fun setTodayColor(todayColor: Int) = todayColor(todayColor)
 
     /**
      * Sets whether the date picker navigation buttons should be visible
@@ -396,10 +334,10 @@ class DatePickerBuilder(
      * @param visibility The visibility
      * @return The builder object to allow for chaining of methods
      */
-    fun setNavigationVisibility(visibility: Int): DatePickerBuilder {
-        calendarProperties.navigationVisibility = visibility
-        return this
-    }
+    fun navigationVisibility(visibility: Int) = also { calendarProperties.navigationVisibility = visibility }
+
+    @Deprecated("Use navigationVisibility(visibility)", ReplaceWith("navigationVisibility(visibility)"))
+    fun setNavigationVisibility(visibility: Int) = navigationVisibility(visibility)
 
     /**
      * Disables day selection
@@ -407,11 +345,10 @@ class DatePickerBuilder(
      * @param isDisabled
      * @return The builder object to allow for chaining of methods
      */
-    fun setSelectionDisabled(isDisabled: Boolean): DatePickerBuilder {
-        calendarProperties.selectionDisabled = isDisabled
-        return this
-    }
+    fun selectionDisabled(isDisabled: Boolean) = also { calendarProperties.selectionDisabled = isDisabled }
 
+    @Deprecated("Use selectionDisabled(isDisabled)", ReplaceWith("selectionDisabled(isDisabled)"))
+    fun setSelectionDisabled(isDisabled: Boolean) = selectionDisabled(isDisabled)
 
     /**
      * This method is used to set a list of events displayed in calendar cells,
@@ -422,11 +359,13 @@ class DatePickerBuilder(
      *
      * @return The builder object to allow for chaining of methods
      */
-    fun setEvents(eventDays: List<EventDay>): DatePickerBuilder {
+    fun events(eventDays: List<EventDay>) = also {
         if (eventDays.isNotEmpty()) {
             calendarProperties.eventsEnabled = true
             calendarProperties.eventDays = eventDays
         }
-        return this
     }
+
+    @Deprecated("Use events(eventDays)", ReplaceWith("events(eventDays)"))
+    fun setEvents(eventDays: List<EventDay>) = events(eventDays)
 }

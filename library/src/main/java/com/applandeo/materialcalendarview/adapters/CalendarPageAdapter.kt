@@ -49,9 +49,11 @@ class CalendarPageAdapter(
 
     override fun instantiateItem(container: ViewGroup, position: Int): Any {
         calendarGridView = inflate(context, R.layout.calendar_view_grid, null) as CalendarGridView
-        calendarGridView.onItemClickListener = DayRowClickListener(this, calendarProperties, pageMonth)
 
         loadMonth(position)
+
+        calendarGridView.onItemClickListener = DayRowClickListener(this, calendarProperties, pageMonth)
+
         container.addView(calendarGridView)
 
         return calendarGridView

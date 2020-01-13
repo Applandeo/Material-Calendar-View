@@ -63,21 +63,21 @@ public class MainActivity extends AppCompatActivity implements OnSelectDateListe
         max.add(Calendar.DAY_OF_MONTH, 3);
 
         DatePickerBuilder oneDayBuilder = new DatePickerBuilder(this, this)
-                .setPickerType(CalendarView.ONE_DAY_PICKER)
-                .setDate(max)
-                .setHeaderColor(R.color.colorPrimaryDark)
-                .setHeaderLabelColor(R.color.currentMonthDayColor)
-                .setSelectionColor(R.color.daysLabelColor)
-                .setTodayLabelColor(R.color.colorAccent)
-                .setDialogButtonsColor(android.R.color.holo_green_dark)
-                .setDisabledDaysLabelsColor(android.R.color.holo_purple)
-                .setPreviousButtonSrc(R.drawable.ic_chevron_left_black_24dp)
-                .setForwardButtonSrc(R.drawable.ic_chevron_right_black_24dp)
-                .setMinimumDate(min)
-                .setMaximumDate(max)
-                .setTodayColor(R.color.sampleLighter)
-                .setHeaderVisibility(View.VISIBLE)
-                .setDisabledDays(getDisabledDays());
+                .pickerType(CalendarView.ONE_DAY_PICKER)
+                .date(max)
+                .headerColor(R.color.colorPrimaryDark)
+                .headerLabelColor(R.color.currentMonthDayColor)
+                .selectionColor(R.color.daysLabelColor)
+                .todayLabelColor(R.color.colorAccent)
+                .dialogButtonsColor(android.R.color.holo_green_dark)
+                .disabledDaysLabelsColor(android.R.color.holo_purple)
+                .previousButtonSrc(R.drawable.ic_chevron_left_black_24dp)
+                .forwardButtonSrc(R.drawable.ic_chevron_right_black_24dp)
+                .minimumDate(min)
+                .maximumDate(max)
+                .todayColor(R.color.sampleLighter)
+                .headerVisibility(View.VISIBLE)
+                .disabledDays(getDisabledDays());
 
         DatePicker oneDayPicker = oneDayBuilder.build();
         oneDayPicker.show();
@@ -95,14 +95,14 @@ public class MainActivity extends AppCompatActivity implements OnSelectDateListe
         selectedDays.add(max);
 
         DatePickerBuilder manyDaysBuilder = new DatePickerBuilder(this, this)
-                .setPickerType(CalendarView.MANY_DAYS_PICKER)
-                .setHeaderColor(android.R.color.holo_green_dark)
-                .setSelectionColor(android.R.color.holo_green_dark)
-                .setTodayLabelColor(android.R.color.holo_green_dark)
-                .setDialogButtonsColor(android.R.color.holo_green_dark)
-                .setSelectedDays(selectedDays)
-                .setNavigationVisibility(View.GONE)
-                .setDisabledDays(getDisabledDays());
+                .pickerType(CalendarView.MANY_DAYS_PICKER)
+                .headerColor(android.R.color.holo_green_dark)
+                .selectionColor(android.R.color.holo_green_dark)
+                .todayLabelColor(android.R.color.holo_green_dark)
+                .dialogButtonsColor(android.R.color.holo_green_dark)
+                .selectedDays(selectedDays)
+                .navigationVisibility(View.GONE)
+                .disabledDays(getDisabledDays());
 
         DatePicker manyDaysPicker = manyDaysBuilder.build();
         manyDaysPicker.show();
@@ -121,20 +121,20 @@ public class MainActivity extends AppCompatActivity implements OnSelectDateListe
         selectedDays.add(max);
 
         DatePickerBuilder rangeBuilder = new DatePickerBuilder(this, this)
-                .setPickerType(CalendarView.RANGE_PICKER)
-                .setHeaderColor(R.color.sampleDark)
-                .setAbbreviationsBarColor(R.color.sampleLight)
-                .setAbbreviationsLabelsColor(android.R.color.white)
-                .setPagesColor(R.color.sampleLighter)
-                .setSelectionColor(android.R.color.white)
-                .setSelectionLabelColor(R.color.sampleDark)
-                .setTodayLabelColor(R.color.dialogAccent)
-                .setDialogButtonsColor(android.R.color.white)
-                .setDaysLabelsColor(android.R.color.white)
-                .setAnotherMonthsDaysLabelsColor(R.color.sampleLighter)
-                .setSelectedDays(selectedDays)
-                .setMaximumDaysRange(10)
-                .setDisabledDays(getDisabledDays());
+                .pickerType(CalendarView.RANGE_PICKER)
+                .headerColor(R.color.sampleDark)
+                .abbreviationsBarColor(R.color.sampleLight)
+                .abbreviationsLabelsColor(android.R.color.white)
+                .pagesColor(R.color.sampleLighter)
+                .selectionColor(android.R.color.white)
+                .selectionLabelColor(R.color.sampleDark)
+                .todayLabelColor(R.color.dialogAccent)
+                .dialogButtonsColor(android.R.color.white)
+                .daysLabelsColor(android.R.color.white)
+                .anotherMonthsDaysLabelsColor(R.color.sampleLighter)
+                .selectedDays(selectedDays)
+                .maximumDaysRange(10)
+                .disabledDays(getDisabledDays());
 
         DatePicker rangePicker = rangeBuilder.build();
         rangePicker.show();
