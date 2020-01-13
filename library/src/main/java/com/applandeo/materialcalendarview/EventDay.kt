@@ -14,7 +14,7 @@ import java.util.*
  * this class can be passed to CalendarView object using setEvents() method.
  *
  *
- * @param day      Calendar object which represents a date of the event
+ * @param calendar      Calendar object which represents a date of the event
  * @param drawable Drawable which will be displayed in a day cell
  * @param drawableRes Drawable resource which will be displayed in a day cell
  * @param labelColor Color which will be displayed as row label text color
@@ -22,10 +22,17 @@ import java.util.*
  * Created by Applandeo Team.
  */
 
-data class EventDay(private val day: Calendar) {
+data class EventDay(val calendar: Calendar) {
+    //An object which contains image to display in the day row
+    internal var imageDrawable: EventImage = EventImage.EmptyEventImage
+
+    internal var labelColor: Int = 0
+
+    @set:RestrictTo(RestrictTo.Scope.LIBRARY)
+    var isEnabled: Boolean = false
 
     init {
-        day.setMidnight()
+        calendar.setMidnight()
     }
 
     constructor(day: Calendar, drawable: Drawable) : this(day) {
@@ -40,24 +47,4 @@ data class EventDay(private val day: Calendar) {
         imageDrawable = EventImage.EventImageResource(drawableRes)
         this.labelColor = labelColor
     }
-
-    /**
-     * @return Calendar object which represents a date of current event
-     */
-    var calendar: Calendar? = day
-
-    /**
-     * @return An image resource which will be displayed in the day row
-     */
-    @get:RestrictTo(RestrictTo.Scope.LIBRARY)
-    var imageDrawable: EventImage = EventImage.EmptyEventImage
-
-    /**
-     * @return Boolean value if day is not disabled
-     */
-    @set:RestrictTo(RestrictTo.Scope.LIBRARY)
-    var isEnabled: Boolean = false
-
-    @set:RestrictTo(RestrictTo.Scope.LIBRARY)
-    var labelColor: Int = 0
 }

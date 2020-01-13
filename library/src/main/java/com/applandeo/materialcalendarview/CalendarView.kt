@@ -37,8 +37,9 @@ import java.util.*
  * - Set selection color: selectionColor="@color/[color]"
  *
  *
- * Created by Applandeo team
+ * Created by Applandeo Team.
  */
+
 class CalendarView @JvmOverloads constructor(
         context: Context,
         attrs: AttributeSet? = null,
@@ -136,20 +137,21 @@ class CalendarView @JvmOverloads constructor(
         forwardButtonSrc = typedArray.getDrawable(R.styleable.CalendarView_forwardButtonSrc)
     }
 
-    private fun initAttributes() = with(calendarProperties) {
-        rootView.setHeaderColor(headerColor)
-        rootView.setHeaderVisibility(headerVisibility)
-        rootView.setAbbreviationsBarVisibility(abbreviationsBarVisibility)
-        rootView.setNavigationVisibility(navigationVisibility)
-        rootView.setHeaderLabelColor(headerLabelColor)
-        rootView.setAbbreviationsBarColor(abbreviationsBarColor)
-        rootView.setAbbreviationsLabels(abbreviationsLabelsColor, firstPageCalendarDate.firstDayOfWeek)
-        rootView.setPagesColor(pagesColor)
-        rootView.setPreviousButtonImage(previousButtonSrc)
-        rootView.setForwardButtonImage(forwardButtonSrc)
-        calendarViewPager.swipeEnabled = swipeEnabled
+    private fun initAttributes() {
+        with(calendarProperties) {
+            rootView.setHeaderColor(headerColor)
+            rootView.setHeaderVisibility(headerVisibility)
+            rootView.setAbbreviationsBarVisibility(abbreviationsBarVisibility)
+            rootView.setNavigationVisibility(navigationVisibility)
+            rootView.setHeaderLabelColor(headerLabelColor)
+            rootView.setAbbreviationsBarColor(abbreviationsBarColor)
+            rootView.setAbbreviationsLabels(abbreviationsLabelsColor, firstPageCalendarDate.firstDayOfWeek)
+            rootView.setPagesColor(pagesColor)
+            rootView.setPreviousButtonImage(previousButtonSrc)
+            rootView.setForwardButtonImage(forwardButtonSrc)
+            calendarViewPager.swipeEnabled = swipeEnabled
+        }
 
-        // Sets layout for date picker or normal calendar
         setCalendarRowLayout()
     }
 
@@ -268,7 +270,7 @@ class CalendarView @JvmOverloads constructor(
     }
 
     /**
-     * This method set a current and selected date of the calendar using Calendar object.
+     * This method set a current date of the calendar using Calendar object.
      *
      * @param date A Calendar object representing a date to which the calendar will be set
      *
@@ -293,9 +295,7 @@ class CalendarView @JvmOverloads constructor(
      * @param currentDate A date to which the calendar will be set
      */
     fun setDate(currentDate: Date) {
-        val calendar = Calendar.getInstance().apply {
-            time = currentDate
-        }
+        val calendar = Calendar.getInstance().apply { time = currentDate }
         setDate(calendar)
     }
 
@@ -314,7 +314,7 @@ class CalendarView @JvmOverloads constructor(
     }
 
     /**
-     * @return List of Calendar object representing a selected dates
+     * List of Calendar objects representing a selected dates
      */
     var selectedDates: List<Calendar>
         get() = calendarPageAdapter.selectedDays

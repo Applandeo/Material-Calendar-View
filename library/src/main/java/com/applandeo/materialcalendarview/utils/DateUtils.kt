@@ -75,7 +75,7 @@ fun Calendar.isMonthAfter(secondCalendar: Calendar) = secondCalendar.isMonthBefo
  * @param context  An array of months names
  * @return A string of the formatted date containing a month's name and a year (in number)
  */
-fun Calendar.getMonthAndYearDate(context: Context) = String.format(
+internal fun Calendar.getMonthAndYearDate(context: Context) = String.format(
         "%s  %s",
         context.resources.getStringArray(R.array.material_calendar_months_array)[this.get(Calendar.MONTH)],
         this.get(Calendar.YEAR)
@@ -103,7 +103,7 @@ fun Calendar.getMonthsToDate(endCalendar: Calendar): Int {
 private fun Calendar.getDaysToDate(endCalendar: Calendar) =
         TimeUnit.MILLISECONDS.toDays(endCalendar.timeInMillis - this.timeInMillis)
 
-fun List<Calendar>.isFullDatesRange(): Boolean {
+internal fun List<Calendar>.isFullDatesRange(): Boolean {
     val listSize = this.size
 
     if (this.isEmpty() || this.size == 1) return true

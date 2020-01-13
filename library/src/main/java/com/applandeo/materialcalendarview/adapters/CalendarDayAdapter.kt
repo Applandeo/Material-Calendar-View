@@ -41,7 +41,6 @@ class CalendarDayAdapter(
 
         val day = GregorianCalendar().apply { time = getItem(position) }
 
-        // Loading an image of the event
         dayView.dayIcon?.loadIcon(day)
 
         setLabelColors(dayView.dayLabel, day)

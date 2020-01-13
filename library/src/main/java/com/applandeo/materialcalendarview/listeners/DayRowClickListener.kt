@@ -142,7 +142,7 @@ class DayRowClickListener(
             return
         }
 
-        val eventDay = calendarProperties.eventDays.firstOrNull { eventDate -> eventDate.calendar == day }
+        val eventDay = calendarProperties.eventDays.firstOrNull { it.calendar == day }
 
         if (eventDay == null) {
             callOnClickListener(EventDay(day))
@@ -155,7 +155,7 @@ class DayRowClickListener(
 
     private fun callOnClickListener(eventDay: EventDay) {
         val enabledDay = calendarProperties.disabledDays.contains(eventDay.calendar)
-                || eventDay.calendar?.isBetweenMinAndMax() == false
+                || !eventDay.calendar.isBetweenMinAndMax()
         eventDay.isEnabled = enabledDay
         calendarProperties.onDayClickListener?.onDayClick(eventDay)
     }

@@ -1,5 +1,3 @@
-@file:JvmName("AppearanceUtils")
-
 package com.applandeo.materialcalendarview.utils
 
 import android.graphics.drawable.Drawable
@@ -12,7 +10,7 @@ import kotlinx.android.synthetic.main.calendar_view.view.*
  * Created by Applandeo Team.
  */
 
-fun View.setAbbreviationsLabels(color: Int, firstDayOfWeek: Int) {
+internal fun View.setAbbreviationsLabels(color: Int, firstDayOfWeek: Int) {
     val labels = listOf(
             mondayLabel,
             tuesdayLabel,
@@ -33,45 +31,45 @@ fun View.setAbbreviationsLabels(color: Int, firstDayOfWeek: Int) {
     }
 }
 
-fun View.setHeaderColor(color: Int) {
+internal fun View.setHeaderColor(color: Int) {
     if (color == 0) return
     this.calendarHeader.setBackgroundColor(color)
 }
 
-fun View.setHeaderLabelColor(color: Int) {
+internal fun View.setHeaderLabelColor(color: Int) {
     if (color == 0) return
     this.currentDateLabel.setTextColor(color)
 }
 
-fun View.setAbbreviationsBarColor(color: Int) {
+internal fun View.setAbbreviationsBarColor(color: Int) {
     if (color == 0) return
     this.abbreviationsBar.setBackgroundColor(color)
 }
 
-fun View.setPagesColor(color: Int) {
+internal fun View.setPagesColor(color: Int) {
     if (color == 0) return
     this.calendarViewPager.setBackgroundColor(color)
 }
 
-fun View.setPreviousButtonImage(drawable: Drawable?) {
+internal fun View.setPreviousButtonImage(drawable: Drawable?) {
     if (drawable == null) return
     this.previousButton.setImageDrawable(drawable)
 }
 
-fun View.setForwardButtonImage(drawable: Drawable?) {
+internal fun View.setForwardButtonImage(drawable: Drawable?) {
     if (drawable == null) return
     this.forwardButton.setImageDrawable(drawable)
 }
 
-fun View.setHeaderVisibility(visibility: Int) {
+internal fun View.setHeaderVisibility(visibility: Int) {
     this.calendarHeader.visibility = visibility
 }
 
-fun View.setNavigationVisibility(visibility: Int) {
+internal fun View.setNavigationVisibility(visibility: Int) {
     this.previousButton.visibility = visibility
     this.forwardButton.visibility = visibility
 }
 
-fun View.setAbbreviationsBarVisibility(visibility: Int) {
+internal fun View.setAbbreviationsBarVisibility(visibility: Int) {
     this.abbreviationsBar.visibility = visibility
 }

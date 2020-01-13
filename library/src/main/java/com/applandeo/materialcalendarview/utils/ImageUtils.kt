@@ -10,7 +10,7 @@ import android.widget.ImageView
  * Created by Applandeo Team.
  */
 
-fun ImageView.loadImage(eventImage: EventImage) {
+internal fun ImageView.loadImage(eventImage: EventImage) {
     when (eventImage) {
         is EventImage.EventImageDrawable -> setImageDrawable(eventImage.drawable)
         is EventImage.EventImageResource -> setImageResource(eventImage.drawableRes)

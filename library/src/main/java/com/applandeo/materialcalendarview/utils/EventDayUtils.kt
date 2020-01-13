@@ -1,5 +1,3 @@
-@file:JvmName("EventDayUtils")
-
 package com.applandeo.materialcalendarview.utils
 
 import com.applandeo.materialcalendarview.EventDay
@@ -11,7 +9,7 @@ import java.util.*
  * @param this                A calendar instance representing day date
  * @param calendarProperties A calendar properties
  */
-fun Calendar.isEventDayWithLabelColor(calendarProperties: CalendarProperties): Boolean {
+internal fun Calendar.isEventDayWithLabelColor(calendarProperties: CalendarProperties): Boolean {
     return if (calendarProperties.eventsEnabled) {
         calendarProperties.eventDays.none { eventDate ->
             eventDate.calendar == this && eventDate.labelColor != 0
@@ -25,8 +23,8 @@ fun Calendar.isEventDayWithLabelColor(calendarProperties: CalendarProperties): B
  * @param this                A calendar instance representing day date
  * @param calendarProperties A calendar properties
  */
-fun Calendar.getEventDayWithLabelColor(calendarProperties: CalendarProperties): EventDay? {
+internal fun Calendar.getEventDayWithLabelColor(calendarProperties: CalendarProperties): EventDay? {
     return calendarProperties.eventDays.firstOrNull { eventDate ->
-        eventDate.calendar != null && eventDate.calendar == this && eventDate.labelColor != 0
+        eventDate.calendar == this && eventDate.labelColor != 0
     }
 }
