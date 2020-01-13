@@ -44,7 +44,9 @@ fun Calendar.setMidnight() = this.apply {
  * @param secondCalendar Second calendar object to compare
  * @return Boolean value if second calendar is before the first one
  */
-fun Calendar.isMonthBefore(secondCalendar: Calendar): Boolean {
+fun Calendar?.isMonthBefore(secondCalendar: Calendar?): Boolean {
+    if (this == null || secondCalendar == null) return false
+
     val firstDay = (this.clone() as Calendar).apply {
         setMidnight()
         set(Calendar.DAY_OF_MONTH, 1)
@@ -64,7 +66,7 @@ fun Calendar.isMonthBefore(secondCalendar: Calendar): Boolean {
  * @param secondCalendar Second calendar object to compare
  * @return Boolean value if second calendar is after the first one
  */
-fun Calendar.isMonthAfter(secondCalendar: Calendar) = secondCalendar.isMonthBefore(this)
+fun Calendar?.isMonthAfter(secondCalendar: Calendar) = secondCalendar.isMonthBefore(this)
 
 /**
  * This method returns a string containing a month's name and a year (in number).

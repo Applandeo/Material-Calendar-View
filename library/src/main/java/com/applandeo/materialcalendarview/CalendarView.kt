@@ -7,7 +7,6 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.LinearLayout
 import androidx.annotation.ColorRes
-import androidx.viewpager.widget.ViewPager
 import com.applandeo.materialcalendarview.adapters.CalendarPageAdapter
 import com.applandeo.materialcalendarview.exceptions.ErrorsMessages
 import com.applandeo.materialcalendarview.exceptions.OutOfDateRangeException
@@ -51,26 +50,6 @@ class CalendarView @JvmOverloads constructor(
 
     private var currentPage: Int = 0
 
-    private val onPageChangeListener = object : ViewPager.OnPageChangeListener {
-        /**
-         * This method set calendar header label
-         *
-         * @param position Current ViewPager position
-         * @see ViewPager.OnPageChangeListener
-         */
-        override fun onPageSelected(position: Int) {
-            val calendar = calendarProperties.firstPageCalendarDate.clone() as Calendar
-            calendar.add(Calendar.MONTH, position)
-
-            if (!isScrollingLimited(calendar, position)) {
-                setHeaderName(calendar, position)
-            }
-        }
-
-        override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) = Unit
-        override fun onPageScrollStateChanged(state: Int) = Unit
-    }
-
     init {
         initControl(CalendarProperties(context)) {
             setAttributes(attrs)
@@ -83,9 +62,7 @@ class CalendarView @JvmOverloads constructor(
                          defStyleAttr: Int = 0,
                          properties: CalendarProperties
     ) : this(context, attrs, defStyleAttr) {
-        initControl(properties) {
-            initAttributes()
-        }
+        initControl(properties, ::initAttributes)
     }
 
     private fun initControl(calendarProperties: CalendarProperties, onUiCreate: () -> Unit) {
@@ -207,9 +184,23 @@ class CalendarView @JvmOverloads constructor(
         calendarPageAdapter = CalendarPageAdapter(context, calendarProperties)
 
         calendarViewPager.adapter = calendarPageAdapter
-        calendarViewPager.addOnPageChangeListener(onPageChangeListener)
+        calendarViewPager.onCalendarPageChangedListener(::renderHeader)
 
         setUpCalendarPosition(Calendar.getInstance())
+    }
+
+    /**
+     * This method set calendar header label
+     *
+     * @param position Current calendar page number
+     */
+    private fun renderHeader(position: Int) {
+        val calendar = calendarProperties.firstPageCalendarDate.clone() as Calendar
+        calendar.add(Calendar.MONTH, position)
+
+        if (!isScrollingLimited(calendar, position)) {
+            setHeaderName(calendar, position)
+        }
     }
 
     private fun setUpCalendarPosition(calendar: Calendar) {
@@ -235,16 +226,17 @@ class CalendarView @JvmOverloads constructor(
         calendarProperties.onForwardPageChangeListener = listener
     }
 
-    private fun isScrollingLimited(calendar: Calendar, position: Int) = when {
-        calendarProperties.minimumDate?.isMonthBefore(calendar) == true -> {
-            calendarViewPager.currentItem = position + 1
-            true
+    private fun isScrollingLimited(calendar: Calendar, position: Int): Boolean {
+        fun scrollTo(position: Int): Boolean {
+            calendarViewPager.currentItem = position
+            return true
         }
-        calendarProperties.maximumDate?.isMonthAfter(calendar) == true -> {
-            calendarViewPager.currentItem = position - 1
-            true
+
+        return when {
+            calendarProperties.minimumDate.isMonthBefore(calendar) -> scrollTo(position + 1)
+            calendarProperties.maximumDate.isMonthAfter(calendar) -> scrollTo(position - 1)
+            else -> false
         }
-        else -> false
     }
 
     private fun setHeaderName(calendar: Calendar, position: Int) {

@@ -59,16 +59,17 @@ class DayRowClickListener(
     private fun selectManyDays(view: View, day: Calendar) {
         val dayLabel = view.findViewById<TextView>(R.id.dayLabel)
 
-        if (day.isCurrentMonthDay() && day.isActiveDay()) {
-            val selectedDay = SelectedDay(day, dayLabel)
-            if (!calendarPageAdapter.selectedDays.contains(selectedDay)) {
-                dayLabel.setSelectedDayColors(calendarProperties)
-            } else {
-                reverseUnselectedColor(selectedDay)
-            }
+        if (!day.isCurrentMonthDay() || !day.isActiveDay()) return
 
-            calendarPageAdapter.addSelectedDay(selectedDay)
+        val selectedDay = SelectedDay(day, dayLabel)
+
+        if (!calendarPageAdapter.selectedDays.contains(selectedDay)) {
+            dayLabel.setSelectedDayColors(calendarProperties)
+        } else {
+            reverseUnselectedColor(selectedDay)
         }
+
+        calendarPageAdapter.addSelectedDay(selectedDay)
     }
 
     private fun selectRange(view: View, day: Calendar) {
@@ -143,13 +144,7 @@ class DayRowClickListener(
         }
 
         val eventDay = calendarProperties.eventDays.firstOrNull { it.calendar == day }
-
-        if (eventDay == null) {
-            callOnClickListener(EventDay(day))
-            return
-        }
-
-        callOnClickListener(eventDay)
+        callOnClickListener(eventDay ?: EventDay(day))
     }
 
 
