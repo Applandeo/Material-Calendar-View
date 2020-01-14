@@ -43,13 +43,13 @@ allprojects {
 Add the dependency to module's **build.gradle** file:
 ```
 dependencies {
-    compile 'com.applandeo:material-calendar-view:1.7.0'
+    implementation 'com.applandeo:material-calendar-view:1.7.0'
 }
 ```
 or if you want to use the **kotlin** version of our library:
 ```
 dependencies {
-    compile 'com.applandeo:material-calendar-view:1.8.0-rc01'
+    implementation 'com.applandeo:material-calendar-view:1.8.0-rc01'
 }
 ```
 
