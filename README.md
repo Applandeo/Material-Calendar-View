@@ -46,6 +46,12 @@ dependencies {
     compile 'com.applandeo:material-calendar-view:1.7.0'
 }
 ```
+or if you want to use the **kotlin** version of our library:
+```
+dependencies {
+    compile 'com.applandeo:material-calendar-view:1.8.0-rc01'
+}
+```
 
 To your **XML layout** file add:
 ```xml
@@ -282,6 +288,9 @@ new DatePickerBuilder(this, listener)
 ```
 
 ## Changelog
+
+#### Version 1.8.0-rc01
+* Migrated to kotlin
 
 #### Version 1.7.0:
 * Added ability to set maximum selectable days range
