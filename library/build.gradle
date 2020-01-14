@@ -1,11 +1,11 @@
 apply plugin: 'com.android.library'
-apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
 
 ext {
     PUBLISH_GROUP_ID = 'com.applandeo'
     PUBLISH_ARTIFACT_ID = 'material-calendar-view'
-    PUBLISH_VERSION = '1.7.0'
+    PUBLISH_VERSION = '1.8.0-rc01'
 }
 
 android {
