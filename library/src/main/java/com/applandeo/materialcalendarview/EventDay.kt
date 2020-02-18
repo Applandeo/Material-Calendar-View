@@ -24,9 +24,11 @@ import java.util.*
 
 data class EventDay(val calendar: Calendar) {
     //An object which contains image to display in the day row
-    internal var imageDrawable: EventImage = EventImage.EmptyEventImage
+    var imageDrawable: EventImage = EventImage.EmptyEventImage
+        private set
 
-    internal var labelColor: Int = 0
+    var labelColor: Int = 0
+        private set
 
     @set:RestrictTo(RestrictTo.Scope.LIBRARY)
     var isEnabled: Boolean = false
