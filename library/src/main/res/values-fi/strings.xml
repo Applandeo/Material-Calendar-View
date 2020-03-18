@@ -1,0 +1,38 @@
+<resources>
+    <string name="material_calendar_monday">Ma</string>
+    <string name="material_calendar_tuesday">Ti</string>
+    <string name="material_calendar_wednesday">Ke</string>
+    <string name="material_calendar_thursday">To</string>
+    <string name="material_calendar_friday">Pe</string>
+    <string name="material_calendar_saturday">La</string>
+    <string name="material_calendar_sunday">Su</string>
+
+    <array name="material_calendar_day_abbreviations_array">
+        <item>@string/material_calendar_sunday</item>
+        <item>@string/material_calendar_monday</item>
+        <item>@string/material_calendar_tuesday</item>
+        <item>@string/material_calendar_wednesday</item>
+        <item>@string/material_calendar_thursday</item>
+        <item>@string/material_calendar_friday</item>
+        <item>@string/material_calendar_saturday</item>
+    </array>
+
+    <array name="material_calendar_months_array">
+        <item>Tammikuu</item>
+        <item>Helmikuu</item>
+        <item>Maaliskuu</item>
+        <item>Huhtikuu</item>
+        <item>Toukokuu</item>
+        <item>Kesäkuu</item>
+        <item>Heinäkuu</item>
+        <item>Elokuu</item>
+        <item>Syyskuu</item>
+        <item>Lokakuu</item>
+        <item>Marraskuu</item>
+        <item>Joulukuu</item>
+    </array>
+
+    <string name="material_calendar_today_button">Tänään</string>
+    <string name="material_calendar_positive_button">OK</string>
+    <string name="material_calendar_negative_button">Peruuta</string>
+</resources>
