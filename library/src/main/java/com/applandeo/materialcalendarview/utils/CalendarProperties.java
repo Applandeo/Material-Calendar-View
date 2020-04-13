@@ -2,6 +2,7 @@ package com.applandeo.materialcalendarview.utils;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+
 import androidx.core.content.ContextCompat;
 
 import com.annimon.stream.Stream;
@@ -288,7 +289,7 @@ public class CalendarProperties {
             throw new UnsupportedMethodsException(ErrorsMessages.ONE_DAY_PICKER_MULTIPLE_SELECTION);
         }
 
-        if(mCalendarType == CalendarView.RANGE_PICKER && !DateUtils.isFullDatesRange(selectedDays)){
+        if (mCalendarType == CalendarView.RANGE_PICKER && !DateUtils.isFullDatesRange(selectedDays)) {
             throw new UnsupportedMethodsException(ErrorsMessages.RANGE_PICKER_NOT_RANGE);
         }
 
@@ -423,5 +424,11 @@ public class CalendarProperties {
 
     public void setTodayColor(int todayColor) {
         mTodayColor = todayColor;
+    }
+
+    public void setFirstDayOfWeek(int dayOfWeek) {
+        if (dayOfWeek >= Calendar.SUNDAY && dayOfWeek <= Calendar.SATURDAY) {
+            getFirstPageCalendarDate().setFirstDayOfWeek(dayOfWeek);
+        }
     }
 }

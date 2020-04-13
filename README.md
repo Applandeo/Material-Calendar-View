@@ -16,6 +16,7 @@ We described a simple usage of the component [in this article](http://applandeo.
 * Range picker
 * Events icons
 * Fully colors customization
+* Set First Day of Week
 
 
 ## How to use?
@@ -185,6 +186,7 @@ If you want to display event icons in the picker mode, add:
 * Disabled days labels color: ```app:disabledDaysLabelsColor="[color]"```
 * Highlighted days labels color: ```app:highlightedDaysLabelsColor="[color]"```
 * Today label color: ```app:todayLabelColor="[color]"```
+* First Day of week: ```app:firstDayOfWeek="[day]"```
 
 ...or in code:
 
@@ -194,6 +196,7 @@ calendarView.setHeaderColor([color]);
 calendarView.setHeaderLabelColor([color]);
 calendarView.setForwardButtonImage([drawable]);
 calendarView.setPreviousButtonImage([drawable]);
+calendarView.setFirstDayOfWeek(Calendar.MONDAY) // Set First Date of week
 ```
 #### Disable month swipe:
 If you want to disable the swipe gesture to change the month, you have to use the following tag: 
@@ -263,6 +266,7 @@ new DatePickerBuilder(this, listener)
         .setDate(Calendar.getInstance()) // Initial date as Calendar object
         .setMinimumDate(Calendar.getInstance()) // Minimum available date
         .setMaximumDate(Calendar.getInstance()) // Maximum available date
+        .setFirstDayOfWeek(Calendar.MONDAY) // Set First Date of week
         .setDisabledDays(List<Calendar>) /// List of disabled days
         .setHeaderColor(R.color.color) // Color of the dialog header
         .setHeaderLabelColor(R.color.color) // Color of the header label

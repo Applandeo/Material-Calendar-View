@@ -165,6 +165,9 @@ public class CalendarView extends LinearLayout {
         int maximumDaysRange = typedArray.getInt(R.styleable.CalendarView_maximumDaysRange, 0);
         mCalendarProperties.setMaximumDaysRange(maximumDaysRange);
 
+        int firstDayOfWeek = typedArray.getInt(R.styleable.CalendarView_firstDayOfWeek, 1);
+        mCalendarProperties.setFirstDayOfWeek(firstDayOfWeek);
+
         // Set picker mode !DEPRECATED!
         if (typedArray.getBoolean(R.styleable.CalendarView_datePicker, false)) {
             mCalendarProperties.setCalendarType(ONE_DAY_PICKER);
@@ -488,4 +491,15 @@ public class CalendarView extends LinearLayout {
         mCalendarProperties.setSwipeEnabled(swipeEnabled);
         mViewPager.setSwipeEnabled(mCalendarProperties.getSwipeEnabled());
     }
+
+    /**
+     * This method set a First week day of Week, Default is Sunday
+     *
+     * @param dayOfWeek Calendar.Monday
+     */
+    public void setFirstDayOfWeek(int dayOfWeek){
+        mCalendarProperties.setFirstDayOfWeek(dayOfWeek);
+        initAttributes();
+    }
+
 }

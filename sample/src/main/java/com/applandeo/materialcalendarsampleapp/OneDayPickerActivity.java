@@ -32,7 +32,8 @@ public class OneDayPickerActivity extends AppCompatActivity {
 
         calendarView.setMinimumDate(min);
         calendarView.setMaximumDate(max);
-        
+        calendarView.setFirstDayOfWeek(Calendar.MONDAY);
+
         calendarView.setOnDayClickListener(eventDay ->
                 Toast.makeText(getApplicationContext(),
                         eventDay.getCalendar().getTime().toString() + " "

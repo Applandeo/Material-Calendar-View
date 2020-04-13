@@ -73,6 +73,7 @@ public class MainActivity extends AppCompatActivity implements OnSelectDateListe
                 .setForwardButtonSrc(R.drawable.ic_chevron_right_black_24dp)
                 .setMinimumDate(min)
                 .setMaximumDate(max)
+                .setFirstDayOfWeek(Calendar.MONDAY)
                 .setTodayColor(R.color.sampleLighter)
                 .setHeaderVisibility(View.VISIBLE)
                 .setDisabledDays(getDisabledDays());

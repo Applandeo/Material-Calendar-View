@@ -612,6 +612,17 @@ public class DatePickerBuilder {
     }
 
     /**
+     * This method set a First week day of Week, Default is Sunday
+     *
+     * @param dayOfWeek Calendar.Monday
+     * @return The builder object to allow for chaining of methods
+     */
+    public DatePickerBuilder setFirstDayOfWeek(int dayOfWeek){
+        mCalendarProperties.setFirstDayOfWeek(dayOfWeek);
+        return this;
+    }
+
+    /**
      * Sets the maximum number of selectable days in range
      *
      * @param todayColor The number of maximum selectable days in range

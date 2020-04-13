@@ -17,6 +17,7 @@
         app:selectionColor="@color/colorAccent"
         app:todayLabelColor="#cc0000"
         app:type="range_picker"
+        app:firstDayOfWeek="monday"
         app:maximumDaysRange="3"/>
 
     <Button
