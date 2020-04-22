@@ -9,7 +9,10 @@ import com.applandeo.materialcalendarview.EventDay
 import com.applandeo.materialcalendarview.R
 import com.applandeo.materialcalendarview.adapters.CalendarPageAdapter
 import com.applandeo.materialcalendarview.getDatesRange
-import com.applandeo.materialcalendarview.utils.*
+import com.applandeo.materialcalendarview.utils.CalendarProperties
+import com.applandeo.materialcalendarview.utils.SelectedDay
+import com.applandeo.materialcalendarview.utils.setCurrentMonthDayColors
+import com.applandeo.materialcalendarview.utils.setSelectedDayColors
 import java.util.*
 
 /**
@@ -64,7 +67,7 @@ class DayRowClickListener(
         val selectedDay = SelectedDay(day, dayLabel)
 
         if (!calendarPageAdapter.selectedDays.contains(selectedDay)) {
-            dayLabel.setSelectedDayColors(calendarProperties)
+            setSelectedDayColors(dayLabel, day, calendarProperties)
         } else {
             reverseUnselectedColor(selectedDay)
         }
@@ -100,19 +103,19 @@ class DayRowClickListener(
 
         if (isOutOfMaxRange(previousSelectedDayCalendar, day)) return
 
-        dayLabel.setSelectedDayColors(calendarProperties)
+        setSelectedDayColors(dayLabel, day, calendarProperties)
         calendarPageAdapter.addSelectedDay(SelectedDay(day, dayLabel))
         calendarPageAdapter.notifyDataSetChanged()
     }
 
     private fun selectDay(dayLabel: TextView, day: Calendar) {
-        dayLabel.setSelectedDayColors(calendarProperties)
+        setSelectedDayColors(dayLabel, day, calendarProperties)
         calendarPageAdapter.selectedDay = SelectedDay(day, dayLabel)
     }
 
     private fun reverseUnselectedColor(selectedDay: SelectedDay) {
-        selectedDay.calendar.setCurrentMonthDayColors(
-                midnightCalendar,
+        setCurrentMonthDayColors(
+                selectedDay.calendar,
                 selectedDay.view as? TextView,
                 calendarProperties
         )

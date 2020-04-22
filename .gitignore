@@ -1,12 +1,29 @@
 *.iml
 .gradle
 /local.properties
+<<<<<<< HEAD
 /.idea/caches
 /.idea/codeStyles/Project.xml
 /.idea/modules.xml
 /.idea/workspace.xml
 /.idea/libraries
+=======
+>>>>>>> 0a4eeb4... Added ability to set day properies
 .DS_Store
 /build
 /captures
 .externalNativeBuild
+
+# User-specific configurations
+.idea/libraries/
+.idea/workspace.xml
+.idea/tasks.xml
+.idea/.name
+.idea/compiler.xml
+.idea/copyright/profiles_settings.xml
+.idea/encodings.xml
+.idea/misc.xml
+.idea/modules.xml
+.idea/scopes/scope_settings.xml
+.idea/vcs.xml
+*.iml

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/MaterialCalendarViewSampleApp.iml" filepath="$PROJECT_DIR$/MaterialCalendarViewSampleApp.iml" group="MaterialCalendarViewSampleApp" />
+      <module fileurl="file://$PROJECT_DIR$/library/library.iml" filepath="$PROJECT_DIR$/library/library.iml" group="MaterialCalendarViewSampleApp/library" />
+      <module fileurl="file://$PROJECT_DIR$/sample/sample.iml" filepath="$PROJECT_DIR$/sample/sample.iml" group="MaterialCalendarViewSampleApp/sample" />
+    </modules>
+  </component>
+</project>
