@@ -113,3 +113,8 @@ internal fun List<Calendar>.isFullDatesRange(): Boolean {
     val sortedCalendars = this.sortedBy { it.timeInMillis }
     return listSize.toLong() == sortedCalendars.first().getDaysToDate(sortedCalendars[listSize - 1]) + 1
 }
+
+val Calendar.isToday
+    get() = this == midnightCalendar
+
+fun Calendar.isEqual(calendar: Calendar) = this.setMidnight() == calendar.setMidnight()

@@ -3,7 +3,7 @@ package com.applandeo.materialcalendarview.utils
 import android.content.Context
 import android.graphics.drawable.Drawable
 import android.view.View
-import androidx.core.content.ContextCompat
+import com.applandeo.materialcalendarview.CalendarDay
 import com.applandeo.materialcalendarview.CalendarView
 import com.applandeo.materialcalendarview.CalendarView.Companion.CLASSIC
 import com.applandeo.materialcalendarview.EventDay
@@ -27,29 +27,29 @@ class CalendarProperties(private val context: Context) {
     var calendarType: Int = CLASSIC
 
     var headerColor: Int = 0
-        get() = if (field <= 0) field else ContextCompat.getColor(context, field)
+        get() = if (field <= 0) field else context.parseColor(field)
 
     var headerLabelColor: Int = 0
-        get() = if (field <= 0) field else ContextCompat.getColor(context, field)
+        get() = if (field <= 0) field else context.parseColor(field)
 
     var selectionColor: Int = 0
-        get() = if (field == 0) ContextCompat.getColor(context, R.color.defaultColor) else field
+        get() = if (field == 0) context.parseColor(R.color.defaultColor) else field
 
     var todayLabelColor: Int = 0
-        get() = if (field == 0) ContextCompat.getColor(context, R.color.defaultColor) else field
+        get() = if (field == 0) context.parseColor(R.color.defaultColor) else field
 
     var todayColor: Int = 0
-        get() = if (field <= 0) field else ContextCompat.getColor(context, field)
+        get() = if (field <= 0) field else context.parseColor(field)
 
     var dialogButtonsColor: Int = 0
 
     var itemLayoutResource: Int = R.layout.calendar_view_day
 
     var disabledDaysLabelsColor: Int = 0
-        get() = if (field == 0) ContextCompat.getColor(context, R.color.nextMonthDayColor) else field
+        get() = if (field == 0) context.parseColor(R.color.nextMonthDayColor) else field
 
     var highlightedDaysLabelsColor: Int = 0
-        get() = if (field == 0) ContextCompat.getColor(context, R.color.nextMonthDayColor) else field
+        get() = if (field == 0) context.parseColor(R.color.nextMonthDayColor) else field
 
     var pagesColor: Int = 0
 
@@ -58,13 +58,13 @@ class CalendarProperties(private val context: Context) {
     var abbreviationsLabelsColor: Int = 0
 
     var daysLabelsColor: Int = 0
-        get() = if (field == 0) ContextCompat.getColor(context, R.color.currentMonthDayColor) else field
+        get() = if (field == 0) context.parseColor(R.color.currentMonthDayColor) else field
 
     var selectionLabelColor: Int = 0
-        get() = if (field == 0) ContextCompat.getColor(context, android.R.color.white) else field
+        get() = if (field == 0) context.parseColor(android.R.color.white) else field
 
     var anotherMonthsDaysLabelsColor: Int = 0
-        get() = if (field == 0) ContextCompat.getColor(context, R.color.nextMonthDayColor) else field
+        get() = if (field == 0) context.parseColor(R.color.nextMonthDayColor) else field
 
     var headerVisibility: Int = View.VISIBLE
 
@@ -103,6 +103,8 @@ class CalendarProperties(private val context: Context) {
     var onForwardPageChangeListener: OnCalendarPageChangeListener? = null
 
     var eventDays: List<EventDay> = mutableListOf()
+
+    var calendarDayProperties: List<CalendarDay> = mutableListOf()
 
     var disabledDays: List<Calendar> = mutableListOf()
         set(disabledDays) {
@@ -143,6 +145,9 @@ class CalendarProperties(private val context: Context) {
                 .filterNot { it.calendar in disabledDays }
                 .toMutableList()
     }
+
+    fun findDayProperties(calendar: Calendar): CalendarDay? =
+            calendarDayProperties.find { it.calendar.isEqual(calendar) }
 
     companion object {
         /**

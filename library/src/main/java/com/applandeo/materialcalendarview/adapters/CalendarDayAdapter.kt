@@ -2,7 +2,6 @@ package com.applandeo.materialcalendarview.adapters
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.graphics.Typeface
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,7 +9,6 @@ import android.widget.ArrayAdapter
 import android.widget.ImageView
 import android.widget.TextView
 import com.applandeo.materialcalendarview.CalendarView
-import com.applandeo.materialcalendarview.R
 import com.applandeo.materialcalendarview.utils.*
 import kotlinx.android.synthetic.main.calendar_view_day.view.*
 import java.util.*
@@ -32,7 +30,6 @@ class CalendarDayAdapter(
 ) : ArrayAdapter<Date>(context, calendarProperties.itemLayoutResource, dates) {
 
     private val pageMonth = if (pageMonth < 0) 11 else pageMonth
-    private val today = midnightCalendar
 
     @SuppressLint("ViewHolder")
     override fun getView(position: Int, view: View?, parent: ViewGroup): View {
@@ -52,32 +49,24 @@ class CalendarDayAdapter(
     private fun setLabelColors(dayLabel: TextView, day: Calendar) {
         when {
             // Setting not current month day color
-            !day.isCurrentMonthDay() -> dayLabel.setDayColors(
-                    textColor = calendarProperties.anotherMonthsDaysLabelsColor,
-                    typeface = Typeface.NORMAL,
-                    background = R.drawable.background_transparent
-            )
+            !day.isCurrentMonthDay() -> dayLabel.setDayColors(calendarProperties.anotherMonthsDaysLabelsColor)
 
             // Setting view for all SelectedDays
             day.isSelectedDay() -> {
                 calendarPageAdapter.selectedDays
                         .firstOrNull { selectedDay -> selectedDay.calendar == day }
                         ?.let { selectedDay -> selectedDay.view = dayLabel }
-                dayLabel.setSelectedDayColors(calendarProperties)
+                setSelectedDayColors(dayLabel, day, calendarProperties)
             }
 
             // Setting disabled days color
-            !day.isActiveDay() -> dayLabel.setDayColors(
-                    textColor = calendarProperties.disabledDaysLabelsColor,
-                    typeface = Typeface.NORMAL,
-                    background = R.drawable.background_transparent
-            )
+            !day.isActiveDay() -> dayLabel.setDayColors(calendarProperties.disabledDaysLabelsColor)
 
             // Setting custom label color for event day
-            day.isEventDayWithLabelColor() -> day.setCurrentMonthDayColors(today, dayLabel, calendarProperties)
+            day.isEventDayWithLabelColor() -> setCurrentMonthDayColors(day, dayLabel, calendarProperties)
 
             // Setting current month day color
-            else -> day.setCurrentMonthDayColors(today, dayLabel, calendarProperties)
+            else -> setCurrentMonthDayColors(day, dayLabel, calendarProperties)
         }
     }
 
