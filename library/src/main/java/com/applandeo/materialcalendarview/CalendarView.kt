@@ -305,6 +305,11 @@ class CalendarView @JvmOverloads constructor(
         }
     }
 
+    fun setCalendarDays(calendarDayProperties: List<CalendarDay>) {
+        calendarProperties.calendarDayProperties = calendarDayProperties
+        calendarPageAdapter.notifyDataSetChanged()
+    }
+
     /**
      * List of Calendar objects representing a selected dates
      */
