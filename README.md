@@ -52,6 +52,12 @@ dependencies {
     implementation 'com.applandeo:material-calendar-view:1.8.0-rc01'
 }
 ```
+or if you want to use very early version with CalendarDay support:
+```
+dependencies {
+    implementation 'com.applandeo:material-calendar-view:1.9.0-alpha01'
+}
+```
 
 To your **XML layout** file add:
 ```xml
