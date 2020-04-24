@@ -78,17 +78,30 @@ fun setCurrentMonthDayColors(calendar: Calendar, dayLabel: TextView?, calendarPr
     if (dayLabel == null) return
 
     when {
-        calendar.isToday -> setTodayColors(dayLabel, calendarProperties)
+        calendar.isToday -> setTodayColors(calendar, dayLabel, calendarProperties)
         calendar.isEventDayWithLabelColor(calendarProperties) -> setEventDayColors(calendar, dayLabel, calendarProperties)
         calendarProperties.highlightedDays.contains(calendar) -> setHighlightedDayColors(dayLabel, calendarProperties)
         else -> setNormalDayColors(calendar, dayLabel, calendarProperties)
     }
 }
 
-private fun setTodayColors(dayLabel: TextView, calendarProperties: CalendarProperties) {
-    dayLabel.setDayColors(calendarProperties.todayLabelColor, Typeface.BOLD)
+private fun setTodayColors(calendar: Calendar, dayLabel: TextView, calendarProperties: CalendarProperties) {
+    val calendarDay = calendarProperties.findDayProperties(calendar)
+
+    val calendarDayBackgroundRes = calendarDay?.backgroundResource
+    val calendarDayBackgroundDrawable = calendarDay?.backgroundDrawable
+
+    if (calendarDayBackgroundRes != null) {
+        dayLabel.setDayColors(calendarProperties.todayLabelColor, Typeface.BOLD, calendarDayBackgroundRes)
+    } else if (calendarDayBackgroundDrawable != null) {
+        dayLabel.setDayColors(calendarProperties.todayLabelColor, Typeface.BOLD)
+        dayLabel.setBackgroundDrawable(calendarDayBackgroundDrawable)
+    } else {
+        dayLabel.setDayColors(calendarProperties.todayLabelColor, Typeface.BOLD, R.drawable.background_transparent)
+    }
 
     // Sets custom background color for present
+    // TODO remove or set as deprecated below functionality in next stable version
     if (calendarProperties.todayColor != 0) {
         dayLabel.setDayColors(
                 textColor = calendarProperties.selectionLabelColor,
