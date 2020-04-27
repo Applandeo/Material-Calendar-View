@@ -53,9 +53,9 @@ fun setSelectedDayColors(dayLabel: TextView, calendar: Calendar, calendarPropert
     val calendarDayBackgroundRes = calendarDay?.selectedBackgroundResource
     val calendarDayBackgroundDrawable = calendarDay?.selectedBackgroundDrawable
 
-    if (calendarDayBackgroundRes != null) {
+    if (calendarDayBackgroundRes != null && !calendarProperties.selectionDisabled) {
         dayLabel.setDayColors(labelColor, backgroundRes = calendarDayBackgroundRes)
-    } else if (calendarDayBackgroundDrawable != null) {
+    } else if (calendarDayBackgroundDrawable != null && !calendarProperties.selectionDisabled) {
         dayLabel.setDayColors(labelColor)
         dayLabel.setBackgroundDrawable(calendarDayBackgroundDrawable)
     } else {
