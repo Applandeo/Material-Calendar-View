@@ -34,11 +34,11 @@ class DayRowClickListener(
             time = adapterView.getItemAtPosition(position) as Date
         }
 
-        if (calendarProperties.selectionDisabled) return
-
         if (calendarProperties.onDayClickListener != null) {
             onClick(day)
         }
+
+        if (calendarProperties.selectionDisabled) return
 
         when (calendarProperties.calendarType) {
             CalendarView.ONE_DAY_PICKER -> selectOneDay(view, day)
