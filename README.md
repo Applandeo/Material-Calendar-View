@@ -356,7 +356,7 @@ new DatePickerBuilder(this, listener)
 It would be great if you decide to use our component in your project. It’s open source, feel free. Write to us at hi@applandeo.com if you want to be listed and we will include your app in our repo. If you have any questions or suggestions just let us know.
 
 #### Apps using Material-Calendar-View:
-* [FreQuest](https://play.google.com/store/apps/details?id=com.applandeo.freequest)
+* [FreeQuest](https://play.google.com/store/apps/details?id=com.applandeo.freequest)
 
 ## License
 ```
