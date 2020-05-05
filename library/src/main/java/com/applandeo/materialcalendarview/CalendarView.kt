@@ -305,8 +305,8 @@ class CalendarView @JvmOverloads constructor(
         }
     }
 
-    fun setCalendarDays(calendarDayProperties: MutableList<CalendarDay>) {
-        calendarProperties.calendarDayProperties = calendarDayProperties
+    fun setCalendarDays(calendarDayProperties: List<CalendarDay>) {
+        calendarProperties.calendarDayProperties = calendarDayProperties.toMutableList()
         calendarPageAdapter.notifyDataSetChanged()
     }
 
