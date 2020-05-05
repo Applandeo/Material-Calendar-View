@@ -22,6 +22,8 @@ import java.util.*
  * Created by Applandeo Team.
  */
 
+typealias OnPagePrepareListener = (Calendar) -> List<CalendarDay>
+
 class CalendarProperties(private val context: Context) {
 
     var calendarType: Int = CLASSIC
@@ -104,7 +106,7 @@ class CalendarProperties(private val context: Context) {
 
     var eventDays: List<EventDay> = mutableListOf()
 
-    var calendarDayProperties: List<CalendarDay> = mutableListOf()
+    var calendarDayProperties: MutableList<CalendarDay> = mutableListOf()
 
     var disabledDays: List<Calendar> = mutableListOf()
         set(disabledDays) {
@@ -146,8 +148,11 @@ class CalendarProperties(private val context: Context) {
                 .toMutableList()
     }
 
-    fun findDayProperties(calendar: Calendar): CalendarDay? =
-            calendarDayProperties.find { it.calendar.isEqual(calendar) }
+    var onPagePrepareListener: OnPagePrepareListener? = null
+
+    fun findDayProperties(calendar: Calendar): CalendarDay? {
+        return calendarDayProperties.find { it.calendar.isEqual(calendar) }
+    }
 
     companion object {
         /**

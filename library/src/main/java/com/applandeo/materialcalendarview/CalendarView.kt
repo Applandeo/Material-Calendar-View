@@ -305,7 +305,7 @@ class CalendarView @JvmOverloads constructor(
         }
     }
 
-    fun setCalendarDays(calendarDayProperties: List<CalendarDay>) {
+    fun setCalendarDays(calendarDayProperties: MutableList<CalendarDay>) {
         calendarProperties.calendarDayProperties = calendarDayProperties
         calendarPageAdapter.notifyDataSetChanged()
     }
@@ -382,6 +382,10 @@ class CalendarView @JvmOverloads constructor(
     fun setSwipeEnabled(swipeEnabled: Boolean) {
         calendarProperties.swipeEnabled = swipeEnabled
         calendarViewPager.swipeEnabled = calendarProperties.swipeEnabled
+    }
+
+    fun setOnPagePrepareListener(listener: OnPagePrepareListener) {
+        calendarProperties.onPagePrepareListener = listener
     }
 
     companion object {
