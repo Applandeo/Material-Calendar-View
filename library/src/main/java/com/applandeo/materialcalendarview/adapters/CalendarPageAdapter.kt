@@ -94,6 +94,8 @@ class CalendarPageAdapter(
             set(Calendar.DAY_OF_MONTH, 1)
         }
 
+        getPageDaysProperties(calendar)
+
         // Get a number of the first day of the week
         val dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK)
 
@@ -117,6 +119,14 @@ class CalendarPageAdapter(
         val calendarDayAdapter = CalendarDayAdapter(context, this, calendarProperties, days, pageMonth)
 
         calendarGridView.adapter = calendarDayAdapter
+    }
+
+    private fun getPageDaysProperties(calendar: Calendar) {
+        val pageCalendarDays = calendarProperties.onPagePrepareListener?.invoke(calendar)
+        if (pageCalendarDays != null) {
+            val diff = pageCalendarDays.minus(calendarProperties.calendarDayProperties).distinct()
+            calendarProperties.calendarDayProperties.addAll(diff)
+        }
     }
 
     override fun destroyItem(container: ViewGroup, position: Int, any: Any) {
