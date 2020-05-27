@@ -101,17 +101,19 @@ fun Calendar.getMonthsToDate(endCalendar: Calendar): Int {
  * @param this Calendar representing a first date
  * @param endCalendar   Calendar representing a last date
  * @return Number of days
+ *
+ * +1 is necessary because method counts from the beginning of start day to beginning of end day
+ * and 1, means whole end day
  */
 private fun Calendar.getDaysToDate(endCalendar: Calendar) =
-        TimeUnit.MILLISECONDS.toDays(endCalendar.timeInMillis - this.timeInMillis)
+        TimeUnit.MILLISECONDS.toDays(endCalendar.timeInMillis - this.timeInMillis) + 1
 
 internal fun List<Calendar>.isFullDatesRange(): Boolean {
-    val listSize = this.size
+    val selectedDates = this.distinct().sortedBy { it.timeInMillis }
 
-    if (this.isEmpty() || this.size == 1) return true
+    if (this.isEmpty() || selectedDates.size == 1) return true
 
-    val sortedCalendars = this.sortedBy { it.timeInMillis }
-    return listSize.toLong() == sortedCalendars.first().getDaysToDate(sortedCalendars[listSize - 1]) + 1
+    return selectedDates.size.toLong() == selectedDates.first().getDaysToDate(selectedDates.last())
 }
 
 val Calendar.isToday
