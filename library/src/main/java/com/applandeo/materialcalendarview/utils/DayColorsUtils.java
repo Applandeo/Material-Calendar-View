@@ -1,6 +1,7 @@
 package com.applandeo.materialcalendarview.utils;
 
 import android.graphics.Typeface;
+import android.view.View;
 import android.widget.TextView;
 
 import com.applandeo.materialcalendarview.R;
@@ -32,6 +33,13 @@ public class DayColorsUtils {
         textView.setTypeface(null, typeface);
         textView.setTextColor(textColor);
         textView.setBackgroundResource(background);
+    }
+
+    public static void setDividerColor(View view, CalendarProperties calendarProperties) {
+        if (view == null) {
+            return;
+        }
+        view.setBackgroundColor(calendarProperties.getDividerColor());
     }
 
     /**
