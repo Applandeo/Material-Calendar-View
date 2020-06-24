@@ -110,6 +110,7 @@ class CalendarView @JvmOverloads constructor(
         eventsEnabled = typedArray.getBoolean(R.styleable.CalendarView_eventsEnabled, calendarType == CLASSIC)
         swipeEnabled = typedArray.getBoolean(R.styleable.CalendarView_swipeEnabled, true)
         selectionDisabled = typedArray.getBoolean(R.styleable.CalendarView_selectionDisabled, false)
+        selectionBetweenMonthsEnabled = typedArray.getBoolean(R.styleable.CalendarView_selectionBetweenMonthsEnabled, false)
         previousButtonSrc = typedArray.getDrawable(R.styleable.CalendarView_previousButtonSrc)
         forwardButtonSrc = typedArray.getDrawable(R.styleable.CalendarView_forwardButtonSrc)
     }
@@ -382,6 +383,10 @@ class CalendarView @JvmOverloads constructor(
     fun setSwipeEnabled(swipeEnabled: Boolean) {
         calendarProperties.swipeEnabled = swipeEnabled
         calendarViewPager.swipeEnabled = calendarProperties.swipeEnabled
+    }
+
+    fun setSelectionBetweenMonthsEnabled(enabled: Boolean) {
+        calendarProperties.selectionBetweenMonthsEnabled = enabled
     }
 
     fun setOnPagePrepareListener(listener: OnPagePrepareListener) {

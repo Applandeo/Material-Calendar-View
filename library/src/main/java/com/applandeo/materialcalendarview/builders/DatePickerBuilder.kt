@@ -254,6 +254,12 @@ class DatePickerBuilder(
      */
     fun selectionDisabled(isDisabled: Boolean) = also { calendarProperties.selectionDisabled = isDisabled }
 
+    /**
+     * Allows to select a range of dates between months
+     * Works only in range picker mode
+     */
+    fun selectionBetweenMonthsEnabled(isEnabled: Boolean) = also { calendarProperties.selectionBetweenMonthsEnabled = isEnabled }
+
     @Deprecated("Use selectionDisabled(isDisabled)", ReplaceWith("selectionDisabled(isDisabled)"))
     fun setSelectionDisabled(isDisabled: Boolean) = selectionDisabled(isDisabled)
 

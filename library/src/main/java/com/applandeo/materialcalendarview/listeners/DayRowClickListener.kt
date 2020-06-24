@@ -78,7 +78,7 @@ class DayRowClickListener(
     private fun selectRange(view: View, day: Calendar) {
         val dayLabel = view.findViewById<TextView>(R.id.dayLabel)
 
-        if (!day.isCurrentMonthDay() || !day.isActiveDay()) return
+        if ((!day.isCurrentMonthDay() && !calendarProperties.selectionBetweenMonthsEnabled) || !day.isActiveDay()) return
 
         val selectedDays = calendarPageAdapter.selectedDays
 
@@ -92,6 +92,7 @@ class DayRowClickListener(
     private fun clearAndSelectOne(dayLabel: TextView, day: Calendar) {
         calendarPageAdapter.selectedDays.forEach { reverseUnselectedColor(it) }
         selectDay(dayLabel, day)
+        calendarPageAdapter.notifyDataSetChanged()
     }
 
     private fun selectOneAndRange(dayLabel: TextView, day: Calendar) {
