@@ -84,6 +84,8 @@ class CalendarProperties(private val context: Context) {
 
     var forwardButtonSrc: Drawable? = null
 
+    var selectionBetweenMonthsEnabled: Boolean = false
+
     val firstPageCalendarDate: Calendar = midnightCalendar
 
     var calendar: Calendar? = null
