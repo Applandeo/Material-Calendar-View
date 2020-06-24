@@ -49,7 +49,8 @@ class CalendarDayAdapter(
     private fun setLabelColors(dayLabel: TextView, day: Calendar) {
         when {
             // Setting not current month day color
-            !day.isCurrentMonthDay() -> dayLabel.setDayColors(calendarProperties.anotherMonthsDaysLabelsColor)
+            !day.isCurrentMonthDay() && !calendarProperties.selectionBetweenMonthsEnabled ->
+                dayLabel.setDayColors(calendarProperties.anotherMonthsDaysLabelsColor)
 
             // Setting view for all SelectedDays
             day.isSelectedDay() -> {
@@ -57,6 +58,13 @@ class CalendarDayAdapter(
                         .firstOrNull { selectedDay -> selectedDay.calendar == day }
                         ?.let { selectedDay -> selectedDay.view = dayLabel }
                 setSelectedDayColors(dayLabel, day, calendarProperties)
+            }
+
+            // Setting not current month day color only if selection between months is enabled for range picker
+            !day.isCurrentMonthDay() && calendarProperties.selectionBetweenMonthsEnabled -> {
+                if (SelectedDay(day) !in calendarPageAdapter.selectedDays) {
+                    dayLabel.setDayColors(calendarProperties.anotherMonthsDaysLabelsColor)
+                }
             }
 
             // Setting disabled days color
@@ -71,8 +79,8 @@ class CalendarDayAdapter(
     }
 
     private fun Calendar.isSelectedDay() = calendarProperties.calendarType != CalendarView.CLASSIC
-            && this[Calendar.MONTH] == pageMonth
             && SelectedDay(this) in calendarPageAdapter.selectedDays
+            && if (!calendarProperties.selectionBetweenMonthsEnabled) this[Calendar.MONTH] == pageMonth else true
 
     private fun Calendar.isEventDayWithLabelColor() = this.isEventDayWithLabelColor(calendarProperties)
 
