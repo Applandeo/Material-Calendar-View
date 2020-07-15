@@ -153,7 +153,7 @@ class CalendarProperties(private val context: Context) {
     var onPagePrepareListener: OnPagePrepareListener? = null
 
     fun findDayProperties(calendar: Calendar): CalendarDay? =
-            calendarDayProperties.findLast { it.calendar.isEqual(calendar) }
+            calendarDayProperties.find { it.calendar.isEqual(calendar) }
 
     companion object {
         /**
