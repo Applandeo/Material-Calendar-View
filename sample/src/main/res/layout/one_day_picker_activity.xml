@@ -19,7 +19,8 @@
         app:layout_constraintTop_toTopOf="parent"
         app:previousButtonSrc="@drawable/ic_chevron_left_black_24dp"
         app:selectionColor="@color/colorAccent"
-        app:todayLabelColor="#cc0000"
+        app:todayLabelColor="#fff"
+        app:todayColor="#cc0000"
         app:type="one_day_picker" />
 
     <Button

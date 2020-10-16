@@ -6,6 +6,7 @@
         <attr name="previousButtonSrc" format="integer" />
         <attr name="forwardButtonSrc" format="integer" />
         <attr name="todayLabelColor" format="color" />
+        <attr name="todayColor" format="color" />
         <attr name="selectionColor" format="color" />
         <attr name="selectionLabelColor" format="color" />
         <attr name="disabledDaysLabelsColor" format="color" />

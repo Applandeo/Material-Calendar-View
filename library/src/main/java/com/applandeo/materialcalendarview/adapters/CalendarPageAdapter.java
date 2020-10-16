@@ -85,7 +85,11 @@ public class CalendarPageAdapter extends PagerAdapter {
     }
 
     public SelectedDay getSelectedDay() {
-        return mCalendarProperties.getSelectedDays().get(0);
+        List<SelectedDay> selectedDays =  mCalendarProperties.getSelectedDays();
+        if(selectedDays.isEmpty()) {
+            return null;
+        }
+        return selectedDays.get(0);
     }
 
     public void setSelectedDay(SelectedDay selectedDay) {

@@ -147,6 +147,9 @@ public class CalendarView extends LinearLayout {
         int todayLabelColor = typedArray.getColor(R.styleable.CalendarView_todayLabelColor, 0);
         mCalendarProperties.setTodayLabelColor(todayLabelColor);
 
+        int todayColor = typedArray.getColor(R.styleable.CalendarView_todayColor, 0);
+        mCalendarProperties.setTodayColor(todayColor);
+
         int selectionColor = typedArray.getColor(R.styleable.CalendarView_selectionColor, 0);
         mCalendarProperties.setSelectionColor(selectionColor);
 
@@ -273,10 +276,6 @@ public class CalendarView extends LinearLayout {
 
     private void setUpCalendarPosition(Calendar calendar) {
         DateUtils.setMidnight(calendar);
-
-        if (mCalendarProperties.getCalendarType() == CalendarView.ONE_DAY_PICKER) {
-            mCalendarProperties.setSelectedDay(calendar);
-        }
 
         mCalendarProperties.getFirstPageCalendarDate().setTime(calendar.getTime());
         mCalendarProperties.getFirstPageCalendarDate().add(Calendar.MONTH, -FIRST_VISIBLE_PAGE);

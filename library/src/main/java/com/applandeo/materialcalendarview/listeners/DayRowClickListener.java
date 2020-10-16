@@ -71,7 +71,9 @@ public class DayRowClickListener implements AdapterView.OnItemClickListener {
 
         TextView dayLabel = (TextView) view.findViewById(R.id.dayLabel);
 
-        if (isAnotherDaySelected(previousSelectedDay, day)) {
+        if (previousSelectedDay == null && isDayAllowed(day)) {
+            selectDay(dayLabel, day);
+        } else if (isAnotherDaySelected(previousSelectedDay, day)) {
             selectDay(dayLabel, day);
             reverseUnselectedColor(previousSelectedDay);
         }
@@ -170,7 +172,11 @@ public class DayRowClickListener implements AdapterView.OnItemClickListener {
 
     private boolean isAnotherDaySelected(SelectedDay selectedDay, Calendar day) {
         return selectedDay != null && !day.equals(selectedDay.getCalendar())
-                && isCurrentMonthDay(day) && isActiveDay(day);
+                && isDayAllowed(day);
+    }
+
+    private boolean isDayAllowed(Calendar day) {
+        return isCurrentMonthDay(day) && isActiveDay(day);
     }
 
     private void onClick(Calendar day) {
