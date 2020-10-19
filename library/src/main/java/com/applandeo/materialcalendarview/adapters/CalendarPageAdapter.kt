@@ -118,6 +118,7 @@ class CalendarPageAdapter(
         pageMonth = calendar.get(Calendar.MONTH) - 1
         val calendarDayAdapter = CalendarDayAdapter(context, this, calendarProperties, days, pageMonth)
 
+        informDatePicker()
         calendarGridView.adapter = calendarDayAdapter
     }
 
