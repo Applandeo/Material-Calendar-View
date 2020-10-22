@@ -56,6 +56,7 @@ class DayRowClickListener(
         if (isAnotherDaySelected(previousSelectedDay, day)) {
             selectDay(dayLabel, day)
             reverseUnselectedColor(previousSelectedDay)
+            calendarPageAdapter.notifyDataSetChanged()
         }
     }
 
