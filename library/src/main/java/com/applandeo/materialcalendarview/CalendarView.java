@@ -147,6 +147,9 @@ public class CalendarView extends LinearLayout {
         int todayLabelColor = typedArray.getColor(R.styleable.CalendarView_todayLabelColor, 0);
         mCalendarProperties.setTodayLabelColor(todayLabelColor);
 
+        int dividerColor = typedArray.getColor(R.styleable.CalendarView_dividerColor, 0);
+        mCalendarProperties.setDividerColor(dividerColor);
+
         int selectionColor = typedArray.getColor(R.styleable.CalendarView_selectionColor, 0);
         mCalendarProperties.setSelectionColor(selectionColor);
 

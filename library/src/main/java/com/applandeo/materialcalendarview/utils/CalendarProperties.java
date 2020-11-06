@@ -36,7 +36,7 @@ public class CalendarProperties {
 
     private int mCalendarType, mHeaderColor, mHeaderLabelColor, mSelectionColor, mTodayLabelColor, mTodayColor,
             mDialogButtonsColor, mItemLayoutResource, mDisabledDaysLabelsColor, mHighlightedDaysLabelsColor, mPagesColor,
-            mAbbreviationsBarColor, mAbbreviationsLabelsColor, mDaysLabelsColor, mSelectionLabelColor,
+            mAbbreviationsBarColor, mAbbreviationsLabelsColor, mDaysLabelsColor, mDividerColor, mSelectionLabelColor,
             mAnotherMonthsDaysLabelsColor, mHeaderVisibility, mNavigationVisibility, mAbbreviationsBarVisibility, mMaximumDaysRange;
 
     private boolean mEventsEnabled;
@@ -144,11 +144,21 @@ public class CalendarProperties {
         mForwardButtonSrc = forwardButtonSrc;
     }
 
+    public int getDividerColor() {
+        if (mDividerColor == 0) {
+            return ContextCompat.getColor(mContext, R.color.nextMonthDayColor);
+        }
+        return mDividerColor;
+    }
+
+    public void setDividerColor(int dividerColor) {
+        mDividerColor = dividerColor;
+    }
+
     public int getSelectionColor() {
         if (mSelectionColor == 0) {
             return ContextCompat.getColor(mContext, R.color.defaultColor);
         }
-
         return mSelectionColor;
     }
 

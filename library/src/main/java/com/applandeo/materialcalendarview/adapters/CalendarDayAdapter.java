@@ -58,6 +58,7 @@ class CalendarDayAdapter extends ArrayAdapter<Date> {
 
         TextView dayLabel = (TextView) view.findViewById(R.id.dayLabel);
         ImageView dayIcon = (ImageView) view.findViewById(R.id.dayIcon);
+        View divider = view.findViewById(R.id.divider);
 
         Calendar day = new GregorianCalendar();
         day.setTime(getItem(position));
@@ -68,9 +69,14 @@ class CalendarDayAdapter extends ArrayAdapter<Date> {
         }
 
         setLabelColors(dayLabel, day);
+        setDividerColor(divider);
 
         dayLabel.setText(String.valueOf(day.get(Calendar.DAY_OF_MONTH)));
         return view;
+    }
+
+    private void setDividerColor(View dayLabel) {
+        DayColorsUtils.setDividerColor(dayLabel, mCalendarProperties);
     }
 
     private void setLabelColors(TextView dayLabel, Calendar day) {
