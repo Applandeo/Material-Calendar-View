@@ -77,11 +77,18 @@ fun setSelectedDayColors(dayLabel: TextView, calendar: Calendar, calendarPropert
 fun setCurrentMonthDayColors(calendar: Calendar, dayLabel: TextView?, calendarProperties: CalendarProperties) {
     if (dayLabel == null) return
 
-    when {
-        calendar.isToday -> setTodayColors(calendar, dayLabel, calendarProperties)
-        calendar.isEventDayWithLabelColor(calendarProperties) -> setEventDayColors(calendar, dayLabel, calendarProperties)
-        calendarProperties.highlightedDays.contains(calendar) -> setHighlightedDayColors(dayLabel, calendarProperties)
-        else -> setNormalDayColors(calendar, dayLabel, calendarProperties)
+    setNormalDayColors(calendar, dayLabel, calendarProperties)
+
+    if(calendar.isToday) {
+        setTodayColors(calendar, dayLabel, calendarProperties)
+    }
+
+    if(calendar.isEventDayWithLabelColor(calendarProperties)) {
+        setEventDayColors(calendar, dayLabel, calendarProperties)
+    }
+
+    if(calendarProperties.highlightedDays.contains(calendar)) {
+        setHighlightedDayColors(dayLabel, calendarProperties)
     }
 }
 
