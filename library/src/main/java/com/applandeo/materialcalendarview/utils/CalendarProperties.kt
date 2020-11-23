@@ -1,6 +1,5 @@
 package com.applandeo.materialcalendarview.utils
 
-import OnDayLongClickListener
 import android.content.Context
 import android.graphics.drawable.Drawable
 import android.view.View
@@ -11,10 +10,7 @@ import com.applandeo.materialcalendarview.EventDay
 import com.applandeo.materialcalendarview.R
 import com.applandeo.materialcalendarview.exceptions.ErrorsMessages
 import com.applandeo.materialcalendarview.exceptions.UnsupportedMethodsException
-import com.applandeo.materialcalendarview.listeners.OnCalendarPageChangeListener
-import com.applandeo.materialcalendarview.listeners.OnDayClickListener
-import com.applandeo.materialcalendarview.listeners.OnSelectDateListener
-import com.applandeo.materialcalendarview.listeners.OnSelectionAbilityListener
+import com.applandeo.materialcalendarview.listeners.*
 import java.util.*
 
 /**

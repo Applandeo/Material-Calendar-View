@@ -5,6 +5,7 @@ import android.widget.AdapterView
 import android.widget.AdapterView.OnItemLongClickListener
 import com.applandeo.materialcalendarview.EventDay
 import com.applandeo.materialcalendarview.utils.CalendarProperties
+import com.applandeo.materialcalendarview.utils.isBetweenMinAndMax
 import java.util.*
 
 /**
@@ -29,10 +30,6 @@ class DayRowLongClickListener(
         return true
     }
 
-    private fun Calendar.isBetweenMinAndMax() =
-            !(calendarProperties.minimumDate != null && this.before(calendarProperties.minimumDate)
-                    || calendarProperties.maximumDate != null && this.after(calendarProperties.maximumDate))
-
     private fun onLongClick(day: Calendar) {
         if (calendarProperties.eventDays.isEmpty()) {
             callOnLongClickListener(EventDay(day))
@@ -46,7 +43,7 @@ class DayRowLongClickListener(
 
     private fun callOnLongClickListener(eventDay: EventDay) {
         val enabledDay = calendarProperties.disabledDays.contains(eventDay.calendar)
-                || !eventDay.calendar.isBetweenMinAndMax()
+                || !eventDay.calendar.isBetweenMinAndMax(calendarProperties)
         eventDay.isEnabled = enabledDay
         calendarProperties.onDayLongClickListener?.onDayLongClick(eventDay)
     }

@@ -96,6 +96,15 @@ fun Calendar.getMonthsToDate(endCalendar: Calendar): Int {
 }
 
 /**
+ * This method checks whether date is correctly between min and max date or not
+ *
+ * @param calendarProperties Calendar properties
+ */
+fun Calendar.isBetweenMinAndMax(calendarProperties: CalendarProperties) =
+        !(calendarProperties.minimumDate != null && this.before(calendarProperties.minimumDate)
+                || calendarProperties.maximumDate != null && this.after(calendarProperties.maximumDate))
+
+/**
  * This method is used to count a number of days between two dates
  *
  * @param this Calendar representing a first date
