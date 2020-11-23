@@ -31,14 +31,8 @@ class DayRowLongClickListener(
     }
 
     private fun onLongClick(day: Calendar) {
-        if (calendarProperties.eventDays.isEmpty()) {
-            callOnLongClickListener(EventDay(day))
-            return
-        }
-
-        calendarProperties.eventDays.firstOrNull { it.calendar == day }.let {
-            callOnLongClickListener(it ?: EventDay(day))
-        }
+        val eventDay = calendarProperties.eventDays.firstOrNull { it.calendar == day }
+        callOnLongClickListener(eventDay ?: EventDay(day))
     }
 
 
