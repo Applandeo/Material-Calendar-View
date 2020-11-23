@@ -23,7 +23,7 @@ class DayRowLongClickListener(
             time = adapterView.getItemAtPosition(position) as Date
         }
 
-        if (calendarProperties.onDayClickListener != null) {
+        calendarProperties.onDayClickListener?.let {
             onLongClick(day)
         }
 
@@ -36,8 +36,9 @@ class DayRowLongClickListener(
             return
         }
 
-        val eventDay = calendarProperties.eventDays.firstOrNull { it.calendar == day }
-        callOnLongClickListener(eventDay ?: EventDay(day))
+        calendarProperties.eventDays.firstOrNull { it.calendar == day }.let {
+            callOnLongClickListener(it ?: EventDay(day))
+        }
     }
 
 
