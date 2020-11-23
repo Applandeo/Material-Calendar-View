@@ -57,8 +57,6 @@ class CalendarPageAdapter(
 
         calendarGridView.onItemLongClickListener = DayRowLongClickListener(calendarProperties)
 
-        calendarGridView.onItemLongClickListener
-
         container.addView(calendarGridView)
 
         return calendarGridView

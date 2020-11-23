@@ -1,6 +1,5 @@
 package com.applandeo.materialcalendarview
 
-import OnDayLongClickListener
 import android.content.Context
 import android.content.res.TypedArray
 import android.graphics.drawable.Drawable
@@ -13,9 +12,11 @@ import com.applandeo.materialcalendarview.exceptions.ErrorsMessages
 import com.applandeo.materialcalendarview.exceptions.OutOfDateRangeException
 import com.applandeo.materialcalendarview.listeners.OnCalendarPageChangeListener
 import com.applandeo.materialcalendarview.listeners.OnDayClickListener
+import com.applandeo.materialcalendarview.listeners.OnDayLongClickListener
 import com.applandeo.materialcalendarview.utils.*
 import kotlinx.android.synthetic.main.calendar_view.view.*
 import java.util.*
+
 
 /**
  * This class represents a view, displays to user as calendar. It allows to work in date picker
