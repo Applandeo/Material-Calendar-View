@@ -1,5 +1,6 @@
 package com.applandeo.materialcalendarview.utils
 
+import OnDayLongClickListener
 import android.content.Context
 import android.graphics.drawable.Drawable
 import android.view.View
@@ -97,6 +98,8 @@ class CalendarProperties(private val context: Context) {
     var maximumDaysRange: Int = 0
 
     var onDayClickListener: OnDayClickListener? = null
+
+    var onDayLongClickListener: OnDayLongClickListener? = null
 
     var onSelectDateListener: OnSelectDateListener? = null
 

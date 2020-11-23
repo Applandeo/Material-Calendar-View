@@ -1,5 +1,6 @@
 package com.applandeo.materialcalendarview
 
+import OnDayLongClickListener
 import android.content.Context
 import android.content.res.TypedArray
 import android.graphics.drawable.Drawable
@@ -260,6 +261,14 @@ class CalendarView @JvmOverloads constructor(
      */
     fun setOnDayClickListener(onDayClickListener: OnDayClickListener) {
         calendarProperties.onDayClickListener = onDayClickListener
+    }
+
+    /**
+     * @param onDayLongClickListener OnDayClickListener interface responsible for handle long clicks on calendar cells
+     * @see OnDayLongClickListener
+     */
+    fun setOnDayLongClickListener(onDayLongClickListener: OnDayLongClickListener) {
+        calendarProperties.onDayLongClickListener = onDayLongClickListener
     }
 
     /**
