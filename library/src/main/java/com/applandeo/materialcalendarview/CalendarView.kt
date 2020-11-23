@@ -381,6 +381,14 @@ class CalendarView @JvmOverloads constructor(
         calendarViewPager.setCurrentItem(page, true)
     }
 
+    /**
+     * This method removes all selected days from calendar
+     */
+    fun clearSelectedDays() {
+        calendarProperties.selectedDays.clear()
+        calendarPageAdapter.notifyDataSetChanged()
+    }
+
     fun setDisabledDays(disabledDays: List<Calendar>) {
         calendarProperties.disabledDays = disabledDays
     }

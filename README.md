@@ -156,6 +156,12 @@ List<Calendar> calendars = new ArrayList<>();
 calendarView.setSelectedDates(calendars);
 ```
 
+...or if you want to remove selected dates:
+
+```java
+calendarView.clearSelectedDays();
+```
+
 #### Caution!
 * Don't pass more than one calendar object to method above if your calendar type is `CalendarView.ONE_DAY_PICKER`.
 * If your calendar type is `CalendarView.RANGE_PICKER` you have to pass full dates range. To get it you can use our utils method `CalendarUtils.getDatesRange(Calendar firstDay, Calendar lastDay)`.
