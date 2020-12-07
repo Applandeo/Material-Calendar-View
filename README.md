@@ -89,6 +89,16 @@ calendarView.setOnDayClickListener(new OnDayClickListener() {
 });
 ```
 
+...or long click:
+```java
+calendarView.setOnDayLongClickListener(new OnDayLongClickListener() {
+    @Override
+    public void onDayLongClick(EventDay eventDay) {
+        Calendar clickedDayCalendar = eventDay.getCalendar();
+    }
+});
+```
+
 ### Getting a selected days in the picker mode:
 If you want to get all selected days, especially if you use multi date or range picker you should use the following code:
 ```java
@@ -132,6 +142,12 @@ calendarView.setHighlightedDays(calendars);
 ```java
 List<Calendar> calendars = new ArrayList<>();
 calendarView.setSelectedDates(calendars);
+```
+
+...or if you want to remove selected dates:
+
+```java
+calendarView.clearSelectedDays();
 ```
 
 #### Caution!

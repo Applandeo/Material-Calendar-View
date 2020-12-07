@@ -9,10 +9,7 @@ import com.applandeo.materialcalendarview.EventDay
 import com.applandeo.materialcalendarview.R
 import com.applandeo.materialcalendarview.adapters.CalendarPageAdapter
 import com.applandeo.materialcalendarview.getDatesRange
-import com.applandeo.materialcalendarview.utils.CalendarProperties
-import com.applandeo.materialcalendarview.utils.SelectedDay
-import com.applandeo.materialcalendarview.utils.setCurrentMonthDayColors
-import com.applandeo.materialcalendarview.utils.setSelectedDayColors
+import com.applandeo.materialcalendarview.utils.*
 import java.util.*
 
 /**
@@ -56,6 +53,7 @@ class DayRowClickListener(
         if (isAnotherDaySelected(previousSelectedDay, day)) {
             selectDay(dayLabel, day)
             reverseUnselectedColor(previousSelectedDay)
+            calendarPageAdapter.notifyDataSetChanged()
         }
     }
 
@@ -122,13 +120,10 @@ class DayRowClickListener(
         )
     }
 
-    private fun Calendar.isCurrentMonthDay() = this[Calendar.MONTH] == pageMonth && this.isBetweenMinAndMax()
+    private fun Calendar.isCurrentMonthDay() =
+            this[Calendar.MONTH] == pageMonth && this.isBetweenMinAndMax(calendarProperties)
 
     private fun Calendar.isActiveDay() = !calendarProperties.disabledDays.contains(this)
-
-    private fun Calendar.isBetweenMinAndMax() =
-            !(calendarProperties.minimumDate != null && this.before(calendarProperties.minimumDate)
-                    || calendarProperties.maximumDate != null && this.after(calendarProperties.maximumDate))
 
     private fun isOutOfMaxRange(firstDay: Calendar, lastDay: Calendar): Boolean {
         // Number of selected days plus one last day
@@ -154,7 +149,7 @@ class DayRowClickListener(
 
     private fun callOnClickListener(eventDay: EventDay) {
         val enabledDay = calendarProperties.disabledDays.contains(eventDay.calendar)
-                || !eventDay.calendar.isBetweenMinAndMax()
+                || !eventDay.calendar.isBetweenMinAndMax(calendarProperties)
         eventDay.isEnabled = enabledDay
         calendarProperties.onDayClickListener?.onDayClick(eventDay)
     }

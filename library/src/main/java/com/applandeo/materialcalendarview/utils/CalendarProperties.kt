@@ -10,10 +10,7 @@ import com.applandeo.materialcalendarview.EventDay
 import com.applandeo.materialcalendarview.R
 import com.applandeo.materialcalendarview.exceptions.ErrorsMessages
 import com.applandeo.materialcalendarview.exceptions.UnsupportedMethodsException
-import com.applandeo.materialcalendarview.listeners.OnCalendarPageChangeListener
-import com.applandeo.materialcalendarview.listeners.OnDayClickListener
-import com.applandeo.materialcalendarview.listeners.OnSelectDateListener
-import com.applandeo.materialcalendarview.listeners.OnSelectionAbilityListener
+import com.applandeo.materialcalendarview.listeners.*
 import java.util.*
 
 /**
@@ -97,6 +94,8 @@ class CalendarProperties(private val context: Context) {
     var maximumDaysRange: Int = 0
 
     var onDayClickListener: OnDayClickListener? = null
+
+    var onDayLongClickListener: OnDayLongClickListener? = null
 
     var onSelectDateListener: OnSelectDateListener? = null
 

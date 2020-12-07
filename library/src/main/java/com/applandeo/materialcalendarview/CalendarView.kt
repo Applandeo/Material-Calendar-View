@@ -12,9 +12,11 @@ import com.applandeo.materialcalendarview.exceptions.ErrorsMessages
 import com.applandeo.materialcalendarview.exceptions.OutOfDateRangeException
 import com.applandeo.materialcalendarview.listeners.OnCalendarPageChangeListener
 import com.applandeo.materialcalendarview.listeners.OnDayClickListener
+import com.applandeo.materialcalendarview.listeners.OnDayLongClickListener
 import com.applandeo.materialcalendarview.utils.*
 import kotlinx.android.synthetic.main.calendar_view.view.*
 import java.util.*
+
 
 /**
  * This class represents a view, displays to user as calendar. It allows to work in date picker
@@ -263,6 +265,14 @@ class CalendarView @JvmOverloads constructor(
     }
 
     /**
+     * @param onDayLongClickListener OnDayClickListener interface responsible for handle long clicks on calendar cells
+     * @see OnDayLongClickListener
+     */
+    fun setOnDayLongClickListener(onDayLongClickListener: OnDayLongClickListener) {
+        calendarProperties.onDayLongClickListener = onDayLongClickListener
+    }
+
+    /**
      * This method set a current date of the calendar using Calendar object.
      *
      * @param date A Calendar object representing a date to which the calendar will be set
@@ -370,6 +380,14 @@ class CalendarView @JvmOverloads constructor(
     fun showCurrentMonthPage() {
         val page = calendarViewPager.currentItem - midnightCalendar.getMonthsToDate(currentPageDate)
         calendarViewPager.setCurrentItem(page, true)
+    }
+
+    /**
+     * This method removes all selected days from calendar
+     */
+    fun clearSelectedDays() {
+        calendarProperties.selectedDays.clear()
+        calendarPageAdapter.notifyDataSetChanged()
     }
 
     fun setDisabledDays(disabledDays: List<Calendar>) {

@@ -8,6 +8,7 @@ import androidx.viewpager.widget.PagerAdapter
 import com.applandeo.materialcalendarview.R
 import com.applandeo.materialcalendarview.extensions.CalendarGridView
 import com.applandeo.materialcalendarview.listeners.DayRowClickListener
+import com.applandeo.materialcalendarview.listeners.DayRowLongClickListener
 import com.applandeo.materialcalendarview.utils.CalendarProperties
 import com.applandeo.materialcalendarview.utils.SelectedDay
 import java.util.*
@@ -53,6 +54,8 @@ class CalendarPageAdapter(
         loadMonth(position)
 
         calendarGridView.onItemClickListener = DayRowClickListener(this, calendarProperties, pageMonth)
+
+        calendarGridView.onItemLongClickListener = DayRowLongClickListener(calendarProperties)
 
         container.addView(calendarGridView)
 
@@ -118,6 +121,7 @@ class CalendarPageAdapter(
         pageMonth = calendar.get(Calendar.MONTH) - 1
         val calendarDayAdapter = CalendarDayAdapter(context, this, calendarProperties, days, pageMonth)
 
+        informDatePicker()
         calendarGridView.adapter = calendarDayAdapter
     }
 
