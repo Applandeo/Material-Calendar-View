@@ -58,7 +58,7 @@ public class ManyDaysPickerActivity extends AppCompatActivity {
     private List<Calendar> getSelectedDays() {
         List<Calendar> calendars = new ArrayList<>();
 
-        for (int i = 0; i < 10; i++) {
+        for (int i = 2; i < 10; i++) {
             Calendar calendar = DateUtils.getCalendar();
             calendar.add(Calendar.DAY_OF_MONTH, i);
             calendars.add(calendar);

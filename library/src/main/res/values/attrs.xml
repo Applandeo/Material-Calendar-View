@@ -21,6 +21,8 @@
         <attr name="selectionDisabled" format="boolean" />
         <attr name="selectionBetweenMonthsEnabled" format="boolean" />
         <attr name="maximumDaysRange" format="integer" />
+        <attr name="typeface" format="integer" />
+        <attr name="todayTypeface" format="integer" />
         <attr name="type" />
     </declare-styleable>
 

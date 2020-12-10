@@ -24,6 +24,8 @@
         app:selectionLabelColor="#3F51B5"
         app:anotherMonthsDaysLabelsColor="#3F51B5"
         app:todayLabelColor="#AEEA00"
+        app:todayTypeface="@font/sample_custom_font_bold"
+        app:typeface="@font/sample_custom_font"
         app:type="many_days_picker" />
 
     <Button
