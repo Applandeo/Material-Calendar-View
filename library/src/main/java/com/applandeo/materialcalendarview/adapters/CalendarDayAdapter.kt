@@ -40,10 +40,16 @@ class CalendarDayAdapter(
 
         dayView.dayIcon?.loadIcon(day)
 
+        setLabelTypeface(dayView)
+
         setLabelColors(dayView.dayLabel, day)
 
         dayView.dayLabel.text = day[Calendar.DAY_OF_MONTH].toString()
         return dayView
+    }
+
+    private fun setLabelTypeface(dayView: View) {
+        dayView.dayLabel.typeface = calendarProperties.typeface
     }
 
     private fun setLabelColors(dayLabel: TextView, day: Calendar) {

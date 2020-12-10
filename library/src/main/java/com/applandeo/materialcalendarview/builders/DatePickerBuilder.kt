@@ -1,9 +1,12 @@
 package com.applandeo.materialcalendarview.builders
 
 import android.content.Context
+import android.graphics.Typeface
 import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
+import androidx.annotation.FontRes
 import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
 import com.applandeo.materialcalendarview.CalendarView
 import com.applandeo.materialcalendarview.DatePicker
 import com.applandeo.materialcalendarview.EventDay
@@ -85,6 +88,23 @@ class DatePickerBuilder(
 
     @Deprecated("Use forwardButtonSrc(drawable)", ReplaceWith("forwardButtonSrc(drawable)"))
     fun setForwardButtonSrc(@DrawableRes drawable: Int) = forwardButtonSrc(drawable)
+
+    /**
+     * Sets the typeface to use for calendar view
+     *
+     * @param font The font to use as a font resource
+     */
+    fun typefaceSrc(@FontRes font: Int) =
+            also { calendarProperties.typeface = ResourcesCompat.getFont(context, font) }
+
+    /**
+     * Sets the typeface of today date. Most common use is to set it bold to differentiate
+     * it form the rest of dates in calendar view.
+     *
+     * @param font The font to use as a font resource
+     */
+    fun todayTypefaceSrc(@FontRes font: Int) =
+            also { calendarProperties.todayTypeface = ResourcesCompat.getFont(context, font) }
 
     /**
      * Sets the color of the selection circle in the date picker dialog

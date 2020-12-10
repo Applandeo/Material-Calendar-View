@@ -1,6 +1,7 @@
 package com.applandeo.materialcalendarview.utils
 
 import android.content.Context
+import android.graphics.Typeface
 import android.graphics.drawable.Drawable
 import android.view.View
 import com.applandeo.materialcalendarview.CalendarDay
@@ -66,6 +67,10 @@ class CalendarProperties(private val context: Context) {
         get() = if (field == 0) context.parseColor(R.color.nextMonthDayColor) else field
 
     var headerVisibility: Int = View.VISIBLE
+
+    var typeface: Typeface? = null
+
+    var todayTypeface: Typeface? = null
 
     var abbreviationsBarVisibility: Int = View.VISIBLE
 

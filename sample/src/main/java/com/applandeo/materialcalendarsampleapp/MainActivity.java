@@ -73,6 +73,8 @@ public class MainActivity extends AppCompatActivity implements OnSelectDateListe
                 .disabledDaysLabelsColor(android.R.color.holo_purple)
                 .previousButtonSrc(R.drawable.ic_chevron_left_black_24dp)
                 .forwardButtonSrc(R.drawable.ic_chevron_right_black_24dp)
+                .typefaceSrc(R.font.sample_custom_font)
+                .todayTypefaceSrc(R.font.sample_custom_font_bold)
                 .minimumDate(min)
                 .maximumDate(max)
                 .todayColor(R.color.sampleLighter)
