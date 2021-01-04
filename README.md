@@ -4,7 +4,7 @@ Material-Calendar-View is a simple and customizable calendar widget for Android 
 
 We described a simple usage of the component [in this article](http://applandeo.com/blog/material-calendar-view-customized-calendar-widget-android/).
 
-![34562830-637ddbae-f150-11e7-8004-9024fb84a883](https://user-images.githubusercontent.com/2614225/46456381-f72da200-c7ae-11e8-8284-1799fe83a1c9.png) ![device-2018-01-04-125741](https://user-images.githubusercontent.com/2614225/34562842-709a71ee-f150-11e7-966b-cbbe6169b88b.png) ![device-2018-01-04-125831](https://user-images.githubusercontent.com/2614225/34562859-7bd3e64e-f150-11e7-98f4-f00bafe846c6.png) ![device-2018-01-04-125915](https://user-images.githubusercontent.com/2614225/34562878-8f382f06-f150-11e7-97e4-5ac9babe5aa8.png)
+![34562830-637ddbae-f150-11e7-8004-9024fb84a883](https://user-images.githubusercontent.com/2614225/46456381-f72da200-c7ae-11e8-8284-1799fe83a1c9.png) ![device-2018-01-04-125741](https://user-images.githubusercontent.com/2614225/34562842-709a71ee-f150-11e7-966b-cbbe6169b88b.png) ![device-2018-01-04-125831](https://user-images.githubusercontent.com/2614225/34562859-7bd3e64e-f150-11e7-98f4-f00bafe846c6.png) ![device-2018-01-04-125915](https://user-images.githubusercontent.com/2614225/34562878-8f382f06-f150-11e7-97e4-5ac9babe5aa8.png) 
 
 
 
@@ -219,6 +219,29 @@ calendarView.setForwardButtonImage([drawable]);
 calendarView.setPreviousButtonImage([drawable]);
 ```
 
+### Custom view for days cells
+To use custom view for calendar cells create XML file (like in example below) and set it using `setCalendarDayLayout(@LayoutRes layout: Int)` method. XML file must contain TextView with id `dayLabel` and can contain ImageView with id `dayIcon`.
+```xml
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?attr/selectableItemBackgroundBorderless"
+    android:orientation="vertical">
+
+    <!--REQUIRED-->
+    <TextView
+        android:id="@+id/dayLabel"
+        ... />
+
+    <!--CAN BE SKIPPED-->
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/dayIcon"
+        ... />
+
+</LinearLayout>
+```
+
 #### Customized font:
 * To create font directory Right-click the res folder and go to New > Android resource directory. — The New Resource Directory window appears.
 * In the Resource type list, select font, and then click OK.
@@ -324,7 +347,8 @@ new DatePickerBuilder(this, listener)
 ## Changelog
 
 #### Version 1.9.0:
-* Added customized font support.
+* Added customized font support
+* Added ability to set custom view for cells
 
 #### Version 1.8.0-rc01
 * Migrated to kotlin
