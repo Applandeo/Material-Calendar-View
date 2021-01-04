@@ -9,6 +9,7 @@ import android.widget.ArrayAdapter
 import android.widget.ImageView
 import android.widget.TextView
 import com.applandeo.materialcalendarview.CalendarView
+import com.applandeo.materialcalendarview.exceptions.InvalidCustomLayoutException
 import com.applandeo.materialcalendarview.utils.*
 import kotlinx.android.synthetic.main.calendar_view_day.view.*
 import java.util.*
@@ -40,16 +41,13 @@ class CalendarDayAdapter(
 
         dayView.dayIcon?.loadIcon(day)
 
-        setLabelTypeface(dayView)
+        val dayLabel = dayView.dayLabel ?: throw InvalidCustomLayoutException
 
-        setLabelColors(dayView.dayLabel, day)
+        setLabelColors(dayLabel, day)
+        dayLabel.typeface = calendarProperties.typeface
+        dayLabel.text = day[Calendar.DAY_OF_MONTH].toString()
 
-        dayView.dayLabel.text = day[Calendar.DAY_OF_MONTH].toString()
         return dayView
-    }
-
-    private fun setLabelTypeface(dayView: View) {
-        dayView.dayLabel.typeface = calendarProperties.typeface
     }
 
     private fun setLabelColors(dayLabel: TextView, day: Calendar) {

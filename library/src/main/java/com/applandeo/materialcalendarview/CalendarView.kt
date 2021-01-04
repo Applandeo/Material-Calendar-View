@@ -7,6 +7,7 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.LinearLayout
 import androidx.annotation.ColorRes
+import androidx.annotation.LayoutRes
 import com.applandeo.materialcalendarview.adapters.CalendarPageAdapter
 import com.applandeo.materialcalendarview.exceptions.ErrorsMessages
 import com.applandeo.materialcalendarview.exceptions.OutOfDateRangeException
@@ -169,11 +170,19 @@ class CalendarView @JvmOverloads constructor(
         rootView.setForwardButtonImage(forwardButtonSrc)
     }
 
-    private fun setCalendarRowLayout() = with(calendarProperties) {
-        itemLayoutResource = if (eventsEnabled) {
-            R.layout.calendar_view_day
-        } else {
-            R.layout.calendar_view_picker_day
+    fun setCalendarDayLayout(@LayoutRes layout: Int) {
+        calendarProperties.itemLayoutResource = layout
+    }
+
+    private fun setCalendarRowLayout() {
+        if (calendarProperties.itemLayoutResource != R.layout.calendar_view_day) return
+
+        with(calendarProperties) {
+            itemLayoutResource = if (eventsEnabled) {
+                R.layout.calendar_view_day
+            } else {
+                R.layout.calendar_view_picker_day
+            }
         }
     }
 
