@@ -7,6 +7,7 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.LinearLayout
 import androidx.annotation.ColorRes
+import androidx.annotation.DrawableRes
 import androidx.annotation.LayoutRes
 import com.applandeo.materialcalendarview.adapters.CalendarPageAdapter
 import com.applandeo.materialcalendarview.exceptions.ErrorsMessages
@@ -172,6 +173,10 @@ class CalendarView @JvmOverloads constructor(
 
     fun setCalendarDayLayout(@LayoutRes layout: Int) {
         calendarProperties.itemLayoutResource = layout
+    }
+
+    fun setSelectionBackground(@DrawableRes drawable: Int) {
+        calendarProperties.selectionBackground = drawable
     }
 
     private fun setCalendarRowLayout() {

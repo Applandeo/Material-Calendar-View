@@ -26,6 +26,7 @@ public class RangePickerActivity extends AppCompatActivity {
         setContentView(R.layout.range_picker_activity);
 
         CalendarView calendarView = (CalendarView) findViewById(R.id.calendarView);
+        calendarView.setSelectionBackground(R.drawable.custom_selector);
 
         CalendarDay calendarDay = new CalendarDay(Calendar.getInstance());
         calendarDay.setBackgroundDrawable(

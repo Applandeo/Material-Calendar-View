@@ -1,7 +1,6 @@
 package com.applandeo.materialcalendarview.builders
 
 import android.content.Context
-import android.graphics.Typeface
 import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
 import androidx.annotation.FontRes
@@ -273,6 +272,10 @@ class DatePickerBuilder(
      * Disables day selection
      */
     fun selectionDisabled(isDisabled: Boolean) = also { calendarProperties.selectionDisabled = isDisabled }
+
+    fun selectionBackground(@DrawableRes drawable: Int) = also {
+        calendarProperties.selectionBackground = drawable
+    }
 
     /**
      * Allows to select a range of dates between months

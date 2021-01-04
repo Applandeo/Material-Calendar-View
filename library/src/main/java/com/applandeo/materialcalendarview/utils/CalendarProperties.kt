@@ -45,6 +45,8 @@ class CalendarProperties(private val context: Context) {
 
     var itemLayoutResource: Int = R.layout.calendar_view_day
 
+    var selectionBackground: Int = R.drawable.background_color_circle_selector
+
     var disabledDaysLabelsColor: Int = 0
         get() = if (field == 0) context.parseColor(R.color.nextMonthDayColor) else field
 
