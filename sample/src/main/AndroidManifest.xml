@@ -22,6 +22,10 @@
             android:label="Standard calendar" />
 
         <activity
+            android:name=".CalendarWithCustomRowActivity"
+            android:label="Standard calendar with custom row" />
+
+        <activity
             android:name=".OneDayPickerActivity"
             android:label="One day picker" />
 

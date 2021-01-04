@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?attr/selectableItemBackgroundBorderless"
+    android:orientation="horizontal">
+
+    <View
+        android:layout_width="0.25dp"
+        android:layout_height="match_parent"
+        android:background="#1F000000" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.25dp"
+            android:background="#1F000000" />
+
+        <TextView
+            android:id="@+id/dayLabel"
+            android:layout_width="40dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="2dp"
+            android:gravity="center"
+            android:textSize="14sp"
+            tools:text="26" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/dayIcon"
+            android:layout_width="30dp"
+            android:layout_height="10dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="2dp"
+            android:layout_marginBottom="6dp"
+            android:scaleType="centerInside" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.25dp"
+            android:background="#1F000000" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="0.25dp"
+        android:layout_height="match_parent"
+        android:background="#1F000000" />
+
+</LinearLayout>

@@ -36,6 +36,13 @@ public class MainActivity extends AppCompatActivity implements OnSelectDateListe
             startActivity(intent);
         });
 
+        Button openCalendarWithCustomRowButton = findViewById(R.id.openCalendarWithCustomRowButton);
+
+        openCalendarWithCustomRowButton.setOnClickListener(v -> {
+            Intent intent = new Intent(this, CalendarWithCustomRowActivity.class);
+            startActivity(intent);
+        });
+
         Button openOneDayPicker = (Button) findViewById(R.id.openOneDayPickerButton);
         openOneDayPicker.setOnClickListener(v -> startActivity(new Intent(this, OneDayPickerActivity.class)));
 
