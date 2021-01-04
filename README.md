@@ -16,6 +16,7 @@ We described a simple usage of the component [in this article](http://applandeo.
 * Range picker
 * Events icons
 * Fully colors customization
+* Customized font
 
 
 ## How to use?
@@ -113,7 +114,7 @@ Calendar selectedDate = calendarView.getFirstSelectedDate();
 ```java
 Calendar calendar = Calendar.getInstance();
 calendar.set(2019, 7, 5);
-        
+
 calendarView.setDate(calendar);
 ```
 
@@ -205,8 +206,17 @@ calendarView.setHeaderLabelColor([color]);
 calendarView.setForwardButtonImage([drawable]);
 calendarView.setPreviousButtonImage([drawable]);
 ```
+
+#### Customized font:
+* To create font directory Right-click the res folder and go to New > Android resource directory. — The New Resource Directory window appears.
+* In the Resource type list, select font, and then click OK.
+* Note: The name of the resource directory must be font.
+* Add your ttf or otf fonts in font folder. As an example we ad sample_font.ttf and sample_font_bold.ttf
+* On a DatePickerBuilder apply ```.typefaceSrc(R.font.sample_font)``` for setting sample_font to callendar and its abbreviations.
+* Optionally apply ```.todayTypefaceSrc(R.font.sample_font_bold)``` to differentiate today date font form the rest of dates in calendar view
+
 #### Disable month swipe:
-If you want to disable the swipe gesture to change the month, you have to use the following tag: 
+If you want to disable the swipe gesture to change the month, you have to use the following tag:
 * ```app:swipeEnabled="false"```
 
 ...or in code:
@@ -295,9 +305,14 @@ new DatePickerBuilder(this, listener)
         .setDialogButtonsColor(R.color.color); // Color of "Cancel" and "OK" buttons
         .setMaximumDaysRange(int) // Maximum number of selectable days in range mode
         .setNavigationVisibility(int) // Navigation buttons visibility
+        .typefaceSrc(R.font.sample_font) // Calendar font
+        .todayTypefaceSrc(R.font.sample_font_bold) // (Optional) calendar today date font
 ```
 
 ## Changelog
+
+#### Version 1.9.0:
+* Added customized font support.
 
 #### Version 1.7.0:
 * Added ability to set maximum selectable days range

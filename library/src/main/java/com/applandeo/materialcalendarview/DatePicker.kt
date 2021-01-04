@@ -34,6 +34,8 @@ class DatePicker(
         setDialogButtonsColors(view.negativeButton, view.todayButton)
         setOkButtonState(calendarProperties.calendarType == CalendarView.ONE_DAY_PICKER, view.positiveButton)
 
+        setDialogButtonsTypeface(view)
+
         calendarProperties.onSelectionAbilityListener = { enabled ->
             setOkButtonState(enabled, view.positiveButton)
         }
@@ -62,6 +64,14 @@ class DatePicker(
         alertDialog.show()
 
         return this
+    }
+
+    private fun setDialogButtonsTypeface(view: View) {
+        calendarProperties.typeface?.let { typeface ->
+            view.todayButton.typeface = typeface
+            view.negativeButton.typeface = typeface
+            view.positiveButton.typeface = typeface
+        }
     }
 
     private fun setDialogButtonsColors(negativeButton: AppCompatButton, todayButton: AppCompatButton) {

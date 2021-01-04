@@ -115,11 +115,14 @@ class CalendarView @JvmOverloads constructor(
         selectionBetweenMonthsEnabled = typedArray.getBoolean(R.styleable.CalendarView_selectionBetweenMonthsEnabled, false)
         previousButtonSrc = typedArray.getDrawable(R.styleable.CalendarView_previousButtonSrc)
         forwardButtonSrc = typedArray.getDrawable(R.styleable.CalendarView_forwardButtonSrc)
+        typeface = typedArray.getFont(R.styleable.CalendarView_typeface)
+        todayTypeface = typedArray.getFont(R.styleable.CalendarView_todayTypeface)
     }
 
     private fun initAttributes() {
         with(calendarProperties) {
             rootView.setHeaderColor(headerColor)
+            rootView.setHeaderTypeface(typeface)
             rootView.setHeaderVisibility(headerVisibility)
             rootView.setAbbreviationsBarVisibility(abbreviationsBarVisibility)
             rootView.setNavigationVisibility(navigationVisibility)
@@ -127,6 +130,7 @@ class CalendarView @JvmOverloads constructor(
             rootView.setAbbreviationsBarColor(abbreviationsBarColor)
             rootView.setAbbreviationsLabels(abbreviationsLabelsColor, firstPageCalendarDate.firstDayOfWeek)
             rootView.setPagesColor(pagesColor)
+            rootView.setTypeface(typeface)
             rootView.setPreviousButtonImage(previousButtonSrc)
             rootView.setForwardButtonImage(forwardButtonSrc)
             calendarViewPager.swipeEnabled = swipeEnabled
