@@ -58,7 +58,7 @@ fun setSelectedDayColors(dayLabel: TextView, calendar: Calendar, calendarPropert
         dayLabel.setDayColors(labelColor)
         dayLabel.setBackgroundDrawable(calendarDayBackgroundDrawable)
     } else {
-        dayLabel.setDayColors(labelColor, backgroundRes = R.drawable.background_color_circle_selector)
+        dayLabel.setDayColors(labelColor, backgroundRes = calendarProperties.selectionBackground)
         tintBackground(dayLabel, calendarProperties.selectionColor)
     }
 }
