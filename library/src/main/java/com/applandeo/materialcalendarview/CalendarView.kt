@@ -111,6 +111,10 @@ class CalendarView @JvmOverloads constructor(
             calendarType = ONE_DAY_PICKER
         }
 
+        if (typedArray.hasValue(R.styleable.CalendarView_firstDayOfWeek)) {
+            firstDayOfWeek = typedArray.getInt(R.styleable.CalendarView_firstDayOfWeek, Calendar.MONDAY)
+        }
+
         eventsEnabled = typedArray.getBoolean(R.styleable.CalendarView_eventsEnabled, calendarType == CLASSIC)
         swipeEnabled = typedArray.getBoolean(R.styleable.CalendarView_swipeEnabled, true)
         selectionDisabled = typedArray.getBoolean(R.styleable.CalendarView_selectionDisabled, false)
@@ -130,7 +134,7 @@ class CalendarView @JvmOverloads constructor(
             rootView.setNavigationVisibility(navigationVisibility)
             rootView.setHeaderLabelColor(headerLabelColor)
             rootView.setAbbreviationsBarColor(abbreviationsBarColor)
-            rootView.setAbbreviationsLabels(abbreviationsLabelsColor, firstPageCalendarDate.firstDayOfWeek)
+            rootView.setAbbreviationsLabels(abbreviationsLabelsColor, firstDayOfWeek)
             rootView.setPagesColor(pagesColor)
             rootView.setTypeface(typeface)
             rootView.setPreviousButtonImage(previousButtonSrc)
@@ -139,6 +143,14 @@ class CalendarView @JvmOverloads constructor(
         }
 
         setCalendarRowLayout()
+    }
+
+    /**
+     * This method set a first day of week, default is monday or sunday depending on user location
+     */
+    fun setFirstDayOfWeek(weekDay: CalendarWeekDay) = with(calendarProperties) {
+        firstDayOfWeek = weekDay.value
+        rootView.setAbbreviationsLabels(abbreviationsLabelsColor, firstDayOfWeek)
     }
 
     fun setHeaderColor(@ColorRes color: Int) = with(calendarProperties) {

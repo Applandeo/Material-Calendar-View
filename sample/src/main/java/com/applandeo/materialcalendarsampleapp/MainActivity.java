@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.annimon.stream.Stream;
 import com.applandeo.materialcalendarview.CalendarUtils;
 import com.applandeo.materialcalendarview.CalendarView;
+import com.applandeo.materialcalendarview.CalendarWeekDay;
 import com.applandeo.materialcalendarview.DatePicker;
 import com.applandeo.materialcalendarview.builders.DatePickerBuilder;
 import com.applandeo.materialcalendarview.listeners.OnSelectDateListener;
@@ -110,6 +111,7 @@ public class MainActivity extends AppCompatActivity implements OnSelectDateListe
                 .todayLabelColor(android.R.color.holo_green_dark)
                 .dialogButtonsColor(android.R.color.holo_green_dark)
                 .selectedDays(selectedDays)
+                .firstDayOfWeek(CalendarWeekDay.SUNDAY)
                 .navigationVisibility(View.GONE)
                 .disabledDays(getDisabledDays());
 
