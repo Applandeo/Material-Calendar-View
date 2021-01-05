@@ -353,7 +353,7 @@ new DatePickerBuilder(this, listener)
         .navigationVisibility(int) // Navigation buttons visibility
         .typefaceSrc(R.font.sample_font) // Calendar font
         .todayTypefaceSrc(R.font.sample_font_bold) // (Optional) calendar today date font
-        .firstDayOfWeek(weekDay: CalendarWeekDay) // Default is monday or sunday depending on user location
+        .firstDayOfWeek(CalendarWeekDay) // Default is monday or sunday depending on user location
 ```
 
 ## Changelog
