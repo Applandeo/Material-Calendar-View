@@ -121,8 +121,11 @@ class CalendarView @JvmOverloads constructor(
         selectionBetweenMonthsEnabled = typedArray.getBoolean(R.styleable.CalendarView_selectionBetweenMonthsEnabled, false)
         previousButtonSrc = typedArray.getDrawable(R.styleable.CalendarView_previousButtonSrc)
         forwardButtonSrc = typedArray.getDrawable(R.styleable.CalendarView_forwardButtonSrc)
-        typeface = typedArray.getFont(R.styleable.CalendarView_typeface)
-        todayTypeface = typedArray.getFont(R.styleable.CalendarView_todayTypeface)
+
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            typeface = typedArray.getFont(R.styleable.CalendarView_typeface)
+            todayTypeface = typedArray.getFont(R.styleable.CalendarView_todayTypeface)
+        }
     }
 
     private fun initAttributes() {
