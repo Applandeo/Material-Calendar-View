@@ -214,7 +214,7 @@ calendarView.setPreviousButtonImage([drawable]);
 ```
 
 #### Custom view for days cells:
-To use custom view for calendar cells create XML file (like in example below) and set it using `setCalendarDayLayout(@LayoutRes layout: Int)` method. XML file must contain TextView with id `dayLabel` and can contain ImageView with id `dayIcon`.
+To use custom view for calendar cells create XML file (like in example below) and set it using `setCalendarDayLayout(@LayoutRes layout: Int)` method. XML file must contain TextView with id `dayLabel` and can contain ImageView with id `dayIcon`. Do not set colors or textStyle here, it will be overwritten.
 ```xml
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
@@ -235,6 +235,25 @@ To use custom view for calendar cells create XML file (like in example below) an
 
 </LinearLayout>
 ```
+
+#### Customization of specific cells:
+If you want to customize specyfic cells create list of `CalendarDay` objects and pass it by `setCalendarDays()` method like in example below:
+```kotlin
+val list = listOf(
+    CalendarDay(Calendar.getInstance()).apply { 
+        labelColor = [color resource]
+        backgroundResource = [drawable resource]
+        backgroundDrawable = [drawable]
+        selectedLabelColor = [color resource]
+        selectedBackgroundResource = [drawable resource]
+        selectedBackgroundDrawable = [drawable]
+    }
+)
+
+calendarView.setCalendarDays(list)
+```
+
+*In the future `CalendarDay` will replace `EventDay`.*
 
 #### Customized font:
 * To create font directory Right-click the res folder and go to New > Android resource directory. — The New Resource Directory window appears.
