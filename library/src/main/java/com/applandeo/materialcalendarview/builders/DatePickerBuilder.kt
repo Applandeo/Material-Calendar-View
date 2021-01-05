@@ -7,6 +7,7 @@ import androidx.annotation.FontRes
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import com.applandeo.materialcalendarview.CalendarView
+import com.applandeo.materialcalendarview.CalendarWeekDay
 import com.applandeo.materialcalendarview.DatePicker
 import com.applandeo.materialcalendarview.EventDay
 import com.applandeo.materialcalendarview.listeners.OnCalendarPageChangeListener
@@ -41,6 +42,11 @@ class DatePickerBuilder(
      * @param calendar The initially selected date as a {@link Calendar} object
      */
     fun date(calendar: Calendar) = also { calendarProperties.calendar = calendar }
+
+    /**
+     * This method set a first day of week, default is monday or sunday depending on user location
+     */
+    fun firstDayOfWeek(weekDay: CalendarWeekDay) = also { calendarProperties.firstDayOfWeek = weekDay.value }
 
     @Deprecated("Use date(calendar)", ReplaceWith("date(calendar)"))
     fun setDate(calendar: Calendar) = date(calendar)

@@ -92,6 +92,8 @@ class CalendarProperties(private val context: Context) {
 
     val firstPageCalendarDate: Calendar = midnightCalendar
 
+    var firstDayOfWeek = firstPageCalendarDate.firstDayOfWeek
+
     var calendar: Calendar? = null
 
     var minimumDate: Calendar? = null

@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.applandeo.materialcalendarsampleapp.utils.DrawableUtils;
 import com.applandeo.materialcalendarview.CalendarView;
+import com.applandeo.materialcalendarview.CalendarWeekDay;
 import com.applandeo.materialcalendarview.EventDay;
 
 import java.util.ArrayList;
@@ -39,6 +40,7 @@ public class CalendarWithCustomRowActivity extends AppCompatActivity {
         events.add(new EventDay(calendar4, DrawableUtils.getThreeDots(this)));
 
         CalendarView calendarView = findViewById(R.id.calendarView);
+        calendarView.setFirstDayOfWeek(CalendarWeekDay.SUNDAY);
         calendarView.setCalendarDayLayout(R.layout.custom_calendar_day_row);
         calendarView.setEvents(events);
     }
