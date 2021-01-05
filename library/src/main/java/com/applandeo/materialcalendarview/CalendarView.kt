@@ -393,6 +393,7 @@ class CalendarView @JvmOverloads constructor(
      */
     fun setMinimumDate(calendar: Calendar) {
         calendarProperties.minimumDate = calendar
+        calendarPageAdapter.notifyDataSetChanged()
     }
 
     /**
@@ -402,6 +403,7 @@ class CalendarView @JvmOverloads constructor(
      */
     fun setMaximumDate(calendar: Calendar) {
         calendarProperties.maximumDate = calendar
+        calendarPageAdapter.notifyDataSetChanged()
     }
 
     /**
@@ -422,10 +424,13 @@ class CalendarView @JvmOverloads constructor(
 
     fun setDisabledDays(disabledDays: List<Calendar>) {
         calendarProperties.disabledDays = disabledDays
+        calendarPageAdapter.notifyDataSetChanged()
     }
 
+    @Deprecated("Use setCalendarDays(List<CalendarDay>) with specific labelColor")
     fun setHighlightedDays(highlightedDays: List<Calendar>) {
         calendarProperties.highlightedDays = highlightedDays
+        calendarPageAdapter.notifyDataSetChanged()
     }
 
     fun setSwipeEnabled(swipeEnabled: Boolean) {
