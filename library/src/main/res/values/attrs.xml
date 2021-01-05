@@ -24,12 +24,23 @@
         <attr name="typeface" format="integer" />
         <attr name="todayTypeface" format="integer" />
         <attr name="type" />
+        <attr name="firstDayOfWeek" />
     </declare-styleable>
 
     <attr name="type" format="enum">
-        <enum name="classic" value="0"/>
-        <enum name="one_day_picker" value="1"/>
-        <enum name="many_days_picker" value="2"/>
-        <enum name="range_picker" value="3"/>
+        <enum name="classic" value="0" />
+        <enum name="one_day_picker" value="1" />
+        <enum name="many_days_picker" value="2" />
+        <enum name="range_picker" value="3" />
+    </attr>
+
+    <attr name="firstDayOfWeek" format="enum">
+        <enum name="sunday" value="1" />
+        <enum name="monday" value="2" />
+        <enum name="tuesday" value="3" />
+        <enum name="wednesday" value="4" />
+        <enum name="thursday" value="5" />
+        <enum name="friday" value="6" />
+        <enum name="saturday" value="7" />
     </attr>
 </resources>
