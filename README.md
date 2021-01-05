@@ -47,16 +47,10 @@ dependencies {
     implementation 'com.applandeo:material-calendar-view:1.7.0'
 }
 ```
-or if you want to use the **kotlin** version of our library:
-```
-dependencies {
-    implementation 'com.applandeo:material-calendar-view:1.8.0-rc01'
-}
-```
 or if you want to use very early version with CalendarDay support:
 ```
 dependencies {
-    implementation 'com.applandeo:material-calendar-view:1.9.0-alpha03'
+    implementation 'com.applandeo:material-calendar-view:1.9.0-rc02'
 }
 ```
 
@@ -358,12 +352,12 @@ new DatePickerBuilder(this, listener)
 
 ## Changelog
 
-#### Version 1.9.0:
+#### Version 1.9.0-rc*:
 * Added customized font support
 * Added ability to set custom view for cells
 * Added ability to set first day of a week
 
-#### Version 1.8.0-rc01
+#### Version 1.8.0-rc*
 * Migrated to kotlin
 
 #### Version 1.7.0:
