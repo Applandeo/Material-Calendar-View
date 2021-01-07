@@ -106,11 +106,6 @@ class CalendarView @JvmOverloads constructor(
         calendarType = typedArray.getInt(R.styleable.CalendarView_type, CLASSIC)
         maximumDaysRange = typedArray.getInt(R.styleable.CalendarView_maximumDaysRange, 0)
 
-        // Set picker mode !DEPRECATED!
-        if (typedArray.getBoolean(R.styleable.CalendarView_datePicker, false)) {
-            calendarType = ONE_DAY_PICKER
-        }
-
         if (typedArray.hasValue(R.styleable.CalendarView_firstDayOfWeek)) {
             firstDayOfWeek = typedArray.getInt(R.styleable.CalendarView_firstDayOfWeek, Calendar.MONDAY)
         }
