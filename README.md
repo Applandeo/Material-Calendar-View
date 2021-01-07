@@ -50,7 +50,7 @@ dependencies {
 or if you want to use very early version with CalendarDay support:
 ```
 dependencies {
-    implementation 'com.applandeo:material-calendar-view:1.9.0-rc02'
+    implementation 'com.applandeo:material-calendar-view:1.9.0-rc03'
 }
 ```
 
