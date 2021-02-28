@@ -3,12 +3,14 @@ package com.applandeo.materialcalendarview
 import android.content.Context
 import android.content.res.TypedArray
 import android.graphics.drawable.Drawable
+import android.os.Build
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.LinearLayout
 import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
 import androidx.annotation.LayoutRes
+import androidx.core.content.res.ResourcesCompat
 import com.applandeo.materialcalendarview.adapters.CalendarPageAdapter
 import com.applandeo.materialcalendarview.exceptions.ErrorsMessages
 import com.applandeo.materialcalendarview.exceptions.OutOfDateRangeException
@@ -117,9 +119,22 @@ class CalendarView @JvmOverloads constructor(
         previousButtonSrc = typedArray.getDrawable(R.styleable.CalendarView_previousButtonSrc)
         forwardButtonSrc = typedArray.getDrawable(R.styleable.CalendarView_forwardButtonSrc)
 
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+
             typeface = typedArray.getFont(R.styleable.CalendarView_typeface)
             todayTypeface = typedArray.getFont(R.styleable.CalendarView_todayTypeface)
+
+        } else {
+
+            val otherDayFontId = typedArray.getResourceId(R.styleable.CalendarView_typeface, 0)
+            val todayFontId = typedArray.getResourceId(R.styleable.CalendarView_todayTypeface, 0)
+            if (otherDayFontId > 0) {
+                typeface = ResourcesCompat.getFont(context, otherDayFontId)
+            }
+
+            if (todayFontId > 0) {
+                todayTypeface = ResourcesCompat.getFont(context, todayFontId)
+            }
         }
     }
 
