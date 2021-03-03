@@ -13,7 +13,7 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="2dp"
         android:gravity="center"
-        android:textSize="12sp" />
+        android:textSize="@dimen/_10ssp" />
 
     <ImageView
         android:id="@+id/dayIcon"

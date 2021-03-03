@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="@android:color/white"
     android:orientation="vertical">
 
@@ -39,7 +40,7 @@
             android:layout_height="44dp"
             android:gravity="center"
             android:textColor="@android:color/white"
-            android:textSize="16sp"
+            android:textSize="@dimen/_14ssp"
             app:layout_constraintLeft_toRightOf="@id/previousButton"
             app:layout_constraintRight_toLeftOf="@id/forwardButton"
             app:layout_constraintTop_toTopOf="parent" />
