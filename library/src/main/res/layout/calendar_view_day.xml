@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/day_item_background"
@@ -9,10 +10,10 @@
         android:id="@+id/dayLabel"
         android:layout_width="@dimen/day_label_size_events_enabled"
         android:layout_height="@dimen/day_label_size_events_enabled"
-        android:layout_marginTop="4dp"
-        android:gravity="center"
         android:layout_gravity="center_horizontal"
-        android:textSize="14sp" />
+        android:layout_marginTop="2dp"
+        android:gravity="center"
+        android:textSize="12sp" />
 
     <ImageView
         android:id="@+id/dayIcon"
@@ -21,7 +22,8 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="2dp"
         android:layout_marginBottom="2dp"
-        android:scaleType="centerInside" />
+        android:scaleType="centerInside"
+        tools:src="@tools:sample/avatars" />
 
     <View
         android:id="@+id/divider"

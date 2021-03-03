@@ -141,7 +141,7 @@ class CalendarView @JvmOverloads constructor(
     private fun initAttributes() {
         with(calendarProperties) {
             rootView.setHeaderColor(headerColor)
-            rootView.setHeaderTypeface(typeface)
+            rootView.setHeaderTypeface(todayTypeface)
             rootView.setHeaderVisibility(headerVisibility)
             rootView.setAbbreviationsBarVisibility(abbreviationsBarVisibility)
             rootView.setNavigationVisibility(navigationVisibility)
