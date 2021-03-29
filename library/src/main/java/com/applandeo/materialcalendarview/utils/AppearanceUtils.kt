@@ -25,6 +25,15 @@ internal fun View.setAbbreviationsLabels(color: Int, firstDayOfWeek: Int) {
     }
 }
 
+internal fun View.setAbbreviationsLabelsSize(size: Float){
+    val labels = getAbbreviationsTextViews()
+    labels.forEachIndexed{ _, label->
+        if(size>0.0 && size<=28.0) {
+            label.textSize = size
+        }
+    }
+}
+
 private fun View.getAbbreviationsTextViews() = listOf(
         mondayLabel,
         tuesdayLabel,

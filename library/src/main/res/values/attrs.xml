@@ -13,6 +13,7 @@
         <attr name="pagesColor" format="color" />
         <attr name="abbreviationsBarColor" format="color" />
         <attr name="abbreviationsLabelsColor" format="color" />
+        <attr name="abbreviationsLabelsSize" format="dimension" />
         <attr name="daysLabelsColor" format="color" />
         <attr name="anotherMonthsDaysLabelsColor" format="color" />
         <attr name="eventsEnabled" format="boolean" />

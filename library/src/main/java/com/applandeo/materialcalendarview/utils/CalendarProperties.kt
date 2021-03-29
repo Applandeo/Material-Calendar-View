@@ -59,6 +59,8 @@ class CalendarProperties(private val context: Context) {
 
     var abbreviationsLabelsColor: Int = 0
 
+    var abbreviationsLabelsSize: Float = 0F
+
     var daysLabelsColor: Int = 0
         get() = if (field == 0) context.parseColor(R.color.currentMonthDayColor) else field
 
