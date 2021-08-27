@@ -41,14 +41,14 @@ class CalendarDayAdapter(
 
         val day = GregorianCalendar().apply { time = getItem(position) }
 
-        dayView.dayIcon?.loadIcon(day)
-        val dayLabel = dayView.dayLabel ?: throw InvalidCustomLayoutException
-        setLabelColors(dayLabel, day)
-        dayLabel.typeface = calendarProperties.typeface
-        dayLabel.text = day[Calendar.DAY_OF_MONTH].toString()
-
         if (!calendarProperties.showPreviousAndNextMonth && !day.isCurrentMonthDay()) {
             dayView.visibility = View.INVISIBLE
+        }else{
+            dayView.dayIcon?.loadIcon(day)
+            val dayLabel = dayView.dayLabel ?: throw InvalidCustomLayoutException
+            setLabelColors(dayLabel, day)
+            dayLabel.typeface = calendarProperties.typeface
+            dayLabel.text = day[Calendar.DAY_OF_MONTH].toString()
         }
 
         return dayView
@@ -57,7 +57,7 @@ class CalendarDayAdapter(
     private fun setLabelColors(dayLabel: TextView, day: Calendar) {
         when {
             // Setting not current month day color
-            !day.isCurrentMonthDay() && !calendarProperties.selectionBetweenMonthsEnabled ->
+            !day.isCurrentMonthDayMinMax() && !calendarProperties.selectionBetweenMonthsEnabled ->
                 dayLabel.setDayColors(calendarProperties.anotherMonthsDaysLabelsColor)
 
             // Setting view for all SelectedDays
@@ -69,7 +69,7 @@ class CalendarDayAdapter(
             }
 
             // Setting not current month day color only if selection between months is enabled for range picker
-            !day.isCurrentMonthDay() && calendarProperties.selectionBetweenMonthsEnabled -> {
+            !day.isCurrentMonthDayMinMax() && calendarProperties.selectionBetweenMonthsEnabled -> {
                 if (SelectedDay(day) !in calendarPageAdapter.selectedDays) {
                     dayLabel.setDayColors(calendarProperties.anotherMonthsDaysLabelsColor)
                 }
@@ -97,11 +97,13 @@ class CalendarDayAdapter(
     private fun Calendar.isEventDayWithLabelColor() =
         this.isEventDayWithLabelColor(calendarProperties)
 
-    private fun Calendar.isCurrentMonthDay() = this[Calendar.MONTH] == pageMonth
+    private fun Calendar.isCurrentMonthDayMinMax() = this[Calendar.MONTH] == pageMonth
             && !(calendarProperties.minimumDate != null
             && this.before(calendarProperties.minimumDate)
             || calendarProperties.maximumDate != null
             && this.after(calendarProperties.maximumDate))
+
+    private fun Calendar.isCurrentMonthDay() =this[Calendar.MONTH] == pageMonth
 
     private fun Calendar.isActiveDay() = this !in calendarProperties.disabledDays
 
@@ -114,7 +116,7 @@ class CalendarDayAdapter(
         calendarProperties.eventDays.firstOrNull { it.calendar == day }?.let { eventDay ->
             loadImage(eventDay.imageDrawable)
             // If a day doesn't belong to current month then image is transparent
-            if (!day.isCurrentMonthDay() || !day.isActiveDay()) {
+            if (!day.isCurrentMonthDayMinMax() || !day.isActiveDay()) {
                 alpha = INVISIBLE_IMAGE_ALPHA
             }
         }
