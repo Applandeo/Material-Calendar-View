@@ -12,10 +12,7 @@ import androidx.viewpager.widget.ViewPager
 
 typealias OnCalendarPageChangedListener = (Int) -> Unit
 
-class CalendarViewPager @JvmOverloads constructor(
-        context: Context,
-        attrs: AttributeSet? = null
-) : ViewPager(context, attrs) {
+class CalendarViewPager @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null) : ViewPager(context, attrs) {
 
     var swipeEnabled = true
     private var onCalendarPageChangedListener: OnCalendarPageChangedListener? = null

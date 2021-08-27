@@ -86,6 +86,8 @@ class CalendarProperties(private val context: Context) {
 
     var selectionDisabled: Boolean = false
 
+    var showPreviousAndNextMonth: Boolean = true
+
     var previousButtonSrc: Drawable? = null
 
     var forwardButtonSrc: Drawable? = null
