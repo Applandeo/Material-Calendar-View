@@ -71,13 +71,18 @@ public class DayRowClickListener implements AdapterView.OnItemClickListener {
     }
 
     private void selectOneDay(View view, Calendar day) {
-        SelectedDay previousSelectedDay = mCalendarPageAdapter.getSelectedDay();
+        SelectedDay previousSelectedDay = null;
+        if (mCalendarPageAdapter.getSelectedDays().size() > 0) {
+            previousSelectedDay = mCalendarPageAdapter.getSelectedDay();
+        }
 
         TextView dayLabel = (TextView) view.findViewById(R.id.dayLabel);
 
         if (isAnotherDaySelected(previousSelectedDay, day)) {
             selectDay(dayLabel, day);
             reverseUnselectedColor(previousSelectedDay);
+        } else if (isCurrentMonthDay(day) && isActiveDay(day)) {
+            selectDay(dayLabel, day);
         }
     }
 
