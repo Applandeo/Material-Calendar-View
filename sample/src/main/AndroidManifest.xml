@@ -9,7 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity
+            android:name=".MainActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -19,22 +21,27 @@
 
         <activity
             android:name=".CalendarActivity"
+            android:exported="true"
             android:label="Standard calendar" />
 
         <activity
             android:name=".CalendarWithCustomRowActivity"
+            android:exported="true"
             android:label="Standard calendar with custom row" />
 
         <activity
             android:name=".OneDayPickerActivity"
+            android:exported="true"
             android:label="One day picker" />
 
         <activity
             android:name=".ManyDaysPickerActivity"
+            android:exported="true"
             android:label="Many days picker" />
 
         <activity
             android:name=".RangePickerActivity"
+            android:exported="true"
             android:label="Range picker" />
     </application>
 

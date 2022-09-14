@@ -14,7 +14,8 @@ import kotlinx.android.synthetic.main.calendar_view.view.*
 internal fun View.setAbbreviationsLabels(color: Int, firstDayOfWeek: Int) {
     val labels = getAbbreviationsTextViews()
 
-    val abbreviations = context.resources.getStringArray(R.array.material_calendar_day_abbreviations_array)
+    val abbreviations =
+        context.resources.getStringArray(R.array.material_calendar_day_abbreviations_array)
 
     labels.forEachIndexed { index, label ->
         label.text = abbreviations[(index + firstDayOfWeek - 1) % 7]
@@ -27,7 +28,7 @@ internal fun View.setAbbreviationsLabels(color: Int, firstDayOfWeek: Int) {
 
 internal fun View.setAbbreviationsLabelsSize(size: Float) {
     val labels = getAbbreviationsTextViews()
-    val maxTextSize = resources.getDimensionPixelSize(R.dimen.text_size_max)
+    val maxTextSize = resources.getDimensionPixelSize(R.dimen.abbreviation_text_size_max)
     labels.forEachIndexed { _, label ->
         if (size > 0.0 && size <= maxTextSize) {
             label.textSize = size
@@ -36,13 +37,14 @@ internal fun View.setAbbreviationsLabelsSize(size: Float) {
 }
 
 private fun View.getAbbreviationsTextViews() = listOf(
-        mondayLabel,
-        tuesdayLabel,
-        wednesdayLabel,
-        thursdayLabel,
-        fridayLabel,
-        saturdayLabel,
-        sundayLabel)
+    mondayLabel,
+    tuesdayLabel,
+    wednesdayLabel,
+    thursdayLabel,
+    fridayLabel,
+    saturdayLabel,
+    sundayLabel
+)
 
 internal fun View.setTypeface(typeface: Typeface?) {
     if (typeface == null) return
