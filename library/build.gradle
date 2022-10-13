@@ -13,6 +13,8 @@ android {
     defaultConfig {
         minSdkVersion 15
         targetSdkVersion 33
+        versionCode 1
+        versionName PUBLISH_VERSION
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -40,3 +42,5 @@ dependencies {
     testImplementation 'junit:junit:4.13.2'
     implementation 'androidx.core:core-ktx:1.9.0'
 }
+
+apply plugin: "com.vanniktech.maven.publish"
