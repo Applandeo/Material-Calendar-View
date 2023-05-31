@@ -47,10 +47,18 @@ dependencies {
     implementation 'com.applandeo:material-calendar-view:1.7.0'
 }
 ```
-or if you want to use very early version with CalendarDay support:
+or if you want to use early version with CalendarDay support and some other fixes:
+```
+allprojects {
+    repositories {
+        maven { url 'https://jitpack.io' }
+    }
+}
+```
+
 ```
 dependencies {
-    implementation 'com.applandeo:material-calendar-view:1.9.0-rc03'
+    implementation 'com.applandeo:material-calendar-view:1.9.0-rc04'
 }
 ```
 
