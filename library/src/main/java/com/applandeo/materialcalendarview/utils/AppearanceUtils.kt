@@ -27,7 +27,7 @@ internal fun View.setAbbreviationsLabels(color: Int, firstDayOfWeek: Int) {
 
 internal fun View.setAbbreviationsLabelsSize(size: Float) {
     val labels = getAbbreviationsTextViews()
-    val maxTextSize = resources.getDimensionPixelSize(R.dimen.text_size_max)
+    val maxTextSize = resources.getDimensionPixelSize(R.dimen.abbreviation_text_size_max)
     labels.forEachIndexed { _, label ->
         if (size > 0.0 && size <= maxTextSize) {
             label.textSize = size
