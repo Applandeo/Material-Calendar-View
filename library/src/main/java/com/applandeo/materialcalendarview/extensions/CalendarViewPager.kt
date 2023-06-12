@@ -34,20 +34,24 @@ class CalendarViewPager @JvmOverloads constructor(
     //This method is needed to get wrap_content height for ViewPager
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         var heightMeasure = heightMeasureSpec
-        var height = 0
-
-        children.forEach { child ->
-            child.measure(widthMeasureSpec, MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED))
-            val measuredHeight = child.measuredHeight
-            if (measuredHeight > height) {
-                height = measuredHeight
+        val mode = MeasureSpec.getMode(heightMeasure)
+        // Unspecified means that the ViewPager is in a ScrollView WRAP_CONTENT.
+        // At Most means that the ViewPager is not in a ScrollView WRAP_CONTENT.
+        if (mode == MeasureSpec.UNSPECIFIED || mode == MeasureSpec.AT_MOST) {
+            // super has to be called in the beginning so the child views can be initialized.
+            super.onMeasure(widthMeasureSpec, heightMeasure)
+            var height = 0
+            children.forEach { child ->
+                child.measure(
+                    widthMeasureSpec,
+                    MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED)
+                )
+                val childHeight = child.measuredHeight
+                if (childHeight > height) height = childHeight
             }
-        }
-
-        if (height != 0) {
             heightMeasure = MeasureSpec.makeMeasureSpec(height, MeasureSpec.EXACTLY)
         }
-
+        // super has to be called again so the new specs are treated as exact measurements
         super.onMeasure(widthMeasureSpec, heightMeasure)
     }
 
