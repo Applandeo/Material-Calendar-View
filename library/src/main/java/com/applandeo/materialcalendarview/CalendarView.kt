@@ -44,9 +44,9 @@ import java.util.*
  */
 
 class CalendarView @JvmOverloads constructor(
-        context: Context,
-        attrs: AttributeSet? = null,
-        defStyleAttr: Int = 0
+    context: Context,
+    attrs: AttributeSet? = null,
+    defStyleAttr: Int = 0
 ) : LinearLayout(context, attrs, defStyleAttr) {
 
     private lateinit var calendarPageAdapter: CalendarPageAdapter
@@ -61,10 +61,11 @@ class CalendarView @JvmOverloads constructor(
     }
 
     //internal constructor to create CalendarView for the dialog date picker
-    internal constructor(context: Context,
-                         attrs: AttributeSet? = null,
-                         defStyleAttr: Int = 0,
-                         properties: CalendarProperties
+    internal constructor(
+        context: Context,
+        attrs: AttributeSet? = null,
+        defStyleAttr: Int = 0,
+        properties: CalendarProperties
     ) : this(context, attrs, defStyleAttr) {
         initControl(properties, ::initAttributes)
     }
@@ -356,8 +357,8 @@ class CalendarView @JvmOverloads constructor(
      */
     var selectedDates: List<Calendar>
         get() = calendarPageAdapter.selectedDays
-                .map { it.calendar }
-                .sorted().toList()
+            .map { it.calendar }
+            .sorted().toList()
         set(selectedDates) {
             calendarProperties.setSelectDays(selectedDates)
             calendarPageAdapter.notifyDataSetChanged()
@@ -444,6 +445,10 @@ class CalendarView @JvmOverloads constructor(
 
     fun setOnPagePrepareListener(listener: OnPagePrepareListener) {
         calendarProperties.onPagePrepareListener = listener
+    }
+
+    fun notifyDataSetChanged() {
+        calendarPageAdapter.notifyDataSetChanged()
     }
 
     companion object {
