@@ -1,6 +1,5 @@
 package com.applandeo.materialcalendarsampleapp;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.Toast;
@@ -8,8 +7,8 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.applandeo.materialcalendarsampleapp.utils.DrawableUtils;
+import com.applandeo.materialcalendarview.CalendarDay;
 import com.applandeo.materialcalendarview.CalendarView;
-import com.applandeo.materialcalendarview.EventDay;
 import com.applandeo.materialcalendarview.exceptions.OutOfDateRangeException;
 import com.applandeo.materialcalendarview.utils.DateUtils;
 
@@ -29,26 +28,36 @@ public class CalendarActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.calendar_activity);
 
-        List<EventDay> events = new ArrayList<>();
+        List<CalendarDay> events = new ArrayList<>();
 
         Calendar calendar = Calendar.getInstance();
-        events.add(new EventDay(calendar, DrawableUtils.getCircleDrawableWithText(this, "M")));
+        CalendarDay calendarDay = new CalendarDay(calendar);
+        calendarDay.setImageDrawable(DrawableUtils.getCircleDrawableWithText(this, "M"));
+        events.add(calendarDay);
 
         Calendar calendar1 = Calendar.getInstance();
         calendar1.add(Calendar.DAY_OF_MONTH, 10);
-        events.add(new EventDay(calendar1, R.drawable.sample_icon_2));
+        CalendarDay calendarDay1 = new CalendarDay(calendar1);
+        calendarDay1.setImageResource(R.drawable.sample_icon_2);
+        events.add(calendarDay1);
 
         Calendar calendar2 = Calendar.getInstance();
         calendar2.add(Calendar.DAY_OF_MONTH, 10);
-        events.add(new EventDay(calendar2, R.drawable.sample_icon_3, Color.parseColor("#228B22")));
+        CalendarDay calendarDay2 = new CalendarDay(calendar2);
+        calendarDay2.setImageResource(R.drawable.sample_icon_3);
+        events.add(calendarDay2);
 
         Calendar calendar3 = Calendar.getInstance();
         calendar3.add(Calendar.DAY_OF_MONTH, 7);
-        events.add(new EventDay(calendar3, R.drawable.sample_four_icons));
+        CalendarDay calendarDay3 = new CalendarDay(calendar3);
+        calendarDay3.setImageResource(R.drawable.sample_four_icons);
+        events.add(calendarDay3);
 
         Calendar calendar4 = Calendar.getInstance();
         calendar4.add(Calendar.DAY_OF_MONTH, 13);
-        events.add(new EventDay(calendar4, DrawableUtils.getThreeDots(this)));
+        CalendarDay calendarDay4 = new CalendarDay(calendar4);
+        calendarDay4.setImageDrawable(DrawableUtils.getThreeDots(this));
+        events.add(calendarDay4);
 
         CalendarView calendarView = (CalendarView) findViewById(R.id.calendarView);
 
@@ -61,7 +70,7 @@ public class CalendarActivity extends AppCompatActivity {
         calendarView.setMinimumDate(min);
         calendarView.setMaximumDate(max);
 
-        calendarView.setEvents(events);
+        calendarView.setCalendarDays(events);
 
         calendarView.setDisabledDays(getDisabledDays());
 

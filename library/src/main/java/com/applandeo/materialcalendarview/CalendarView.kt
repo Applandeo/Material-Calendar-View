@@ -340,6 +340,7 @@ class CalendarView @JvmOverloads constructor(
      * @param eventDays List of EventDay objects
      * @see EventDay
      */
+    @Deprecated("Use setCalendarDays() instead")
     fun setEvents(eventDays: List<EventDay>) {
         if (calendarProperties.eventsEnabled) {
             calendarProperties.eventDays = eventDays
@@ -348,7 +349,7 @@ class CalendarView @JvmOverloads constructor(
     }
 
     fun setCalendarDays(calendarDayProperties: List<CalendarDay>) {
-        calendarProperties.calendarDayProperties = calendarDayProperties.toMutableList()
+        calendarProperties.calendarDays = calendarDayProperties.toMutableList()
         calendarPageAdapter.notifyDataSetChanged()
     }
 

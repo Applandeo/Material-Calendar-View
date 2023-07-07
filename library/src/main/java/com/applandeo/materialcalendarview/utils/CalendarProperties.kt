@@ -118,7 +118,7 @@ class CalendarProperties(private val context: Context) {
 
     var eventDays: List<EventDay> = mutableListOf()
 
-    var calendarDayProperties: MutableList<CalendarDay> = mutableListOf()
+    var calendarDays: MutableList<CalendarDay> = mutableListOf()
 
     var disabledDays: List<Calendar> = mutableListOf()
         set(disabledDays) {
@@ -155,15 +155,15 @@ class CalendarProperties(private val context: Context) {
         }
 
         selectedDays = days
-                .map { SelectedDay(it.setMidnight()) }
-                .filterNot { it.calendar in disabledDays }
-                .toMutableList()
+            .map { SelectedDay(it.setMidnight()) }
+            .filterNot { it.calendar in disabledDays }
+            .toMutableList()
     }
 
     var onPagePrepareListener: OnPagePrepareListener? = null
 
     fun findDayProperties(calendar: Calendar): CalendarDay? =
-            calendarDayProperties.find { it.calendar.isEqual(calendar) }
+        calendarDays.find { it.calendar.isEqual(calendar) }
 
     companion object {
         /**

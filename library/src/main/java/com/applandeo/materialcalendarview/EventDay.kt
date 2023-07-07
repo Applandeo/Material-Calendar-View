@@ -22,6 +22,7 @@ import java.util.*
  * Created by Applandeo Team.
  */
 
+@Deprecated("Use CalendarDay instead")
 data class EventDay(val calendar: Calendar) {
     //An object which contains image to display in the day row
     internal var imageDrawable: EventImage = EventImage.EmptyEventImage
