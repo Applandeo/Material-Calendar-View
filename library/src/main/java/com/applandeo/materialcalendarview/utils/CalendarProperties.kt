@@ -124,6 +124,7 @@ class CalendarProperties(private val context: Context) {
 
     var calendarDays: MutableList<CalendarDay> = mutableListOf()
 
+    @Deprecated("Use calendarDays instead")
     var disabledDays: List<Calendar> = mutableListOf()
         set(disabledDays) {
             selectedDays = selectedDays.filter {
@@ -133,6 +134,7 @@ class CalendarProperties(private val context: Context) {
             field = disabledDays.map { it.setMidnight() }.toList()
         }
 
+    @Deprecated("Use calendarDays instead")
     var highlightedDays: List<Calendar> = mutableListOf()
         set(highlightedDays) {
             field = highlightedDays.map { it.setMidnight() }.toList()

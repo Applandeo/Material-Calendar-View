@@ -453,6 +453,7 @@ class CalendarView @JvmOverloads constructor(
         calendarPageAdapter.notifyDataSetChanged()
     }
 
+    @Deprecated("Use setCalendarDays(List<CalendarDay>) with isEnabled = false")
     fun setDisabledDays(disabledDays: List<Calendar>) {
         calendarProperties.disabledDays = disabledDays
         calendarPageAdapter.notifyDataSetChanged()
