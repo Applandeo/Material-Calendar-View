@@ -10,7 +10,7 @@ import java.util.*
 
 /**
  * This class represents an event of a day. An instance of this class is returned when user click
- * a day cell. This class can be overridden to make calendar more functional. A list of instances of
+ * a day cell. A list of instances of
  * this class can be passed to CalendarView object using setEvents() method.
  *
  *

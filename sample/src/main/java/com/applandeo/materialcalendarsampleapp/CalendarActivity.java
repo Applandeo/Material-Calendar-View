@@ -98,13 +98,13 @@ public class CalendarActivity extends AppCompatActivity {
     }
 
     private List<Calendar> getDisabledDays() {
-        Calendar firstDisabled = DateUtils.getCalendar();
+        Calendar firstDisabled = DateUtils.getMidnightCalendar();
         firstDisabled.add(Calendar.DAY_OF_MONTH, 2);
 
-        Calendar secondDisabled = DateUtils.getCalendar();
+        Calendar secondDisabled = DateUtils.getMidnightCalendar();
         secondDisabled.add(Calendar.DAY_OF_MONTH, 1);
 
-        Calendar thirdDisabled = DateUtils.getCalendar();
+        Calendar thirdDisabled = DateUtils.getMidnightCalendar();
         thirdDisabled.add(Calendar.DAY_OF_MONTH, 18);
 
         List<Calendar> calendars = new ArrayList<>();
