@@ -106,7 +106,11 @@ class CalendarProperties(private val context: Context) {
 
     var onDayClickListener: OnDayClickListener? = null
 
+    var onCalendarDayClickListener: OnCalendarDayClickListener? = null
+
     var onDayLongClickListener: OnDayLongClickListener? = null
+
+    var onCalendarDayLongClickListener: OnCalendarDayLongClickListener? = null
 
     var onSelectDateListener: OnSelectDateListener? = null
 
