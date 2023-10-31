@@ -4,7 +4,7 @@ Material-Calendar-View is a simple and customizable calendar widget for Android 
 
 We described a simple usage of the component [in this article](http://applandeo.com/blog/material-calendar-view-customized-calendar-widget-android/).
 
-![34562830-637ddbae-f150-11e7-8004-9024fb84a883](https://user-images.githubusercontent.com/2614225/46456381-f72da200-c7ae-11e8-8284-1799fe83a1c9.png) ![device-2018-01-04-125741](https://user-images.githubusercontent.com/2614225/34562842-709a71ee-f150-11e7-966b-cbbe6169b88b.png) ![device-2018-01-04-125831](https://user-images.githubusercontent.com/2614225/34562859-7bd3e64e-f150-11e7-98f4-f00bafe846c6.png) ![device-2018-01-04-125915](https://user-images.githubusercontent.com/2614225/34562878-8f382f06-f150-11e7-97e4-5ac9babe5aa8.png) 
+![34562830-637ddbae-f150-11e7-8004-9024fb84a883](https://user-images.githubusercontent.com/2614225/46456381-f72da200-c7ae-11e8-8284-1799fe83a1c9.png) ![device-2018-01-04-125741](https://user-images.githubusercontent.com/2614225/34562842-709a71ee-f150-11e7-966b-cbbe6169b88b.png) ![device-2018-01-04-125831](https://user-images.githubusercontent.com/2614225/34562859-7bd3e64e-f150-11e7-98f4-f00bafe846c6.png) ![device-2018-01-04-125915](https://user-images.githubusercontent.com/2614225/34562878-8f382f06-f150-11e7-97e4-5ac9babe5aa8.png)
 
 
 
@@ -20,7 +20,6 @@ We described a simple usage of the component [in this article](http://applandeo.
 
 
 ## How to use?
-Make sure you are using the newest **com.android.support:appcompat-v7**.
 
 Make sure you are using Java 8 in your project. If not, add below code to **build.gradle** file:
 ```
@@ -32,7 +31,7 @@ android {
 }
 ```
 
-Make sure you have defined the **jcenter()** repository in project's **build.gradle** file:
+Make sure you have defined the **mavenCentral()** repository in project's **build.gradle** file:
 ```
 allprojects {
     repositories {
@@ -44,21 +43,7 @@ allprojects {
 Add the dependency to module's **build.gradle** file:
 ```
 dependencies {
-    implementation 'com.applandeo:material-calendar-view:1.7.0'
-}
-```
-or if you want to use early version with CalendarDay support and some other fixes:
-```
-allprojects {
-    repositories {
-        maven { url 'https://jitpack.io' }
-    }
-}
-```
-
-```
-dependencies {
-    implementation 'com.applandeo:material-calendar-view:1.9.0-rc04'
+    implementation 'com.applandeo:material-calendar-view:1.9.0'
 }
 ```
 
@@ -72,17 +57,19 @@ To your **XML layout** file add:
 
 ### Adding events with icons:
 ```java
-List<EventDay> events = new ArrayList<>();
+List<CalendarDay> calendarDays = new ArrayList<>();
 
 Calendar calendar = Calendar.getInstance();
-events.add(new EventDay(calendar, R.drawable.sample_icon));
-//or
-events.add(new EventDay(calendar, new Drawable()));
+CalendarDay calendarDay = new CalendarDay(calendar);
+calendarDay.setImageResource(R.drawable.sample_icon);
+calendarDays.add(event);
+
 //or if you want to specify event label color
-events.add(new EventDay(calendar, R.drawable.sample_icon, Color.parseColor("#228B22")));
+calendarDay.setLabelColor(Color.parseColor("#228B22"));
+calendarDays.add(calendarDay);
 
 CalendarView calendarView = (CalendarView) findViewById(R.id.calendarView);
-calendarView.setEvents(events);
+calendarView.setCalendarDays(calendarDays);
 ```
 
 ### How to create icons?
@@ -96,20 +83,20 @@ Take a look at [sample_three_icons.xml](https://github.com/Applandeo/Material-Ca
 
 ### Clicks handling:
 ```java
-calendarView.setOnDayClickListener(new OnDayClickListener() {
+calendarView.setOnCalendarDayClickListener(new OnCalendarDayClickListener() {
     @Override
-    public void onDayClick(EventDay eventDay) {
-        Calendar clickedDayCalendar = eventDay.getCalendar();    
+    public void onDayClick(CalendarDay calendarDay) {
+        Calendar clickedDayCalendar = calendarDay.getCalendar();    
     }
 });
 ```
 
 ...or long click:
 ```java
-calendarView.setOnDayLongClickListener(new OnDayLongClickListener() {
+calendarView.setOnCalendarDayLongClickListener(new OnCalendarDayLongClickListener() {
     @Override
-    public void onDayLongClick(EventDay eventDay) {
-        Calendar clickedDayCalendar = eventDay.getCalendar();
+    public void onDayLongClick(CalendarDay calendarDay) {
+        Calendar clickedDayCalendar = calendarDay.getCalendar();
     }
 });
 ```
@@ -400,8 +387,7 @@ new DatePickerBuilder(this, listener)
 * Added Javadocs for DatePickerBuilder (many thanks [EdricChan03](https://github.com/EdricChan03))
 
 #### Version 1.5.0:
-* Added support for events (images) in picker calendars (many thanks [thavelka](https://github.com/thavelka) for your contribution)
---> [Customization](https://github.com/Applandeo/Material-Calendar-View#customization)
+* Added support for events (images) in picker calendars (many thanks [thavelka](https://github.com/thavelka) for your contribution) --> [Customization](https://github.com/Applandeo/Material-Calendar-View#customization)
 * Added method which let you set selected dates programmatically --> [Setting selected dates](https://github.com/Applandeo/Material-Calendar-View#setting-selected-dates)
 * Now, the first day of a week depends on device location (thanks [thavelka](https://github.com/thavelka))
 * Removed Glide dependency
