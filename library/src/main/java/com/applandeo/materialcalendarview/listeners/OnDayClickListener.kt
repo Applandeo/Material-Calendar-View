@@ -8,6 +8,7 @@ import com.applandeo.materialcalendarview.EventDay
  * Created by Applandeo Team.
  */
 
+@Deprecated("Use OnCalendarDayClickListener instead")
 interface OnDayClickListener {
     fun onDayClick(eventDay: EventDay)
 }

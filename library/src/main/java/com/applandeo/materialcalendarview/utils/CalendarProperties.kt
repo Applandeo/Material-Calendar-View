@@ -106,7 +106,11 @@ class CalendarProperties(private val context: Context) {
 
     var onDayClickListener: OnDayClickListener? = null
 
+    var onCalendarDayClickListener: OnCalendarDayClickListener? = null
+
     var onDayLongClickListener: OnDayLongClickListener? = null
+
+    var onCalendarDayLongClickListener: OnCalendarDayLongClickListener? = null
 
     var onSelectDateListener: OnSelectDateListener? = null
 
@@ -118,8 +122,9 @@ class CalendarProperties(private val context: Context) {
 
     var eventDays: List<EventDay> = mutableListOf()
 
-    var calendarDayProperties: MutableList<CalendarDay> = mutableListOf()
+    var calendarDays: MutableList<CalendarDay> = mutableListOf()
 
+    @Deprecated("Use calendarDays instead")
     var disabledDays: List<Calendar> = mutableListOf()
         set(disabledDays) {
             selectedDays = selectedDays.filter {
@@ -129,6 +134,7 @@ class CalendarProperties(private val context: Context) {
             field = disabledDays.map { it.setMidnight() }.toList()
         }
 
+    @Deprecated("Use calendarDays instead")
     var highlightedDays: List<Calendar> = mutableListOf()
         set(highlightedDays) {
             field = highlightedDays.map { it.setMidnight() }.toList()
@@ -155,15 +161,15 @@ class CalendarProperties(private val context: Context) {
         }
 
         selectedDays = days
-                .map { SelectedDay(it.setMidnight()) }
-                .filterNot { it.calendar in disabledDays }
-                .toMutableList()
+            .map { SelectedDay(it.setMidnight()) }
+            .filterNot { it.calendar in disabledDays }
+            .toMutableList()
     }
 
     var onPagePrepareListener: OnPagePrepareListener? = null
 
     fun findDayProperties(calendar: Calendar): CalendarDay? =
-            calendarDayProperties.find { it.calendar.isEqual(calendar) }
+        calendarDays.find { it.calendar.isEqual(calendar) }
 
     companion object {
         /**

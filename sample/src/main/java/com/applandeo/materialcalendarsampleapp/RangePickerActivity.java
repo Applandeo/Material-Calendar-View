@@ -29,10 +29,9 @@ public class RangePickerActivity extends AppCompatActivity {
         calendarView.setSelectionBackground(R.drawable.custom_selector);
 
         CalendarDay calendarDay = new CalendarDay(Calendar.getInstance());
-        calendarDay.setBackgroundDrawable(
-                DrawableUtils.getDayCircle(getApplicationContext(), R.color.defaultColor, android.R.color.transparent));
-        calendarDay.setSelectedBackgroundDrawable(
-                DrawableUtils.getDayCircle(getApplicationContext(), R.color.defaultColor, R.color.sampleLight));
+        calendarDay.setBackgroundDrawable(DrawableUtils.getDayCircle(getApplicationContext(), R.color.defaultColor, android.R.color.transparent));
+        calendarDay.setSelectedBackgroundDrawable(DrawableUtils.getDayCircle(getApplicationContext(), R.color.defaultColor, R.color.sampleLight));
+        calendarDay.setImageResource(R.drawable.sample_icon_2);
 
         List<CalendarDay> list = new ArrayList<>();
         list.add(calendarDay);

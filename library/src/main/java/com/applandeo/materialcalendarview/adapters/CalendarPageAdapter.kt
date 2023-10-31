@@ -128,8 +128,8 @@ class CalendarPageAdapter(
     private fun getPageDaysProperties(calendar: Calendar) {
         val pageCalendarDays = calendarProperties.onPagePrepareListener?.invoke(calendar)
         if (pageCalendarDays != null) {
-            val diff = pageCalendarDays.minus(calendarProperties.calendarDayProperties).distinct()
-            calendarProperties.calendarDayProperties.addAll(diff)
+            val diff = pageCalendarDays.minus(calendarProperties.calendarDays).distinct()
+            calendarProperties.calendarDays.addAll(diff)
         }
     }
 

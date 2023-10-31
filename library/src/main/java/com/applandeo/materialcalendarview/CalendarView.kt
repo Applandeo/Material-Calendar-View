@@ -12,6 +12,8 @@ import androidx.annotation.LayoutRes
 import com.applandeo.materialcalendarview.adapters.CalendarPageAdapter
 import com.applandeo.materialcalendarview.exceptions.ErrorsMessages
 import com.applandeo.materialcalendarview.exceptions.OutOfDateRangeException
+import com.applandeo.materialcalendarview.listeners.OnCalendarDayClickListener
+import com.applandeo.materialcalendarview.listeners.OnCalendarDayLongClickListener
 import com.applandeo.materialcalendarview.listeners.OnCalendarPageChangeListener
 import com.applandeo.materialcalendarview.listeners.OnDayClickListener
 import com.applandeo.materialcalendarview.listeners.OnDayLongClickListener
@@ -94,28 +96,37 @@ class CalendarView @JvmOverloads constructor(
     private fun initCalendarProperties(typedArray: TypedArray) = with(calendarProperties) {
         headerColor = typedArray.getColor(R.styleable.CalendarView_headerColor, 0)
         headerLabelColor = typedArray.getColor(R.styleable.CalendarView_headerLabelColor, 0)
-        abbreviationsBarColor = typedArray.getColor(R.styleable.CalendarView_abbreviationsBarColor, 0)
-        abbreviationsLabelsColor = typedArray.getColor(R.styleable.CalendarView_abbreviationsLabelsColor, 0)
-        abbreviationsLabelsSize = typedArray.getDimension(R.styleable.CalendarView_abbreviationsLabelsSize, 0F)
+        abbreviationsBarColor =
+            typedArray.getColor(R.styleable.CalendarView_abbreviationsBarColor, 0)
+        abbreviationsLabelsColor =
+            typedArray.getColor(R.styleable.CalendarView_abbreviationsLabelsColor, 0)
+        abbreviationsLabelsSize =
+            typedArray.getDimension(R.styleable.CalendarView_abbreviationsLabelsSize, 0F)
         pagesColor = typedArray.getColor(R.styleable.CalendarView_pagesColor, 0)
         daysLabelsColor = typedArray.getColor(R.styleable.CalendarView_daysLabelsColor, 0)
-        anotherMonthsDaysLabelsColor = typedArray.getColor(R.styleable.CalendarView_anotherMonthsDaysLabelsColor, 0)
+        anotherMonthsDaysLabelsColor =
+            typedArray.getColor(R.styleable.CalendarView_anotherMonthsDaysLabelsColor, 0)
         todayLabelColor = typedArray.getColor(R.styleable.CalendarView_todayLabelColor, 0)
         selectionColor = typedArray.getColor(R.styleable.CalendarView_selectionColor, 0)
         selectionLabelColor = typedArray.getColor(R.styleable.CalendarView_selectionLabelColor, 0)
-        disabledDaysLabelsColor = typedArray.getColor(R.styleable.CalendarView_disabledDaysLabelsColor, 0)
-        highlightedDaysLabelsColor = typedArray.getColor(R.styleable.CalendarView_highlightedDaysLabelsColor, 0)
+        disabledDaysLabelsColor =
+            typedArray.getColor(R.styleable.CalendarView_disabledDaysLabelsColor, 0)
+        highlightedDaysLabelsColor =
+            typedArray.getColor(R.styleable.CalendarView_highlightedDaysLabelsColor, 0)
         calendarType = typedArray.getInt(R.styleable.CalendarView_type, CLASSIC)
         maximumDaysRange = typedArray.getInt(R.styleable.CalendarView_maximumDaysRange, 0)
 
         if (typedArray.hasValue(R.styleable.CalendarView_firstDayOfWeek)) {
-            firstDayOfWeek = typedArray.getInt(R.styleable.CalendarView_firstDayOfWeek, Calendar.MONDAY)
+            firstDayOfWeek =
+                typedArray.getInt(R.styleable.CalendarView_firstDayOfWeek, Calendar.MONDAY)
         }
 
-        eventsEnabled = typedArray.getBoolean(R.styleable.CalendarView_eventsEnabled, calendarType == CLASSIC)
+        eventsEnabled =
+            typedArray.getBoolean(R.styleable.CalendarView_eventsEnabled, calendarType == CLASSIC)
         swipeEnabled = typedArray.getBoolean(R.styleable.CalendarView_swipeEnabled, true)
         selectionDisabled = typedArray.getBoolean(R.styleable.CalendarView_selectionDisabled, false)
-        selectionBetweenMonthsEnabled = typedArray.getBoolean(R.styleable.CalendarView_selectionBetweenMonthsEnabled, false)
+        selectionBetweenMonthsEnabled =
+            typedArray.getBoolean(R.styleable.CalendarView_selectionBetweenMonthsEnabled, false)
         previousButtonSrc = typedArray.getDrawable(R.styleable.CalendarView_previousButtonSrc)
         forwardButtonSrc = typedArray.getDrawable(R.styleable.CalendarView_forwardButtonSrc)
 
@@ -291,16 +302,34 @@ class CalendarView @JvmOverloads constructor(
      * @param onDayClickListener OnDayClickListener interface responsible for handle clicks on calendar cells
      * @see OnDayClickListener
      */
+    @Deprecated("Use setOnCalendarDayClickListener instead")
     fun setOnDayClickListener(onDayClickListener: OnDayClickListener) {
         calendarProperties.onDayClickListener = onDayClickListener
+    }
+
+    /**
+     * @param onDayClickListener OnDayClickListener interface responsible for handle clicks on calendar cells
+     * @see OnCalendarDayClickListener
+     */
+    fun setOnCalendarDayClickListener(onDayClickListener: OnCalendarDayClickListener) {
+        calendarProperties.onCalendarDayClickListener = onDayClickListener
     }
 
     /**
      * @param onDayLongClickListener OnDayClickListener interface responsible for handle long clicks on calendar cells
      * @see OnDayLongClickListener
      */
+    @Deprecated("Use setOnCalendarDayLongClickListener instead")
     fun setOnDayLongClickListener(onDayLongClickListener: OnDayLongClickListener) {
         calendarProperties.onDayLongClickListener = onDayLongClickListener
+    }
+
+    /**
+     * @param onDayLongClickListener OnDayClickListener interface responsible for handle long clicks on calendar cells
+     * @see OnCalendarDayLongClickListener
+     */
+    fun setOnCalendarDayLongClickListener(onDayLongClickListener: OnCalendarDayLongClickListener) {
+        calendarProperties.onCalendarDayLongClickListener = onDayLongClickListener
     }
 
     /**
@@ -340,6 +369,7 @@ class CalendarView @JvmOverloads constructor(
      * @param eventDays List of EventDay objects
      * @see EventDay
      */
+    @Deprecated("Use setCalendarDays() instead")
     fun setEvents(eventDays: List<EventDay>) {
         if (calendarProperties.eventsEnabled) {
             calendarProperties.eventDays = eventDays
@@ -348,7 +378,7 @@ class CalendarView @JvmOverloads constructor(
     }
 
     fun setCalendarDays(calendarDayProperties: List<CalendarDay>) {
-        calendarProperties.calendarDayProperties = calendarDayProperties.toMutableList()
+        calendarProperties.calendarDays = calendarDayProperties.toMutableList()
         calendarPageAdapter.notifyDataSetChanged()
     }
 
@@ -423,6 +453,7 @@ class CalendarView @JvmOverloads constructor(
         calendarPageAdapter.notifyDataSetChanged()
     }
 
+    @Deprecated("Use setCalendarDays(List<CalendarDay>) with isEnabled = false")
     fun setDisabledDays(disabledDays: List<Calendar>) {
         calendarProperties.disabledDays = disabledDays
         calendarPageAdapter.notifyDataSetChanged()

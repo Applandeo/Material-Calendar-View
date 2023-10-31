@@ -10,7 +10,7 @@ import java.util.*
 
 /**
  * This class represents an event of a day. An instance of this class is returned when user click
- * a day cell. This class can be overridden to make calendar more functional. A list of instances of
+ * a day cell. A list of instances of
  * this class can be passed to CalendarView object using setEvents() method.
  *
  *
@@ -22,6 +22,7 @@ import java.util.*
  * Created by Applandeo Team.
  */
 
+@Deprecated("Use CalendarDay instead")
 data class EventDay(val calendar: Calendar) {
     //An object which contains image to display in the day row
     internal var imageDrawable: EventImage = EventImage.EmptyEventImage
