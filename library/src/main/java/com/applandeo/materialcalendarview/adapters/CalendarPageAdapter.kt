@@ -11,7 +11,8 @@ import com.applandeo.materialcalendarview.listeners.DayRowClickListener
 import com.applandeo.materialcalendarview.listeners.DayRowLongClickListener
 import com.applandeo.materialcalendarview.utils.CalendarProperties
 import com.applandeo.materialcalendarview.utils.SelectedDay
-import java.util.*
+import java.util.Calendar
+import java.util.Date
 
 /**
  * This class is responsible for loading a calendar page content.
@@ -31,10 +32,10 @@ class CalendarPageAdapter(
     val selectedDays: List<SelectedDay>
         get() = calendarProperties.selectedDays
 
-    var selectedDay: SelectedDay
-        get() = calendarProperties.selectedDays.first()
+    var selectedDay: SelectedDay?
+        get() = calendarProperties.selectedDays.firstOrNull()
         set(selectedDay) {
-            calendarProperties.setSelectedDay(selectedDay)
+            selectedDay?.let { calendarProperties.setSelectedDay(selectedDay) }
             informDatePicker()
         }
 
