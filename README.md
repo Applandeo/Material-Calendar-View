@@ -35,7 +35,7 @@ Make sure you have defined the **mavenCentral()** repository in project's **buil
 ```
 allprojects {
     repositories {
-        jcenter()
+        mavenCentral()
     }
 }
 ```
