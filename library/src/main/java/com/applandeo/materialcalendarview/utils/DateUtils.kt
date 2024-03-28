@@ -114,8 +114,12 @@ fun Calendar.isBetweenMinAndMax(calendarProperties: CalendarProperties) =
  * +1 is necessary because method counts from the beginning of start day to beginning of end day
  * and 1, means whole end day
  */
-private fun Calendar.getDaysToDate(endCalendar: Calendar) =
-        TimeUnit.MILLISECONDS.toDays(endCalendar.timeInMillis - this.timeInMillis) + 1
+private fun Calendar.getDaysToDate(endCalendar: Calendar): Long {
+    this.set(Calendar.DST_OFFSET, 0)
+    endCalendar.set(Calendar.DST_OFFSET, 0)
+
+    return TimeUnit.MILLISECONDS.toDays(endCalendar.timeInMillis - this.timeInMillis) + 1
+}
 
 internal fun List<Calendar>.isFullDatesRange(): Boolean {
     val selectedDates = this.distinct().sortedBy { it.timeInMillis }

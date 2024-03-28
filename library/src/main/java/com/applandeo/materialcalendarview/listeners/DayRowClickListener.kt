@@ -26,9 +26,9 @@ import java.util.GregorianCalendar
  * Created by Applandeo Team.
  */
 class DayRowClickListener(
-    private val calendarPageAdapter: CalendarPageAdapter,
-    private val calendarProperties: CalendarProperties,
-    pageMonth: Int
+        private val calendarPageAdapter: CalendarPageAdapter,
+        private val calendarProperties: CalendarProperties,
+        pageMonth: Int
 ) : OnItemClickListener {
 
     private val pageMonth = if (pageMonth < 0) 11 else pageMonth
@@ -63,7 +63,7 @@ class DayRowClickListener(
 
         if (isAnotherDaySelected(previousSelectedDay, day)) {
             selectDay(dayLabel, day)
-            reverseUnselectedColor(previousSelectedDay)
+            previousSelectedDay?.let { reverseUnselectedColor(previousSelectedDay) }
             calendarPageAdapter.notifyDataSetChanged()
         }
     }
@@ -105,11 +105,11 @@ class DayRowClickListener(
     }
 
     private fun selectOneAndRange(dayLabel: TextView, day: Calendar) {
-        val previousSelectedDayCalendar = calendarPageAdapter.selectedDay.calendar
+        val previousSelectedDayCalendar = calendarPageAdapter.selectedDay?.calendar
 
-        previousSelectedDayCalendar.getDatesRange(day)
-            .filter { it !in calendarProperties.disabledDays }
-            .forEach { calendarPageAdapter.addSelectedDay(SelectedDay(it)) }
+        previousSelectedDayCalendar?.getDatesRange(day)
+                ?.filter { it !in calendarProperties.disabledDays }
+                ?.forEach { calendarPageAdapter.addSelectedDay(SelectedDay(it)) }
 
         if (isOutOfMaxRange(previousSelectedDayCalendar, day)) return
 
@@ -125,18 +125,19 @@ class DayRowClickListener(
 
     private fun reverseUnselectedColor(selectedDay: SelectedDay) {
         setCurrentMonthDayColors(
-            selectedDay.calendar,
-            selectedDay.view as? TextView,
-            calendarProperties
+                selectedDay.calendar,
+                selectedDay.view as? TextView,
+                calendarProperties
         )
     }
 
     private fun Calendar.isCurrentMonthDay() =
-        this[Calendar.MONTH] == pageMonth && this.isBetweenMinAndMax(calendarProperties)
+            this[Calendar.MONTH] == pageMonth && this.isBetweenMinAndMax(calendarProperties)
 
     private fun Calendar.isActiveDay() = !calendarProperties.disabledDays.contains(this)
 
-    private fun isOutOfMaxRange(firstDay: Calendar, lastDay: Calendar): Boolean {
+    private fun isOutOfMaxRange(firstDay: Calendar?, lastDay: Calendar?): Boolean {
+        if (firstDay == null || lastDay == null) return false
         // Number of selected days plus one last day
         val numberOfSelectedDays = firstDay.getDatesRange(lastDay).size + 1
         val daysMaxRange: Int = calendarProperties.maximumDaysRange
@@ -144,8 +145,8 @@ class DayRowClickListener(
         return daysMaxRange != 0 && numberOfSelectedDays >= daysMaxRange
     }
 
-    private fun isAnotherDaySelected(selectedDay: SelectedDay, day: Calendar) =
-        day != selectedDay.calendar && day.isCurrentMonthDay() && day.isActiveDay()
+    private fun isAnotherDaySelected(selectedDay: SelectedDay?, day: Calendar) =
+            day != selectedDay?.calendar && day.isCurrentMonthDay() && day.isActiveDay()
 
     // TODO remove when EventDay will be removed
     private fun onClick(day: Calendar) {
