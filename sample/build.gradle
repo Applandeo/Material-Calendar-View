@@ -3,10 +3,10 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
 android {
-    compileSdkVersion 33
     defaultConfig {
         applicationId "com.applandeo.materialcalendarsampleapp"
         minSdkVersion 15
+        compileSdk 33
         targetSdkVersion 33
         versionCode 1
         versionName "1.0"
@@ -30,7 +30,7 @@ dependencies {
     androidTestImplementation('androidx.test.espresso:espresso-core:3.1.1', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    implementation 'androidx.appcompat:appcompat:1.5.1'
+    implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation 'com.annimon:stream:1.2.1'
     testImplementation 'junit:junit:4.13.2'

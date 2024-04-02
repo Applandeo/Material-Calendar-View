@@ -1,20 +1,21 @@
-apply plugin: 'com.android.library'
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
+import com.vanniktech.maven.publish.SonatypeHost
 
-ext {
-    PUBLISH_GROUP_ID = 'com.applandeo'
-    PUBLISH_ARTIFACT_ID = 'material-calendar-view'
-    PUBLISH_VERSION = '1.9.1'
+plugins {
+    id "com.android.library"
+    id "kotlin-android"
+    id "kotlin-android-extensions"
+    id "com.vanniktech.maven.publish"
 }
 
+apply from: 'buildtools.gradle'
+
 android {
-    compileSdkVersion 33
     defaultConfig {
         minSdkVersion 15
+        compileSdk 33
         targetSdkVersion 33
         versionCode 4
-        versionName PUBLISH_VERSION
+        versionName project.ext.getVersionName()
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -29,6 +30,39 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
+    mavenPublishing {
+        publishToMavenCentral(SonatypeHost.S01)
+        signAllPublications()
+
+        coordinates("com.applandeo", "material-calendar-view", project.ext.getVersionName())
+
+        pom {
+            name = "Material-Calendar-View"
+            description = "Material-Calendar-View is a simple and customizable calendar widget for Android based on Material Design"
+            inceptionYear = "2017"
+            url = "https://github.com/Applandeo/Material-Calendar-View/"
+            licenses {
+                license {
+                    name = "The Apache Software License, Version 2.0"
+                    url = "https://www.apache.org/licenses/LICENSE-2.0.txt"
+                    distribution = "repo"
+                }
+            }
+            developers {
+                developer {
+                    id = "applandeo"
+                    name = "Applandeo"
+                    url = "https://github.com/Applandeo"
+                }
+            }
+            scm {
+                url = "https://github.com/Applandeo/Material-Calendar-View"
+                connection = "scm:git:git:github.com/Applandeo/Material-Calendar-View.git"
+                developerConnection = "scm:git:ssh:github.com/Applandeo/Material-Calendar-View.git"
+            }
+        }
+    }
 }
 
 dependencies {
@@ -36,11 +70,9 @@ dependencies {
     androidTestImplementation('androidx.test.espresso:espresso-core:3.1.1', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    implementation 'androidx.appcompat:appcompat:1.5.1'
+    implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation 'com.annimon:stream:1.2.1'
     testImplementation 'junit:junit:4.13.2'
     implementation 'androidx.core:core-ktx:1.9.0'
 }
-
-apply plugin: "com.vanniktech.maven.publish"
