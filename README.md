@@ -43,7 +43,7 @@ allprojects {
 Add the dependency to module's **build.gradle** file:
 ```
 dependencies {
-    implementation 'com.applandeo:material-calendar-view:1.9.1'
+    implementation 'com.applandeo:material-calendar-view:1.9.2'
 }
 ```
 
