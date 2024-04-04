@@ -8,6 +8,6 @@ project.ext.getVersionName = {
         return stdout.toString().trim()
     } catch (exception) {
         println exception.fillInStackTrace()
-        return ext.getDebugVersionName()
+        return null
     }
 }
